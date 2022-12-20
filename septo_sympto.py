@@ -5,8 +5,6 @@ import pandas as pd
 import argparse
 from tensorflow import keras
 import torch
-from PIL import Image, ImageDraw
-#from tqdm import tqdm
 
 '''
 Deep learning model for the detection of Septoria leaf blotch and Pycnidia on wheat leaves.
@@ -57,7 +55,6 @@ def predict_pycnidia(image_path, result_image, model_pycnidia):
     for i in range(len(xmins)):
         center_coord = (int((xmins[i] + xmaxs[i]) / 2), int((ymins[i] + ymaxs[i]) / 2))
         cv2.circle(result_image, center_coord, 2, (0, 0, 255), 2)
-        #cv2.rectangle(result_image, (int(xmins[i])+6, int(ymins[i])+6), (int(xmaxs[i])-6, int(ymaxs[i])-6), (255, 0, 0), 2)
 
     return result_image, surface, number_of_pycnidia
 
@@ -191,8 +188,8 @@ def crop_images_from_directory(image_directory):
                 print("Cannot read properly : ", file)
 
 
-def export_result(output_directory, data_imported_path, result_rows):
-    data_imported_csv = os.path.join(os.getcwd(), data_imported_path)
+def export_result(output_directory, data_import_name, result_rows):
+    data_imported_csv = os.path.join(os.getcwd(), 'import', data_import_name)
     data_imported = pd.read_csv(data_imported_csv, sep=';', encoding="ISO-8859-1")
 
     with open(os.path.join(output_directory, args.csv_output), 'w', encoding='UTF8', newline='') as f:
@@ -230,7 +227,7 @@ def export_result(output_directory, data_imported_path, result_rows):
         print('\033[92m' + "Done!")
 
 
-def analyze_images(image_directory, output_directory, reactivip, result_name, save):
+def analyze_images(image_directory, output_directory, data_import_name, result_name, save):
     result_csv_path = os.path.join(os.getcwd(), result_name)
     if not os.path.exists(os.path.join(image_directory, 'cropped')):
         os.mkdir(os.path.join(image_directory, 'cropped'))
@@ -257,14 +254,12 @@ def analyze_images(image_directory, output_directory, reactivip, result_name, sa
                                          file.split('.')[0], save)
             rows.append(row)
 
-    export_result(output_directory, reactivip, rows)
+    export_result(output_directory, data_import_name, rows)
 
 
 if __name__ == '__main__':
-    print('\033[92m' + '\n' + "Septo-Sympto V2")
+    print('\033[92m' + '\n' + "Septo-Sympto")
     print('\033[92m' + "AUTHORS: Laura MATHIEU, Maxime REDER")
-
-    #(image_directory, output_directory, reactivip, result_name, save):
 
     analyze_images(os.path.join(os.getcwd(), args.images), os.path.join(os.getcwd(), 'outputs'), args.csv_import, args.csv_output, args.save)
 
