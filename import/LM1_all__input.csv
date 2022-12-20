@@ -1,0 +1,1601 @@
+scan_name;Neighbour;Focal;Repetition;Pot;Type;Tray;Tray_Number;Tray_Position;Batch 
+Soi_LGA_2_Soi_1;LGAbsalon;Soissons;2;Soi_LGA_2;Mix;1_D2;1;D2;LM1_1_1
+Soi_LGA_2_LGA_2;Soissons;LGAbsalon;2;Soi_LGA_2;Mix;1_D2;1;D2;LM1_1_1
+Soi_LGA_4_Soi_1;LGAbsalon;Soissons;4;Soi_LGA_4;Mix;1_D2;1;D2;LM1_1_1
+Soi_LGA_4_LGA_2;Soissons;LGAbsalon;4;Soi_LGA_4;Mix;1_D2;1;D2;LM1_1_1
+Soi_Ber_3_Soi_1;Bergamo;Soissons;3;Soi_Ber_3;Mix;1_D2;1;D2;LM1_1_1
+Soi_Ber_3_Ber_2;Soissons;Bergamo;3;Soi_Ber_3;Mix;1_D2;1;D2;LM1_1_1
+Soi_Gha_2_Soi_1;Ghayta;Soissons;2;Soi_Gha_2;Mix;1_D2;1;D2;LM1_1_1
+Soi_Gha_2_Gha_2;Soissons;Ghayta;2;Soi_Gha_2;Mix;1_D2;1;D2;LM1_1_1
+Soi_Gha_3_Soi_1;Ghayta;Soissons;3;Soi_Gha_3;Mix;1_D2;1;D2;LM1_1_1
+Soi_Gha_3_Gha_2;Soissons;Ghayta;3;Soi_Gha_3;Mix;1_D2;1;D2;LM1_1_1
+Soi_Fru_1_Soi_1;Fructidor;Soissons;1;Soi_Fru_1;Mix;1_D2;1;D2;LM1_1_1
+Soi_Fru_1_Fru_2;Soissons;Fructidor;1;Soi_Fru_1;Mix;1_D2;1;D2;LM1_1_1
+Soi_Bob_4_Soi_1;Bobwhite ;Soissons;4;Soi_Bob_4;Mix;1_D2;1;D2;LM1_1_1
+Soi_Bob_4_Bob_2;Soissons;Bobwhite ;4;Soi_Bob_4;Mix;1_D2;1;D2;LM1_1_1
+Soi_SYM_1_Soi_1;SYMattis;Soissons;1;Soi_SYM_1;Mix;1_D2;1;D2;LM1_1_1
+Soi_SYM_1_SYM_2;Soissons;SYMattis;1;Soi_SYM_1;Mix;1_D2;1;D2;LM1_1_1
+Soi_Apa_2_Soi_1;Apache;Soissons;2;Soi_Apa_2;Mix;1_D2;1;D2;LM1_1_1
+Soi_Apa_2_Apa_2;Soissons;Apache;2;Soi_Apa_2;Mix;1_D2;1;D2;LM1_1_1
+Soi_Acc_4_Soi_1;Accroc;Soissons;4;Soi_Acc_4;Mix;1_D2;1;D2;LM1_1_1
+Soi_Acc_4_Acc_2;Soissons;Accroc;4;Soi_Acc_4;Mix;1_D2;1;D2;LM1_1_1
+Soi_Rub_4_Soi_1;Rubisko;Soissons;4;Soi_Rub_4;Mix;1_D2;1;D2;LM1_1_1
+Soi_Rub_4_Rub_2;Soissons;Rubisko;4;Soi_Rub_4;Mix;1_D2;1;D2;LM1_1_1
+Chi_Cad_4_Chi_1;Cadenza;Chinese spring;4;Chi_Cad_4;Mix;1_D2;1;D2;LM1_1_1
+Chi_Cad_4_Cad_2;Chinese spring;Cadenza;4;Chi_Cad_4;Mix;1_D2;1;D2;LM1_1_1
+Chi_Fru_1_Chi_1;Fructidor;Chinese spring;1;Chi_Fru_1;Mix;1_D2;1;D2;LM1_1_1
+Chi_Fru_1_Fru_2;Chinese spring;Fructidor;1;Chi_Fru_1;Mix;1_D2;1;D2;LM1_1_1
+Chi_Bob_2_Chi_1;Bobwhite ;Chinese spring;2;Chi_Bob_2;Mix;1_D2;1;D2;LM1_1_1
+Chi_Bob_2_Bob_2;Chinese spring;Bobwhite ;2;Chi_Bob_2;Mix;1_D2;1;D2;LM1_1_1
+Chi_Rub_3_Chi_1;Rubisko;Chinese spring;3;Chi_Rub_3;Mix;1_D2;1;D2;LM1_1_1
+Chi_Rub_3_Rub_2;Chinese spring;Rubisko;3;Chi_Rub_3;Mix;1_D2;1;D2;LM1_1_1
+Soi_Rec_2_Soi_1;Récital;Soissons;2;Soi_Réc_2;Mix;2_C3;2;C3;LM1_1_1
+Soi_Rec_2_Rec_2;Soissons;Récital;2;Soi_Réc_2;Mix;2_C3;2;C3;LM1_1_1
+Soi_Gha_1_Soi_1;Ghayta;Soissons;1;Soi_Gha_1;Mix;2_C3;2;C3;LM1_1_1
+Soi_Gha_1_Gha_2;Soissons;Ghayta;1;Soi_Gha_1;Mix;2_C3;2;C3;LM1_1_1
+Soi_Gha_4_Soi_1;Ghayta;Soissons;4;Soi_Gha_4;Mix;2_C3;2;C3;LM1_1_1
+Soi_Gha_4_Gha_2;Soissons;Ghayta;4;Soi_Gha_4;Mix;2_C3;2;C3;LM1_1_1
+Soi_Acc_1_Soi_1;Accroc;Soissons;1;Soi_Acc_1;Mix;2_C3;2;C3;LM1_1_1
+Soi_Acc_1_Acc_2;Soissons;Accroc;1;Soi_Acc_1;Mix;2_C3;2;C3;LM1_1_1
+Soi_Acc_3_Soi_1;Accroc;Soissons;3;Soi_Acc_3;Mix;2_C3;2;C3;LM1_1_1
+Soi_Acc_3_Acc_2;Soissons;Accroc;3;Soi_Acc_3;Mix;2_C3;2;C3;LM1_1_1
+Soi_Rub_1_Soi_1;Rubisko;Soissons;1;Soi_Rub_1;Mix;2_C3;2;C3;LM1_1_1
+Soi_Rub_1_Rub_2;Soissons;Rubisko;1;Soi_Rub_1;Mix;2_C3;2;C3;LM1_1_1
+Chi_LGA_2_Chi_1;LGAbsalon;Chinese spring;2;Chi_LGA_2;Mix;2_C3;2;C3;LM1_1_1
+Chi_LGA_2_LGA_2;Chinese spring;LGAbsalon;2;Chi_LGA_2;Mix;2_C3;2;C3;LM1_1_1
+Chi_Rec_3_Chi_1;Récital;Chinese spring;3;Chi_Réc_3;Mix;2_C3;2;C3;LM1_1_1
+Chi_Rec_3_Rec_2;Chinese spring;Récital;3;Chi_Réc_3;Mix;2_C3;2;C3;LM1_1_1
+Chi_Gha_2_Chi_1;Ghayta;Chinese spring;2;Chi_Gha_2;Mix;2_C3;2;C3;LM1_1_1
+Chi_Gha_2_Gha_2;Chinese spring;Ghayta;2;Chi_Gha_2;Mix;2_C3;2;C3;LM1_1_1
+Chi_Gha_4_Chi_1;Ghayta;Chinese spring;4;Chi_Gha_4;Mix;2_C3;2;C3;LM1_1_1
+Chi_Gha_4_Gha_2;Chinese spring;Ghayta;4;Chi_Gha_4;Mix;2_C3;2;C3;LM1_1_1
+Chi_Apa_4_Chi_1;Apache;Chinese spring;4;Chi_Apa_4;Mix;2_C3;2;C3;LM1_1_1
+Chi_Apa_4_Apa_2;Chinese spring;Apache;4;Chi_Apa_4;Mix;2_C3;2;C3;LM1_1_1
+Chi_Rub_1_Chi_1;Rubisko;Chinese spring;1;Chi_Rub_1;Mix;2_C3;2;C3;LM1_1_1
+Chi_Rub_1_Rub_2;Chinese spring;Rubisko;1;Chi_Rub_1;Mix;2_C3;2;C3;LM1_1_1
+Chi_Rub_4_Chi_1;Rubisko;Chinese spring;4;Chi_Rub_4;Mix;2_C3;2;C3;LM1_1_1
+Chi_Rub_4_Rub_2;Chinese spring;Rubisko;4;Chi_Rub_4;Mix;2_C3;2;C3;LM1_1_1
+Cad_Cad_1_Cad_1;Cadenza;Cadenza;1;Cad_Cad_1;Pure;2_C3;2;C3;LM1_1_1
+Cad_Cad_1_Cad_2;Cadenza;Cadenza;1;Cad_Cad_1;Pure;2_C3;2;C3;LM1_1_1
+Ven_Ven_6_Ven_1;Venezio;Venezio;6;Ven_Ven_6;Pure ;2_C3;2;C3;LM1_1_1
+Ven_Ven_6_Ven_2;Venezio;Venezio;6;Ven_Ven_6;Pure ;2_C3;2;C3;LM1_1_1
+Soi_Cad_3_Soi_1;Cadenza;Soissons;3;Soi_Cad_3;Mix;3_K1;3;K1;LM1_1_1
+Soi_Cad_3_Cad_2;Soissons;Cadenza;3;Soi_Cad_3;Mix;3_K1;3;K1;LM1_1_1
+Soi_Cad_4_Soi_1;Cadenza;Soissons;4;Soi_Cad_4;Mix;3_K1;3;K1;LM1_1_1
+Soi_Cad_4_Cad_2;Soissons;Cadenza;4;Soi_Cad_4;Mix;3_K1;3;K1;LM1_1_1
+Soi_LGA_1_Soi_1;LGAbsalon;Soissons;1;Soi_LGA_1;Mix;3_K1;3;K1;LM1_1_1
+Soi_LGA_1_LGA_2;Soissons;LGAbsalon;1;Soi_LGA_1;Mix;3_K1;3;K1;LM1_1_1
+Soi_Rec_4_Soi_1;Récital;Soissons;4;Soi_Réc_4;Mix;3_K1;3;K1;LM1_1_1
+Soi_Rec_4_Rec_2;Soissons;Récital;4;Soi_Réc_4;Mix;3_K1;3;K1;LM1_1_1
+Soi_Ber_2_Soi_1;Bergamo;Soissons;2;Soi_Ber_2;Mix;3_K1;3;K1;LM1_1_1
+Soi_Ber_2_Ber_2;Soissons;Bergamo;2;Soi_Ber_2;Mix;3_K1;3;K1;LM1_1_1
+Soi_Bob_3_Soi_1;Bobwhite ;Soissons;3;Soi_Bob_3;Mix;3_K1;3;K1;LM1_1_1
+Soi_Bob_3_Bob_2;Soissons;Bobwhite ;3;Soi_Bob_3;Mix;3_K1;3;K1;LM1_1_1
+Soi_Apa_1_Soi_1;Apache;Soissons;1;Soi_Apa_1;Mix;3_K1;3;K1;LM1_1_1
+Soi_Apa_1_Apa_2;Soissons;Apache;1;Soi_Apa_1;Mix;3_K1;3;K1;LM1_1_1
+Soi_Acc_2_Soi_1;Accroc;Soissons;2;Soi_Acc_2;Mix;3_K1;3;K1;LM1_1_1
+Soi_Acc_2_Acc_2;Soissons;Accroc;2;Soi_Acc_2;Mix;3_K1;3;K1;LM1_1_1
+Chi_Cad_2_Chi_1;Cadenza;Chinese spring;2;Chi_Cad_2;Mix;3_K1;3;K1;LM1_1_1
+Chi_Cad_2_Cad_2;Chinese spring;Cadenza;2;Chi_Cad_2;Mix;3_K1;3;K1;LM1_1_1
+Chi_Rec_1_Chi_1;Récital;Chinese spring;1;Chi_Réc_1;Mix;3_K1;3;K1;LM1_1_1
+Chi_Rec_1_Rec_2;Chinese spring;Récital;1;Chi_Réc_1;Mix;3_K1;3;K1;LM1_1_1
+Chi_Rec_4_Chi_1;Récital;Chinese spring;4;Chi_Réc_4;Mix;3_K1;3;K1;LM1_1_1
+Chi_Rec_4_Rec_2;Chinese spring;Récital;4;Chi_Réc_4;Mix;3_K1;3;K1;LM1_1_1
+Chi_Fru_4_Chi_1;Fructidor;Chinese spring;4;Chi_Fru_4;Mix;3_K1;3;K1;LM1_1_1
+Chi_Fru_4_Fru_2;Chinese spring;Fructidor;4;Chi_Fru_4;Mix;3_K1;3;K1;LM1_1_1
+Cad_Cad_2_Cad_1;Cadenza;Cadenza;2;Cad_Cad_2;Pure;3_K1;3;K1;LM1_1_1
+Cad_Cad_2_Cad_2;Cadenza;Cadenza;2;Cad_Cad_2;Pure;3_K1;3;K1;LM1_1_1
+Cad_LGA_2_Cad_1;LGAbsalon;Cadenza;2;Cad_LGA_2;Mix;3_K1;3;K1;LM1_1_1
+Cad_LGA_2_LGA_2;Cadenza;LGAbsalon;2;Cad_LGA_2;Mix;3_K1;3;K1;LM1_1_1
+Ven_Ven_5_Ven_1;Venezio;Venezio;5;Ven_Ven_5;Pure ;3_K1;3;K1;LM1_1_1
+Ven_Ven_5_Ven_2;Venezio;Venezio;5;Ven_Ven_5;Pure ;3_K1;3;K1;LM1_1_1
+Soi_Cad_2_Soi_1;Cadenza;Soissons;2;Soi_Cad_2;Mix;4_M4;4;M4;LM1_1_1
+Soi_Cad_2_Cad_2;Soissons;Cadenza;2;Soi_Cad_2;Mix;4_M4;4;M4;LM1_1_1
+Soi_Fru_3_Soi_1;Fructidor;Soissons;3;Soi_Fru_3;Mix;4_M4;4;M4;LM1_1_1
+Soi_Fru_3_Fru_2;Soissons;Fructidor;3;Soi_Fru_3;Mix;4_M4;4;M4;LM1_1_1
+Soi_SYM_4_Soi_1;SYMattis;Soissons;4;Soi_SYM_4;Mix;4_M4;4;M4;LM1_1_1
+Soi_SYM_4_SYM_2;Soissons;SYMattis;4;Soi_SYM_4;Mix;4_M4;4;M4;LM1_1_1
+Soi_Apa_4_Soi_1;Apache;Soissons;4;Soi_Apa_4;Mix;4_M4;4;M4;LM1_1_1
+Soi_Apa_4_Apa_2;Soissons;Apache;4;Soi_Apa_4;Mix;4_M4;4;M4;LM1_1_1
+Chi_Cad_3_Chi_1;Cadenza;Chinese spring;3;Chi_Cad_3;Mix;4_M4;4;M4;LM1_1_1
+Chi_Cad_3_Cad_2;Chinese spring;Cadenza;3;Chi_Cad_3;Mix;4_M4;4;M4;LM1_1_1
+Chi_LGA_4_Chi_1;LGAbsalon;Chinese spring;4;Chi_LGA_4;Mix;4_M4;4;M4;LM1_1_1
+Chi_LGA_4_LGA_2;Chinese spring;LGAbsalon;4;Chi_LGA_4;Mix;4_M4;4;M4;LM1_1_1
+Chi_Ber_1_Chi_1;Bergamo;Chinese spring;1;Chi_Ber_1;Mix;4_M4;4;M4;LM1_1_1
+Chi_Ber_1_Ber_2;Chinese spring;Bergamo;1;Chi_Ber_1;Mix;4_M4;4;M4;LM1_1_1
+Chi_Bob_4_Chi_1;Bobwhite ;Chinese spring;4;Chi_Bob_4;Mix;4_M4;4;M4;LM1_1_1
+Chi_Bob_4_Bob_2;Chinese spring;Bobwhite ;4;Chi_Bob_4;Mix;4_M4;4;M4;LM1_1_1
+Chi_SYM_1_Chi_1;SYMattis;Chinese spring;1;Chi_SYM_1;Mix;4_M4;4;M4;LM1_1_1
+Chi_SYM_1_SYM_2;Chinese spring;SYMattis;1;Chi_SYM_1;Mix;4_M4;4;M4;LM1_1_1
+Chi_SYM_4_Chi_1;SYMattis;Chinese spring;4;Chi_SYM_4;Mix;4_M4;4;M4;LM1_1_1
+Chi_SYM_4_SYM_2;Chinese spring;SYMattis;4;Chi_SYM_4;Mix;4_M4;4;M4;LM1_1_1
+Chi_Acc_2_Chi_1;Accroc;Chinese spring;2;Chi_Acc_2;Mix;4_M4;4;M4;LM1_1_1
+Chi_Acc_2_Acc_2;Chinese spring;Accroc;2;Chi_Acc_2;Mix;4_M4;4;M4;LM1_1_1
+Chi_Acc_4_Chi_1;Accroc;Chinese spring;4;Chi_Acc_4;Mix;4_M4;4;M4;LM1_1_1
+Chi_Acc_4_Acc_2;Chinese spring;Accroc;4;Chi_Acc_4;Mix;4_M4;4;M4;LM1_1_1
+Chi_Rub_2_Chi_1;Rubisko;Chinese spring;2;Chi_Rub_2;Mix;4_M4;4;M4;LM1_1_1
+Chi_Rub_2_Rub_2;Chinese spring;Rubisko;2;Chi_Rub_2;Mix;4_M4;4;M4;LM1_1_1
+Cad_LGA_3_Cad_1;LGAbsalon;Cadenza;3;Cad_LGA_3;Mix;4_M4;4;M4;LM1_1_1
+Cad_LGA_3_LGA_2;Cadenza;LGAbsalon;3;Cad_LGA_3;Mix;4_M4;4;M4;LM1_1_1
+Cal_Cal_7_Cal_1;Calabro;Calabro;7;Cal_Cal_7;Pure ;4_M4;4;M4;LM1_1_1
+Cal_Cal_7_Cal_2;Calabro;Calabro;7;Cal_Cal_7;Pure ;4_M4;4;M4;LM1_1_1
+Soi_Cad_1_Soi_1;Cadenza;Soissons;1;Soi_Cad_1;Mix;5_C4;5;C4;LM1_1_1
+Soi_Cad_1_Cad_2;Soissons;Cadenza;1;Soi_Cad_1;Mix;5_C4;5;C4;LM1_1_1
+Soi_Rec_3_Soi_1;Récital;Soissons;3;Soi_Réc_3;Mix;5_C4;5;C4;LM1_1_1
+Soi_Rec_3_Rec_2;Soissons;Récital;3;Soi_Réc_3;Mix;5_C4;5;C4;LM1_1_1
+Soi_SYM_3_Soi_1;SYMattis;Soissons;3;Soi_SYM_3;Mix;5_C4;5;C4;LM1_1_1
+Soi_SYM_3_SYM_2;Soissons;SYMattis;3;Soi_SYM_3;Mix;5_C4;5;C4;LM1_1_1
+Soi_Rub_2_Soi_1;Rubisko;Soissons;2;Soi_Rub_2;Mix;5_C4;5;C4;LM1_1_1
+Soi_Rub_2_Rub_2;Soissons;Rubisko;2;Soi_Rub_2;Mix;5_C4;5;C4;LM1_1_1
+Soi_Rub_3_Soi_1;Rubisko;Soissons;3;Soi_Rub_3;Mix;5_C4;5;C4;LM1_1_1
+Soi_Rub_3_Rub_2;Soissons;Rubisko;3;Soi_Rub_3;Mix;5_C4;5;C4;LM1_1_1
+Chi_Cad_1_Chi_1;Cadenza;Chinese spring;1;Chi_Cad_1;Mix;5_C4;5;C4;LM1_1_1
+Chi_Cad_1_Cad_2;Chinese spring;Cadenza;1;Chi_Cad_1;Mix;5_C4;5;C4;LM1_1_1
+Chi_LGA_1_Chi_1;LGAbsalon;Chinese spring;1;Chi_LGA_1;Mix;5_C4;5;C4;LM1_1_1
+Chi_LGA_1_LGA_2;Chinese spring;LGAbsalon;1;Chi_LGA_1;Mix;5_C4;5;C4;LM1_1_1
+Chi_Ber_4_Chi_1;Bergamo;Chinese spring;4;Chi_Ber_4;Mix;5_C4;5;C4;LM1_1_1
+Chi_Ber_4_Ber_2;Chinese spring;Bergamo;4;Chi_Ber_4;Mix;5_C4;5;C4;LM1_1_1
+Chi_Bob_3_Chi_1;Bobwhite ;Chinese spring;3;Chi_Bob_3;Mix;5_C4;5;C4;LM1_1_1
+Chi_Bob_3_Bob_2;Chinese spring;Bobwhite ;3;Chi_Bob_3;Mix;5_C4;5;C4;LM1_1_1
+Chi_SYM_2_Chi_1;SYMattis;Chinese spring;2;Chi_SYM_2;Mix;5_C4;5;C4;LM1_1_1
+Chi_SYM_2_SYM_2;Chinese spring;SYMattis;2;Chi_SYM_2;Mix;5_C4;5;C4;LM1_1_1
+Chi_Apa_1_Chi_1;Apache;Chinese spring;1;Chi_Apa_1;Mix;5_C4;5;C4;LM1_1_1
+Chi_Apa_1_Apa_2;Chinese spring;Apache;1;Chi_Apa_1;Mix;5_C4;5;C4;LM1_1_1
+Chi_Apa_2_Chi_1;Apache;Chinese spring;2;Chi_Apa_2;Mix;5_C4;5;C4;LM1_1_1
+Chi_Apa_2_Apa_2;Chinese spring;Apache;2;Chi_Apa_2;Mix;5_C4;5;C4;LM1_1_1
+Des_Des_12_Des_1;Descartes;Descartes;12;Des_Des_12;Pure ;5_C4;5;C4;LM1_1_1
+Des_Des_12_Des_2;Descartes;Descartes;12;Des_Des_12;Pure ;5_C4;5;C4;LM1_1_1
+Des_Des_13_Des_1;Descartes;Descartes;13;Des_Des_13;Pure ;5_C4;5;C4;LM1_1_1
+Des_Des_13_Des_2;Descartes;Descartes;13;Des_Des_13;Pure ;5_C4;5;C4;LM1_1_1
+Ven_Ven_7_Ven_1;Venezio;Venezio;7;Ven_Ven_7;Pure ;5_C4;5;C4;LM1_1_1
+Ven_Ven_7_Ven_2;Venezio;Venezio;7;Ven_Ven_7;Pure ;5_C4;5;C4;LM1_1_1
+Soi_Ber_1_Soi_1;Bergamo;Soissons;1;Soi_Ber_1;Mix;6_M3;6;M3;LM1_1_1
+Soi_Ber_1_Ber_2;Soissons;Bergamo;1;Soi_Ber_1;Mix;6_M3;6;M3;LM1_1_1
+Soi_Fru_4_Soi_1;Fructidor;Soissons;4;Soi_Fru_4;Mix;6_M3;6;M3;LM1_1_1
+Soi_Fru_4_Fru_2;Soissons;Fructidor;4;Soi_Fru_4;Mix;6_M3;6;M3;LM1_1_1
+Soi_Apa_3_Soi_1;Apache;Soissons;3;Soi_Apa_3;Mix;6_M3;6;M3;LM1_1_1
+Soi_Apa_3_Apa_2;Soissons;Apache;3;Soi_Apa_3;Mix;6_M3;6;M3;LM1_1_1
+Chi_Ber_2_Chi_1;Bergamo;Chinese spring;2;Chi_Ber_2;Mix;6_M3;6;M3;LM1_1_1
+Chi_Ber_2_Ber_2;Chinese spring;Bergamo;2;Chi_Ber_2;Mix;6_M3;6;M3;LM1_1_1
+Chi_Gha_1_Chi_1;Ghayta;Chinese spring;1;Chi_Gha_1;Mix;6_M3;6;M3;LM1_1_1
+Chi_Gha_1_Gha_2;Chinese spring;Ghayta;1;Chi_Gha_1;Mix;6_M3;6;M3;LM1_1_1
+Chi_Gha_3_Chi_1;Ghayta;Chinese spring;3;Chi_Gha_3;Mix;6_M3;6;M3;LM1_1_1
+Chi_Gha_3_Gha_2;Chinese spring;Ghayta;3;Chi_Gha_3;Mix;6_M3;6;M3;LM1_1_1
+Chi_Fru_3_Chi_1;Fructidor;Chinese spring;3;Chi_Fru_3;Mix;6_M3;6;M3;LM1_1_1
+Chi_Fru_3_Fru_2;Chinese spring;Fructidor;3;Chi_Fru_3;Mix;6_M3;6;M3;LM1_1_1
+Chi_Bob_1_Chi_1;Bobwhite ;Chinese spring;1;Chi_Bob_1;Mix;6_M3;6;M3;LM1_1_1
+Chi_Bob_1_Bob_2;Chinese spring;Bobwhite ;1;Chi_Bob_1;Mix;6_M3;6;M3;LM1_1_1
+Chi_Apa_3_Chi_1;Apache;Chinese spring;3;Chi_Apa_3;Mix;6_M3;6;M3;LM1_1_1
+Chi_Apa_3_Apa_2;Chinese spring;Apache;3;Chi_Apa_3;Mix;6_M3;6;M3;LM1_1_1
+Chi_Acc_3_Chi_1;Accroc;Chinese spring;3;Chi_Acc_3;Mix;6_M3;6;M3;LM1_1_1
+Chi_Acc_3_Acc_2;Chinese spring;Accroc;3;Chi_Acc_3;Mix;6_M3;6;M3;LM1_1_1
+Cad_Cad_3_Cad_1;Cadenza;Cadenza;3;Cad_Cad_3;Pure;6_M3;6;M3;LM1_1_1
+Cad_Cad_3_Cad_2;Cadenza;Cadenza;3;Cad_Cad_3;Pure;6_M3;6;M3;LM1_1_1
+Cad_Cad_4_Cad_1;Cadenza;Cadenza;4;Cad_Cad_4;Pure;6_M3;6;M3;LM1_1_1
+Cad_Cad_4_Cad_2;Cadenza;Cadenza;4;Cad_Cad_4;Pure;6_M3;6;M3;LM1_1_1
+Cad_LGA_1_Cad_1;LGAbsalon;Cadenza;1;Cad_LGA_1;Mix;6_M3;6;M3;LM1_1_1
+Cad_LGA_1_LGA_2;Cadenza;LGAbsalon;1;Cad_LGA_1;Mix;6_M3;6;M3;LM1_1_1
+Cal_Cal_5_Cal_1;Calabro;Calabro;5;Cal_Cal_5;Pure ;6_M3;6;M3;LM1_1_1
+Cal_Cal_5_Cal_2;Calabro;Calabro;5;Cal_Cal_5;Pure ;6_M3;6;M3;LM1_1_1
+Cal_Cal_6_Cal_1;Calabro;Calabro;6;Cal_Cal_6;Pure ;6_M3;6;M3;LM1_1_1
+Cal_Cal_6_Cal_2;Calabro;Calabro;6;Cal_Cal_6;Pure ;6_M3;6;M3;LM1_1_1
+Soi_LGA_3_Soi_1;LGAbsalon;Soissons;3;Soi_LGA_3;Mix;7_F1;7;F1;LM1_1_1
+Soi_LGA_3_LGA_2;Soissons;LGAbsalon;3;Soi_LGA_3;Mix;7_F1;7;F1;LM1_1_1
+Soi_Rec_1_Soi_1;Récital;Soissons;1;Soi_Réc_1;Mix;7_F1;7;F1;LM1_1_1
+Soi_Rec_1_Rec_2;Soissons;Récital;1;Soi_Réc_1;Mix;7_F1;7;F1;LM1_1_1
+Soi_Ber_4_Soi_1;Bergamo;Soissons;4;Soi_Ber_4;Mix;7_F1;7;F1;LM1_1_1
+Soi_Ber_4_Ber_2;Soissons;Bergamo;4;Soi_Ber_4;Mix;7_F1;7;F1;LM1_1_1
+Soi_Fru_2_Soi_1;Fructidor;Soissons;2;Soi_Fru_2;Mix;7_F1;7;F1;LM1_1_1
+Soi_Fru_2_Fru_2;Soissons;Fructidor;2;Soi_Fru_2;Mix;7_F1;7;F1;LM1_1_1
+Soi_Bob_1_Soi_1;Bobwhite ;Soissons;1;Soi_Bob_1;Mix;7_F1;7;F1;LM1_1_1
+Soi_Bob_1_Bob_2;Soissons;Bobwhite ;1;Soi_Bob_1;Mix;7_F1;7;F1;LM1_1_1
+Soi_Bob_2_Soi_1;Bobwhite ;Soissons;2;Soi_Bob_2;Mix;7_F1;7;F1;LM1_1_1
+Soi_Bob_2_Bob_2;Soissons;Bobwhite ;2;Soi_Bob_2;Mix;7_F1;7;F1;LM1_1_1
+Soi_SYM_2_Soi_1;SYMattis;Soissons;2;Soi_SYM_2;Mix;7_F1;7;F1;LM1_1_1
+Soi_SYM_2_SYM_2;Soissons;SYMattis;2;Soi_SYM_2;Mix;7_F1;7;F1;LM1_1_1
+Chi_LGA_3_Chi_1;LGAbsalon;Chinese spring;3;Chi_LGA_3;Mix;7_F1;7;F1;LM1_1_1
+Chi_LGA_3_LGA_2;Chinese spring;LGAbsalon;3;Chi_LGA_3;Mix;7_F1;7;F1;LM1_1_1
+Chi_Rec_2_Chi_1;Récital;Chinese spring;2;Chi_Réc_2;Mix;7_F1;7;F1;LM1_1_1
+Chi_Rec_2_Rec_2;Chinese spring;Récital;2;Chi_Réc_2;Mix;7_F1;7;F1;LM1_1_1
+Chi_Ber_3_Chi_1;Bergamo;Chinese spring;3;Chi_Ber_3;Mix;7_F1;7;F1;LM1_1_1
+Chi_Ber_3_Ber_2;Chinese spring;Bergamo;3;Chi_Ber_3;Mix;7_F1;7;F1;LM1_1_1
+Chi_Fru_2_Chi_1;Fructidor;Chinese spring;2;Chi_Fru_2;Mix;7_F1;7;F1;LM1_1_1
+Chi_Fru_2_Fru_2;Chinese spring;Fructidor;2;Chi_Fru_2;Mix;7_F1;7;F1;LM1_1_1
+Chi_SYM_3_Chi_1;SYMattis;Chinese spring;3;Chi_SYM_3;Mix;7_F1;7;F1;LM1_1_1
+Chi_SYM_3_SYM_2;Chinese spring;SYMattis;3;Chi_SYM_3;Mix;7_F1;7;F1;LM1_1_1
+Chi_Acc_1_Chi_1;Accroc;Chinese spring;1;Chi_Acc_1;Mix;7_F1;7;F1;LM1_1_1
+Chi_Acc_1_Acc_2;Chinese spring;Accroc;1;Chi_Acc_1;Mix;7_F1;7;F1;LM1_1_1
+Cad_LGA_4_Cad_1;LGAbsalon;Cadenza;4;Cad_LGA_4;Mix;7_F1;7;F1;LM1_1_1
+Cad_LGA_4_LGA_2;Cadenza;LGAbsalon;4;Cad_LGA_4;Mix;7_F1;7;F1;LM1_1_1
+Des_Des_14_Des_1;Descartes;Descartes;14;Des_Des_14;Pure ;7_F1;7;F1;LM1_1_1
+Des_Des_14_Des_2;Descartes;Descartes;14;Des_Des_14;Pure ;7_F1;7;F1;LM1_1_1
+Cad_Rec_3_Cad_1;Récital;Cadenza;3;Cad_Réc_3;Mix;8_L4;8;L4;LM1_1_2
+Cad_Rec_3_Rec_2;Cadenza;Récital;3;Cad_Réc_3;Mix;8_L4;8;L4;LM1_1_2
+Cad_Ber_4_Cad_1;Bergamo;Cadenza;4;Cad_Ber_4;Mix;8_L4;8;L4;LM1_1_2
+Cad_Ber_4_Ber_2;Cadenza;Bergamo;4;Cad_Ber_4;Mix;8_L4;8;L4;LM1_1_2
+LGA_SYM_1_LGA_1;SYMattis;LGAbsalon;1;LGA_SYM_1;Mix;8_L4;8;L4;LM1_1_2
+LGA_SYM_1_SYM_2;LGAbsalon;SYMattis;1;LGA_SYM_1;Mix;8_L4;8;L4;LM1_1_2
+LGA_Apa_4_LGA_1;Apache;LGAbsalon;4;LGA_Apa_4;Mix;8_L4;8;L4;LM1_1_2
+LGA_Apa_4_Apa_2;LGAbsalon;Apache;4;LGA_Apa_4;Mix;8_L4;8;L4;LM1_1_2
+LGA_Acc_3_LGA_1;Accroc;LGAbsalon;3;LGA_Acc_3;Mix;8_L4;8;L4;LM1_1_2
+LGA_Acc_3_Acc_2;LGAbsalon;Accroc;3;LGA_Acc_3;Mix;8_L4;8;L4;LM1_1_2
+LGA_Acc_4_LGA_1;Accroc;LGAbsalon;4;LGA_Acc_4;Mix;8_L4;8;L4;LM1_1_2
+LGA_Acc_4_Acc_2;LGAbsalon;Accroc;4;LGA_Acc_4;Mix;8_L4;8;L4;LM1_1_2
+Rec_Ber_3_Rec_1;Bergamo;Récital;3;Réc_Ber_3;Mix;8_L4;8;L4;LM1_1_2
+Rec_Ber_3_Ber_2;Récital;Bergamo;3;Réc_Ber_3;Mix;8_L4;8;L4;LM1_1_2
+Rec_Bob_4_Rec_1;Bobwhite ;Récital;4;Réc_Bob_4;Mix;8_L4;8;L4;LM1_1_2
+Rec_Bob_4_Bob_2;Récital;Bobwhite ;4;Réc_Bob_4;Mix;8_L4;8;L4;LM1_1_2
+Rec_Acc_2_Rec_1;Accroc;Récital;2;Réc_Acc_2;Mix;8_L4;8;L4;LM1_1_2
+Rec_Acc_2_Acc_2;Récital;Accroc;2;Réc_Acc_2;Mix;8_L4;8;L4;LM1_1_2
+Ber_Bob_4_Ber_1;Bobwhite ;Bergamo;4;Ber_Bob_4;Mix;8_L4;8;L4;LM1_1_2
+Ber_Bob_4_Bob_2;Bergamo;Bobwhite ;4;Ber_Bob_4;Mix;8_L4;8;L4;LM1_1_2
+Ber_Apa_3_Ber_1;Apache;Bergamo;3;Ber_Apa_3;Mix;8_L4;8;L4;LM1_1_2
+Ber_Apa_3_Apa_2;Bergamo;Apache;3;Ber_Apa_3;Mix;8_L4;8;L4;LM1_1_2
+Ber_Apa_4_Ber_1;Apache;Bergamo;4;Ber_Apa_4;Mix;8_L4;8;L4;LM1_1_2
+Ber_Apa_4_Apa_2;Bergamo;Apache;4;Ber_Apa_4;Mix;8_L4;8;L4;LM1_1_2
+Gha_Bob_2_Gha_1;Bobwhite ;Ghayta;2;Gha_Bob_2;Mix;8_L4;8;L4;LM1_1_2
+Gha_Bob_2_Bob_2;Ghayta;Bobwhite ;2;Gha_Bob_2;Mix;8_L4;8;L4;LM1_1_2
+Gha_SYM_4_Gha_1;SYMattis;Ghayta;4;Gha_SYM_4;Mix;8_L4;8;L4;LM1_1_2
+Gha_SYM_4_SYM_2;Ghayta;SYMattis;4;Gha_SYM_4;Mix;8_L4;8;L4;LM1_1_2
+Cen_Cen_10_Cen_1;Centurion;Centurion;10;Cen_Cen_10;Pure ;8_L4;8;L4;LM1_1_2
+Cen_Cen_10_Cen_2;Centurion;Centurion;10;Cen_Cen_10;Pure ;8_L4;8;L4;LM1_1_2
+Cad_SYM_3_Cad_1;SYMattis;Cadenza;3;Cad_SYM_3;Mix;9_J4;9;J4;LM1_1_2
+Cad_SYM_3_SYM_2;Cadenza;SYMattis;3;Cad_SYM_3;Mix;9_J4;9;J4;LM1_1_2
+Cad_Apa_1_Cad_1;Apache;Cadenza;1;Cad_Apa_1;Mix;9_J4;9;J4;LM1_1_2
+Cad_Apa_1_Apa_2;Cadenza;Apache;1;Cad_Apa_1;Mix;9_J4;9;J4;LM1_1_2
+LGA_Ber_3_LGA_1;Bergamo;LGAbsalon;3;LGA_Ber_3;Mix;9_J4;9;J4;LM1_1_2
+LGA_Ber_3_Ber_2;LGAbsalon;Bergamo;3;LGA_Ber_3;Mix;9_J4;9;J4;LM1_1_2
+LGA_Fru_3_LGA_1;Fructidor;LGAbsalon;3;LGA_Fru_3;Mix;9_J4;9;J4;LM1_1_2
+LGA_Fru_3_Fru_2;LGAbsalon;Fructidor;3;LGA_Fru_3;Mix;9_J4;9;J4;LM1_1_2
+LGA_Rub_3_LGA_1;Rubisko;LGAbsalon;3;LGA_Rub_3;Mix;9_J4;9;J4;LM1_1_2
+LGA_Rub_3_Rub_2;LGAbsalon;Rubisko;3;LGA_Rub_3;Mix;9_J4;9;J4;LM1_1_2
+Rec_Rec_2_Rec_1;Récital;Récital;2;Réc_Réc_2;Pure;9_J4;9;J4;LM1_1_2
+Rec_Rec_2_Rec_2;Récital;Récital;2;Réc_Réc_2;Pure;9_J4;9;J4;LM1_1_2
+Rec_Rec_4_Rec_1;Récital;Récital;4;Réc_Réc_4;Pure;9_J4;9;J4;LM1_1_2
+Rec_Rec_4_Rec_2;Récital;Récital;4;Réc_Réc_4;Pure;9_J4;9;J4;LM1_1_2
+Rec_Gha_4_Rec_1;Ghayta;Récital;4;Réc_Gha_4;Mix;9_J4;9;J4;LM1_1_2
+Rec_Gha_4_Gha_2;Récital;Ghayta;4;Réc_Gha_4;Mix;9_J4;9;J4;LM1_1_2
+Rec_Apa_4_Rec_1;Apache;Récital;4;Réc_Apa_4;Mix;9_J4;9;J4;LM1_1_2
+Rec_Apa_4_Apa_2;Récital;Apache;4;Réc_Apa_4;Mix;9_J4;9;J4;LM1_1_2
+Rec_Rub_3_Rec_1;Rubisko;Récital;3;Réc_Rub_3;Mix;9_J4;9;J4;LM1_1_2
+Rec_Rub_3_Rub_2;Récital;Rubisko;3;Réc_Rub_3;Mix;9_J4;9;J4;LM1_1_2
+Ber_Gha_4_Ber_1;Ghayta;Bergamo;4;Ber_Gha_4;Mix;9_J4;9;J4;LM1_1_2
+Ber_Gha_4_Gha_2;Bergamo;Ghayta;4;Ber_Gha_4;Mix;9_J4;9;J4;LM1_1_2
+Ber_Fru_4_Ber_1;Fructidor;Bergamo;4;Ber_Fru_4;Mix;9_J4;9;J4;LM1_1_2
+Ber_Fru_4_Fru_2;Bergamo;Fructidor;4;Ber_Fru_4;Mix;9_J4;9;J4;LM1_1_2
+Ber_Bob_1_Ber_1;Bobwhite ;Bergamo;1;Ber_Bob_1;Mix;9_J4;9;J4;LM1_1_2
+Ber_Bob_1_Bob_2;Bergamo;Bobwhite ;1;Ber_Bob_1;Mix;9_J4;9;J4;LM1_1_2
+Ber_Apa_2_Ber_1;Apache;Bergamo;2;Ber_Apa_2;Mix;9_J4;9;J4;LM1_1_2
+Ber_Apa_2_Apa_2;Bergamo;Apache;2;Ber_Apa_2;Mix;9_J4;9;J4;LM1_1_2
+Gha_Fru_3_Gha_1;Fructidor;Ghayta;3;Gha_Fru_3;Mix;9_J4;9;J4;LM1_1_2
+Gha_Fru_3_Fru_2;Ghayta;Fructidor;3;Gha_Fru_3;Mix;9_J4;9;J4;LM1_1_2
+Cad_Fru_1_Cad_1;Fructidor;Cadenza;1;Cad_Fru_1;Mix;10_L1;10;L1;LM1_1_2
+Cad_Fru_1_Fru_2;Cadenza;Fructidor;1;Cad_Fru_1;Mix;10_L1;10;L1;LM1_1_2
+Cad_Fru_3_Cad_1;Fructidor;Cadenza;3;Cad_Fru_3;Mix;10_L1;10;L1;LM1_1_2
+Cad_Fru_3_Fru_2;Cadenza;Fructidor;3;Cad_Fru_3;Mix;10_L1;10;L1;LM1_1_2
+LGA_LGA_1_LGA_1;LGAbsalon;LGAbsalon;1;LGA_LGA_1;Pure;10_L1;10;L1;LM1_1_2
+LGA_LGA_1_LGA_2;LGAbsalon;LGAbsalon;1;LGA_LGA_1;Pure;10_L1;10;L1;LM1_1_2
+LGA_Rec_4_LGA_1;Récital;LGAbsalon;4;LGA_Réc_4;Mix;10_L1;10;L1;LM1_1_2
+LGA_Rec_4_Rec_2;LGAbsalon;Récital;4;LGA_Réc_4;Mix;10_L1;10;L1;LM1_1_2
+LGA_Acc_1_LGA_1;Accroc;LGAbsalon;1;LGA_Acc_1;Mix;10_L1;10;L1;LM1_1_2
+LGA_Acc_1_Acc_2;LGAbsalon;Accroc;1;LGA_Acc_1;Mix;10_L1;10;L1;LM1_1_2
+LGA_Rub_4_LGA_1;Rubisko;LGAbsalon;4;LGA_Rub_4;Mix;10_L1;10;L1;LM1_1_2
+LGA_Rub_4_Rub_2;LGAbsalon;Rubisko;4;LGA_Rub_4;Mix;10_L1;10;L1;LM1_1_2
+Rec_Ber_1_Rec_1;Bergamo;Récital;1;Réc_Ber_1;Mix;10_L1;10;L1;LM1_1_2
+Rec_Ber_1_Ber_2;Récital;Bergamo;1;Réc_Ber_1;Mix;10_L1;10;L1;LM1_1_2
+Rec_Fru_2_Rec_1;Fructidor;Récital;2;Réc_Fru_2;Mix;10_L1;10;L1;LM1_1_2
+Rec_Fru_2_Fru_2;Récital;Fructidor;2;Réc_Fru_2;Mix;10_L1;10;L1;LM1_1_2
+Rec_Bob_1_Rec_1;Bobwhite ;Récital;1;Réc_Bob_1;Mix;10_L1;10;L1;LM1_1_2
+Rec_Bob_1_Bob_2;Récital;Bobwhite ;1;Réc_Bob_1;Mix;10_L1;10;L1;LM1_1_2
+Rec_Bob_2_Rec_1;Bobwhite ;Récital;2;Réc_Bob_2;Mix;10_L1;10;L1;LM1_1_2
+Rec_Bob_2_Bob_2;Récital;Bobwhite ;2;Réc_Bob_2;Mix;10_L1;10;L1;LM1_1_2
+Ber_Ber_3_Ber_1;Bergamo;Bergamo;3;Ber_Ber_3;Pure;10_L1;10;L1;LM1_1_2
+Ber_Ber_3_Ber_2;Bergamo;Bergamo;3;Ber_Ber_3;Pure;10_L1;10;L1;LM1_1_2
+Ber_Acc_2_Ber_1;Accroc;Bergamo;2;Ber_Acc_2;Mix;10_L1;10;L1;LM1_1_2
+Ber_Acc_2_Acc_2;Bergamo;Accroc;2;Ber_Acc_2;Mix;10_L1;10;L1;LM1_1_2
+Ber_Acc_4_Ber_1;Accroc;Bergamo;4;Ber_Acc_4;Mix;10_L1;10;L1;LM1_1_2
+Ber_Acc_4_Acc_2;Bergamo;Accroc;4;Ber_Acc_4;Mix;10_L1;10;L1;LM1_1_2
+Gha_SYM_3_Gha_1;SYMattis;Ghayta;3;Gha_SYM_3;Mix;10_L1;10;L1;LM1_1_2
+Gha_SYM_3_SYM_2;Ghayta;SYMattis;3;Gha_SYM_3;Mix;10_L1;10;L1;LM1_1_2
+Gen_Gen_11_Gen_1;Geny (AB);Geny (AB);11;Gen_Gen_11;Pure ;10_L1;10;L1;LM1_1_2
+Gen_Gen_11_Gen_2;Geny (AB);Geny (AB);11;Gen_Gen_11;Pure ;10_L1;10;L1;LM1_1_2
+Cad_Ber_2_Cad_1;Bergamo;Cadenza;2;Cad_Ber_2;Mix;11_A2;11;A2;LM1_1_2
+Cad_Ber_2_Ber_2;Cadenza;Bergamo;2;Cad_Ber_2;Mix;11_A2;11;A2;LM1_1_2
+Cad_Ber_3_Cad_1;Bergamo;Cadenza;3;Cad_Ber_3;Mix;11_A2;11;A2;LM1_1_2
+Cad_Ber_3_Ber_2;Cadenza;Bergamo;3;Cad_Ber_3;Mix;11_A2;11;A2;LM1_1_2
+Cad_Gha_2_Cad_1;Ghayta;Cadenza;2;Cad_Gha_2;Mix;11_A2;11;A2;LM1_1_2
+Cad_Gha_2_Gha_2;Cadenza;Ghayta;2;Cad_Gha_2;Mix;11_A2;11;A2;LM1_1_2
+Cad_Fru_2_Cad_1;Fructidor;Cadenza;2;Cad_Fru_2;Mix;11_A2;11;A2;LM1_1_2
+Cad_Fru_2_Fru_2;Cadenza;Fructidor;2;Cad_Fru_2;Mix;11_A2;11;A2;LM1_1_2
+Cad_Acc_4_Cad_1;Accroc;Cadenza;4;Cad_Acc_4;Mix;11_A2;11;A2;LM1_1_2
+Cad_Acc_4_Acc_2;Cadenza;Accroc;4;Cad_Acc_4;Mix;11_A2;11;A2;LM1_1_2
+LGA_Fru_4_LGA_1;Fructidor;LGAbsalon;4;LGA_Fru_4;Mix;11_A2;11;A2;LM1_1_2
+LGA_Fru_4_Fru_2;LGAbsalon;Fructidor;4;LGA_Fru_4;Mix;11_A2;11;A2;LM1_1_2
+LGA_Bob_4_LGA_1;Bobwhite ;LGAbsalon;4;LGA_Bob_4;Mix;11_A2;11;A2;LM1_1_2
+LGA_Bob_4_Bob_2;LGAbsalon;Bobwhite ;4;LGA_Bob_4;Mix;11_A2;11;A2;LM1_1_2
+Rec_Ber_2_Rec_1;Bergamo;Récital;2;Réc_Ber_2;Mix;11_A2;11;A2;LM1_1_2
+Rec_Ber_2_Ber_2;Récital;Bergamo;2;Réc_Ber_2;Mix;11_A2;11;A2;LM1_1_2
+Rec_Fru_4_Rec_1;Fructidor;Récital;4;Réc_Fru_4;Mix;11_A2;11;A2;LM1_1_2
+Rec_Fru_4_Fru_2;Récital;Fructidor;4;Réc_Fru_4;Mix;11_A2;11;A2;LM1_1_2
+Ber_Fru_3_Ber_1;Fructidor;Bergamo;3;Ber_Fru_3;Mix;11_A2;11;A2;LM1_1_2
+Ber_Fru_3_Fru_2;Bergamo;Fructidor;3;Ber_Fru_3;Mix;11_A2;11;A2;LM1_1_2
+Ber_Acc_3_Ber_1;Accroc;Bergamo;3;Ber_Acc_3;Mix;11_A2;11;A2;LM1_1_2
+Ber_Acc_3_Acc_2;Bergamo;Accroc;3;Ber_Acc_3;Mix;11_A2;11;A2;LM1_1_2
+Gha_Gha_1_Gha_1;Ghayta;Ghayta;1;Gha_Gha_1;Pure;11_A2;11;A2;LM1_1_2
+Gha_Gha_1_Gha_2;Ghayta;Ghayta;1;Gha_Gha_1;Pure;11_A2;11;A2;LM1_1_2
+Gen_Gen_10_Gen_1;Geny (AB);Geny (AB);10;Gen_Gen_10;Pure ;11_A2;11;A2;LM1_1_2
+Gen_Gen_10_Gen_2;Geny (AB);Geny (AB);10;Gen_Gen_10;Pure ;11_A2;11;A2;LM1_1_2
+Cen_Cen_9_Cen_1;Centurion;Centurion;9;Cen_Cen_9;Pure ;11_A2;11;A2;LM1_1_2
+Cen_Cen_9_Cen_2;Centurion;Centurion;9;Cen_Cen_9;Pure ;11_A2;11;A2;LM1_1_2
+Des_Des_11_Des_1;Descartes;Descartes;11;Des_Des_11;Pure ;11_A2;11;A2;LM1_1_2
+Des_Des_11_Des_2;Descartes;Descartes;11;Des_Des_11;Pure ;11_A2;11;A2;LM1_1_2
+Cad_Bob_1_Cad_1;Bobwhite ;Cadenza;1;Cad_Bob_1;Mix;12_I2;12;I2;LM1_1_2
+Cad_Bob_1_Bob_2;Cadenza;Bobwhite ;1;Cad_Bob_1;Mix;12_I2;12;I2;LM1_1_2
+Cad_Apa_3_Cad_1;Apache;Cadenza;3;Cad_Apa_3;Mix;12_I2;12;I2;LM1_1_2
+Cad_Apa_3_Apa_2;Cadenza;Apache;3;Cad_Apa_3;Mix;12_I2;12;I2;LM1_1_2
+LGA_Fru_1_LGA_1;Fructidor;LGAbsalon;1;LGA_Fru_1;Mix;12_I2;12;I2;LM1_1_2
+LGA_Fru_1_Fru_2;LGAbsalon;Fructidor;1;LGA_Fru_1;Mix;12_I2;12;I2;LM1_1_2
+LGA_Bob_1_LGA_1;Bobwhite ;LGAbsalon;1;LGA_Bob_1;Mix;12_I2;12;I2;LM1_1_2
+LGA_Bob_1_Bob_2;LGAbsalon;Bobwhite ;1;LGA_Bob_1;Mix;12_I2;12;I2;LM1_1_2
+LGA_Bob_3_LGA_1;Bobwhite ;LGAbsalon;3;LGA_Bob_3;Mix;12_I2;12;I2;LM1_1_2
+LGA_Bob_3_Bob_2;LGAbsalon;Bobwhite ;3;LGA_Bob_3;Mix;12_I2;12;I2;LM1_1_2
+LGA_Acc_2_LGA_1;Accroc;LGAbsalon;2;LGA_Acc_2;Mix;12_I2;12;I2;LM1_1_2
+LGA_Acc_2_Acc_2;LGAbsalon;Accroc;2;LGA_Acc_2;Mix;12_I2;12;I2;LM1_1_2
+Rec_Fru_1_Rec_1;Fructidor;Récital;1;Réc_Fru_1;Mix;12_I2;12;I2;LM1_1_2
+Rec_Fru_1_Fru_2;Récital;Fructidor;1;Réc_Fru_1;Mix;12_I2;12;I2;LM1_1_2
+Rec_Apa_2_Rec_1;Apache;Récital;2;Réc_Apa_2;Mix;12_I2;12;I2;LM1_1_2
+Rec_Apa_2_Apa_2;Récital;Apache;2;Réc_Apa_2;Mix;12_I2;12;I2;LM1_1_2
+Rec_Acc_4_Rec_1;Accroc;Récital;4;Réc_Acc_4;Mix;12_I2;12;I2;LM1_1_2
+Rec_Acc_4_Acc_2;Récital;Accroc;4;Réc_Acc_4;Mix;12_I2;12;I2;LM1_1_2
+Ber_Ber_2_Ber_1;Bergamo;Bergamo;2;Ber_Ber_2;Pure;12_I2;12;I2;LM1_1_2
+Ber_Ber_2_Ber_2;Bergamo;Bergamo;2;Ber_Ber_2;Pure;12_I2;12;I2;LM1_1_2
+Ber_Rub_4_Ber_1;Rubisko;Bergamo;4;Ber_Rub_4;Mix;12_I2;12;I2;LM1_1_2
+Ber_Rub_4_Rub_2;Bergamo;Rubisko;4;Ber_Rub_4;Mix;12_I2;12;I2;LM1_1_2
+Gha_Bob_1_Gha_1;Bobwhite ;Ghayta;1;Gha_Bob_1;Mix;12_I2;12;I2;LM1_1_2
+Gha_Bob_1_Bob_2;Ghayta;Bobwhite ;1;Gha_Bob_1;Mix;12_I2;12;I2;LM1_1_2
+Gha_SYM_2_Gha_1;SYMattis;Ghayta;2;Gha_SYM_2;Mix;12_I2;12;I2;LM1_1_2
+Gha_SYM_2_SYM_2;Ghayta;SYMattis;2;Gha_SYM_2;Mix;12_I2;12;I2;LM1_1_2
+Gha_Apa_2_Gha_1;Apache;Ghayta;2;Gha_Apa_2;Mix;12_I2;12;I2;LM1_1_2
+Gha_Apa_2_Apa_2;Ghayta;Apache;2;Gha_Apa_2;Mix;12_I2;12;I2;LM1_1_2
+Cal_Cal_10_Cal_1;Calabro;Calabro;10;Cal_Cal_10;Pure ;12_I2;12;I2;LM1_1_2
+Cal_Cal_10_Cal_2;Calabro;Calabro;10;Cal_Cal_10;Pure ;12_I2;12;I2;LM1_1_2
+Cad_Rec_1_Cad_1;Récital;Cadenza;1;Cad_Réc_1;Mix;13_H3;13;H3;LM1_1_2
+Cad_Rec_1_Rec_2;Cadenza;Récital;1;Cad_Réc_1;Mix;13_H3;13;H3;LM1_1_2
+Cad_Fru_4_Cad_1;Fructidor;Cadenza;4;Cad_Fru_4;Mix;13_H3;13;H3;LM1_1_2
+Cad_Fru_4_Fru_2;Cadenza;Fructidor;4;Cad_Fru_4;Mix;13_H3;13;H3;LM1_1_2
+Cad_Bob_2_Cad_1;Bobwhite ;Cadenza;2;Cad_Bob_2;Mix;13_H3;13;H3;LM1_1_2
+Cad_Bob_2_Bob_2;Cadenza;Bobwhite ;2;Cad_Bob_2;Mix;13_H3;13;H3;LM1_1_2
+Cad_Bob_3_Cad_1;Bobwhite ;Cadenza;3;Cad_Bob_3;Mix;13_H3;13;H3;LM1_1_2
+Cad_Bob_3_Bob_2;Cadenza;Bobwhite ;3;Cad_Bob_3;Mix;13_H3;13;H3;LM1_1_2
+LGA_SYM_2_LGA_1;SYMattis;LGAbsalon;2;LGA_SYM_2;Mix;13_H3;13;H3;LM1_1_2
+LGA_SYM_2_SYM_2;LGAbsalon;SYMattis;2;LGA_SYM_2;Mix;13_H3;13;H3;LM1_1_2
+Rec_Gha_1_Rec_1;Ghayta;Récital;1;Réc_Gha_1;Mix;13_H3;13;H3;LM1_1_2
+Rec_Gha_1_Gha_2;Récital;Ghayta;1;Réc_Gha_1;Mix;13_H3;13;H3;LM1_1_2
+Rec_Acc_3_Rec_1;Accroc;Récital;3;Réc_Acc_3;Mix;13_H3;13;H3;LM1_1_2
+Rec_Acc_3_Acc_2;Récital;Accroc;3;Réc_Acc_3;Mix;13_H3;13;H3;LM1_1_2
+Rec_Rub_1_Rec_1;Rubisko;Récital;1;Réc_Rub_1;Mix;13_H3;13;H3;LM1_1_2
+Rec_Rub_1_Rub_2;Récital;Rubisko;1;Réc_Rub_1;Mix;13_H3;13;H3;LM1_1_2
+Rec_Rub_2_Rec_1;Rubisko;Récital;2;Réc_Rub_2;Mix;13_H3;13;H3;LM1_1_2
+Rec_Rub_2_Rub_2;Récital;Rubisko;2;Réc_Rub_2;Mix;13_H3;13;H3;LM1_1_2
+Ber_Gha_2_Ber_1;Ghayta;Bergamo;2;Ber_Gha_2;Mix;13_H3;13;H3;LM1_1_2
+Ber_Gha_2_Gha_2;Bergamo;Ghayta;2;Ber_Gha_2;Mix;13_H3;13;H3;LM1_1_2
+Ber_Fru_2_Ber_1;Fructidor;Bergamo;2;Ber_Fru_2;Mix;13_H3;13;H3;LM1_1_2
+Ber_Fru_2_Fru_2;Bergamo;Fructidor;2;Ber_Fru_2;Mix;13_H3;13;H3;LM1_1_2
+Ber_Apa_1_Ber_1;Apache;Bergamo;1;Ber_Apa_1;Mix;13_H3;13;H3;LM1_1_2
+Ber_Apa_1_Apa_2;Bergamo;Apache;1;Ber_Apa_1;Mix;13_H3;13;H3;LM1_1_2
+Ber_Rub_1_Ber_1;Rubisko;Bergamo;1;Ber_Rub_1;Mix;13_H3;13;H3;LM1_1_2
+Ber_Rub_1_Rub_2;Bergamo;Rubisko;1;Ber_Rub_1;Mix;13_H3;13;H3;LM1_1_2
+Ber_Rub_3_Ber_1;Rubisko;Bergamo;3;Ber_Rub_3;Mix;13_H3;13;H3;LM1_1_2
+Ber_Rub_3_Rub_2;Bergamo;Rubisko;3;Ber_Rub_3;Mix;13_H3;13;H3;LM1_1_2
+Gha_Fru_4_Gha_1;Fructidor;Ghayta;4;Gha_Fru_4;Mix;13_H3;13;H3;LM1_1_2
+Gha_Fru_4_Fru_2;Ghayta;Fructidor;4;Gha_Fru_4;Mix;13_H3;13;H3;LM1_1_2
+Cad_Bob_4_Cad_1;Bobwhite ;Cadenza;4;Cad_Bob_4;Mix;14_F4;14;F4;LM1_1_2
+Cad_Bob_4_Bob_2;Cadenza;Bobwhite ;4;Cad_Bob_4;Mix;14_F4;14;F4;LM1_1_2
+Cad_SYM_4_Cad_1;SYMattis;Cadenza;4;Cad_SYM_4;Mix;14_F4;14;F4;LM1_1_2
+Cad_SYM_4_SYM_2;Cadenza;SYMattis;4;Cad_SYM_4;Mix;14_F4;14;F4;LM1_1_2
+Cad_Apa_2_Cad_1;Apache;Cadenza;2;Cad_Apa_2;Mix;14_F4;14;F4;LM1_1_2
+Cad_Apa_2_Apa_2;Cadenza;Apache;2;Cad_Apa_2;Mix;14_F4;14;F4;LM1_1_2
+Cad_Rub_4_Cad_1;Rubisko;Cadenza;4;Cad_Rub_4;Mix;14_F4;14;F4;LM1_1_2
+Cad_Rub_4_Rub_2;Cadenza;Rubisko;4;Cad_Rub_4;Mix;14_F4;14;F4;LM1_1_2
+LGA_LGA_3_LGA_1;LGAbsalon;LGAbsalon;3;LGA_LGA_3;Pure;14_F4;14;F4;LM1_1_2
+LGA_LGA_3_LGA_2;LGAbsalon;LGAbsalon;3;LGA_LGA_3;Pure;14_F4;14;F4;LM1_1_2
+LGA_Gha_3_LGA_1;Ghayta;LGAbsalon;3;LGA_Gha_3;Mix;14_F4;14;F4;LM1_1_2
+LGA_Gha_3_Gha_2;LGAbsalon;Ghayta;3;LGA_Gha_3;Mix;14_F4;14;F4;LM1_1_2
+Rec_SYM_3_Rec_1;SYMattis;Récital;3;Réc_SYM_3;Mix;14_F4;14;F4;LM1_1_2
+Rec_SYM_3_SYM_2;Récital;SYMattis;3;Réc_SYM_3;Mix;14_F4;14;F4;LM1_1_2
+Ber_Ber_1_Ber_1;Bergamo;Bergamo;1;Ber_Ber_1;Pure;14_F4;14;F4;LM1_1_2
+Ber_Ber_1_Ber_2;Bergamo;Bergamo;1;Ber_Ber_1;Pure;14_F4;14;F4;LM1_1_2
+Ber_Ber_4_Ber_1;Bergamo;Bergamo;4;Ber_Ber_4;Pure;14_F4;14;F4;LM1_1_2
+Ber_Ber_4_Ber_2;Bergamo;Bergamo;4;Ber_Ber_4;Pure;14_F4;14;F4;LM1_1_2
+Ber_Gha_3_Ber_1;Ghayta;Bergamo;3;Ber_Gha_3;Mix;14_F4;14;F4;LM1_1_2
+Ber_Gha_3_Gha_2;Bergamo;Ghayta;3;Ber_Gha_3;Mix;14_F4;14;F4;LM1_1_2
+Ber_SYM_4_Ber_1;SYMattis;Bergamo;4;Ber_SYM_4;Mix;14_F4;14;F4;LM1_1_2
+Ber_SYM_4_SYM_2;Bergamo;SYMattis;4;Ber_SYM_4;Mix;14_F4;14;F4;LM1_1_2
+Ber_Rub_2_Ber_1;Rubisko;Bergamo;2;Ber_Rub_2;Mix;14_F4;14;F4;LM1_1_2
+Ber_Rub_2_Rub_2;Bergamo;Rubisko;2;Ber_Rub_2;Mix;14_F4;14;F4;LM1_1_2
+Gha_Fru_2_Gha_1;Fructidor;Ghayta;2;Gha_Fru_2;Mix;14_F4;14;F4;LM1_1_2
+Gha_Fru_2_Fru_2;Ghayta;Fructidor;2;Gha_Fru_2;Mix;14_F4;14;F4;LM1_1_2
+Gha_Apa_4_Gha_1;Apache;Ghayta;4;Gha_Apa_4;Mix;14_F4;14;F4;LM1_1_2
+Gha_Apa_4_Apa_2;Ghayta;Apache;4;Gha_Apa_4;Mix;14_F4;14;F4;LM1_1_2
+Cal_Cal_9_Cal_1;Calabro;Calabro;9;Cal_Cal_9;Pure ;14_F4;14;F4;LM1_1_2
+Cal_Cal_9_Cal_2;Calabro;Calabro;9;Cal_Cal_9;Pure ;14_F4;14;F4;LM1_1_2
+Cad_Gha_3_Cad_1;Ghayta;Cadenza;3;Cad_Gha_3;Mix;15_I1;15;I1;LM1_1_2
+Cad_Gha_3_Gha_2;Cadenza;Ghayta;3;Cad_Gha_3;Mix;15_I1;15;I1;LM1_1_2
+Cad_SYM_1_Cad_1;SYMattis;Cadenza;1;Cad_SYM_1;Mix;15_I1;15;I1;LM1_1_2
+Cad_SYM_1_SYM_2;Cadenza;SYMattis;1;Cad_SYM_1;Mix;15_I1;15;I1;LM1_1_2
+Cad_Rub_1_Cad_1;Rubisko;Cadenza;1;Cad_Rub_1;Mix;15_I1;15;I1;LM1_1_2
+Cad_Rub_1_Rub_2;Cadenza;Rubisko;1;Cad_Rub_1;Mix;15_I1;15;I1;LM1_1_2
+Cad_Rub_3_Cad_1;Rubisko;Cadenza;3;Cad_Rub_3;Mix;15_I1;15;I1;LM1_1_2
+Cad_Rub_3_Rub_2;Cadenza;Rubisko;3;Cad_Rub_3;Mix;15_I1;15;I1;LM1_1_2
+LGA_Rec_2_LGA_1;Récital;LGAbsalon;2;LGA_Réc_2;Mix;15_I1;15;I1;LM1_1_2
+LGA_Rec_2_Rec_2;LGAbsalon;Récital;2;LGA_Réc_2;Mix;15_I1;15;I1;LM1_1_2
+LGA_Ber_2_LGA_1;Bergamo;LGAbsalon;2;LGA_Ber_2;Mix;15_I1;15;I1;LM1_1_2
+LGA_Ber_2_Ber_2;LGAbsalon;Bergamo;2;LGA_Ber_2;Mix;15_I1;15;I1;LM1_1_2
+LGA_Ber_4_LGA_1;Bergamo;LGAbsalon;4;LGA_Ber_4;Mix;15_I1;15;I1;LM1_1_2
+LGA_Ber_4_Ber_2;LGAbsalon;Bergamo;4;LGA_Ber_4;Mix;15_I1;15;I1;LM1_1_2
+LGA_Rub_2_LGA_1;Rubisko;LGAbsalon;2;LGA_Rub_2;Mix;15_I1;15;I1;LM1_1_2
+LGA_Rub_2_Rub_2;LGAbsalon;Rubisko;2;LGA_Rub_2;Mix;15_I1;15;I1;LM1_1_2
+Rec_Gha_2_Rec_1;Ghayta;Récital;2;Réc_Gha_2;Mix;15_I1;15;I1;LM1_1_2
+Rec_Gha_2_Gha_2;Récital;Ghayta;2;Réc_Gha_2;Mix;15_I1;15;I1;LM1_1_2
+Rec_Bob_3_Rec_1;Bobwhite ;Récital;3;Réc_Bob_3;Mix;15_I1;15;I1;LM1_1_2
+Rec_Bob_3_Bob_2;Récital;Bobwhite ;3;Réc_Bob_3;Mix;15_I1;15;I1;LM1_1_2
+Rec_SYM_4_Rec_1;SYMattis;Récital;4;Réc_SYM_4;Mix;15_I1;15;I1;LM1_1_2
+Rec_SYM_4_SYM_2;Récital;SYMattis;4;Réc_SYM_4;Mix;15_I1;15;I1;LM1_1_2
+Rec_Acc_1_Rec_1;Accroc;Récital;1;Réc_Acc_1;Mix;15_I1;15;I1;LM1_1_2
+Rec_Acc_1_Acc_2;Récital;Accroc;1;Réc_Acc_1;Mix;15_I1;15;I1;LM1_1_2
+Ber_Bob_3_Ber_1;Bobwhite ;Bergamo;3;Ber_Bob_3;Mix;15_I1;15;I1;LM1_1_2
+Ber_Bob_3_Bob_2;Bergamo;Bobwhite ;3;Ber_Bob_3;Mix;15_I1;15;I1;LM1_1_2
+Ber_SYM_3_Ber_1;SYMattis;Bergamo;3;Ber_SYM_3;Mix;15_I1;15;I1;LM1_1_2
+Ber_SYM_3_SYM_2;Bergamo;SYMattis;3;Ber_SYM_3;Mix;15_I1;15;I1;LM1_1_2
+Gha_Bob_3_Gha_1;Bobwhite ;Ghayta;3;Gha_Bob_3;Mix;15_I1;15;I1;LM1_1_2
+Gha_Bob_3_Bob_2;Ghayta;Bobwhite ;3;Gha_Bob_3;Mix;15_I1;15;I1;LM1_1_2
+Cad_SYM_2_Cad_1;SYMattis;Cadenza;2;Cad_SYM_2;Mix;16_N3;16;N3;LM1_1_2
+Cad_SYM_2_SYM_2;Cadenza;SYMattis;2;Cad_SYM_2;Mix;16_N3;16;N3;LM1_1_2
+Cad_Acc_1_Cad_1;Accroc;Cadenza;1;Cad_Acc_1;Mix;16_N3;16;N3;LM1_1_2
+Cad_Acc_1_Acc_2;Cadenza;Accroc;1;Cad_Acc_1;Mix;16_N3;16;N3;LM1_1_2
+Cad_Rub_2_Cad_1;Rubisko;Cadenza;2;Cad_Rub_2;Mix;16_N3;16;N3;LM1_1_2
+Cad_Rub_2_Rub_2;Cadenza;Rubisko;2;Cad_Rub_2;Mix;16_N3;16;N3;LM1_1_2
+LGA_LGA_2_LGA_1;LGAbsalon;LGAbsalon;2;LGA_LGA_2;Pure;16_N3;16;N3;LM1_1_2
+LGA_LGA_2_LGA_2;LGAbsalon;LGAbsalon;2;LGA_LGA_2;Pure;16_N3;16;N3;LM1_1_2
+LGA_LGA_4_LGA_1;LGAbsalon;LGAbsalon;4;LGA_LGA_4;Pure;16_N3;16;N3;LM1_1_2
+LGA_LGA_4_LGA_2;LGAbsalon;LGAbsalon;4;LGA_LGA_4;Pure;16_N3;16;N3;LM1_1_2
+LGA_Fru_2_LGA_1;Fructidor;LGAbsalon;2;LGA_Fru_2;Mix;16_N3;16;N3;LM1_1_2
+LGA_Fru_2_Fru_2;LGAbsalon;Fructidor;2;LGA_Fru_2;Mix;16_N3;16;N3;LM1_1_2
+LGA_SYM_4_LGA_1;SYMattis;LGAbsalon;4;LGA_SYM_4;Mix;16_N3;16;N3;LM1_1_2
+LGA_SYM_4_SYM_2;LGAbsalon;SYMattis;4;LGA_SYM_4;Mix;16_N3;16;N3;LM1_1_2
+Rec_Rec_3_Rec_1;Récital;Récital;3;Réc_Réc_3;Pure;16_N3;16;N3;LM1_1_2
+Rec_Rec_3_Rec_2;Récital;Récital;3;Réc_Réc_3;Pure;16_N3;16;N3;LM1_1_2
+Rec_SYM_1_Rec_1;SYMattis;Récital;1;Réc_SYM_1;Mix;16_N3;16;N3;LM1_1_2
+Rec_SYM_1_SYM_2;Récital;SYMattis;1;Réc_SYM_1;Mix;16_N3;16;N3;LM1_1_2
+Rec_Apa_3_Rec_1;Apache;Récital;3;Réc_Apa_3;Mix;16_N3;16;N3;LM1_1_2
+Rec_Apa_3_Apa_2;Récital;Apache;3;Réc_Apa_3;Mix;16_N3;16;N3;LM1_1_2
+Ber_Gha_1_Ber_1;Ghayta;Bergamo;1;Ber_Gha_1;Mix;16_N3;16;N3;LM1_1_2
+Ber_Gha_1_Gha_2;Bergamo;Ghayta;1;Ber_Gha_1;Mix;16_N3;16;N3;LM1_1_2
+Ber_SYM_2_Ber_1;SYMattis;Bergamo;2;Ber_SYM_2;Mix;16_N3;16;N3;LM1_1_2
+Ber_SYM_2_SYM_2;Bergamo;SYMattis;2;Ber_SYM_2;Mix;16_N3;16;N3;LM1_1_2
+Gha_Gha_2_Gha_1;Ghayta;Ghayta;2;Gha_Gha_2;Pure;16_N3;16;N3;LM1_1_2
+Gha_Gha_2_Gha_2;Ghayta;Ghayta;2;Gha_Gha_2;Pure;16_N3;16;N3;LM1_1_2
+Cal_Cal_8_Cal_1;Calabro;Calabro;8;Cal_Cal_8;Pure ;16_N3;16;N3;LM1_1_2
+Cal_Cal_8_Cal_2;Calabro;Calabro;8;Cal_Cal_8;Pure ;16_N3;16;N3;LM1_1_2
+Cen_Cen_11_Cen_1;Centurion;Centurion;11;Cen_Cen_11;Pure ;16_N3;16;N3;LM1_1_2
+Cen_Cen_11_Cen_2;Centurion;Centurion;11;Cen_Cen_11;Pure ;16_N3;16;N3;LM1_1_2
+Cad_Acc_2_Cad_1;Accroc;Cadenza;2;Cad_Acc_2;Mix;17_B2;17;B2;LM1_1_2
+Cad_Acc_2_Acc_2;Cadenza;Accroc;2;Cad_Acc_2;Mix;17_B2;17;B2;LM1_1_2
+Cad_Acc_3_Cad_1;Accroc;Cadenza;3;Cad_Acc_3;Mix;17_B2;17;B2;LM1_1_2
+Cad_Acc_3_Acc_2;Cadenza;Accroc;3;Cad_Acc_3;Mix;17_B2;17;B2;LM1_1_2
+LGA_Rec_3_LGA_1;Récital;LGAbsalon;3;LGA_Réc_3;Mix;17_B2;17;B2;LM1_1_2
+LGA_Rec_3_Rec_2;LGAbsalon;Récital;3;LGA_Réc_3;Mix;17_B2;17;B2;LM1_1_2
+LGA_Ber_1_LGA_1;Bergamo;LGAbsalon;1;LGA_Ber_1;Mix;17_B2;17;B2;LM1_1_2
+LGA_Ber_1_Ber_2;LGAbsalon;Bergamo;1;LGA_Ber_1;Mix;17_B2;17;B2;LM1_1_2
+LGA_Gha_2_LGA_1;Ghayta;LGAbsalon;2;LGA_Gha_2;Mix;17_B2;17;B2;LM1_1_2
+LGA_Gha_2_Gha_2;LGAbsalon;Ghayta;2;LGA_Gha_2;Mix;17_B2;17;B2;LM1_1_2
+LGA_Gha_4_LGA_1;Ghayta;LGAbsalon;4;LGA_Gha_4;Mix;17_B2;17;B2;LM1_1_2
+LGA_Gha_4_Gha_2;LGAbsalon;Ghayta;4;LGA_Gha_4;Mix;17_B2;17;B2;LM1_1_2
+LGA_SYM_3_LGA_1;SYMattis;LGAbsalon;3;LGA_SYM_3;Mix;17_B2;17;B2;LM1_1_2
+LGA_SYM_3_SYM_2;LGAbsalon;SYMattis;3;LGA_SYM_3;Mix;17_B2;17;B2;LM1_1_2
+LGA_Apa_1_LGA_1;Apache;LGAbsalon;1;LGA_Apa_1;Mix;17_B2;17;B2;LM1_1_2
+LGA_Apa_1_Apa_2;LGAbsalon;Apache;1;LGA_Apa_1;Mix;17_B2;17;B2;LM1_1_2
+Rec_Gha_3_Rec_1;Ghayta;Récital;3;Réc_Gha_3;Mix;17_B2;17;B2;LM1_1_2
+Rec_Gha_3_Gha_2;Récital;Ghayta;3;Réc_Gha_3;Mix;17_B2;17;B2;LM1_1_2
+Ber_Acc_1_Ber_1;Accroc;Bergamo;1;Ber_Acc_1;Mix;17_B2;17;B2;LM1_1_2
+Ber_Acc_1_Acc_2;Bergamo;Accroc;1;Ber_Acc_1;Mix;17_B2;17;B2;LM1_1_2
+Gha_Gha_4_Gha_1;Ghayta;Ghayta;4;Gha_Gha_4;Pure;17_B2;17;B2;LM1_1_2
+Gha_Gha_4_Gha_2;Ghayta;Ghayta;4;Gha_Gha_4;Pure;17_B2;17;B2;LM1_1_2
+Gha_SYM_1_Gha_1;SYMattis;Ghayta;1;Gha_SYM_1;Mix;17_B2;17;B2;LM1_1_2
+Gha_SYM_1_SYM_2;Ghayta;SYMattis;1;Gha_SYM_1;Mix;17_B2;17;B2;LM1_1_2
+Gha_Apa_1_Gha_1;Apache;Ghayta;1;Gha_Apa_1;Mix;17_B2;17;B2;LM1_1_2
+Gha_Apa_1_Apa_2;Ghayta;Apache;1;Gha_Apa_1;Mix;17_B2;17;B2;LM1_1_2
+Gha_Apa_3_Gha_1;Apache;Ghayta;3;Gha_Apa_3;Mix;17_B2;17;B2;LM1_1_2
+Gha_Apa_3_Apa_2;Ghayta;Apache;3;Gha_Apa_3;Mix;17_B2;17;B2;LM1_1_2
+Des_Des_10_Des_1;Descartes;Descartes;10;Des_Des_10;Pure ;17_B2;17;B2;LM1_1_2
+Des_Des_10_Des_2;Descartes;Descartes;10;Des_Des_10;Pure ;17_B2;17;B2;LM1_1_2
+LGA_Rec_1_LGA_1;Récital;LGAbsalon;1;LGA_Réc_1;Mix;18_L2;18;L2;LM1_1_2
+LGA_Rec_1_Rec_2;LGAbsalon;Récital;1;LGA_Réc_1;Mix;18_L2;18;L2;LM1_1_2
+LGA_Bob_2_LGA_1;Bobwhite ;LGAbsalon;2;LGA_Bob_2;Mix;18_L2;18;L2;LM1_1_2
+LGA_Bob_2_Bob_2;LGAbsalon;Bobwhite ;2;LGA_Bob_2;Mix;18_L2;18;L2;LM1_1_2
+LGA_Apa_2_LGA_1;Apache;LGAbsalon;2;LGA_Apa_2;Mix;18_L2;18;L2;LM1_1_2
+LGA_Apa_2_Apa_2;LGAbsalon;Apache;2;LGA_Apa_2;Mix;18_L2;18;L2;LM1_1_2
+LGA_Apa_3_LGA_1;Apache;LGAbsalon;3;LGA_Apa_3;Mix;18_L2;18;L2;LM1_1_2
+LGA_Apa_3_Apa_2;LGAbsalon;Apache;3;LGA_Apa_3;Mix;18_L2;18;L2;LM1_1_2
+Rec_Rec_1_Rec_1;Récital;Récital;1;Réc_Réc_1;Pure;18_L2;18;L2;LM1_1_2
+Rec_Rec_1_Rec_2;Récital;Récital;1;Réc_Réc_1;Pure;18_L2;18;L2;LM1_1_2
+Rec_SYM_2_Rec_1;SYMattis;Récital;2;Réc_SYM_2;Mix;18_L2;18;L2;LM1_1_2
+Rec_SYM_2_SYM_2;Récital;SYMattis;2;Réc_SYM_2;Mix;18_L2;18;L2;LM1_1_2
+Rec_Apa_1_Rec_1;Apache;Récital;1;Réc_Apa_1;Mix;18_L2;18;L2;LM1_1_2
+Rec_Apa_1_Apa_2;Récital;Apache;1;Réc_Apa_1;Mix;18_L2;18;L2;LM1_1_2
+Rec_Rub_4_Rec_1;Rubisko;Récital;4;Réc_Rub_4;Mix;18_L2;18;L2;LM1_1_2
+Rec_Rub_4_Rub_2;Récital;Rubisko;4;Réc_Rub_4;Mix;18_L2;18;L2;LM1_1_2
+Ber_Fru_1_Ber_1;Fructidor;Bergamo;1;Ber_Fru_1;Mix;18_L2;18;L2;LM1_1_2
+Ber_Fru_1_Fru_2;Bergamo;Fructidor;1;Ber_Fru_1;Mix;18_L2;18;L2;LM1_1_2
+Ber_SYM_1_Ber_1;SYMattis;Bergamo;1;Ber_SYM_1;Mix;18_L2;18;L2;LM1_1_2
+Ber_SYM_1_SYM_2;Bergamo;SYMattis;1;Ber_SYM_1;Mix;18_L2;18;L2;LM1_1_2
+Gha_Gha_3_Gha_1;Ghayta;Ghayta;3;Gha_Gha_3;Pure;18_L2;18;L2;LM1_1_2
+Gha_Gha_3_Gha_2;Ghayta;Ghayta;3;Gha_Gha_3;Pure;18_L2;18;L2;LM1_1_2
+Gha_Fru_1_Gha_1;Fructidor;Ghayta;1;Gha_Fru_1;Mix;18_L2;18;L2;LM1_1_2
+Gha_Fru_1_Fru_2;Ghayta;Fructidor;1;Gha_Fru_1;Mix;18_L2;18;L2;LM1_1_2
+Gha_Bob_4_Gha_1;Bobwhite ;Ghayta;4;Gha_Bob_4;Mix;18_L2;18;L2;LM1_1_2
+Gha_Bob_4_Bob_2;Ghayta;Bobwhite ;4;Gha_Bob_4;Mix;18_L2;18;L2;LM1_1_2
+Gen_Gen_9_Gen_1;Geny (AB);Geny (AB);9;Gen_Gen_9;Pure ;18_L2;18;L2;LM1_1_2
+Gen_Gen_9_Gen_2;Geny (AB);Geny (AB);9;Gen_Gen_9;Pure ;18_L2;18;L2;LM1_1_2
+Des_Des_9_Des_1;Descartes;Descartes;9;Des_Des_9;Pure ;18_L2;18;L2;LM1_1_2
+Des_Des_9_Des_2;Descartes;Descartes;9;Des_Des_9;Pure ;18_L2;18;L2;LM1_1_2
+Cad_Rec_2_Cad_1;Récital;Cadenza;2;Cad_Réc_2;Mix;19_H1;19;H1;LM1_1_2
+Cad_Rec_2_Rec_2;Cadenza;Récital;2;Cad_Réc_2;Mix;19_H1;19;H1;LM1_1_2
+Cad_Rec_4_Cad_1;Récital;Cadenza;4;Cad_Réc_4;Mix;19_H1;19;H1;LM1_1_2
+Cad_Rec_4_Rec_2;Cadenza;Récital;4;Cad_Réc_4;Mix;19_H1;19;H1;LM1_1_2
+Cad_Ber_1_Cad_1;Bergamo;Cadenza;1;Cad_Ber_1;Mix;19_H1;19;H1;LM1_1_2
+Cad_Ber_1_Ber_2;Cadenza;Bergamo;1;Cad_Ber_1;Mix;19_H1;19;H1;LM1_1_2
+Cad_Gha_1_Cad_1;Ghayta;Cadenza;1;Cad_Gha_1;Mix;19_H1;19;H1;LM1_1_2
+Cad_Gha_1_Gha_2;Cadenza;Ghayta;1;Cad_Gha_1;Mix;19_H1;19;H1;LM1_1_2
+Cad_Gha_4_Cad_1;Ghayta;Cadenza;4;Cad_Gha_4;Mix;19_H1;19;H1;LM1_1_2
+Cad_Gha_4_Gha_2;Cadenza;Ghayta;4;Cad_Gha_4;Mix;19_H1;19;H1;LM1_1_2
+Cad_Apa_4_Cad_1;Apache;Cadenza;4;Cad_Apa_4;Mix;19_H1;19;H1;LM1_1_2
+Cad_Apa_4_Apa_2;Cadenza;Apache;4;Cad_Apa_4;Mix;19_H1;19;H1;LM1_1_2
+LGA_Gha_1_LGA_1;Ghayta;LGAbsalon;1;LGA_Gha_1;Mix;19_H1;19;H1;LM1_1_2
+LGA_Gha_1_Gha_2;LGAbsalon;Ghayta;1;LGA_Gha_1;Mix;19_H1;19;H1;LM1_1_2
+LGA_Rub_1_LGA_1;Rubisko;LGAbsalon;1;LGA_Rub_1;Mix;19_H1;19;H1;LM1_1_2
+LGA_Rub_1_Rub_2;LGAbsalon;Rubisko;1;LGA_Rub_1;Mix;19_H1;19;H1;LM1_1_2
+Rec_Ber_4_Rec_1;Bergamo;Récital;4;Réc_Ber_4;Mix;19_H1;19;H1;LM1_1_2
+Rec_Ber_4_Ber_2;Récital;Bergamo;4;Réc_Ber_4;Mix;19_H1;19;H1;LM1_1_2
+Rec_Fru_3_Rec_1;Fructidor;Récital;3;Réc_Fru_3;Mix;19_H1;19;H1;LM1_1_2
+Rec_Fru_3_Fru_2;Récital;Fructidor;3;Réc_Fru_3;Mix;19_H1;19;H1;LM1_1_2
+Ber_Bob_2_Ber_1;Bobwhite ;Bergamo;2;Ber_Bob_2;Mix;19_H1;19;H1;LM1_1_2
+Ber_Bob_2_Bob_2;Bergamo;Bobwhite ;2;Ber_Bob_2;Mix;19_H1;19;H1;LM1_1_2
+Soi_Chi_1_Soi_1;Chinese spring;Soissons;1;Soi_Chi_1;Mix;20_M1;20;M1;LM1_1_3
+Soi_Chi_1_Chi_2;Soissons;Chinese spring;1;Soi_Chi_1;Mix;20_M1;20;M1;LM1_1_3
+Chi_Chi_3_Chi_1;Chinese spring;Chinese spring;3;Chi_Chi_3;Pure;20_M1;20;M1;LM1_1_3
+Chi_Chi_3_Chi_2;Chinese spring;Chinese spring;3;Chi_Chi_3;Pure;20_M1;20;M1;LM1_1_3
+Tit_Ber_2_Tit_1;Bergamo;Titlis;2;Tit_Ber_2;Mix;20_M1;20;M1;LM1_1_3
+Tit_Ber_2_Ber_2;Titlis;Bergamo;2;Tit_Ber_2;Mix;20_M1;20;M1;LM1_1_3
+Tit_Bob_4_Tit_1;Bobwhite ;Titlis;4;Tit_Bob_4;Mix;20_M1;20;M1;LM1_1_3
+Tit_Bob_4_Bob_2;Titlis;Bobwhite ;4;Tit_Bob_4;Mix;20_M1;20;M1;LM1_1_3
+Tit_Rub_3_Tit_1;Rubisko;Titlis;3;Tit_Rub_3;Mix;20_M1;20;M1;LM1_1_3
+Tit_Rub_3_Rub_2;Titlis;Rubisko;3;Tit_Rub_3;Mix;20_M1;20;M1;LM1_1_3
+Gha_Rub_1_Gha_1;Rubisko;Ghayta;1;Gha_Rub_1;Mix;20_M1;20;M1;LM1_1_3
+Gha_Rub_1_Rub_2;Ghayta;Rubisko;1;Gha_Rub_1;Mix;20_M1;20;M1;LM1_1_3
+Fru_Fru_3_Fru_1;Fructidor;Fructidor;3;Fru_Fru_3;Pure ;20_M1;20;M1;LM1_1_3
+Fru_Fru_3_Fru_2;Fructidor;Fructidor;3;Fru_Fru_3;Pure ;20_M1;20;M1;LM1_1_3
+Fru_Apa_1_Fru_1;Apache;Fructidor;1;Fru_Apa_1;Mix;20_M1;20;M1;LM1_1_3
+Fru_Apa_1_Apa_2;Fructidor;Apache;1;Fru_Apa_1;Mix;20_M1;20;M1;LM1_1_3
+Bob_Bob_2_Bob_1;Bobwhite ;Bobwhite ;2;Bob_Bob_2;Pure ;20_M1;20;M1;LM1_1_3
+Bob_Bob_2_Bob_2;Bobwhite ;Bobwhite ;2;Bob_Bob_2;Pure ;20_M1;20;M1;LM1_1_3
+SYM_Rub_2_SYM_1;Rubisko;SYMattis;2;SYM_Rub_2;Mix ;20_M1;20;M1;LM1_1_3
+SYM_Rub_2_Rub_2;SYMattis;Rubisko;2;SYM_Rub_2;Mix ;20_M1;20;M1;LM1_1_3
+SYM_Rub_4_SYM_1;Rubisko;SYMattis;4;SYM_Rub_4;Mix ;20_M1;20;M1;LM1_1_3
+SYM_Rub_4_Rub_2;SYMattis;Rubisko;4;SYM_Rub_4;Mix ;20_M1;20;M1;LM1_1_3
+Apa_Apa_3_Apa_1;Apache;Apache;3;Apa_Apa_3;Pure ;20_M1;20;M1;LM1_1_3
+Apa_Apa_3_Apa_2;Apache;Apache;3;Apa_Apa_3;Pure ;20_M1;20;M1;LM1_1_3
+Apa_Apa_4_Apa_1;Apache;Apache;4;Apa_Apa_4;Pure ;20_M1;20;M1;LM1_1_3
+Apa_Apa_4_Apa_2;Apache;Apache;4;Apa_Apa_4;Pure ;20_M1;20;M1;LM1_1_3
+Acc_Rub_2_Acc_1;Rubisko;Accroc;2;Acc_Rub_2;Mix;20_M1;20;M1;LM1_1_3
+Acc_Rub_2_Rub_2;Accroc;Rubisko;2;Acc_Rub_2;Mix;20_M1;20;M1;LM1_1_3
+Acc_Rub_4_Acc_1;Rubisko;Accroc;4;Acc_Rub_4;Mix;20_M1;20;M1;LM1_1_3
+Acc_Rub_4_Rub_2;Accroc;Rubisko;4;Acc_Rub_4;Mix;20_M1;20;M1;LM1_1_3
+Soi_Soi_2_Soi_1;Soissons;Soissons;2;Soi_Soi_2;Pure;21_K2;21;K2;LM1_1_3
+Soi_Soi_2_Soi_2;Soissons;Soissons;2;Soi_Soi_2;Pure;21_K2;21;K2;LM1_1_3
+Tit_Tit_2_Tit_1;Titlis;Titlis;2;Tit_Tit_2;Pure;21_K2;21;K2;LM1_1_3
+Tit_Tit_2_Tit_2;Titlis;Titlis;2;Tit_Tit_2;Pure;21_K2;21;K2;LM1_1_3
+Tit_Cad_1_Tit_1;Cadenza;Titlis;1;Tit_Cad_1;Mix;21_K2;21;K2;LM1_1_3
+Tit_Cad_1_Cad_2;Titlis;Cadenza;1;Tit_Cad_1;Mix;21_K2;21;K2;LM1_1_3
+Tit_LGA_1_Tit_1;LGAbsalon;Titlis;1;Tit_LGA_1;Mix;21_K2;21;K2;LM1_1_3
+Tit_LGA_1_LGA_2;Titlis;LGAbsalon;1;Tit_LGA_1;Mix;21_K2;21;K2;LM1_1_3
+Tit_Rec_4_Tit_1;Récital;Titlis;4;Tit_Réc_4;Mix;21_K2;21;K2;LM1_1_3
+Tit_Rec_4_Rec_2;Titlis;Récital;4;Tit_Réc_4;Mix;21_K2;21;K2;LM1_1_3
+Tit_Ber_1_Tit_1;Bergamo;Titlis;1;Tit_Ber_1;Mix;21_K2;21;K2;LM1_1_3
+Tit_Ber_1_Ber_2;Titlis;Bergamo;1;Tit_Ber_1;Mix;21_K2;21;K2;LM1_1_3
+Tit_Apa_4_Tit_1;Apache;Titlis;4;Tit_Apa_4;Mix;21_K2;21;K2;LM1_1_3
+Tit_Apa_4_Apa_2;Titlis;Apache;4;Tit_Apa_4;Mix;21_K2;21;K2;LM1_1_3
+Tit_Acc_4_Tit_1;Accroc;Titlis;4;Tit_Acc_4;Mix;21_K2;21;K2;LM1_1_3
+Tit_Acc_4_Acc_2;Titlis;Accroc;4;Tit_Acc_4;Mix;21_K2;21;K2;LM1_1_3
+Fru_Bob_3_Fru_1;Bobwhite ;Fructidor;3;Fru_Bob_3;Mix;21_K2;21;K2;LM1_1_3
+Fru_Bob_3_Bob_2;Fructidor;Bobwhite ;3;Fru_Bob_3;Mix;21_K2;21;K2;LM1_1_3
+Fru_Bob_4_Fru_1;Bobwhite ;Fructidor;4;Fru_Bob_4;Mix;21_K2;21;K2;LM1_1_3
+Fru_Bob_4_Bob_2;Fructidor;Bobwhite ;4;Fru_Bob_4;Mix;21_K2;21;K2;LM1_1_3
+Fru_SYM_2_Fru_1;SYMattis;Fructidor;2;Fru_SYM_2;Mix;21_K2;21;K2;LM1_1_3
+Fru_SYM_2_SYM_2;Fructidor;SYMattis;2;Fru_SYM_2;Mix;21_K2;21;K2;LM1_1_3
+Apa_Acc_2_Apa_1;Accroc;Apache;2;Apa_Acc_2;Mix;21_K2;21;K2;LM1_1_3
+Apa_Acc_2_Acc_2;Apache;Accroc;2;Apa_Acc_2;Mix;21_K2;21;K2;LM1_1_3
+Apa_Acc_3_Apa_1;Accroc;Apache;3;Apa_Acc_3;Mix;21_K2;21;K2;LM1_1_3
+Apa_Acc_3_Acc_2;Apache;Accroc;3;Apa_Acc_3;Mix;21_K2;21;K2;LM1_1_3
+Apa_Rub_1_Apa_1;Rubisko;Apache;1;Apa_Rub_1;Mix;21_K2;21;K2;LM1_1_3
+Apa_Rub_1_Rub_2;Apache;Rubisko;1;Apa_Rub_1;Mix;21_K2;21;K2;LM1_1_3
+Ven_Ven_9_Ven_1;Venezio;Venezio;9;Ven_Ven_9;Pure ;21_K2;21;K2;LM1_1_3
+Ven_Ven_9_Ven_2;Venezio;Venezio;9;Ven_Ven_9;Pure ;21_K2;21;K2;LM1_1_3
+Soi_Soi_3_Soi_1;Soissons;Soissons;3;Soi_Soi_3;Pure;22_E1;22;E1;LM1_1_3
+Soi_Soi_3_Soi_2;Soissons;Soissons;3;Soi_Soi_3;Pure;22_E1;22;E1;LM1_1_3
+Chi_Tit_4_Chi_1;Titlis;Chinese spring;4;Chi_Tit_4;Mix;22_E1;22;E1;LM1_1_3
+Chi_Tit_4_Tit_2;Chinese spring;Titlis;4;Chi_Tit_4;Mix;22_E1;22;E1;LM1_1_3
+Tit_Cad_3_Tit_1;Cadenza;Titlis;3;Tit_Cad_3;Mix;22_E1;22;E1;LM1_1_3
+Tit_Cad_3_Cad_2;Titlis;Cadenza;3;Tit_Cad_3;Mix;22_E1;22;E1;LM1_1_3
+Tit_Rec_2_Tit_1;Récital;Titlis;2;Tit_Réc_2;Mix;22_E1;22;E1;LM1_1_3
+Tit_Rec_2_Rec_2;Titlis;Récital;2;Tit_Réc_2;Mix;22_E1;22;E1;LM1_1_3
+Tit_Ber_3_Tit_1;Bergamo;Titlis;3;Tit_Ber_3;Mix;22_E1;22;E1;LM1_1_3
+Tit_Ber_3_Ber_2;Titlis;Bergamo;3;Tit_Ber_3;Mix;22_E1;22;E1;LM1_1_3
+Tit_Ber_4_Tit_1;Bergamo;Titlis;4;Tit_Ber_4;Mix;22_E1;22;E1;LM1_1_3
+Tit_Ber_4_Ber_2;Titlis;Bergamo;4;Tit_Ber_4;Mix;22_E1;22;E1;LM1_1_3
+Tit_Apa_3_Tit_1;Apache;Titlis;3;Tit_Apa_3;Mix;22_E1;22;E1;LM1_1_3
+Tit_Apa_3_Apa_2;Titlis;Apache;3;Tit_Apa_3;Mix;22_E1;22;E1;LM1_1_3
+Gha_Acc_1_Gha_1;Accroc;Ghayta;1;Gha_Acc_1;Mix;22_E1;22;E1;LM1_1_3
+Gha_Acc_1_Acc_2;Ghayta;Accroc;1;Gha_Acc_1;Mix;22_E1;22;E1;LM1_1_3
+Fru_Fru_1_Fru_1;Fructidor;Fructidor;1;Fru_Fru_1;Pure ;22_E1;22;E1;LM1_1_3
+Fru_Fru_1_Fru_2;Fructidor;Fructidor;1;Fru_Fru_1;Pure ;22_E1;22;E1;LM1_1_3
+Fru_Fru_2_Fru_1;Fructidor;Fructidor;2;Fru_Fru_2;Pure ;22_E1;22;E1;LM1_1_3
+Fru_Fru_2_Fru_2;Fructidor;Fructidor;2;Fru_Fru_2;Pure ;22_E1;22;E1;LM1_1_3
+Fru_Acc_2_Fru_1;Accroc;Fructidor;2;Fru_Acc_2;Mix;22_E1;22;E1;LM1_1_3
+Fru_Acc_2_Acc_2;Fructidor;Accroc;2;Fru_Acc_2;Mix;22_E1;22;E1;LM1_1_3
+Bob_Acc_3_Bob_1;Accroc;Bobwhite ;3;Bob_Acc_3;Mix;22_E1;22;E1;LM1_1_3
+Bob_Acc_3_Acc_2;Bobwhite ;Accroc;3;Bob_Acc_3;Mix;22_E1;22;E1;LM1_1_3
+Apa_Acc_1_Apa_1;Accroc;Apache;1;Apa_Acc_1;Mix ;22_E1;22;E1;LM1_1_3
+Apa_Acc_1_Acc_2;Apache;Accroc;1;Apa_Acc_1;Mix;22_E1;22;E1;LM1_1_3
+Apa_Rub_4_Apa_1;Rubisko;Apache;4;Apa_Rub_4;Mix;22_E1;22;E1;LM1_1_3
+Apa_Rub_4_Rub_2;Apache;Rubisko;4;Apa_Rub_4;Mix;22_E1;22;E1;LM1_1_3
+Acc_Rub_3_Acc_1;Rubisko;Accroc;3;Acc_Rub_3;Mix;22_E1;22;E1;LM1_1_3
+Acc_Rub_3_Rub_2;Accroc;Rubisko;3;Acc_Rub_3;Mix;22_E1;22;E1;LM1_1_3
+Soi_Tit_4_Soi_1;Titlis;Soissons;4;Soi_Tit_4;Mix;23_A4;23;A4;LM1_1_3
+Soi_Tit_4_Tit_2;Soissons;Titlis;4;Soi_Tit_4;Mix;23_A4;23;A4;LM1_1_3
+Chi_Tit_3_Chi_1;Titlis;Chinese spring;3;Chi_Tit_3;Mix;23_A4;23;A4;LM1_1_3
+Chi_Tit_3_Tit_2;Chinese spring;Titlis;3;Chi_Tit_3;Mix;23_A4;23;A4;LM1_1_3
+Tit_Tit_3_Tit_1;Titlis;Titlis;3;Tit_Tit_3;Pure;23_A4;23;A4;LM1_1_3
+Tit_Tit_3_Tit_2;Titlis;Titlis;3;Tit_Tit_3;Pure;23_A4;23;A4;LM1_1_3
+Fru_Fru_4_Fru_1;Fructidor;Fructidor;4;Fru_Fru_4;Pure ;23_A4;23;A4;LM1_1_3
+Fru_Fru_4_Fru_2;Fructidor;Fructidor;4;Fru_Fru_4;Pure ;23_A4;23;A4;LM1_1_3
+Fru_SYM_4_Fru_1;SYMattis;Fructidor;4;Fru_SYM_4;Mix;23_A4;23;A4;LM1_1_3
+Fru_SYM_4_SYM_2;Fructidor;SYMattis;4;Fru_SYM_4;Mix;23_A4;23;A4;LM1_1_3
+Fru_Apa_2_Fru_1;Apache;Fructidor;2;Fru_Apa_2;Mix;23_A4;23;A4;LM1_1_3
+Fru_Apa_2_Apa_2;Fructidor;Apache;2;Fru_Apa_2;Mix;23_A4;23;A4;LM1_1_3
+Fru_Acc_3_Fru_1;Accroc;Fructidor;3;Fru_Acc_3;Mix;23_A4;23;A4;LM1_1_3
+Fru_Acc_3_Acc_2;Fructidor;Accroc;3;Fru_Acc_3;Mix;23_A4;23;A4;LM1_1_3
+Fru_Rub_1_Fru_1;Rubisko;Fructidor;1;Fru_Rub_1;Mix;23_A4;23;A4;LM1_1_3
+Fru_Rub_1_Rub_2;Fructidor;Rubisko;1;Fru_Rub_1;Mix;23_A4;23;A4;LM1_1_3
+Bob_Rub_4_Bob_1;Rubisko;Bobwhite ;4;Bob_Rub_4;Mix;23_A4;23;A4;LM1_1_3
+Bob_Rub_4_Rub_2;Bobwhite ;Rubisko;4;Bob_Rub_4;Mix;23_A4;23;A4;LM1_1_3
+SYM_SYM_1_SYM_1;SYMattis;SYMattis;1;SYM_SYM_1;Pure ;23_A4;23;A4;LM1_1_3
+SYM_SYM_1_SYM_2;SYMattis;SYMattis;1;SYM_SYM_1;Pure ;23_A4;23;A4;LM1_1_3
+SYM_Rub_1_SYM_1;Rubisko;SYMattis;1;SYM_Rub_1;Mix ;23_A4;23;A4;LM1_1_3
+SYM_Rub_1_Rub_2;SYMattis;Rubisko;1;SYM_Rub_1;Mix ;23_A4;23;A4;LM1_1_3
+Acc_Rub_1_Acc_1;Rubisko;Accroc;1;Acc_Rub_1;Mix ;23_A4;23;A4;LM1_1_3
+Acc_Rub_1_Rub_2;Accroc;Rubisko;1;Acc_Rub_1;Mix;23_A4;23;A4;LM1_1_3
+Rub_Rub_2_Rub_1;Rubisko;Rubisko;2;Rub_Rub_2;Pure ;23_A4;23;A4;LM1_1_3
+Rub_Rub_2_Rub_2;Rubisko;Rubisko;2;Rub_Rub_2;Pure ;23_A4;23;A4;LM1_1_3
+Rub_Rub_3_Rub_1;Rubisko;Rubisko;3;Rub_Rub_3;Pure ;23_A4;23;A4;LM1_1_3
+Rub_Rub_3_Rub_2;Rubisko;Rubisko;3;Rub_Rub_3;Pure ;23_A4;23;A4;LM1_1_3
+Ven_Ven_8_Ven_1;Venezio;Venezio;8;Ven_Ven_8;Pure ;23_A4;23;A4;LM1_1_3
+Ven_Ven_8_Ven_2;Venezio;Venezio;8;Ven_Ven_8;Pure ;23_A4;23;A4;LM1_1_3
+Tit_Fru_1_Tit_1;Fructidor;Titlis;1;Tit_Fru_1;Mix;24_B1;24;B1;LM1_1_3
+Tit_Fru_1_Fru_2;Titlis;Fructidor;1;Tit_Fru_1;Mix;24_B1;24;B1;LM1_1_3
+Tit_Fru_3_Tit_1;Fructidor;Titlis;3;Tit_Fru_3;Mix;24_B1;24;B1;LM1_1_3
+Tit_Fru_3_Fru_2;Titlis;Fructidor;3;Tit_Fru_3;Mix;24_B1;24;B1;LM1_1_3
+Tit_Bob_2_Tit_1;Bobwhite ;Titlis;2;Tit_Bob_2;Mix;24_B1;24;B1;LM1_1_3
+Tit_Bob_2_Bob_2;Titlis;Bobwhite ;2;Tit_Bob_2;Mix;24_B1;24;B1;LM1_1_3
+Tit_SYM_3_Tit_1;SYMattis;Titlis;3;Tit_SYM_3;Mix;24_B1;24;B1;LM1_1_3
+Tit_SYM_3_SYM_2;Titlis;SYMattis;3;Tit_SYM_3;Mix;24_B1;24;B1;LM1_1_3
+Tit_Acc_1_Tit_1;Accroc;Titlis;1;Tit_Acc_1;Mix;24_B1;24;B1;LM1_1_3
+Tit_Acc_1_Acc_2;Titlis;Accroc;1;Tit_Acc_1;Mix;24_B1;24;B1;LM1_1_3
+Tit_Acc_2_Tit_1;Accroc;Titlis;2;Tit_Acc_2;Mix;24_B1;24;B1;LM1_1_3
+Tit_Acc_2_Acc_2;Titlis;Accroc;2;Tit_Acc_2;Mix;24_B1;24;B1;LM1_1_3
+Tit_Rub_2_Tit_1;Rubisko;Titlis;2;Tit_Rub_2;Mix;24_B1;24;B1;LM1_1_3
+Tit_Rub_2_Rub_2;Titlis;Rubisko;2;Tit_Rub_2;Mix;24_B1;24;B1;LM1_1_3
+Gha_Rub_2_Gha_1;Rubisko;Ghayta;2;Gha_Rub_2;Mix;24_B1;24;B1;LM1_1_3
+Gha_Rub_2_Rub_2;Ghayta;Rubisko;2;Gha_Rub_2;Mix;24_B1;24;B1;LM1_1_3
+Gha_Rub_3_Gha_1;Rubisko;Ghayta;3;Gha_Rub_3;Mix;24_B1;24;B1;LM1_1_3
+Gha_Rub_3_Rub_2;Ghayta;Rubisko;3;Gha_Rub_3;Mix;24_B1;24;B1;LM1_1_3
+Fru_SYM_3_Fru_1;SYMattis;Fructidor;3;Fru_SYM_3;Mix;24_B1;24;B1;LM1_1_3
+Fru_SYM_3_SYM_2;Fructidor;SYMattis;3;Fru_SYM_3;Mix;24_B1;24;B1;LM1_1_3
+Fru_Rub_3_Fru_1;Rubisko;Fructidor;3;Fru_Rub_3;Mix;24_B1;24;B1;LM1_1_3
+Fru_Rub_3_Rub_2;Fructidor;Rubisko;3;Fru_Rub_3;Mix;24_B1;24;B1;LM1_1_3
+Fru_Rub_4_Fru_1;Rubisko;Fructidor;4;Fru_Rub_4;Mix;24_B1;24;B1;LM1_1_3
+Fru_Rub_4_Rub_2;Fructidor;Rubisko;4;Fru_Rub_4;Mix;24_B1;24;B1;LM1_1_3
+Bob_SYM_3_Bob_1;SYMattis;Bobwhite ;3;Bob_SYM_3;Mix;24_B1;24;B1;LM1_1_3
+Bob_SYM_3_SYM_2;Bobwhite ;SYMattis;3;Bob_SYM_3;Mix;24_B1;24;B1;LM1_1_3
+Rub_Rub_1_Rub_1;Rubisko;Rubisko;1;Rub_Rub_1;Pure ;24_B1;24;B1;LM1_1_3
+Rub_Rub_1_Rub_2;Rubisko;Rubisko;1;Rub_Rub_1;Pure ;24_B1;24;B1;LM1_1_3
+Gen_Gen_12_Gen_1;Geny (AB);Geny (AB);12;Gen_Gen_12;Pure ;24_B1;24;B1;LM1_1_3
+Gen_Gen_12_Gen_2;Geny (AB);Geny (AB);12;Gen_Gen_12;Pure ;24_B1;24;B1;LM1_1_3
+Soi_Soi_1_Soi_1;Soissons;Soissons;1;Soi_Soi_1;Pure;25_D1;25;D1;LM1_1_3
+Soi_Soi_1_Soi_2;Soissons;Soissons;1;Soi_Soi_1;Pure;25_D1;25;D1;LM1_1_3
+Tit_Cad_2_Tit_1;Cadenza;Titlis;2;Tit_Cad_2;Mix;25_D1;25;D1;LM1_1_3
+Tit_Cad_2_Cad_2;Titlis;Cadenza;2;Tit_Cad_2;Mix;25_D1;25;D1;LM1_1_3
+Tit_Gha_4_Tit_1;Ghayta;Titlis;4;Tit_Gha_4;Mix;25_D1;25;D1;LM1_1_3
+Tit_Gha_4_Gha_2;Titlis;Ghayta;4;Tit_Gha_4;Mix;25_D1;25;D1;LM1_1_3
+Tit_SYM_1_Tit_1;SYMattis;Titlis;1;Tit_SYM_1;Mix;25_D1;25;D1;LM1_1_3
+Tit_SYM_1_SYM_2;Titlis;SYMattis;1;Tit_SYM_1;Mix;25_D1;25;D1;LM1_1_3
+Tit_Apa_1_Tit_1;Apache;Titlis;1;Tit_Apa_1;Mix;25_D1;25;D1;LM1_1_3
+Tit_Apa_1_Apa_2;Titlis;Apache;1;Tit_Apa_1;Mix;25_D1;25;D1;LM1_1_3
+Tit_Acc_3_Tit_1;Accroc;Titlis;3;Tit_Acc_3;Mix;25_D1;25;D1;LM1_1_3
+Tit_Acc_3_Acc_2;Titlis;Accroc;3;Tit_Acc_3;Mix;25_D1;25;D1;LM1_1_3
+Gha_Acc_3_Gha_1;Accroc;Ghayta;3;Gha_Acc_3;Mix;25_D1;25;D1;LM1_1_3
+Gha_Acc_3_Acc_2;Ghayta;Accroc;3;Gha_Acc_3;Mix;25_D1;25;D1;LM1_1_3
+Fru_Acc_1_Fru_1;Accroc;Fructidor;1;Fru_Acc_1;Mix;25_D1;25;D1;LM1_1_3
+Fru_Acc_1_Acc_2;Fructidor;Accroc;1;Fru_Acc_1;Mix;25_D1;25;D1;LM1_1_3
+Bob_Apa_3_Bob_1;Apache;Bobwhite ;3;Bob_Apa_3;Mix;25_D1;25;D1;LM1_1_3
+Bob_Apa_3_Apa_2;Bobwhite ;Apache;3;Bob_Apa_3;Mix;25_D1;25;D1;LM1_1_3
+Bob_Acc_4_Bob_1;Accroc;Bobwhite ;4;Bob_Acc_4;Mix;25_D1;25;D1;LM1_1_3
+Bob_Acc_4_Acc_2;Bobwhite ;Accroc;4;Bob_Acc_4;Mix;25_D1;25;D1;LM1_1_3
+SYM_Apa_2_SYM_1;Apache;SYMattis;2;SYM_Apa_2;Mix ;25_D1;25;D1;LM1_1_3
+SYM_Apa_2_Apa_2;SYMattis;Apache;2;SYM_Apa_2;Mix ;25_D1;25;D1;LM1_1_3
+SYM_Apa_3_SYM_1;Apache;SYMattis;3;SYM_Apa_3;Mix ;25_D1;25;D1;LM1_1_3
+SYM_Apa_3_Apa_2;SYMattis;Apache;3;SYM_Apa_3;Mix ;25_D1;25;D1;LM1_1_3
+SYM_Apa_4_SYM_1;Apache;SYMattis;4;SYM_Apa_4;Mix ;25_D1;25;D1;LM1_1_3
+SYM_Apa_4_Apa_2;SYMattis;Apache;4;SYM_Apa_4;Mix ;25_D1;25;D1;LM1_1_3
+Acc_Acc_4_Acc_1;Accroc;Accroc;4;Acc_Acc_4;Pure ;25_D1;25;D1;LM1_1_3
+Acc_Acc_4_Acc_2;Accroc;Accroc;4;Acc_Acc_4;Pure ;25_D1;25;D1;LM1_1_3
+Gen_Gen_13_Gen_1;Geny (AB);Geny (AB);13;Gen_Gen_13;Pure ;25_D1;25;D1;LM1_1_3
+Gen_Gen_13_Gen_2;Geny (AB);Geny (AB);13;Gen_Gen_13;Pure ;25_D1;25;D1;LM1_1_3
+Soi_Tit_2_Soi_1;Titlis;Soissons;2;Soi_Tit_2;Mix;26_N1;26;N1;LM1_1_3
+Soi_Tit_2_Tit_2;Soissons;Titlis;2;Soi_Tit_2;Mix;26_N1;26;N1;LM1_1_3
+Tit_Tit_1_Tit_1;Titlis;Titlis;1;Tit_Tit_1;Pure;26_N1;26;N1;LM1_1_3
+Tit_Tit_1_Tit_2;Titlis;Titlis;1;Tit_Tit_1;Pure;26_N1;26;N1;LM1_1_3
+Tit_Rec_1_Tit_1;Récital;Titlis;1;Tit_Réc_1;Mix;26_N1;26;N1;LM1_1_3
+Tit_Rec_1_Rec_2;Titlis;Récital;1;Tit_Réc_1;Mix;26_N1;26;N1;LM1_1_3
+Tit_Rec_3_Tit_1;Récital;Titlis;3;Tit_Réc_3;Mix;26_N1;26;N1;LM1_1_3
+Tit_Rec_3_Rec_2;Titlis;Récital;3;Tit_Réc_3;Mix;26_N1;26;N1;LM1_1_3
+Tit_Fru_4_Tit_1;Fructidor;Titlis;4;Tit_Fru_4;Mix;26_N1;26;N1;LM1_1_3
+Tit_Fru_4_Fru_2;Titlis;Fructidor;4;Tit_Fru_4;Mix;26_N1;26;N1;LM1_1_3
+Tit_SYM_4_Tit_1;SYMattis;Titlis;4;Tit_SYM_4;Mix;26_N1;26;N1;LM1_1_3
+Tit_SYM_4_SYM_2;Titlis;SYMattis;4;Tit_SYM_4;Mix;26_N1;26;N1;LM1_1_3
+Tit_Apa_2_Tit_1;Apache;Titlis;2;Tit_Apa_2;Mix;26_N1;26;N1;LM1_1_3
+Tit_Apa_2_Apa_2;Titlis;Apache;2;Tit_Apa_2;Mix;26_N1;26;N1;LM1_1_3
+Tit_Rub_4_Tit_1;Rubisko;Titlis;4;Tit_Rub_4;Mix;26_N1;26;N1;LM1_1_3
+Tit_Rub_4_Rub_2;Titlis;Rubisko;4;Tit_Rub_4;Mix;26_N1;26;N1;LM1_1_3
+Fru_Bob_1_Fru_1;Bobwhite ;Fructidor;1;Fru_Bob_1;Mix ;26_N1;26;N1;LM1_1_3
+Fru_Bob_1_Bob_2;Fructidor;Bobwhite ;1;Fru_Bob_1;Mix;26_N1;26;N1;LM1_1_3
+Bob_Bob_3_Bob_1;Bobwhite ;Bobwhite ;3;Bob_Bob_3;Pure ;26_N1;26;N1;LM1_1_3
+Bob_Bob_3_Bob_2;Bobwhite ;Bobwhite ;3;Bob_Bob_3;Pure ;26_N1;26;N1;LM1_1_3
+SYM_Apa_1_SYM_1;Apache;SYMattis;1;SYM_Apa_1;Mix ;26_N1;26;N1;LM1_1_3
+SYM_Apa_1_Apa_2;SYMattis;Apache;1;SYM_Apa_1;Mix ;26_N1;26;N1;LM1_1_3
+Apa_Rub_3_Apa_1;Rubisko;Apache;3;Apa_Rub_3;Mix;26_N1;26;N1;LM1_1_3
+Apa_Rub_3_Rub_2;Apache;Rubisko;3;Apa_Rub_3;Mix;26_N1;26;N1;LM1_1_3
+Acc_Acc_1_Acc_1;Accroc;Accroc;1;Acc_Acc_1;Pure ;26_N1;26;N1;LM1_1_3
+Acc_Acc_1_Acc_2;Accroc;Accroc;1;Acc_Acc_1;Pure ;26_N1;26;N1;LM1_1_3
+Acc_Acc_3_Acc_1;Accroc;Accroc;3;Acc_Acc_3;Pure ;26_N1;26;N1;LM1_1_3
+Acc_Acc_3_Acc_2;Accroc;Accroc;3;Acc_Acc_3;Pure ;26_N1;26;N1;LM1_1_3
+Ven_Ven_10_Ven_1;Venezio;Venezio;10;Ven_Ven_10;Pure ;26_N1;26;N1;LM1_1_3
+Ven_Ven_10_Ven_2;Venezio;Venezio;10;Ven_Ven_10;Pure ;26_N1;26;N1;LM1_1_3
+Soi_Tit_1_Soi_1;Titlis;Soissons;1;Soi_Tit_1;Mix;27_K3;27;K3;LM1_1_3
+Soi_Tit_1_Tit_2;Soissons;Titlis;1;Soi_Tit_1;Mix;27_K3;27;K3;LM1_1_3
+Chi_Tit_2_Chi_1;Titlis;Chinese spring;2;Chi_Tit_2;Mix;27_K3;27;K3;LM1_1_3
+Chi_Tit_2_Tit_2;Chinese spring;Titlis;2;Chi_Tit_2;Mix;27_K3;27;K3;LM1_1_3
+Tit_Tit_4_Tit_1;Titlis;Titlis;4;Tit_Tit_4;Pure;27_K3;27;K3;LM1_1_3
+Tit_Tit_4_Tit_2;Titlis;Titlis;4;Tit_Tit_4;Pure;27_K3;27;K3;LM1_1_3
+Tit_LGA_2_Tit_1;LGAbsalon;Titlis;2;Tit_LGA_2;Mix;27_K3;27;K3;LM1_1_3
+Tit_LGA_2_LGA_2;Titlis;LGAbsalon;2;Tit_LGA_2;Mix;27_K3;27;K3;LM1_1_3
+Tit_Bob_1_Tit_1;Bobwhite ;Titlis;1;Tit_Bob_1;Mix;27_K3;27;K3;LM1_1_3
+Tit_Bob_1_Bob_2;Titlis;Bobwhite ;1;Tit_Bob_1;Mix;27_K3;27;K3;LM1_1_3
+Tit_SYM_2_Tit_1;SYMattis;Titlis;2;Tit_SYM_2;Mix;27_K3;27;K3;LM1_1_3
+Tit_SYM_2_SYM_2;Titlis;SYMattis;2;Tit_SYM_2;Mix;27_K3;27;K3;LM1_1_3
+Gha_Rub_4_Gha_1;Rubisko;Ghayta;4;Gha_Rub_4;Mix;27_K3;27;K3;LM1_1_3
+Gha_Rub_4_Rub_2;Ghayta;Rubisko;4;Gha_Rub_4;Mix;27_K3;27;K3;LM1_1_3
+Bob_SYM_2_Bob_1;SYMattis;Bobwhite ;2;Bob_SYM_2;Mix;27_K3;27;K3;LM1_1_3
+Bob_SYM_2_SYM_2;Bobwhite ;SYMattis;2;Bob_SYM_2;Mix;27_K3;27;K3;LM1_1_3
+Bob_SYM_4_Bob_1;SYMattis;Bobwhite ;4;Bob_SYM_4;Mix;27_K3;27;K3;LM1_1_3
+Bob_SYM_4_SYM_2;Bobwhite ;SYMattis;4;Bob_SYM_4;Mix;27_K3;27;K3;LM1_1_3
+Bob_Acc_2_Bob_1;Accroc;Bobwhite ;2;Bob_Acc_2;Mix;27_K3;27;K3;LM1_1_3
+Bob_Acc_2_Acc_2;Bobwhite ;Accroc;2;Bob_Acc_2;Mix;27_K3;27;K3;LM1_1_3
+SYM_SYM_3_SYM_1;SYMattis;SYMattis;3;SYM_SYM_3;Pure ;27_K3;27;K3;LM1_1_3
+SYM_SYM_3_SYM_2;SYMattis;SYMattis;3;SYM_SYM_3;Pure ;27_K3;27;K3;LM1_1_3
+Acc_Acc_2_Acc_1;Accroc;Accroc;2;Acc_Acc_2;Pure ;27_K3;27;K3;LM1_1_3
+Acc_Acc_2_Acc_2;Accroc;Accroc;2;Acc_Acc_2;Pure ;27_K3;27;K3;LM1_1_3
+Rub_Rub_4_Rub_1;Rubisko;Rubisko;4;Rub_Rub_4;Pure ;27_K3;27;K3;LM1_1_3
+Rub_Rub_4_Rub_2;Rubisko;Rubisko;4;Rub_Rub_4;Pure ;27_K3;27;K3;LM1_1_3
+Gen_Gen_14_Gen_1;Geny (AB);Geny (AB);14;Gen_Gen_14;Pure ;27_K3;27;K3;LM1_1_3
+Gen_Gen_14_Gen_2;Geny (AB);Geny (AB);14;Gen_Gen_14;Pure ;27_K3;27;K3;LM1_1_3
+Cen_Cen_12_Cen_1;Centurion;Centurion;12;Cen_Cen_12;Pure ;27_K3;27;K3;LM1_1_3
+Cen_Cen_12_Cen_2;Centurion;Centurion;12;Cen_Cen_12;Pure ;27_K3;27;K3;LM1_1_3
+Soi_Chi_4_Soi_1;Chinese spring;Soissons;4;Soi_Chi_4;Mix;28_C2;28;C2;LM1_1_3
+Soi_Chi_4_Chi_2;Soissons;Chinese spring;4;Soi_Chi_4;Mix;28_C2;28;C2;LM1_1_3
+Chi_Chi_4_Chi_1;Chinese spring;Chinese spring;4;Chi_Chi_4;Pure;28_C2;28;C2;LM1_1_3
+Chi_Chi_4_Chi_2;Chinese spring;Chinese spring;4;Chi_Chi_4;Pure;28_C2;28;C2;LM1_1_3
+Tit_Gha_1_Tit_1;Ghayta;Titlis;1;Tit_Gha_1;Mix;28_C2;28;C2;LM1_1_3
+Tit_Gha_1_Gha_2;Titlis;Ghayta;1;Tit_Gha_1;Mix;28_C2;28;C2;LM1_1_3
+Tit_Rub_1_Tit_1;Rubisko;Titlis;1;Tit_Rub_1;Mix;28_C2;28;C2;LM1_1_3
+Tit_Rub_1_Rub_2;Titlis;Rubisko;1;Tit_Rub_1;Mix;28_C2;28;C2;LM1_1_3
+Gha_Acc_2_Gha_1;Accroc;Ghayta;2;Gha_Acc_2;Mix;28_C2;28;C2;LM1_1_3
+Gha_Acc_2_Acc_2;Ghayta;Accroc;2;Gha_Acc_2;Mix;28_C2;28;C2;LM1_1_3
+Fru_Bob_2_Fru_1;Bobwhite ;Fructidor;2;Fru_Bob_2;Mix;28_C2;28;C2;LM1_1_3
+Fru_Bob_2_Bob_2;Fructidor;Bobwhite ;2;Fru_Bob_2;Mix;28_C2;28;C2;LM1_1_3
+Fru_Apa_4_Fru_1;Apache;Fructidor;4;Fru_Apa_4;Mix;28_C2;28;C2;LM1_1_3
+Fru_Apa_4_Apa_2;Fructidor;Apache;4;Fru_Apa_4;Mix;28_C2;28;C2;LM1_1_3
+Fru_Rub_2_Fru_1;Rubisko;Fructidor;2;Fru_Rub_2;Mix;28_C2;28;C2;LM1_1_3
+Fru_Rub_2_Rub_2;Fructidor;Rubisko;2;Fru_Rub_2;Mix;28_C2;28;C2;LM1_1_3
+Bob_Apa_4_Bob_1;Apache;Bobwhite ;4;Bob_Apa_4;Mix;28_C2;28;C2;LM1_1_3
+Bob_Apa_4_Apa_2;Bobwhite ;Apache;4;Bob_Apa_4;Mix;28_C2;28;C2;LM1_1_3
+Bob_Rub_3_Bob_1;Rubisko;Bobwhite ;3;Bob_Rub_3;Mix;28_C2;28;C2;LM1_1_3
+Bob_Rub_3_Rub_2;Bobwhite ;Rubisko;3;Bob_Rub_3;Mix;28_C2;28;C2;LM1_1_3
+SYM_SYM_2_SYM_1;SYMattis;SYMattis;2;SYM_SYM_2;Pure ;28_C2;28;C2;LM1_1_3
+SYM_SYM_2_SYM_2;SYMattis;SYMattis;2;SYM_SYM_2;Pure ;28_C2;28;C2;LM1_1_3
+SYM_Acc_1_SYM_1;Accroc;SYMattis;1;SYM_Acc_1;Mix ;28_C2;28;C2;LM1_1_3
+SYM_Acc_1_Acc_2;SYMattis;Accroc;1;SYM_Acc_1;Mix ;28_C2;28;C2;LM1_1_3
+SYM_Acc_2_SYM_1;Accroc;SYMattis;2;SYM_Acc_2;Mix ;28_C2;28;C2;LM1_1_3
+SYM_Acc_2_Acc_2;SYMattis;Accroc;2;SYM_Acc_2;Mix ;28_C2;28;C2;LM1_1_3
+SYM_Rub_3_SYM_1;Rubisko;SYMattis;3;SYM_Rub_3;Mix ;28_C2;28;C2;LM1_1_3
+SYM_Rub_3_Rub_2;SYMattis;Rubisko;3;SYM_Rub_3;Mix ;28_C2;28;C2;LM1_1_3
+Apa_Acc_4_Apa_1;Accroc;Apache;4;Apa_Acc_4;Mix;28_C2;28;C2;LM1_1_3
+Apa_Acc_4_Acc_2;Apache;Accroc;4;Apa_Acc_4;Mix;28_C2;28;C2;LM1_1_3
+Soi_Soi_4_Soi_1;Soissons;Soissons;4;Soi_Soi_4;Pure;29_J3;29;J3;LM1_1_3
+Soi_Soi_4_Soi_2;Soissons;Soissons;4;Soi_Soi_4;Pure;29_J3;29;J3;LM1_1_3
+Soi_Chi_3_Soi_1;Chinese spring;Soissons;3;Soi_Chi_3;Mix;29_J3;29;J3;LM1_1_3
+Soi_Chi_3_Chi_2;Soissons;Chinese spring;3;Soi_Chi_3;Mix;29_J3;29;J3;LM1_1_3
+Chi_Chi_2_Chi_1;Chinese spring;Chinese spring;2;Chi_Chi_2;Pure;29_J3;29;J3;LM1_1_3
+Chi_Chi_2_Chi_2;Chinese spring;Chinese spring;2;Chi_Chi_2;Pure;29_J3;29;J3;LM1_1_3
+Tit_LGA_3_Tit_1;LGAbsalon;Titlis;3;Tit_LGA_3;Mix;29_J3;29;J3;LM1_1_3
+Tit_LGA_3_LGA_2;Titlis;LGAbsalon;3;Tit_LGA_3;Mix;29_J3;29;J3;LM1_1_3
+Tit_Gha_2_Tit_1;Ghayta;Titlis;2;Tit_Gha_2;Mix;29_J3;29;J3;LM1_1_3
+Tit_Gha_2_Gha_2;Titlis;Ghayta;2;Tit_Gha_2;Mix;29_J3;29;J3;LM1_1_3
+Tit_Gha_3_Tit_1;Ghayta;Titlis;3;Tit_Gha_3;Mix;29_J3;29;J3;LM1_1_3
+Tit_Gha_3_Gha_2;Titlis;Ghayta;3;Tit_Gha_3;Mix;29_J3;29;J3;LM1_1_3
+Gha_Acc_4_Gha_1;Accroc;Ghayta;4;Gha_Acc_4;Mix;29_J3;29;J3;LM1_1_3
+Gha_Acc_4_Acc_2;Ghayta;Accroc;4;Gha_Acc_4;Mix;29_J3;29;J3;LM1_1_3
+Bob_Rub_1_Bob_1;Rubisko;Bobwhite ;1;Bob_Rub_1;Mix;29_J3;29;J3;LM1_1_3
+Bob_Rub_1_Rub_2;Bobwhite ;Rubisko;1;Bob_Rub_1;Mix;29_J3;29;J3;LM1_1_3
+Bob_Rub_2_Bob_1;Rubisko;Bobwhite ;2;Bob_Rub_2;Mix;29_J3;29;J3;LM1_1_3
+Bob_Rub_2_Rub_2;Bobwhite ;Rubisko;2;Bob_Rub_2;Mix;29_J3;29;J3;LM1_1_3
+SYM_Acc_3_SYM_1;Accroc;SYMattis;3;SYM_Acc_3;Mix ;29_J3;29;J3;LM1_1_3
+SYM_Acc_3_Acc_2;SYMattis;Accroc;3;SYM_Acc_3;Mix ;29_J3;29;J3;LM1_1_3
+Apa_Apa_1_Apa_1;Apache;Apache;1;Apa_Apa_1;Pure ;29_J3;29;J3;LM1_1_3
+Apa_Apa_1_Apa_2;Apache;Apache;1;Apa_Apa_1;Pure ;29_J3;29;J3;LM1_1_3
+Apa_Apa_2_Apa_1;Apache;Apache;2;Apa_Apa_2;Pure ;29_J3;29;J3;LM1_1_3
+Apa_Apa_2_Apa_2;Apache;Apache;2;Apa_Apa_2;Pure ;29_J3;29;J3;LM1_1_3
+Cen_Cen_14_Cen_1;Centurion;Centurion;14;Cen_Cen_14;Pure ;29_J3;29;J3;LM1_1_3
+Cen_Cen_14_Cen_2;Centurion;Centurion;14;Cen_Cen_14;Pure ;29_J3;29;J3;LM1_1_3
+Soi_Chi_2_Soi_1;Chinese spring;Soissons;2;Soi_Chi_2;Mix;30_L3;30;L3;LM1_1_3
+Soi_Chi_2_Chi_2;Soissons;Chinese spring;2;Soi_Chi_2;Mix;30_L3;30;L3;LM1_1_3
+Chi_Chi_1_Chi_1;Chinese spring;Chinese spring;1;Chi_Chi_1;Pure;30_L3;30;L3;LM1_1_3
+Chi_Chi_1_Chi_2;Chinese spring;Chinese spring;1;Chi_Chi_1;Pure;30_L3;30;L3;LM1_1_3
+Tit_Fru_2_Tit_1;Fructidor;Titlis;2;Tit_Fru_2;Mix;30_L3;30;L3;LM1_1_3
+Tit_Fru_2_Fru_2;Titlis;Fructidor;2;Tit_Fru_2;Mix;30_L3;30;L3;LM1_1_3
+Tit_Bob_3_Tit_1;Bobwhite ;Titlis;3;Tit_Bob_3;Mix;30_L3;30;L3;LM1_1_3
+Tit_Bob_3_Bob_2;Titlis;Bobwhite ;3;Tit_Bob_3;Mix;30_L3;30;L3;LM1_1_3
+Fru_SYM_1_Fru_1;SYMattis;Fructidor;1;Fru_SYM_1;Mix;30_L3;30;L3;LM1_1_3
+Fru_SYM_1_SYM_2;Fructidor;SYMattis;1;Fru_SYM_1;Mix;30_L3;30;L3;LM1_1_3
+Fru_Apa_3_Fru_1;Apache;Fructidor;3;Fru_Apa_3;Mix;30_L3;30;L3;LM1_1_3
+Fru_Apa_3_Apa_2;Fructidor;Apache;3;Fru_Apa_3;Mix;30_L3;30;L3;LM1_1_3
+Bob_Bob_1_Bob_1;Bobwhite ;Bobwhite ;1;Bob_Bob_1;Pure ;30_L3;30;L3;LM1_1_3
+Bob_Bob_1_Bob_2;Bobwhite ;Bobwhite ;1;Bob_Bob_1;Pure ;30_L3;30;L3;LM1_1_3
+Bob_Bob_4_Bob_1;Bobwhite ;Bobwhite ;4;Bob_Bob_4;Pure ;30_L3;30;L3;LM1_1_3
+Bob_Bob_4_Bob_2;Bobwhite ;Bobwhite ;4;Bob_Bob_4;Pure ;30_L3;30;L3;LM1_1_3
+Bob_SYM_1_Bob_1;SYMattis;Bobwhite ;1;Bob_SYM_1;Mix ;30_L3;30;L3;LM1_1_3
+Bob_SYM_1_SYM_2;Bobwhite ;SYMattis;1;Bob_SYM_1;Mix;30_L3;30;L3;LM1_1_3
+Bob_Apa_1_Bob_1;Apache;Bobwhite ;1;Bob_Apa_1;Mix;30_L3;30;L3;LM1_1_3
+Bob_Apa_1_Apa_2;Bobwhite ;Apache;1;Bob_Apa_1;Mix;30_L3;30;L3;LM1_1_3
+Bob_Apa_2_Bob_1;Apache;Bobwhite ;2;Bob_Apa_2;Mix;30_L3;30;L3;LM1_1_3
+Bob_Apa_2_Apa_2;Bobwhite ;Apache;2;Bob_Apa_2;Mix;30_L3;30;L3;LM1_1_3
+Bob_Acc_1_Bob_1;Accroc;Bobwhite ;1;Bob_Acc_1;Mix;30_L3;30;L3;LM1_1_3
+Bob_Acc_1_Acc_2;Bobwhite ;Accroc;1;Bob_Acc_1;Mix;30_L3;30;L3;LM1_1_3
+SYM_SYM_4_SYM_1;SYMattis;SYMattis;4;SYM_SYM_4;Pure ;30_L3;30;L3;LM1_1_3
+SYM_SYM_4_SYM_2;SYMattis;SYMattis;4;SYM_SYM_4;Pure ;30_L3;30;L3;LM1_1_3
+SYM_Acc_4_SYM_1;Accroc;SYMattis;4;SYM_Acc_4;Mix ;30_L3;30;L3;LM1_1_3
+SYM_Acc_4_Acc_2;SYMattis;Accroc;4;SYM_Acc_4;Mix ;30_L3;30;L3;LM1_1_3
+Apa_Rub_2_Apa_1;Rubisko;Apache;2;Apa_Rub_2;Mix;30_L3;30;L3;LM1_1_3
+Apa_Rub_2_Rub_2;Apache;Rubisko;2;Apa_Rub_2;Mix;30_L3;30;L3;LM1_1_3
+Soi_Tit_3_Soi_1;Titlis;Soissons;3;Soi_Tit_3;Mix;31_D4;31;D4;LM1_1_3
+Soi_Tit_3_Tit_2;Soissons;Titlis;3;Soi_Tit_3;Mix;31_D4;31;D4;LM1_1_3
+Chi_Tit_1_Chi_1;Titlis;Chinese spring;1;Chi_Tit_1;Mix;31_D4;31;D4;LM1_1_3
+Chi_Tit_1_Tit_2;Chinese spring;Titlis;1;Chi_Tit_1;Mix;31_D4;31;D4;LM1_1_3
+Fru_Acc_4_Fru_1;Accroc;Fructidor;4;Fru_Acc_4;Mix;31_D4;31;D4;LM1_1_3
+Fru_Acc_4_Acc_2;Fructidor;Accroc;4;Fru_Acc_4;Mix;31_D4;31;D4;LM1_1_3
+Cen_Cen_13_Cen_1;Centurion;Centurion;13;Cen_Cen_13;Pure ;31_D4;31;D4;LM1_1_3
+Cen_Cen_13_Cen_2;Centurion;Centurion;13;Cen_Cen_13;Pure ;31_D4;31;D4;LM1_1_3
+Cal_Soi_1_Soi_2;Calabro;Soissons;1;Cal_Soi_1;Mix;4_L4;4;L4;LM1_2_1
+Cal_Chi_1_Chi_2;Calabro;Chinese spring;1;Cal_Chi_1;Mix;2_E4;2;E4;LM1_2_1
+Cal_Tit_1_Tit_2;Calabro;Titlis;1;Cal_Tit_1;Mix;1_O2;1;O2;LM1_2_1
+Cal_Cad_1_Cad_2;Calabro;Cadenza;1;Cal_Cad_1;Mix;2_E4;2;E4;LM1_2_1
+Cal_LGA_1_LGA_2;Calabro;LGAbsalon;1;Cal_LGA_1;Mix;6_E3;6;E3;LM1_2_1
+Cal_Rec_1_Rec_2;Calabro;Recital;1;Cal_Rec_1;Mix;5_A1;5;A1;LM1_2_1
+Cal_Ber_1_Ber_2;Calabro;Bergamo;1;Cal_Ber_1;Mix;3_F1;3;F1;LM1_2_1
+Cal_Gha_1_Gha_2;Calabro;Ghayta;1;Cal_Gha_1;Mix;4_L4;4;L4;LM1_2_1
+Cal_Fru_1_Fru_2;Calabro;Fructidor;1;Cal_Fru_1;Mix;3_F1;3;F1;LM1_2_1
+Cal_Bob_1_Bob_2;Calabro;Bobwhite ;1;Cal_Bob_1;Mix;5_A1;5;A1;LM1_2_1
+Cal_SYM_1_SYM_2;Calabro;SYMattis;1;Cal_SYM_1;Mix;4_L4;4;L4;LM1_2_1
+Cal_Apa_1_Apa_2;Calabro;Apache;1;Cal_Apa_1;Mix;2_E4;2;E4;LM1_2_1
+Cal_Acc_1_Acc_2;Calabro;Accroc;1;Cal_Acc_1;Mix;1_O2;1;O2;LM1_2_1
+Cal_Rub_1_Rub_2;Calabro;Rubisko;1;Cal_Rub_1;Mix;6_E3;6;E3;LM1_2_1
+Cal_Cal_1_Cal_2;Calabro;Calabro;1;Cal_Cal_1;Pure;3_F1;3;F1;LM1_2_1
+Cal_Gen_1_Gen_2;Calabro;Geny (AB);1;Cal_Gen_1;Mix;6_E3;6;E3;LM1_2_1
+Cal_Cen_1_Cen_2;Calabro;Centurion;1;Cal_Cen_1;Mix;3_F1;3;F1;LM1_2_1
+Cal_Des_1_Des_2;Calabro;Descartes;1;Cal_Des_1;Mix;3_F1;3;F1;LM1_2_1
+Cal_Ven_1_Ven_2;Calabro;Venezio;1;Cal_Ven_1;Mix;4_L4;4;L4;LM1_2_1
+Gen_Soi_1_Soi_2;Geny (AB);Soissons;1;Gen_Soi_1;Mix;3_F1;3;F1;LM1_2_1
+Gen_Chi_1_Chi_2;Geny (AB);Chinese spring;1;Gen_Chi_1;Mix;2_E4;2;E4;LM1_2_1
+Gen_Gen_5_Gen_2;Geny (AB);Geny (AB);5;Gen_Gen_5;Pure;3_F1;3;F1;LM1_2_1
+Cal_Soi_1_Cal_1;Soissons;Calabro;1;Cal_Soi_1;Mix;4_L4;4;L4;LM1_2_1
+Cal_Chi_1_Cal_1;Chinese spring;Calabro;1;Cal_Chi_1;Mix;2_E4;2;E4;LM1_2_1
+Cal_Tit_1_Cal_1;Titlis;Calabro;1;Cal_Tit_1;Mix;1_O2;1;O2;LM1_2_1
+Cal_Cad_1_Cal_1;Cadenza;Calabro;1;Cal_Cad_1;Mix;2_E4;2;E4;LM1_2_1
+Cal_LGA_1_Cal_1;LGAbsalon;Calabro;1;Cal_LGA_1;Mix;6_E3;6;E3;LM1_2_1
+Cal_Rec_1_Cal_1;Recital;Calabro;1;Cal_Rec_1;Mix;5_A1;5;A1;LM1_2_1
+Cal_Ber_1_Cal_1;Bergamo;Calabro;1;Cal_Ber_1;Mix;3_F1;3;F1;LM1_2_1
+Cal_Gha_1_Cal_1;Ghayta;Calabro;1;Cal_Gha_1;Mix;4_L4;4;L4;LM1_2_1
+Cal_Fru_1_Cal_1;Fructidor;Calabro;1;Cal_Fru_1;Mix;3_F1;3;F1;LM1_2_1
+Cal_Bob_1_Cal_1;Bobwhite ;Calabro;1;Cal_Bob_1;Mix;5_A1;5;A1;LM1_2_1
+Cal_SYM_1_Cal_1;SYMattis;Calabro;1;Cal_SYM_1;Mix;4_L4;4;L4;LM1_2_1
+Cal_Apa_1_Cal_1;Apache;Calabro;1;Cal_Apa_1;Mix;2_E4;2;E4;LM1_2_1
+Cal_Acc_1_Cal_1;Accroc;Calabro;1;Cal_Acc_1;Mix;1_O2;1;O2;LM1_2_1
+Cal_Rub_1_Cal_1;Rubisko;Calabro;1;Cal_Rub_1;Mix;6_E3;6;E3;LM1_2_1
+Cal_Cal_1_Cal_1;Calabro;Calabro;1;Cal_Cal_1;Pure;3_F1;3;F1;LM1_2_1
+Cal_Gen_1_Cal_1;Geny (AB);Calabro;1;Cal_Gen_1;Mix;6_E3;6;E3;LM1_2_1
+Cal_Cen_1_Cal_1;Centurion;Calabro;1;Cal_Cen_1;Mix;3_F1;3;F1;LM1_2_1
+Cal_Des_1_Cal_1;Descartes;Calabro;1;Cal_Des_1;Mix;3_F1;3;F1;LM1_2_1
+Cal_Ven_1_Cal_1;Venezio;Calabro;1;Cal_Ven_1;Mix;4_L4;4;L4;LM1_2_1
+Gen_Soi_1_Gen_1;Soissons;Geny (AB);1;Gen_Soi_1;Mix;3_F1;3;F1;LM1_2_1
+Gen_Chi_1_Gen_1;Chinese spring;Geny (AB);1;Gen_Chi_1;Mix;2_E4;2;E4;LM1_2_1
+Gen_Gen_5_Gen_1;Geny (AB);Geny (AB);5;Gen_Gen_5;Pure;3_F1;3;F1;LM1_2_1
+Cal_Soi_2_Soi_2;Calabro;Soissons;2;Cal_Soi_2;Mix;2_E4;2;E4;LM1_2_1
+Cal_Chi_2_Chi_2;Calabro;Chinese spring;2;Cal_Chi_2;Mix;5_A1;5;A1;LM1_2_1
+Cal_Tit_2_Tit_2;Calabro;Titlis;2;Cal_Tit_2;Mix;5_A1;5;A1;LM1_2_1
+Cal_Cad_2_Cad_2;Calabro;Cadenza;2;Cal_Cad_2;Mix;1_O2;1;O2;LM1_2_1
+Cal_LGA_2_LGA_2;Calabro;LGAbsalon;2;Cal_LGA_2;Mix;1_O2;1;O2;LM1_2_1
+Cal_Rec_2_Rec_2;Calabro;Recital;2;Cal_Rec_2;Mix;1_O2;1;O2;LM1_2_1
+Cal_Ber_2_Ber_2;Calabro;Bergamo;2;Cal_Ber_2;Mix;6_E3;6;E3;LM1_2_1
+Cal_Gha_2_Gha_2;Calabro;Ghayta;2;Cal_Gha_2;Mix;3_F1;3;F1;LM1_2_1
+Cal_Fru_2_Fru_2;Calabro;Fructidor;2;Cal_Fru_2;Mix;1_O2;1;O2;LM1_2_1
+Cal_Bob_2_Bob_2;Calabro;Bobwhite ;2;Cal_Bob_2;Mix;2_E4;2;E4;LM1_2_1
+Cal_SYM_2_SYM_2;Calabro;SYMattis;2;Cal_SYM_2;Mix;5_A1;5;A1;LM1_2_1
+Cal_Apa_2_Apa_2;Calabro;Apache;2;Cal_Apa_2;Mix;2_E4;2;E4;LM1_2_1
+Cal_Acc_2_Acc_2;Calabro;Accroc;2;Cal_Acc_2;Mix;1_O2;1;O2;LM1_2_1
+Cal_Rub_2_Rub_2;Calabro;Rubisko;2;Cal_Rub_2;Mix;1_O2;1;O2;LM1_2_1
+Cal_Cal_2_Cal_2;Calabro;Calabro;2;Cal_Cal_2;Pure;1_O2;1;O2;LM1_2_1
+Cal_Gen_2_Gen_2;Calabro;Geny (AB);2;Cal_Gen_2;Mix;3_F1;3;F1;LM1_2_1
+Cal_Cen_2_Cen_2;Calabro;Centurion;2;Cal_Cen_2;Mix;4_L4;4;L4;LM1_2_1
+Cal_Des_2_Des_2;Calabro;Descartes;2;Cal_Des_2;Mix;2_E4;2;E4;LM1_2_1
+Cal_Ven_2_Ven_2;Calabro;Venezio;2;Cal_Ven_2;Mix;5_A1;5;A1;LM1_2_1
+Gen_Soi_2_Soi_2;Geny (AB);Soissons;2;Gen_Soi_2;Mix;3_F1;3;F1;LM1_2_1
+Gen_Chi_2_Chi_2;Geny (AB);Chinese spring;2;Gen_Chi_2;Mix;5_A1;5;A1;LM1_2_1
+Gen_Gen_6_Gen_2;Geny (AB);Geny (AB);6;Gen_Gen_6;Pure;5_A1;5;A1;LM1_2_1
+Cal_Soi_2_Cal_1;Soissons;Calabro;2;Cal_Soi_2;Mix;2_E4;2;E4;LM1_2_1
+Cal_Chi_2_Cal_1;Chinese spring;Calabro;2;Cal_Chi_2;Mix;5_A1;5;A1;LM1_2_1
+Cal_Tit_2_Cal_1;Titlis;Calabro;2;Cal_Tit_2;Mix;5_A1;5;A1;LM1_2_1
+Cal_Cad_2_Cal_1;Cadenza;Calabro;2;Cal_Cad_2;Mix;1_O2;1;O2;LM1_2_1
+Cal_LGA_2_Cal_1;LGAbsalon;Calabro;2;Cal_LGA_2;Mix;1_O2;1;O2;LM1_2_1
+Cal_Rec_2_Cal_1;Recital;Calabro;2;Cal_Rec_2;Mix;1_O2;1;O2;LM1_2_1
+Cal_Ber_2_Cal_1;Bergamo;Calabro;2;Cal_Ber_2;Mix;6_E3;6;E3;LM1_2_1
+Cal_Gha_2_Cal_1;Ghayta;Calabro;2;Cal_Gha_2;Mix;3_F1;3;F1;LM1_2_1
+Cal_Fru_2_Cal_1;Fructidor;Calabro;2;Cal_Fru_2;Mix;1_O2;1;O2;LM1_2_1
+Cal_Bob_2_Cal_1;Bobwhite ;Calabro;2;Cal_Bob_2;Mix;2_E4;2;E4;LM1_2_1
+Cal_SYM_2_Cal_1;SYMattis;Calabro;2;Cal_SYM_2;Mix;5_A1;5;A1;LM1_2_1
+Cal_Apa_2_Cal_1;Apache;Calabro;2;Cal_Apa_2;Mix;2_E4;2;E4;LM1_2_1
+Cal_Acc_2_Cal_1;Accroc;Calabro;2;Cal_Acc_2;Mix;1_O2;1;O2;LM1_2_1
+Cal_Rub_2_Cal_1;Rubisko;Calabro;2;Cal_Rub_2;Mix;1_O2;1;O2;LM1_2_1
+Cal_Cal_2_Cal_1;Calabro;Calabro;2;Cal_Cal_2;Pure;;1;O2;LM1_2_1
+Cal_Gen_2_Cal_1;Geny (AB);Calabro;2;Cal_Gen_2;Mix;;3;F1;LM1_2_1
+Cal_Cen_2_Cal_1;Centurion;Calabro;2;Cal_Cen_2;Mix;;4;L4;LM1_2_1
+Cal_Des_2_Cal_1;Descartes;Calabro;2;Cal_Des_2;Mix;;2;E4;LM1_2_1
+Cal_Ven_2_Cal_1;Venezio;Calabro;2;Cal_Ven_2;Mix;;5;A1;LM1_2_1
+Gen_Soi_2_Gen_1;Soissons;Geny (AB);2;Gen_Soi_2;Mix;;3;F1;LM1_2_1
+Gen_Chi_2_Gen_1;Chinese spring;Geny (AB);2;Gen_Chi_2;Mix;;5;A1;LM1_2_1
+Gen_Gen_6_Gen_1;Geny (AB);Geny (AB);6;Gen_Gen_6;Pure;;5;A1;LM1_2_1
+Cal_Soi_3_Soi_2;Calabro;Soissons;3;Cal_Soi_3;Mix;;4;L4;LM1_2_1
+Cal_Chi_3_Chi_2;Calabro;Chinese spring;3;Cal_Chi_3;Mix;;3;F1;LM1_2_1
+Cal_Tit_3_Tit_2;Calabro;Titlis;3;Cal_Tit_3;Mix;;6;E3;LM1_2_1
+Cal_Cad_3_Cad_2;Calabro;Cadenza;3;Cal_Cad_3;Mix;;5;A1;LM1_2_1
+Cal_LGA_3_LGA_2;Calabro;LGAbsalon;3;Cal_LGA_3;Mix;;1;O2;LM1_2_1
+Cal_Rec_3_Rec_2;Calabro;Recital;3;Cal_Rec_3;Mix;;6;E3;LM1_2_1
+Cal_Ber_3_Ber_2;Calabro;Bergamo;3;Cal_Ber_3;Mix;;1;O2;LM1_2_1
+Cal_Gha_3_Gha_2;Calabro;Ghayta;3;Cal_Gha_3;Mix;;4;L4;LM1_2_1
+Cal_Fru_3_Fru_2;Calabro;Fructidor;3;Cal_Fru_3;Mix;;5;A1;LM1_2_1
+Cal_Bob_3_Bob_2;Calabro;Bobwhite ;3;Cal_Bob_3;Mix;;6;E3;LM1_2_1
+Cal_SYM_3_SYM_2;Calabro;SYMattis;3;Cal_SYM_3;Mix;;6;E3;LM1_2_1
+Cal_Apa_3_Apa_2;Calabro;Apache;3;Cal_Apa_3;Mix;;4;L4;LM1_2_1
+Cal_Acc_3_Acc_2;Calabro;Accroc;3;Cal_Acc_3;Mix;;3;F1;LM1_2_1
+Cal_Rub_3_Rub_2;Calabro;Rubisko;3;Cal_Rub_3;Mix;;4;L4;LM1_2_1
+Cal_Cal_3_Cal_2;Calabro;Calabro;3;Cal_Cal_3;Pure;;3;F1;LM1_2_1
+Cal_Gen_3_Gen_2;Calabro;Geny (AB);3;Cal_Gen_3;Mix;;4;L4;LM1_2_1
+Cal_Cen_3_Cen_2;Calabro;Centurion;3;Cal_Cen_3;Mix;;3;F1;LM1_2_1
+Cal_Des_3_Des_2;Calabro;Descartes;3;Cal_Des_3;Mix;;4;L4;LM1_2_1
+Cal_Ven_3_Ven_2;Calabro;Venezio;3;Cal_Ven_3;Mix;;6;E3;LM1_2_1
+Gen_Soi_3_Soi_2;Geny (AB);Soissons;3;Gen_Soi_3;Mix;;1;O2;LM1_2_1
+Gen_Chi_3_Chi_2;Geny (AB);Chinese spring;3;Gen_Chi_3;Mix;;2;E4;LM1_2_1
+Gen_Gen_7_Gen_2;Geny (AB);Geny (AB);7;Gen_Gen_7;Pure;;4;L4;LM1_2_1
+Cal_Soi_3_Cal_1;Soissons;Calabro;3;Cal_Soi_3;Mix;;4;L4;LM1_2_1
+Cal_Chi_3_Cal_1;Chinese spring;Calabro;3;Cal_Chi_3;Mix;;3;F1;LM1_2_1
+Cal_Tit_3_Cal_1;Titlis;Calabro;3;Cal_Tit_3;Mix;;6;E3;LM1_2_1
+Cal_Cad_3_Cal_1;Cadenza;Calabro;3;Cal_Cad_3;Mix;;5;A1;LM1_2_1
+Cal_LGA_3_Cal_1;LGAbsalon;Calabro;3;Cal_LGA_3;Mix;;1;O2;LM1_2_1
+Cal_Rec_3_Cal_1;Recital;Calabro;3;Cal_Rec_3;Mix;;6;E3;LM1_2_1
+Cal_Ber_3_Cal_1;Bergamo;Calabro;3;Cal_Ber_3;Mix;;1;O2;LM1_2_1
+Cal_Gha_3_Cal_1;Ghayta;Calabro;3;Cal_Gha_3;Mix;;4;L4;LM1_2_1
+Cal_Fru_3_Cal_1;Fructidor;Calabro;3;Cal_Fru_3;Mix;;5;A1;LM1_2_1
+Cal_Bob_3_Cal_1;Bobwhite ;Calabro;3;Cal_Bob_3;Mix;;6;E3;LM1_2_1
+Cal_SYM_3_Cal_1;SYMattis;Calabro;3;Cal_SYM_3;Mix;;6;E3;LM1_2_1
+Cal_Apa_3_Cal_1;Apache;Calabro;3;Cal_Apa_3;Mix;;4;L4;LM1_2_1
+Cal_Acc_3_Cal_1;Accroc;Calabro;3;Cal_Acc_3;Mix;;3;F1;LM1_2_1
+Cal_Rub_3_Cal_1;Rubisko;Calabro;3;Cal_Rub_3;Mix;;4;L4;LM1_2_1
+Cal_Cal_3_Cal_1;Calabro;Calabro;3;Cal_Cal_3;Pure;;3;F1;LM1_2_1
+Cal_Gen_3_Cal_1;Geny (AB);Calabro;3;Cal_Gen_3;Mix;;4;L4;LM1_2_1
+Cal_Cen_3_Cal_1;Centurion;Calabro;3;Cal_Cen_3;Mix;;3;F1;LM1_2_1
+Cal_Des_3_Cal_1;Descartes;Calabro;3;Cal_Des_3;Mix;;4;L4;LM1_2_1
+Cal_Ven_3_Cal_1;Venezio;Calabro;3;Cal_Ven_3;Mix;;6;E3;LM1_2_1
+Gen_Soi_3_Gen_1;Soissons;Geny (AB);3;Gen_Soi_3;Mix;;1;O2;LM1_2_1
+Gen_Chi_3_Gen_1;Chinese spring;Geny (AB);3;Gen_Chi_3;Mix;;2;E4;LM1_2_1
+Gen_Gen_7_Gen_1;Geny (AB);Geny (AB);7;Gen_Gen_7;Pure;;4;L4;LM1_2_1
+Cal_Soi_4_Soi_2;Calabro;Soissons;4;Cal_Soi_4;Mix;;4;L4;LM1_2_1
+Cal_Chi_4_Chi_2;Calabro;Chinese spring;4;Cal_Chi_4;Mix;;1;O2;LM1_2_1
+Cal_Tit_4_Tit_2;Calabro;Titlis;4;Cal_Tit_4;Mix;;2;E4;LM1_2_1
+Cal_Cad_4_Cad_2;Calabro;Cadenza;4;Cal_Cad_4;Mix;;5;A1;LM1_2_1
+Cal_LGA_4_LGA_2;Calabro;LGAbsalon;4;Cal_LGA_4;Mix;;5;A1;LM1_2_1
+Cal_Rec_4_Rec_2;Calabro;Recital;4;Cal_Rec_4;Mix;;3;F1;LM1_2_1
+Cal_Ber_4_Ber_2;Calabro;Bergamo;4;Cal_Ber_4;Mix;;2;E4;LM1_2_1
+Cal_Gha_4_Gha_2;Calabro;Ghayta;4;Cal_Gha_4;Mix;;2;E4;LM1_2_1
+Cal_Fru_4_Fru_2;Calabro;Fructidor;4;Cal_Fru_4;Mix;;4;L4;LM1_2_1
+Cal_Bob_4_Bob_2;Calabro;Bobwhite ;4;Cal_Bob_4;Mix;;6;E3;LM1_2_1
+Cal_SYM_4_SYM_2;Calabro;SYMattis;4;Cal_SYM_4;Mix;;5;A1;LM1_2_1
+Cal_Apa_4_Apa_2;Calabro;Apache;4;Cal_Apa_4;Mix;;4;L4;LM1_2_1
+Cal_Acc_4_Acc_2;Calabro;Accroc;4;Cal_Acc_4;Mix;;2;E4;LM1_2_1
+Cal_Rub_4_Rub_2;Calabro;Rubisko;4;Cal_Rub_4;Mix;;2;E4;LM1_2_1
+Cal_Cal_4_Cal_2;Calabro;Calabro;4;Cal_Cal_4;Pure;;6;E3;LM1_2_1
+Cal_Gen_4_Gen_2;Calabro;Geny (AB);4;Cal_Gen_4;Mix;;5;A1;LM1_2_1
+Cal_Cen_4_Cen_2;Calabro;Centurion;4;Cal_Cen_4;Mix;;5;A1;LM1_2_1
+Cal_Des_4_Des_2;Calabro;Descartes;4;Cal_Des_4;Mix;;1;O2;LM1_2_1
+Cal_Ven_4_Ven_2;Calabro;Venezio;4;Cal_Ven_4;Mix;;6;E3;LM1_2_1
+Gen_Soi_4_Soi_2;Geny (AB);Soissons;4;Gen_Soi_4;Mix;;2;E4;LM1_2_1
+Gen_Chi_4_Chi_2;Geny (AB);Chinese spring;4;Gen_Chi_4;Mix;;6;E4;LM1_2_1
+Gen_Gen_8_Gen_2;Geny (AB);Geny (AB);8;Gen_Gen_8;Pure;;1;O2;LM1_2_1
+Cal_Soi_4_Cal_1;Soissons;Calabro;4;Cal_Soi_4;Mix;;4;L4;LM1_2_1
+Cal_Chi_4_Cal_1;Chinese spring;Calabro;4;Cal_Chi_4;Mix;;1;O2;LM1_2_1
+Cal_Tit_4_Cal_1;Titlis;Calabro;4;Cal_Tit_4;Mix;;2;E4;LM1_2_1
+Cal_Cad_4_Cal_1;Cadenza;Calabro;4;Cal_Cad_4;Mix;;5;A1;LM1_2_1
+Cal_LGA_4_Cal_1;LGAbsalon;Calabro;4;Cal_LGA_4;Mix;;5;A1;LM1_2_1
+Cal_Rec_4_Cal_1;Recital;Calabro;4;Cal_Rec_4;Mix;;3;F1;LM1_2_1
+Cal_Ber_4_Cal_1;Bergamo;Calabro;4;Cal_Ber_4;Mix;;2;E4;LM1_2_1
+Cal_Gha_4_Cal_1;Ghayta;Calabro;4;Cal_Gha_4;Mix;;2;E4;LM1_2_1
+Cal_Fru_4_Cal_1;Fructidor;Calabro;4;Cal_Fru_4;Mix;;4;L4;LM1_2_1
+Cal_Bob_4_Cal_1;Bobwhite ;Calabro;4;Cal_Bob_4;Mix;;6;E3;LM1_2_1
+Cal_SYM_4_Cal_1;SYMattis;Calabro;4;Cal_SYM_4;Mix;;5;A1;LM1_2_1
+Cal_Apa_4_Cal_1;Apache;Calabro;4;Cal_Apa_4;Mix;;4;L4;LM1_2_1
+Cal_Acc_4_Cal_1;Accroc;Calabro;4;Cal_Acc_4;Mix;;2;E4;LM1_2_1
+Cal_Rub_4_Cal_1;Rubisko;Calabro;4;Cal_Rub_4;Mix;;2;E4;LM1_2_1
+Cal_Cal_4_Cal_1;Calabro;Calabro;4;Cal_Cal_4;Pure;;6;E3;LM1_2_1
+Cal_Gen_4_Cal_1;Geny (AB);Calabro;4;Cal_Gen_4;Mix;;5;A1;LM1_2_1
+Cal_Cen_4_Cal_1;Centurion;Calabro;4;Cal_Cen_4;Mix;;5;A1;LM1_2_1
+Cal_Des_4_Cal_1;Descartes;Calabro;4;Cal_Des_4;Mix;;1;O2;LM1_2_1
+Cal_Ven_4_Cal_1;Venezio;Calabro;4;Cal_Ven_4;Mix;;6;E3;LM1_2_1
+Gen_Soi_4_Gen_1;Soissons;Geny (AB);4;Gen_Soi_4;Mix;;2;E4;LM1_2_1
+Gen_Chi_4_Gen_1;Chinese spring;Geny (AB);4;Gen_Chi_4;Mix;;6;E4;LM1_2_1
+Gen_Gen_8_Gen_1;Geny (AB);Geny (AB);8;Gen_Gen_8;Pure;;1;O2;LM1_2_1
+Gen_Tit_1_Tit_2;Geny (AB);Titlis;1;Gen_Tit_1;Mix;;12;K4;LM1_2_2
+Gen_Cad_1_Cad_2;Geny (AB);Cadenza;1;Gen_Cad_1;Mix;;11;N4;LM1_2_2
+Gen_LGA_1_LGA_2;Geny (AB);LGAbsalon;1;Gen_LGA_1;Mix;;12;K4;LM1_2_2
+Gen_Rec_1_Rec_2;Geny (AB);Recital;1;Gen_Rec_1;Mix;;7;M2;LM1_2_2
+Gen_Ber_1_Ber_2;Geny (AB);Bergamo;1;Gen_Ber_1;Mix;;8;O4;LM1_2_2
+Gen_Gha_1_Gha_2;Geny (AB);Ghayta;1;Gen_Gha_1;Mix;;8;O4;LM1_2_2
+Gen_Fru_1_Fru_2;Geny (AB);Fructidor;1;Gen_Fru_1;Mix;;10;K1;LM1_2_2
+Gen_Bob_1_Bob_2;Geny (AB);Bobwhite ;1;Gen_Bob_1;Mix;;12;K4;LM1_2_2
+Gen_SYM_1_SYM_2;Geny (AB);SYMattis;1;Gen_SYM_1;Mix;;10;K1;LM1_2_2
+Gen_Apa_1_Apa_2;Geny (AB);Apache;1;Gen_Apa_1;Mix;;10;K1;LM1_2_2
+Gen_Acc_1_Acc_2;Geny (AB);Accroc;1;Gen_Acc_1;Mix;;9;G2;LM1_2_2
+Gen_Rub_1_Rub_2;Geny (AB);Rubisko;1;Gen_Rub_1;Mix;;8;O4;LM1_2_2
+Gen_Gen_1_Gen_2;Geny (AB);Geny (AB);1;Gen_Gen_1;Pure;;8;O4;LM1_2_2
+Gen_Cen_1_Cen_2;Geny (AB);Centurion;1;Gen_Cen_1;Mix;;9;G2;LM1_2_2
+Gen_Des_1_Des_2;Geny (AB);Descartes;1;Gen_Des_1;Mix;;12;K4;LM1_2_2
+Gen_Ven_1_Ven_2;Geny (AB);Venezio;1;Gen_Ven_1;Mix;;9;G2;LM1_2_2
+Cen_Soi_1_Soi_2;Centurion;Soissons;1;Cen_Soi_1;Mix;;10;K1;LM1_2_2
+Cen_Chi_1_Chi_2;Centurion;Chinese spring;1;Cen_Chi_1;Mix;;10;K1;LM1_2_2
+Cen_Tit_1_Tit_2;Centurion;Titlis;1;Cen_Tit_1;Mix;;8;O4;LM1_2_2
+Cen_Cad_1_Cad_2;Centurion;Cadenza;1;Cen_Cad_1;Mix;;12;K4;LM1_2_2
+Cen_LGA_1_LGA_2;Centurion;LGAbsalon;1;Cen_LGA_1;Mix;;7;M2;LM1_2_2
+Cen_Cen_5_Cen_2;Centurion;Centurion;5;Cen_Cen_5;Pure;;8;O4;LM1_2_2
+Gen_Tit_1_Gen_1;Titlis;Geny (AB);1;Gen_Tit_1;Mix;;12;K4;LM1_2_2
+Gen_Cad_1_Gen_1;Cadenza;Geny (AB);1;Gen_Cad_1;Mix;;11;N4;LM1_2_2
+Gen_LGA_1_Gen_1;LGAbsalon;Geny (AB);1;Gen_LGA_1;Mix;;12;K4;LM1_2_2
+Gen_Rec_1_Gen_1;Recital;Geny (AB);1;Gen_Rec_1;Mix;;7;M2;LM1_2_2
+Gen_Ber_1_Gen_1;Bergamo;Geny (AB);1;Gen_Ber_1;Mix;;8;O4;LM1_2_2
+Gen_Gha_1_Gen_1;Ghayta;Geny (AB);1;Gen_Gha_1;Mix;;8;O4;LM1_2_2
+Gen_Fru_1_Gen_1;Fructidor;Geny (AB);1;Gen_Fru_1;Mix;;10;K1;LM1_2_2
+Gen_Bob_1_Gen_1;Bobwhite ;Geny (AB);1;Gen_Bob_1;Mix;;12;K4;LM1_2_2
+Gen_SYM_1_Gen_1;SYMattis;Geny (AB);1;Gen_SYM_1;Mix;;10;K1;LM1_2_2
+Gen_Apa_1_Gen_1;Apache;Geny (AB);1;Gen_Apa_1;Mix;;10;K1;LM1_2_2
+Gen_Acc_1_Gen_1;Accroc;Geny (AB);1;Gen_Acc_1;Mix;;9;G2;LM1_2_2
+Gen_Rub_1_Gen_1;Rubisko;Geny (AB);1;Gen_Rub_1;Mix;;8;O4;LM1_2_2
+Gen_Gen_1_Gen_1;Geny (AB);Geny (AB);1;Gen_Gen_1;Pure;;8;O4;LM1_2_2
+Gen_Cen_1_Gen_1;Centurion;Geny (AB);1;Gen_Cen_1;Mix;;9;G2;LM1_2_2
+Gen_Des_1_Gen_1;Descartes;Geny (AB);1;Gen_Des_1;Mix;;12;K4;LM1_2_2
+Gen_Ven_1_Gen_1;Venezio;Geny (AB);1;Gen_Ven_1;Mix;;9;G2;LM1_2_2
+Cen_Soi_1_Cen_1;Soissons;Centurion;1;Cen_Soi_1;Mix;;10;K1;LM1_2_2
+Cen_Chi_1_Cen_1;Chinese spring;Centurion;1;Cen_Chi_1;Mix;;10;K1;LM1_2_2
+Cen_Tit_1_Cen_1;Titlis;Centurion;1;Cen_Tit_1;Mix;;8;O4;LM1_2_2
+Cen_Cad_1_Cen_1;Cadenza;Centurion;1;Cen_Cad_1;Mix;;12;K4;LM1_2_2
+Cen_LGA_1_Cen_1;LGAbsalon;Centurion;1;Cen_LGA_1;Mix;;7;M2;LM1_2_2
+Cen_Cen_5_Cen_1;Centurion;Centurion;5;Cen_Cen_5;Pure;;8;O4;LM1_2_2
+Gen_Tit_2_Tit_2;Geny (AB);Titlis;2;Gen_Tit_2;Mix;;12;K4;LM1_2_2
+Gen_Cad_2_Cad_2;Geny (AB);Cadenza;2;Gen_Cad_2;Mix;;9;G2;LM1_2_2
+Gen_LGA_2_LGA_2;Geny (AB);LGAbsalon;2;Gen_LGA_2;Mix;;9;G2;LM1_2_2
+Gen_Rec_2_Rec_2;Geny (AB);Recital;2;Gen_Rec_2;Mix;;12;K4;LM1_2_2
+Gen_Ber_2_Ber_2;Geny (AB);Bergamo;2;Gen_Ber_2;Mix;;11;N4;LM1_2_2
+Gen_Gha_2_Gha_2;Geny (AB);Ghayta;2;Gen_Gha_2;Mix;;7;M2;LM1_2_2
+Gen_Fru_2_Fru_2;Geny (AB);Fructidor;2;Gen_Fru_2;Mix;;11;N4;LM1_2_2
+Gen_Bob_2_Bob_2;Geny (AB);Bobwhite ;2;Gen_Bob_2;Mix;;9;G2;LM1_2_2
+Gen_SYM_2_SYM_2;Geny (AB);SYMattis;2;Gen_SYM_2;Mix;;8;O4;LM1_2_2
+Gen_Apa_2_Apa_2;Geny (AB);Apache;2;Gen_Apa_2;Mix;;9;G2;LM1_2_2
+Gen_Acc_2_Acc_2;Geny (AB);Accroc;2;Gen_Acc_2;Mix;;11;N4;LM1_2_2
+Gen_Rub_2_Rub_2;Geny (AB);Rubisko;2;Gen_Rub_2;Mix;;9;G2;LM1_2_2
+Gen_Gen_2_Gen_2;Geny (AB);Geny (AB);2;Gen_Gen_2;Pure;;9;G2;LM1_2_2
+Gen_Cen_2_Cen_2;Geny (AB);Centurion;2;Gen_Cen_2;Mix;;11;N4;LM1_2_2
+Gen_Des_2_Des_2;Geny (AB);Descartes;2;Gen_Des_2;Mix;;7;M2;LM1_2_2
+Gen_Ven_2_Ven_2;Geny (AB);Venezio;2;Gen_Ven_2;Mix;;8;O4;LM1_2_2
+Cen_Soi_2_Soi_2;Centurion;Soissons;2;Cen_Soi_2;Mix;;7;M2;LM1_2_2
+Cen_Chi_2_Chi_2;Centurion;Chinese spring;2;Cen_Chi_2;Mix;;10;K1;LM1_2_2
+Cen_Tit_2_Tit_2;Centurion;Titlis;2;Cen_Tit_2;Mix;;10;K1;LM1_2_2
+Cen_Cad_2_Cad_2;Centurion;Cadenza;2;Cen_Cad_2;Mix;;8;O4;LM1_2_2
+Cen_LGA_2_LGA_2;Centurion;LGAbsalon;2;Cen_LGA_2;Mix;;10;K1;LM1_2_2
+Cen_Cen_6_Cen_2;Centurion;Centurion;6;Cen_Cen_6;Pure;;9;G2;LM1_2_2
+Gen_Tit_2_Gen_1;Titlis;Geny (AB);2;Gen_Tit_2;Mix;;12;K4;LM1_2_2
+Gen_Cad_2_Gen_1;Cadenza;Geny (AB);2;Gen_Cad_2;Mix;;9;G2;LM1_2_2
+Gen_LGA_2_Gen_1;LGAbsalon;Geny (AB);2;Gen_LGA_2;Mix;;9;G2;LM1_2_2
+Gen_Rec_2_Gen_1;Recital;Geny (AB);2;Gen_Rec_2;Mix;;12;K4;LM1_2_2
+Gen_Ber_2_Gen_1;Bergamo;Geny (AB);2;Gen_Ber_2;Mix;;11;N4;LM1_2_2
+Gen_Gha_2_Gen_1;Ghayta;Geny (AB);2;Gen_Gha_2;Mix;;7;M2;LM1_2_2
+Gen_Fru_2_Gen_1;Fructidor;Geny (AB);2;Gen_Fru_2;Mix;;11;N4;LM1_2_2
+Gen_Bob_2_Gen_1;Bobwhite ;Geny (AB);2;Gen_Bob_2;Mix;;9;G2;LM1_2_2
+Gen_SYM_2_Gen_1;SYMattis;Geny (AB);2;Gen_SYM_2;Mix;;8;O4;LM1_2_2
+Gen_Apa_2_Gen_1;Apache;Geny (AB);2;Gen_Apa_2;Mix;;9;G2;LM1_2_2
+Gen_Acc_2_Gen_1;Accroc;Geny (AB);2;Gen_Acc_2;Mix;;11;N4;LM1_2_2
+Gen_Rub_2_Gen_1;Rubisko;Geny (AB);2;Gen_Rub_2;Mix;;9;G2;LM1_2_2
+Gen_Gen_2_Gen_1;Geny (AB);Geny (AB);2;Gen_Gen_2;Pure;;9;G2;LM1_2_2
+Gen_Cen_2_Gen_1;Centurion;Geny (AB);2;Gen_Cen_2;Mix;;11;N4;LM1_2_2
+Gen_Des_2_Gen_1;Descartes;Geny (AB);2;Gen_Des_2;Mix;;7;M2;LM1_2_2
+Gen_Ven_2_Gen_1;Venezio;Geny (AB);2;Gen_Ven_2;Mix;;8;O4;LM1_2_2
+Cen_Soi_2_Cen_1;Soissons;Centurion;2;Cen_Soi_2;Mix;;7;M2;LM1_2_2
+Cen_Chi_2_Cen_1;Chinese spring;Centurion;2;Cen_Chi_2;Mix;;10;K1;LM1_2_2
+Cen_Tit_2_Cen_1;Titlis;Centurion;2;Cen_Tit_2;Mix;;10;K1;LM1_2_2
+Cen_Cad_2_Cen_1;Cadenza;Centurion;2;Cen_Cad_2;Mix;;8;O4;LM1_2_2
+Cen_LGA_2_Cen_1;LGAbsalon;Centurion;2;Cen_LGA_2;Mix;;10;K1;LM1_2_2
+Cen_Cen_6_Cen_1;Centurion;Centurion;6;Cen_Cen_6;Pure;;9;G2;LM1_2_2
+Gen_Tit_3_Tit_2;Geny (AB);Titlis;3;Gen_Tit_3;Mix;;9;G2;LM1_2_2
+Gen_Cad_3_Cad_2;Geny (AB);Cadenza;3;Gen_Cad_3;Mix;;7;M2;LM1_2_2
+Gen_LGA_3_LGA_2;Geny (AB);LGAbsalon;3;Gen_LGA_3;Mix;;11;N4;LM1_2_2
+Gen_Rec_3_Rec_2;Geny (AB);Recital;3;Gen_Rec_3;Mix;;7;M2;LM1_2_2
+Gen_Ber_3_Ber_2;Geny (AB);Bergamo;3;Gen_Ber_3;Mix;;7;M2;LM1_2_2
+Gen_Gha_3_Gha_2;Geny (AB);Ghayta;3;Gen_Gha_3;Mix;;8;O4;LM1_2_2
+Gen_Fru_3_Fru_2;Geny (AB);Fructidor;3;Gen_Fru_3;Mix;;10;K1;LM1_2_2
+Gen_Bob_3_Bob_2;Geny (AB);Bobwhite ;3;Gen_Bob_3;Mix;;11;N4;LM1_2_2
+Gen_SYM_3_SYM_2;Geny (AB);SYMattis;3;Gen_SYM_3;Mix;;11;N4;LM1_2_2
+Gen_Apa_3_Apa_2;Geny (AB);Apache;3;Gen_Apa_3;Mix;;12;K4;LM1_2_2
+Gen_Acc_3_Acc_2;Geny (AB);Accroc;3;Gen_Acc_3;Mix;;10;K1;LM1_2_2
+Gen_Rub_3_Rub_2;Geny (AB);Rubisko;3;Gen_Rub_3;Mix;;11;N4;LM1_2_2
+Gen_Gen_3_Gen_2;Geny (AB);Geny (AB);3;Gen_Gen_3;Pure;;10;K1;LM1_2_2
+Gen_Cen_3_Cen_2;Geny (AB);Centurion;3;Gen_Cen_3;Mix;;12;K4;LM1_2_2
+Gen_Des_3_Des_2;Geny (AB);Descartes;3;Gen_Des_3;Mix;;9;G2;LM1_2_2
+Gen_Ven_3_Ven_2;Geny (AB);Venezio;3;Gen_Ven_3;Mix;;11;N4;LM1_2_2
+Cen_Soi_3_Soi_2;Centurion;Soissons;3;Cen_Soi_3;Mix;;10;K1;LM1_2_2
+Cen_Chi_3_Chi_2;Centurion;Chinese spring;3;Cen_Chi_3;Mix;;10;K1;LM1_2_2
+Cen_Tit_3_Tit_2;Centurion;Titlis;3;Cen_Tit_3;Mix;;7;M2;LM1_2_2
+Cen_Cad_3_Cad_2;Centurion;Cadenza;3;Cen_Cad_3;Mix;;12;K4;LM1_2_2
+Cen_LGA_3_LGA_2;Centurion;LGAbsalon;3;Cen_LGA_3;Mix;;7;M2;LM1_2_2
+Cen_Cen_7_Cen_2;Centurion;Centurion;7;Cen_Cen_7;Pure;;10;K1;LM1_2_2
+Gen_Tit_3_Gen_1;Titlis;Geny (AB);3;Gen_Tit_3;Mix;;9;G2;LM1_2_2
+Gen_Cad_3_Gen_1;Cadenza;Geny (AB);3;Gen_Cad_3;Mix;;7;M2;LM1_2_2
+Gen_LGA_3_Gen_1;LGAbsalon;Geny (AB);3;Gen_LGA_3;Mix;;11;N4;LM1_2_2
+Gen_Rec_3_Gen_1;Recital;Geny (AB);3;Gen_Rec_3;Mix;;7;M2;LM1_2_2
+Gen_Ber_3_Gen_1;Bergamo;Geny (AB);3;Gen_Ber_3;Mix;;7;M2;LM1_2_2
+Gen_Gha_3_Gen_1;Ghayta;Geny (AB);3;Gen_Gha_3;Mix;;8;O4;LM1_2_2
+Gen_Fru_3_Gen_1;Fructidor;Geny (AB);3;Gen_Fru_3;Mix;;10;K1;LM1_2_2
+Gen_Bob_3_Gen_1;Bobwhite ;Geny (AB);3;Gen_Bob_3;Mix;;11;N4;LM1_2_2
+Gen_SYM_3_Gen_1;SYMattis;Geny (AB);3;Gen_SYM_3;Mix;;11;N4;LM1_2_2
+Gen_Apa_3_Gen_1;Apache;Geny (AB);3;Gen_Apa_3;Mix;;12;K4;LM1_2_2
+Gen_Acc_3_Gen_1;Accroc;Geny (AB);3;Gen_Acc_3;Mix;;10;K1;LM1_2_2
+Gen_Rub_3_Gen_1;Rubisko;Geny (AB);3;Gen_Rub_3;Mix;;11;N4;LM1_2_2
+Gen_Gen_3_Gen_1;Geny (AB);Geny (AB);3;Gen_Gen_3;Pure;;10;K1;LM1_2_2
+Gen_Cen_3_Gen_1;Centurion;Geny (AB);3;Gen_Cen_3;Mix;;12;K4;LM1_2_2
+Gen_Des_3_Gen_1;Descartes;Geny (AB);3;Gen_Des_3;Mix;;9;G2;LM1_2_2
+Gen_Ven_3_Gen_1;Venezio;Geny (AB);3;Gen_Ven_3;Mix;;11;N4;LM1_2_2
+Cen_Soi_3_Cen_1;Soissons;Centurion;3;Cen_Soi_3;Mix;;10;K1;LM1_2_2
+Cen_Chi_3_Cen_1;Chinese spring;Centurion;3;Cen_Chi_3;Mix;;10;K1;LM1_2_2
+Cen_Tit_3_Cen_1;Titlis;Centurion;3;Cen_Tit_3;Mix;;7;M2;LM1_2_2
+Cen_Cad_3_Cen_1;Cadenza;Centurion;3;Cen_Cad_3;Mix;;12;K4;LM1_2_2
+Cen_LGA_3_Cen_1;LGAbsalon;Centurion;3;Cen_LGA_3;Mix;;7;M2;LM1_2_2
+Cen_Cen_7_Cen_1;Centurion;Centurion;7;Cen_Cen_7;Pure;;10;K1;LM1_2_2
+Gen_Tit_4_Tit_2;Geny (AB);Titlis;4;Gen_Tit_4;Mix;;9;G2;LM1_2_2
+Gen_Cad_4_Cad_2;Geny (AB);Cadenza;4;Gen_Cad_4;Mix;;7;M2;LM1_2_2
+Gen_LGA_4_LGA_2;Geny (AB);LGAbsalon;4;Gen_LGA_4;Mix;;12;K4;LM1_2_2
+Gen_Rec_4_Rec_2;Geny (AB);Recital;4;Gen_Rec_4;Mix;;8;O4;LM1_2_2
+Gen_Ber_4_Ber_2;Geny (AB);Bergamo;4;Gen_Ber_4;Mix;;7;M2;LM1_2_2
+Gen_Gha_4_Gha_2;Geny (AB);Ghayta;4;Gen_Gha_4;Mix;;12;K4;LM1_2_2
+Gen_Fru_4_Fru_2;Geny (AB);Fructidor;4;Gen_Fru_4;Mix;;11;N4;LM1_2_2
+Gen_Bob_4_Bob_2;Geny (AB);Bobwhite ;4;Gen_Bob_4;Mix;;11;N4;LM1_2_2
+Gen_SYM_4_SYM_2;Geny (AB);SYMattis;4;Gen_SYM_4;Mix;;7;M2;LM1_2_2
+Gen_Apa_4_Apa_2;Geny (AB);Apache;4;Gen_Apa_4;Mix;;11;N4;LM1_2_2
+Gen_Acc_4_Acc_2;Geny (AB);Accroc;4;Gen_Acc_4;Mix;;8;O4;LM1_2_2
+Gen_Rub_4_Rub_2;Geny (AB);Rubisko;4;Gen_Rub_4;Mix;;8;O4;LM1_2_2
+Gen_Gen_4_Gen_2;Geny (AB);Geny (AB);4;Gen_Gen_4;Pure;;11;N4;LM1_2_2
+Gen_Cen_4_Cen_2;Geny (AB);Centurion;4;Gen_Cen_4;Mix;;12;K4;LM1_2_2
+Gen_Des_4_Des_2;Geny (AB);Descartes;4;Gen_Des_4;Mix;;8;O4;LM1_2_2
+Gen_Ven_4_Ven_2;Geny (AB);Venezio;4;Gen_Ven_4;Mix;;8;O4;LM1_2_2
+Cen_Soi_4_Soi_2;Centurion;Soissons;4;Cen_Soi_4;Mix;;10;K1;LM1_2_2
+Cen_Chi_4_Chi_2;Centurion;Chinese spring;4;Cen_Chi_4;Mix;;9;G2;LM1_2_2
+Cen_Tit_4_Tit_2;Centurion;Titlis;4;Cen_Tit_4;Mix;;9;G2;LM1_2_2
+Cen_Cad_4_Cad_2;Centurion;Cadenza;4;Cen_Cad_4;Mix;;11;N4;LM1_2_2
+Cen_LGA_4_LGA_2;Centurion;LGAbsalon;4;Cen_LGA_4;Mix;;7;M2;LM1_2_2
+Cen_Cen_8_Cen_2;Centurion;Centurion;8;Cen_Cen_8;Pure;;7;M2;LM1_2_2
+Gen_Tit_4_Gen_1;Titlis;Geny (AB);4;Gen_Tit_4;Mix;;9;G2;LM1_2_2
+Gen_Cad_4_Gen_1;Cadenza;Geny (AB);4;Gen_Cad_4;Mix;;7;M2;LM1_2_2
+Gen_LGA_4_Gen_1;LGAbsalon;Geny (AB);4;Gen_LGA_4;Mix;;12;K4;LM1_2_2
+Gen_Rec_4_Gen_1;Recital;Geny (AB);4;Gen_Rec_4;Mix;;8;O4;LM1_2_2
+Gen_Ber_4_Gen_1;Bergamo;Geny (AB);4;Gen_Ber_4;Mix;;7;M2;LM1_2_2
+Gen_Gha_4_Gen_1;Ghayta;Geny (AB);4;Gen_Gha_4;Mix;;12;K4;LM1_2_2
+Gen_Fru_4_Gen_1;Fructidor;Geny (AB);4;Gen_Fru_4;Mix;;11;N4;LM1_2_2
+Gen_Bob_4_Gen_1;Bobwhite ;Geny (AB);4;Gen_Bob_4;Mix;;11;N4;LM1_2_2
+Gen_SYM_4_Gen_1;SYMattis;Geny (AB);4;Gen_SYM_4;Mix;;7;M2;LM1_2_2
+Gen_Apa_4_Gen_1;Apache;Geny (AB);4;Gen_Apa_4;Mix;;11;N4;LM1_2_2
+Gen_Acc_4_Gen_1;Accroc;Geny (AB);4;Gen_Acc_4;Mix;;8;O4;LM1_2_2
+Gen_Rub_4_Gen_1;Rubisko;Geny (AB);4;Gen_Rub_4;Mix;;8;O4;LM1_2_2
+Gen_Gen_4_Gen_1;Geny (AB);Geny (AB);4;Gen_Gen_4;Pure;;11;N4;LM1_2_2
+Gen_Cen_4_Gen_1;Centurion;Geny (AB);4;Gen_Cen_4;Mix;;12;K4;LM1_2_2
+Gen_Des_4_Gen_1;Descartes;Geny (AB);4;Gen_Des_4;Mix;;8;O4;LM1_2_2
+Gen_Ven_4_Gen_1;Venezio;Geny (AB);4;Gen_Ven_4;Mix;;8;O4;LM1_2_2
+Cen_Soi_4_Cen_1;Soissons;Centurion;4;Cen_Soi_4;Mix;;10;K1;LM1_2_2
+Cen_Chi_4_Cen_1;Chinese spring;Centurion;4;Cen_Chi_4;Mix;;9;G2;LM1_2_2
+Cen_Tit_4_Cen_1;Titlis;Centurion;4;Cen_Tit_4;Mix;;9;G2;LM1_2_2
+Cen_Cad_4_Cen_1;Cadenza;Centurion;4;Cen_Cad_4;Mix;;11;N4;LM1_2_2
+Cen_LGA_4_Cen_1;LGAbsalon;Centurion;4;Cen_LGA_4;Mix;;7;M2;LM1_2_2
+Cen_Cen_8_Cen_1;Centurion;Centurion;8;Cen_Cen_8;Pure;;7;M2;LM1_2_2
+Cen_Rec_1_Rec_2;Centurion;Recital;1;Cen_Rec_1;Mix;;13;J2;LM1_2_3
+Cen_Ber_1_Ber_2;Centurion;Bergamo;1;Cen_Ber_1;Mix;;13;J2;LM1_2_3
+Cen_Gha_1_Gha_2;Centurion;Ghayta;1;Cen_Gha_1;Mix;;16;C1;LM1_2_3
+Cen_Fru_1_Fru_2;Centurion;Fructidor;1;Cen_Fru_1;Mix;;18;A3;LM1_2_3
+Cen_Bob_1_Bob_2;Centurion;Bobwhite ;1;Cen_Bob_1;Mix;;15;G4;LM1_2_3
+Cen_SYM_1_SYM_2;Centurion;SYMattis;1;Cen_SYM_1;Mix;;14;F3;LM1_2_3
+Cen_Apa_1_Apa_2;Centurion;Apache;1;Cen_Apa_1;Mix;;16;C1;LM1_2_3
+Cen_Acc_1_Acc_2;Centurion;Accroc;1;Cen_Acc_1;Mix;;13;J2;LM1_2_3
+Cen_Rub_1_Rub_2;Centurion;Rubisko;1;Cen_Rub_1;Mix;;16;C1;LM1_2_3
+Cen_Cen_1_Cen_2;Centurion;Centurion;1;Cen_Cen_1;Pure;;17;E2;LM1_2_3
+Cen_Des_1_Des_2;Centurion;Descartes;1;Cen_Des_1;Mix;;18;A3;LM1_2_3
+Cen_Ven_1_Ven_2;Centurion;Venezio;1;Cen_Ven_1;Mix;;13;J2;LM1_2_3
+Des_Soi_1_Soi_2;Descartes;Soissons;1;Des_Soi_1;Mix;;18;A3;LM1_2_3
+Des_Chi_1_Chi_2;Descartes;Chinese spring;1;Des_Chi_1;Mix;;14;F3;LM1_2_3
+Des_Tit_1_Tit_2;Descartes;Titlis;1;Des_Tit_1;Mix;;16;C1;LM1_2_3
+Des_Cad_1_Cad_2;Descartes;Cadenza;1;Des_Cad_1;Mix;;17;E2;LM1_2_3
+Des_LGA_1_LGA_2;Descartes;LGAbsalon;1;Des_LGA_1;Mix;;14;F3;LM1_2_3
+Des_Rec_1_Rec_2;Descartes;Recital;1;Des_Rec_1;Mix;;13;J2;LM1_2_3
+Des_Ber_1_Ber_2;Descartes;Bergamo;1;Des_Ber_1;Mix;;14;F3;LM1_2_3
+Des_Gha_1_Gha_2;Descartes;Ghayta;1;Des_Gha_1;Mix;;18;A3;LM1_2_3
+Des_Fru_1_Fru_2;Descartes;Fructidor;1;Des_Fru_1;Mix;;17;E2;LM1_2_3
+Des_Des_5_Des_2;Descartes;Descartes;5;Des_Des_5;Pure;;16;C1;LM1_2_3
+Cen_Rec_1_Cen_1;Recital;Centurion;1;Cen_Rec_1;Mix;;13;J2;LM1_2_3
+Cen_Ber_1_Cen_1;Bergamo;Centurion;1;Cen_Ber_1;Mix;;13;J2;LM1_2_3
+Cen_Gha_1_Cen_1;Ghayta;Centurion;1;Cen_Gha_1;Mix;;16;C1;LM1_2_3
+Cen_Fru_1_Cen_1;Fructidor;Centurion;1;Cen_Fru_1;Mix;;18;A3;LM1_2_3
+Cen_Bob_1_Cen_1;Bobwhite ;Centurion;1;Cen_Bob_1;Mix;;15;G4;LM1_2_3
+Cen_SYM_1_Cen_1;SYMattis;Centurion;1;Cen_SYM_1;Mix;;14;F3;LM1_2_3
+Cen_Apa_1_Cen_1;Apache;Centurion;1;Cen_Apa_1;Mix;;16;C1;LM1_2_3
+Cen_Acc_1_Cen_1;Accroc;Centurion;1;Cen_Acc_1;Mix;;13;J2;LM1_2_3
+Cen_Rub_1_Cen_1;Rubisko;Centurion;1;Cen_Rub_1;Mix;;16;C1;LM1_2_3
+Cen_Cen_1_Cen_1;Centurion;Centurion;1;Cen_Cen_1;Pure;;17;E2;LM1_2_3
+Cen_Des_1_Cen_1;Descartes;Centurion;1;Cen_Des_1;Mix;;18;A3;LM1_2_3
+Cen_Ven_1_Cen_1;Venezio;Centurion;1;Cen_Ven_1;Mix;;13;J2;LM1_2_3
+Des_Soi_1_Des_1;Soissons;Descartes;1;Des_Soi_1;Mix;;18;A3;LM1_2_3
+Des_Chi_1_Des_1;Chinese spring;Descartes;1;Des_Chi_1;Mix;;14;F3;LM1_2_3
+Des_Tit_1_Des_1;Titlis;Descartes;1;Des_Tit_1;Mix;;16;C1;LM1_2_3
+Des_Cad_1_Des_1;Cadenza;Descartes;1;Des_Cad_1;Mix;;17;E2;LM1_2_3
+Des_LGA_1_Des_1;LGAbsalon;Descartes;1;Des_LGA_1;Mix;;14;F3;LM1_2_3
+Des_Rec_1_Des_1;Recital;Descartes;1;Des_Rec_1;Mix;;13;J2;LM1_2_3
+Des_Ber_1_Des_1;Bergamo;Descartes;1;Des_Ber_1;Mix;;14;F3;LM1_2_3
+Des_Gha_1_Des_1;Ghayta;Descartes;1;Des_Gha_1;Mix;;18;A3;LM1_2_3
+Des_Fru_1_Des_1;Fructidor;Descartes;1;Des_Fru_1;Mix;;17;E2;LM1_2_3
+Des_Des_5_Des_1;Descartes;Descartes;5;Des_Des_5;Pure;;16;C1;LM1_2_3
+Cen_Rec_2_Rec_2;Centurion;Recital;2;Cen_Rec_2;Mix;;18;A3;LM1_2_3
+Cen_Ber_2_Ber_2;Centurion;Bergamo;2;Cen_Ber_2;Mix;;14;F3;LM1_2_3
+Cen_Gha_2_Gha_2;Centurion;Ghayta;2;Cen_Gha_2;Mix;;17;E2;LM1_2_3
+Cen_Fru_2_Fru_2;Centurion;Fructidor;2;Cen_Fru_2;Mix;;15;G4;LM1_2_3
+Cen_Bob_2_Bob_2;Centurion;Bobwhite ;2;Cen_Bob_2;Mix;;16;C1;LM1_2_3
+Cen_SYM_2_SYM_2;Centurion;SYMattis;2;Cen_SYM_2;Mix;;13;J2;LM1_2_3
+Cen_Apa_2_Apa_2;Centurion;Apache;2;Cen_Apa_2;Mix;;18;A3;LM1_2_3
+Cen_Acc_2_Acc_2;Centurion;Accroc;2;Cen_Acc_2;Mix;;16;C1;LM1_2_3
+Cen_Rub_2_Rub_2;Centurion;Rubisko;2;Cen_Rub_2;Mix;;15;G4;LM1_2_3
+Cen_Cen_2_Cen_2;Centurion;Centurion;2;Cen_Cen_2;Pure;;16;C1;LM1_2_3
+Cen_Des_2_Des_2;Centurion;Descartes;2;Cen_Des_2;Mix;;15;G4;LM1_2_3
+Cen_Ven_2_Ven_2;Centurion;Venezio;2;Cen_Ven_2;Mix;;17;E2;LM1_2_3
+Des_Soi_2_Soi_2;Descartes;Soissons;2;Des_Soi_2;Mix;;16;C1;LM1_2_3
+Des_Chi_2_Chi_2;Descartes;Chinese spring;2;Des_Chi_2;Mix;;14;F3;LM1_2_3
+Des_Tit_2_Tit_2;Descartes;Titlis;2;Des_Tit_2;Mix;;14;F3;LM1_2_3
+Des_Cad_2_Cad_2;Descartes;Cadenza;2;Des_Cad_2;Mix;;16;C1;LM1_2_3
+Des_LGA_2_LGA_2;Descartes;LGAbsalon;2;Des_LGA_2;Mix;;18;A3;LM1_2_3
+Des_Rec_2_Rec_2;Descartes;Recital;2;Des_Rec_2;Mix;;13;J2;LM1_2_3
+Des_Ber_2_Ber_2;Descartes;Bergamo;2;Des_Ber_2;Mix;;16;C1;LM1_2_3
+Des_Gha_2_Gha_2;Descartes;Ghayta;2;Des_Gha_2;Mix;;17;E2;LM1_2_3
+Des_Fru_2_Fru_2;Descartes;Fructidor;2;Des_Fru_2;Mix;;13;J2;LM1_2_3
+Des_Des_6_Des_2;Descartes;Descartes;6;Des_Des_6;Pure;;18;A3;LM1_2_3
+Cen_Rec_2_Cen_1;Recital;Centurion;2;Cen_Rec_2;Mix;;18;A3;LM1_2_3
+Cen_Ber_2_Cen_1;Bergamo;Centurion;2;Cen_Ber_2;Mix;;14;F3;LM1_2_3
+Cen_Gha_2_Cen_1;Ghayta;Centurion;2;Cen_Gha_2;Mix;;17;E2;LM1_2_3
+Cen_Fru_2_Cen_1;Fructidor;Centurion;2;Cen_Fru_2;Mix;;15;G4;LM1_2_3
+Cen_Bob_2_Cen_1;Bobwhite ;Centurion;2;Cen_Bob_2;Mix;;16;C1;LM1_2_3
+Cen_SYM_2_Cen_1;SYMattis;Centurion;2;Cen_SYM_2;Mix;;13;J2;LM1_2_3
+Cen_Apa_2_Cen_1;Apache;Centurion;2;Cen_Apa_2;Mix;;18;A3;LM1_2_3
+Cen_Acc_2_Cen_1;Accroc;Centurion;2;Cen_Acc_2;Mix;;16;C1;LM1_2_3
+Cen_Rub_2_Cen_1;Rubisko;Centurion;2;Cen_Rub_2;Mix;;15;G4;LM1_2_3
+Cen_Cen_2_Cen_1;Centurion;Centurion;2;Cen_Cen_2;Pure;;16;C1;LM1_2_3
+Cen_Des_2_Cen_1;Descartes;Centurion;2;Cen_Des_2;Mix;;15;G4;LM1_2_3
+Cen_Ven_2_Cen_1;Venezio;Centurion;2;Cen_Ven_2;Mix;;17;E2;LM1_2_3
+Des_Soi_2_Des_1;Soissons;Descartes;2;Des_Soi_2;Mix;;16;C1;LM1_2_3
+Des_Chi_2_Des_1;Chinese spring;Descartes;2;Des_Chi_2;Mix;;14;F3;LM1_2_3
+Des_Tit_2_Des_1;Titlis;Descartes;2;Des_Tit_2;Mix;;14;F3;LM1_2_3
+Des_Cad_2_Des_1;Cadenza;Descartes;2;Des_Cad_2;Mix;;16;C1;LM1_2_3
+Des_LGA_2_Des_1;LGAbsalon;Descartes;2;Des_LGA_2;Mix;;18;A3;LM1_2_3
+Des_Rec_2_Des_1;Recital;Descartes;2;Des_Rec_2;Mix;;13;J2;LM1_2_3
+Des_Ber_2_Des_1;Bergamo;Descartes;2;Des_Ber_2;Mix;;16;C1;LM1_2_3
+Des_Gha_2_Des_1;Ghayta;Descartes;2;Des_Gha_2;Mix;;17;E2;LM1_2_3
+Des_Fru_2_Des_1;Fructidor;Descartes;2;Des_Fru_2;Mix;;13;J2;LM1_2_3
+Des_Des_6_Des_1;Descartes;Descartes;6;Des_Des_6;Pure;;18;A3;LM1_2_3
+Cen_Rec_3_Rec_2;Centurion;Recital;3;Cen_Rec_3;Mix;;17;E2;LM1_2_3
+Cen_Ber_3_Ber_2;Centurion;Bergamo;3;Cen_Ber_3;Mix;;15;G4;LM1_2_3
+Cen_Gha_3_Gha_2;Centurion;Ghayta;3;Cen_Gha_3;Mix;;14;F3;LM1_2_3
+Cen_Fru_3_Fru_2;Centurion;Fructidor;3;Cen_Fru_3;Mix;;15;G4;LM1_2_3
+Cen_Bob_3_Bob_2;Centurion;Bobwhite ;3;Cen_Bob_3;Mix;;15;G4;LM1_2_3
+Cen_SYM_3_SYM_2;Centurion;SYMattis;3;Cen_SYM_3;Mix;;13;J2;LM1_2_3
+Cen_Apa_3_Apa_2;Centurion;Apache;3;Cen_Apa_3;Mix;;15;G4;LM1_2_3
+Cen_Acc_3_Acc_2;Centurion;Accroc;3;Cen_Acc_3;Mix;;14;F3;LM1_2_3
+Cen_Rub_3_Rub_2;Centurion;Rubisko;3;Cen_Rub_3;Mix;;16;C1;LM1_2_3
+Cen_Cen_3_Cen_2;Centurion;Centurion;3;Cen_Cen_3;Pure;;14;F3;LM1_2_3
+Cen_Des_3_Des_2;Centurion;Descartes;3;Cen_Des_3;Mix;;17;E2;LM1_2_3
+Cen_Ven_3_Ven_2;Centurion;Venezio;3;Cen_Ven_3;Mix;;18;A3;LM1_2_3
+Des_Soi_3_Soi_2;Descartes;Soissons;3;Des_Soi_3;Mix;;16;C1;LM1_2_3
+Des_Chi_3_Chi_2;Descartes;Chinese spring;3;Des_Chi_3;Mix;;14;F3;LM1_2_3
+Des_Tit_3_Tit_2;Descartes;Titlis;3;Des_Tit_3;Mix;;15;G4;LM1_2_3
+Des_Cad_3_Cad_2;Descartes;Cadenza;3;Des_Cad_3;Mix;;17;E2;LM1_2_3
+Des_LGA_3_LGA_2;Descartes;LGAbsalon;3;Des_LGA_3;Mix;;13;J2;LM1_2_3
+Des_Rec_3_Rec_2;Descartes;Recital;3;Des_Rec_3;Mix;;16;C1;LM1_2_3
+Des_Ber_3_Ber_2;Descartes;Bergamo;3;Des_Ber_3;Mix;;13;J2;LM1_2_3
+Des_Gha_3_Gha_2;Descartes;Ghayta;3;Des_Gha_3;Mix;;17;E2;LM1_2_3
+Des_Fru_3_Fru_2;Descartes;Fructidor;3;Des_Fru_3;Mix;;17;E2;LM1_2_3
+Des_Des_7_Des_2;Descartes;Descartes;7;Des_Des_7;Pure;;15;G4;LM1_2_3
+Cen_Rec_3_Cen_1;Recital;Centurion;3;Cen_Rec_3;Mix;;;;LM1_2_3
+Cen_Ber_3_Cen_1;Bergamo;Centurion;3;Cen_Ber_3;Mix;;15;G4;LM1_2_3
+Cen_Gha_3_Cen_1;Ghayta;Centurion;3;Cen_Gha_3;Mix;;14;F3;LM1_2_3
+Cen_Fru_3_Cen_1;Fructidor;Centurion;3;Cen_Fru_3;Mix;;15;G4;LM1_2_3
+Cen_Bob_3_Cen_1;Bobwhite ;Centurion;3;Cen_Bob_3;Mix;;15;G4;LM1_2_3
+Cen_SYM_3_Cen_1;SYMattis;Centurion;3;Cen_SYM_3;Mix;;13;J2;LM1_2_3
+Cen_Apa_3_Cen_1;Apache;Centurion;3;Cen_Apa_3;Mix;;15;G4;LM1_2_3
+Cen_Acc_3_Cen_1;Accroc;Centurion;3;Cen_Acc_3;Mix;;14;F3;LM1_2_3
+Cen_Rub_3_Cen_1;Rubisko;Centurion;3;Cen_Rub_3;Mix;;16;C1;LM1_2_3
+Cen_Cen_3_Cen_1;Centurion;Centurion;3;Cen_Cen_3;Pure;;14;F3;LM1_2_3
+Cen_Des_3_Cen_1;Descartes;Centurion;3;Cen_Des_3;Mix;;17;E2;LM1_2_3
+Cen_Ven_3_Cen_1;Venezio;Centurion;3;Cen_Ven_3;Mix;;18;A3;LM1_2_3
+Des_Soi_3_Des_1;Soissons;Descartes;3;Des_Soi_3;Mix;;16;C1;LM1_2_3
+Des_Chi_3_Des_1;Chinese spring;Descartes;3;Des_Chi_3;Mix;;14;F3;LM1_2_3
+Des_Tit_3_Des_1;Titlis;Descartes;3;Des_Tit_3;Mix;;15;G4;LM1_2_3
+Des_Cad_3_Des_1;Cadenza;Descartes;3;Des_Cad_3;Mix;;17;E2;LM1_2_3
+Des_LGA_3_Des_1;LGAbsalon;Descartes;3;Des_LGA_3;Mix;;13;J2;LM1_2_3
+Des_Rec_3_Des_1;Recital;Descartes;3;Des_Rec_3;Mix;;16;C1;LM1_2_3
+Des_Ber_3_Des_1;Bergamo;Descartes;3;Des_Ber_3;Mix;;13;J2;LM1_2_3
+Des_Gha_3_Des_1;Ghayta;Descartes;3;Des_Gha_3;Mix;;17;E2;LM1_2_3
+Des_Fru_3_Des_1;Fructidor;Descartes;3;Des_Fru_3;Mix;;17;E2;LM1_2_3
+Des_Des_7_Des_1;Descartes;Descartes;7;Des_Des_7;Pure;;15;G4;LM1_2_3
+Cen_Rec_4_Rec_2;Centurion;Recital;4;Cen_Rec_4;Mix;;15;G4;LM1_2_3
+Cen_Ber_4_Ber_2;Centurion;Bergamo;4;Cen_Ber_4;Mix;;13;J2;LM1_2_3
+Cen_Gha_4_Gha_2;Centurion;Ghayta;4;Cen_Gha_4;Mix;;18;A3;LM1_2_3
+Cen_Fru_4_Fru_2;Centurion;Fructidor;4;Cen_Fru_4;Mix;;14;F3;LM1_2_3
+Cen_Bob_4_Bob_2;Centurion;Bobwhite ;4;Cen_Bob_4;Mix;;17;E2;LM1_2_3
+Cen_SYM_4_SYM_2;Centurion;SYMattis;4;Cen_SYM_4;Mix;;16;C1;LM1_2_3
+Cen_Apa_4_Apa_2;Centurion;Apache;4;Cen_Apa_4;Mix;;15;G4;LM1_2_3
+Cen_Acc_4_Acc_2;Centurion;Accroc;4;Cen_Acc_4;Mix;;17;E2;LM1_2_3
+Cen_Rub_4_Rub_2;Centurion;Rubisko;4;Cen_Rub_4;Mix;;14;F3;LM1_2_3
+Cen_Cen_4_Cen_2;Centurion;Centurion;4;Cen_Cen_4;Pure;;15;G4;LM1_2_3
+Cen_Des_4_Des_2;Centurion;Descartes;4;Cen_Des_4;Mix;;15;G4;LM1_2_3
+Cen_Ven_4_Ven_2;Centurion;Venezio;4;Cen_Ven_4;Mix;;13;J2;LM1_2_3
+Des_Soi_4_Soi_2;Descartes;Soissons;4;Des_Soi_4;Mix;;17;E2;LM1_2_3
+Des_Chi_4_Chi_2;Descartes;Chinese spring;4;Des_Chi_4;Mix;;18;A3;LM1_2_3
+Des_Tit_4_Tit_2;Descartes;Titlis;4;Des_Tit_4;Mix;;13;J2;LM1_2_3
+Des_Cad_4_Cad_2;Descartes;Cadenza;4;Des_Cad_4;Mix;;17;E2;LM1_2_3
+Des_LGA_4_LGA_2;Descartes;LGAbsalon;4;Des_LGA_4;Mix;;18;A3;LM1_2_3
+Des_Rec_4_Rec_2;Descartes;Recital;4;Des_Rec_4;Mix;;14;F3;LM1_2_3
+Des_Ber_4_Ber_2;Descartes;Bergamo;4;Des_Ber_4;Mix;;13;J2;LM1_2_3
+Des_Gha_4_Gha_2;Descartes;Ghayta;4;Des_Gha_4;Mix;;14;F3;LM1_2_3
+Des_Fru_4_Fru_2;Descartes;Fructidor;4;Des_Fru_4;Mix;;18;A3;LM1_2_3
+Des_Des_8_Des_2;Descartes;Descartes;8;Des_Des_8;Pure;;15;G4;LM1_2_3
+Cen_Rec_4_Cen_1;Recital;Centurion;4;Cen_Rec_4;Mix;;15;G4;LM1_2_3
+Cen_Ber_4_Cen_1;Bergamo;Centurion;4;Cen_Ber_4;Mix;;13;J2;LM1_2_3
+Cen_Gha_4_Cen_1;Ghayta;Centurion;4;Cen_Gha_4;Mix;;18;A3;LM1_2_3
+Cen_Fru_4_Cen_1;Fructidor;Centurion;4;Cen_Fru_4;Mix;;14;F3;LM1_2_3
+Cen_Bob_4_Cen_1;Bobwhite ;Centurion;4;Cen_Bob_4;Mix;;17;E2;LM1_2_3
+Cen_SYM_4_Cen_1;SYMattis;Centurion;4;Cen_SYM_4;Mix;;16;C1;LM1_2_3
+Cen_Apa_4_Cen_1;Apache;Centurion;4;Cen_Apa_4;Mix;;15;G4;LM1_2_3
+Cen_Acc_4_Cen_1;Accroc;Centurion;4;Cen_Acc_4;Mix;;17;E2;LM1_2_3
+Cen_Rub_4_Cen_1;Rubisko;Centurion;4;Cen_Rub_4;Mix;;14;F3;LM1_2_3
+Cen_Cen_4_Cen_1;Centurion;Centurion;4;Cen_Cen_4;Pure;;15;G4;LM1_2_3
+Cen_Des_4_Cen_1;Descartes;Centurion;4;Cen_Des_4;Mix;;15;G4;LM1_2_3
+Cen_Ven_4_Cen_1;Venezio;Centurion;4;Cen_Ven_4;Mix;;13;J2;LM1_2_3
+Des_Soi_4_Des_1;Soissons;Descartes;4;Des_Soi_4;Mix;;17;E2;LM1_2_3
+Des_Chi_4_Des_1;Chinese spring;Descartes;4;Des_Chi_4;Mix;;18;A3;LM1_2_3
+Des_Tit_4_Des_1;Titlis;Descartes;4;Des_Tit_4;Mix;;13;J2;LM1_2_3
+Des_Cad_4_Des_1;Cadenza;Descartes;4;Des_Cad_4;Mix;;17;E2;LM1_2_3
+Des_LGA_4_Des_1;LGAbsalon;Descartes;4;Des_LGA_4;Mix;;18;A3;LM1_2_3
+Des_Rec_4_Des_1;Recital;Descartes;4;Des_Rec_4;Mix;;14;F3;LM1_2_3
+Des_Ber_4_Des_1;Bergamo;Descartes;4;Des_Ber_4;Mix;;13;J2;LM1_2_3
+Des_Gha_4_Des_1;Ghayta;Descartes;4;Des_Gha_4;Mix;;14;F3;LM1_2_3
+Des_Fru_4_Des_1;Fructidor;Descartes;4;Des_Fru_4;Mix;;18;A3;LM1_2_3
+Des_Des_8_Des_1;Descartes;Descartes;8;Des_Des_8;Pure;;15;G4;LM1_2_3
+Des_Bob_1_Bob_2;Descartes;Bobwhite ;1;Des_Bob_1;Mix;;24;D2;LM1_2_4
+Des_SYM_1_SYM_2;Descartes;SYMattis;1;Des_SYM_1;Mix;;22;B2;LM1_2_4
+Des_Apa_1_Apa_2;Descartes;Apache;1;Des_Apa_1;Mix;;21;B4;LM1_2_4
+Des_Acc_1_Acc_2;Descartes;Accroc;1;Des_Acc_1;Mix;;21;B4;LM1_2_4
+Des_Rub_1_Rub_2;Descartes;Rubisko;1;Des_Rub_1;Mix;;21;B4;LM1_2_4
+Des_Des_1_Des_2;Descartes;Descartes;1;Des_Des_1;Pure;;24;D2;LM1_2_4
+Des_Ven_1_Ven_2;Descartes;Venezio;1;Des_Ven_1;Mix;;24;D2;LM1_2_4
+Ven_Soi_1_Soi_2;Venezio;Soissons;1;Ven_Soi_1;Mix;;22;B2;LM1_2_4
+Ven_Chi_1_Chi_2;Venezio;Chinese spring;1;Ven_Chi_1;Mix;;23;I3;LM1_2_4
+Ven_Tit_1_Tit_2;Venezio;Titlis;1;Ven_Tit_1;Mix;;22;B2;LM1_2_4
+Ven_Cad_1_Cad_2;Venezio;Cadenza;1;Ven_Cad_1;Mix;;21;B4;LM1_2_4
+Ven_LGA_1_LGA_2;Venezio;LGAbsalon;1;Ven_LGA_1;Mix;;23;I3;LM1_2_4
+Ven_Rec_1_Rec_2;Venezio;Recital;1;Ven_Rec_1;Mix;;20;H1;LM1_2_4
+Ven_Ber_1_Ber_2;Venezio;Bergamo;1;Ven_Ber_1;Mix;;19;F4;LM1_2_4
+Ven_Gha_1_Gha_2;Venezio;Ghayta;1;Ven_Gha_1;Mix;;22;B2;LM1_2_4
+Ven_Fru_1_Fru_2;Venezio;Fructidor;1;Ven_Fru_1;Mix;;19;F4;LM1_2_4
+Ven_Bob_1_Bob_2;Venezio;Bobwhite ;1;Ven_Bob_1;Mix;;24;D2;LM1_2_4
+Ven_SYM_1_SYM_2;Venezio;SYMattis;1;Ven_SYM_1;Mix;;19;F4;LM1_2_4
+Ven_Apa_1_Apa_2;Venezio;Apache;1;Ven_Apa_1;Mix;;20;H1;LM1_2_4
+Ven_Acc_1_Acc_2;Venezio;Accroc;1;Ven_Acc_1;Mix;;23;I3;LM1_2_4
+Ven_Rub_1_Rub_2;Venezio;Rubisko;1;Ven_Rub_1;Mix;;23;I3;LM1_2_4
+Ven_Ven_1_Ven_2;Venezio;Venezio;1;Ven_Ven_1;Pure;;19;F4;LM1_2_4
+Des_Bob_1_Des_1;Bobwhite ;Descartes;1;Des_Bob_1;Mix;;24;D2;LM1_2_4
+Des_SYM_1_Des_1;SYMattis;Descartes;1;Des_SYM_1;Mix;;22;B2;LM1_2_4
+Des_Apa_1_Des_1;Apache;Descartes;1;Des_Apa_1;Mix;;21;B4;LM1_2_4
+Des_Acc_1_Des_1;Accroc;Descartes;1;Des_Acc_1;Mix;;21;B4;LM1_2_4
+Des_Rub_1_Des_1;Rubisko;Descartes;1;Des_Rub_1;Mix;;21;B4;LM1_2_4
+Des_Des_1_Des_1;Descartes;Descartes;1;Des_Des_1;Pure;;24;D2;LM1_2_4
+Des_Ven_1_Des_1;Venezio;Descartes;1;Des_Ven_1;Mix;;24;D2;LM1_2_4
+Ven_Soi_1_Ven_1;Soissons;Venezio;1;Ven_Soi_1;Mix;;22;B2;LM1_2_4
+Ven_Chi_1_Ven_1;Chinese spring;Venezio;1;Ven_Chi_1;Mix;;23;I3;LM1_2_4
+Ven_Tit_1_Ven_1;Titlis;Venezio;1;Ven_Tit_1;Mix;;22;B2;LM1_2_4
+Ven_Cad_1_Ven_1;Cadenza;Venezio;1;Ven_Cad_1;Mix;;21;B4;LM1_2_4
+Ven_LGA_1_Ven_1;LGAbsalon;Venezio;1;Ven_LGA_1;Mix;;23;I3;LM1_2_4
+Ven_Rec_1_Ven_1;Recital;Venezio;1;Ven_Rec_1;Mix;;20;H1;LM1_2_4
+Ven_Ber_1_Ven_1;Bergamo;Venezio;1;Ven_Ber_1;Mix;;19;F4;LM1_2_4
+Ven_Gha_1_Ven_1;Ghayta;Venezio;1;Ven_Gha_1;Mix;;22;B2;LM1_2_4
+Ven_Fru_1_Ven_1;Fructidor;Venezio;1;Ven_Fru_1;Mix;;19;F4;LM1_2_4
+Ven_Bob_1_Ven_1;Bobwhite ;Venezio;1;Ven_Bob_1;Mix;;24;D2;LM1_2_4
+Ven_SYM_1_Ven_1;SYMattis;Venezio;1;Ven_SYM_1;Mix;;19;F4;LM1_2_4
+Ven_Apa_1_Ven_1;Apache;Venezio;1;Ven_Apa_1;Mix;;20;H1;LM1_2_4
+Ven_Acc_1_Ven_1;Accroc;Venezio;1;Ven_Acc_1;Mix;;23;I3;LM1_2_4
+Ven_Rub_1_Ven_1;Rubisko;Venezio;1;Ven_Rub_1;Mix;;23;I3;LM1_2_4
+Ven_Ven_1_Ven_1;Venezio;Venezio;1;Ven_Ven_1;Pure;;19;F4;LM1_2_4
+Des_Bob_2_Bob_2;Descartes;Bobwhite ;2;Des_Bob_2;Mix;;22;B2;LM1_2_4
+Des_SYM_2_SYM_2;Descartes;SYMattis;2;Des_SYM_2;Mix;;23;I3;LM1_2_4
+Des_Apa_2_Apa_2;Descartes;Apache;2;Des_Apa_2;Mix;;21;B4;LM1_2_4
+Des_Acc_2_Acc_2;Descartes;Accroc;2;Des_Acc_2;Mix;;19;F4;LM1_2_4
+Des_Rub_2_Rub_2;Descartes;Rubisko;2;Des_Rub_2;Mix;;21;B4;LM1_2_4
+Des_Des_2_Des_2;Descartes;Descartes;2;Des_Des_2;Pure;;22;B2;LM1_2_4
+Des_Ven_2_Ven_2;Descartes;Venezio;2;Des_Ven_2;Mix;;19;F4;LM1_2_4
+Ven_Soi_2_Soi_2;Venezio;Soissons;2;Ven_Soi_2;Mix;;19;F4;LM1_2_4
+Ven_Chi_2_Chi_2;Venezio;Chinese spring;2;Ven_Chi_2;Mix;;22;B2;LM1_2_4
+Ven_Tit_2_Tit_2;Venezio;Titlis;2;Ven_Tit_2;Mix;;21;B4;LM1_2_4
+Ven_Cad_2_Cad_2;Venezio;Cadenza;2;Ven_Cad_2;Mix;;24;D2;LM1_2_4
+Ven_LGA_2_LGA_2;Venezio;LGAbsalon;2;Ven_LGA_2;Mix;;23;I3;LM1_2_4
+Ven_Rec_2_Rec_2;Venezio;Recital;2;Ven_Rec_2;Mix;;20;H1;LM1_2_4
+Ven_Ber_2_Ber_2;Venezio;Bergamo;2;Ven_Ber_2;Mix;;21;B4;LM1_2_4
+Ven_Gha_2_Gha_2;Venezio;Ghayta;2;Ven_Gha_2;Mix;;23;I3;LM1_2_4
+Ven_Fru_2_Fru_2;Venezio;Fructidor;2;Ven_Fru_2;Mix;;20;H1;LM1_2_4
+Ven_Bob_2_Bob_2;Venezio;Bobwhite ;2;Ven_Bob_2;Mix;;20;H1;LM1_2_4
+Ven_SYM_2_SYM_2;Venezio;SYMattis;2;Ven_SYM_2;Mix;;20;H1;LM1_2_4
+Ven_Apa_2_Apa_2;Venezio;Apache;2;Ven_Apa_2;Mix;;21;B4;LM1_2_4
+Ven_Acc_2_Acc_2;Venezio;Accroc;2;Ven_Acc_2;Mix;;22;B2;LM1_2_4
+Ven_Rub_2_Rub_2;Venezio;Rubisko;2;Ven_Rub_2;Mix;;19;F4;LM1_2_4
+Ven_Ven_2_Ven_2;Venezio;Venezio;2;Ven_Ven_2;Pure;;24;D2;LM1_2_4
+Des_Bob_2_Des_1;Bobwhite ;Descartes;2;Des_Bob_2;Mix;;22;B2;LM1_2_4
+Des_SYM_2_Des_1;SYMattis;Descartes;2;Des_SYM_2;Mix;;23;I3;LM1_2_4
+Des_Apa_2_Des_1;Apache;Descartes;2;Des_Apa_2;Mix;;21;B4;LM1_2_4
+Des_Acc_2_Des_1;Accroc;Descartes;2;Des_Acc_2;Mix;;19;F4;LM1_2_4
+Des_Rub_2_Des_1;Rubisko;Descartes;2;Des_Rub_2;Mix;;21;B4;LM1_2_4
+Des_Des_2_Des_1;Descartes;Descartes;2;Des_Des_2;Pure;;22;B2;LM1_2_4
+Des_Ven_2_Des_1;Venezio;Descartes;2;Des_Ven_2;Mix;;19;F4;LM1_2_4
+Ven_Soi_2_Ven_1;Soissons;Venezio;2;Ven_Soi_2;Mix;;19;F4;LM1_2_4
+Ven_Chi_2_Ven_1;Chinese spring;Venezio;2;Ven_Chi_2;Mix;;22;B2;LM1_2_4
+Ven_Tit_2_Ven_1;Titlis;Venezio;2;Ven_Tit_2;Mix;;21;B4;LM1_2_4
+Ven_Cad_2_Ven_1;Cadenza;Venezio;2;Ven_Cad_2;Mix;;24;D2;LM1_2_4
+Ven_LGA_2_Ven_1;LGAbsalon;Venezio;2;Ven_LGA_2;Mix;;23;I3;LM1_2_4
+Ven_Rec_2_Ven_1;Recital;Venezio;2;Ven_Rec_2;Mix;;20;H1;LM1_2_4
+Ven_Ber_2_Ven_1;Bergamo;Venezio;2;Ven_Ber_2;Mix;;21;B4;LM1_2_4
+Ven_Gha_2_Ven_1;Ghayta;Venezio;2;Ven_Gha_2;Mix;;23;I3;LM1_2_4
+Ven_Fru_2_Ven_1;Fructidor;Venezio;2;Ven_Fru_2;Mix;;20;H1;LM1_2_4
+Ven_Bob_2_Ven_1;Bobwhite ;Venezio;2;Ven_Bob_2;Mix;;20;H1;LM1_2_4
+Ven_SYM_2_Ven_1;SYMattis;Venezio;2;Ven_SYM_2;Mix;;20;H1;LM1_2_4
+Ven_Apa_2_Ven_1;Apache;Venezio;2;Ven_Apa_2;Mix;;21;B4;LM1_2_4
+Ven_Acc_2_Ven_1;Accroc;Venezio;2;Ven_Acc_2;Mix;;22;B2;LM1_2_4
+Ven_Rub_2_Ven_1;Rubisko;Venezio;2;Ven_Rub_2;Mix;;19;F4;LM1_2_4
+Ven_Ven_2_Ven_1;Venezio;Venezio;2;Ven_Ven_2;Pure;;24;D2;LM1_2_4
+Des_Bob_3_Bob_2;Descartes;Bobwhite ;3;Des_Bob_3;Mix;;23;I3;LM1_2_4
+Des_SYM_3_SYM_2;Descartes;SYMattis;3;Des_SYM_3;Mix;;20;H1;LM1_2_4
+Des_Apa_3_Apa_2;Descartes;Apache;3;Des_Apa_3;Mix;;19;F4;LM1_2_4
+Des_Acc_3_Acc_2;Descartes;Accroc;3;Des_Acc_3;Mix;;23;I3;LM1_2_4
+Des_Rub_3_Rub_2;Descartes;Rubisko;3;Des_Rub_3;Mix;;24;D2;LM1_2_4
+Des_Des_3_Des_2;Descartes;Descartes;3;Des_Des_3;Pure;;22;B2;LM1_2_4
+Des_Ven_3_Ven_2;Descartes;Venezio;3;Des_Ven_3;Mix;;23;I3;LM1_2_4
+Ven_Soi_3_Soi_2;Venezio;Soissons;3;Ven_Soi_3;Mix;;20;H1;LM1_2_4
+Ven_Chi_3_Chi_2;Venezio;Chinese spring;3;Ven_Chi_3;Mix;;19;F4;LM1_2_4
+Ven_Tit_3_Tit_2;Venezio;Titlis;3;Ven_Tit_3;Mix;;19;F4;LM1_2_4
+Ven_Cad_3_Cad_2;Venezio;Cadenza;3;Ven_Cad_3;Mix;;20;H1;LM1_2_4
+Ven_LGA_3_LGA_2;Venezio;LGAbsalon;3;Ven_LGA_3;Mix;;24;D2;LM1_2_4
+Ven_Rec_3_Rec_2;Venezio;Recital;3;Ven_Rec_3;Mix;;24;D2;LM1_2_4
+Ven_Ber_3_Ber_2;Venezio;Bergamo;3;Ven_Ber_3;Mix;;21;B4;LM1_2_4
+Ven_Gha_3_Gha_2;Venezio;Ghayta;3;Ven_Gha_3;Mix;;21;B4;LM1_2_4
+Ven_Fru_3_Fru_2;Venezio;Fructidor;3;Ven_Fru_3;Mix;;22;B2;LM1_2_4
+Ven_Bob_3_Bob_2;Venezio;Bobwhite ;3;Ven_Bob_3;Mix;;22;B2;LM1_2_4
+Ven_SYM_3_SYM_2;Venezio;SYMattis;3;Ven_SYM_3;Mix;;21;B4;LM1_2_4
+Ven_Apa_3_Apa_2;Venezio;Apache;3;Ven_Apa_3;Mix;;24;D2;LM1_2_4
+Ven_Acc_3_Acc_2;Venezio;Accroc;3;Ven_Acc_3;Mix;;21;B4;LM1_2_4
+Ven_Rub_3_Rub_2;Venezio;Rubisko;3;Ven_Rub_3;Mix;;23;I3;LM1_2_4
+Ven_Ven_3_Ven_2;Venezio;Venezio;3;Ven_Ven_3;Pure;;20;H1;LM1_2_4
+Des_Bob_3_Des_1;Bobwhite ;Descartes;3;Des_Bob_3;Mix;;;;LM1_2_4
+Des_SYM_3_Des_1;SYMattis;Descartes;3;Des_SYM_3;Mix;;20;H1;LM1_2_4
+Des_Apa_3_Des_1;Apache;Descartes;3;Des_Apa_3;Mix;;19;F4;LM1_2_4
+Des_Acc_3_Des_1;Accroc;Descartes;3;Des_Acc_3;Mix;;23;I3;LM1_2_4
+Des_Rub_3_Des_1;Rubisko;Descartes;3;Des_Rub_3;Mix;;24;D2;LM1_2_4
+Des_Des_3_Des_1;Descartes;Descartes;3;Des_Des_3;Pure;;22;B2;LM1_2_4
+Des_Ven_3_Des_1;Venezio;Descartes;3;Des_Ven_3;Mix;;23;I3;LM1_2_4
+Ven_Soi_3_Ven_1;Soissons;Venezio;3;Ven_Soi_3;Mix;;20;H1;LM1_2_4
+Ven_Chi_3_Ven_1;Chinese spring;Venezio;3;Ven_Chi_3;Mix;;19;F4;LM1_2_4
+Ven_Tit_3_Ven_1;Titlis;Venezio;3;Ven_Tit_3;Mix;;19;F4;LM1_2_4
+Ven_Cad_3_Ven_1;Cadenza;Venezio;3;Ven_Cad_3;Mix;;20;H1;LM1_2_4
+Ven_LGA_3_Ven_1;LGAbsalon;Venezio;3;Ven_LGA_3;Mix;;24;D2;LM1_2_4
+Ven_Rec_3_Ven_1;Recital;Venezio;3;Ven_Rec_3;Mix;;24;D2;LM1_2_4
+Ven_Ber_3_Ven_1;Bergamo;Venezio;3;Ven_Ber_3;Mix;;21;B4;LM1_2_4
+Ven_Gha_3_Ven_1;Ghayta;Venezio;3;Ven_Gha_3;Mix;;21;B4;LM1_2_4
+Ven_Fru_3_Ven_1;Fructidor;Venezio;3;Ven_Fru_3;Mix;;22;B2;LM1_2_4
+Ven_Bob_3_Ven_1;Bobwhite ;Venezio;3;Ven_Bob_3;Mix;;22;B2;LM1_2_4
+Ven_SYM_3_Ven_1;SYMattis;Venezio;3;Ven_SYM_3;Mix;;21;B4;LM1_2_4
+Ven_Apa_3_Ven_1;Apache;Venezio;3;Ven_Apa_3;Mix;;24;D2;LM1_2_4
+Ven_Acc_3_Ven_1;Accroc;Venezio;3;Ven_Acc_3;Mix;;21;B4;LM1_2_4
+Ven_Rub_3_Ven_1;Rubisko;Venezio;3;Ven_Rub_3;Mix;;23;I3;LM1_2_4
+Ven_Ven_3_Ven_1;Venezio;Venezio;3;Ven_Ven_3;Pure;;20;H1;LM1_2_4
+Des_Bob_4_Bob_2;Descartes;Bobwhite ;4;Des_Bob_4;Mix;;19;F4;LM1_2_4
+Des_SYM_4_SYM_2;Descartes;SYMattis;4;Des_SYM_4;Mix;;22;B2;LM1_2_4
+Des_Apa_4_Apa_2;Descartes;Apache;4;Des_Apa_4;Mix;;22;B2;LM1_2_4
+Des_Acc_4_Acc_2;Descartes;Accroc;4;Des_Acc_4;Mix;;20;H1;LM1_2_4
+Des_Rub_4_Rub_2;Descartes;Rubisko;4;Des_Rub_4;Mix;;19;F4;LM1_2_4
+Des_Des_4_Des_2;Descartes;Descartes;4;Des_Des_4;Pure;;23;I3;LM1_2_4
+Des_Ven_4_Ven_2;Descartes;Venezio;4;Des_Ven_4;Mix;;20;H1;LM1_2_4
+Ven_Soi_4_Soi_2;Venezio;Soissons;4;Ven_Soi_4;Mix;;19;F4;LM1_2_4
+Ven_Chi_4_Chi_2;Venezio;Chinese spring;4;Ven_Chi_4;Mix;;24;D2;LM1_2_4
+Ven_Tit_4_Tit_2;Venezio;Titlis;4;Ven_Tit_4;Mix;;20;H1;LM1_2_4
+Ven_Cad_4_Cad_2;Venezio;Cadenza;4;Ven_Cad_4;Mix;;22;B2;LM1_2_4
+Ven_LGA_4_LGA_2;Venezio;LGAbsalon;4;Ven_LGA_4;Mix;;23;I3;LM1_2_4
+Ven_Rec_4_Rec_2;Venezio;Recital;4;Ven_Rec_4;Mix;;22;B2;LM1_2_4
+Ven_Ber_4_Ber_2;Venezio;Bergamo;4;Ven_Ber_4;Mix;;23;I3;LM1_2_4
+Ven_Gha_4_Gha_2;Venezio;Ghayta;4;Ven_Gha_4;Mix;;23;I3;LM1_2_4
+Ven_Fru_4_Fru_2;Venezio;Fructidor;4;Ven_Fru_4;Mix;;19;F4;LM1_2_4
+Ven_Bob_4_Bob_2;Venezio;Bobwhite ;4;Ven_Bob_4;Mix;;24;D2;LM1_2_4
+Ven_SYM_4_SYM_2;Venezio;SYMattis;4;Ven_SYM_4;Mix;;24;D2;LM1_2_4
+Ven_Apa_4_Apa_2;Venezio;Apache;4;Ven_Apa_4;Mix;;20;H1;LM1_2_4
+Ven_Acc_4_Acc_2;Venezio;Accroc;4;Ven_Acc_4;Mix;;21;B4;LM1_2_4
+Ven_Rub_4_Rub_2;Venezio;Rubisko;4;Ven_Rub_4;Mix;;20;H1;LM1_2_4
+Ven_Ven_4_Ven_2;Venezio;Venezio;4;Ven_Ven_4;Pure;;21;B4;LM1_2_4
+Des_Bob_4_Des_1;Bobwhite ;Descartes;4;Des_Bob_4;Mix;;19;F4;LM1_2_4
+Des_SYM_4_Des_1;SYMattis;Descartes;4;Des_SYM_4;Mix;;22;B2;LM1_2_4
+Des_Apa_4_Des_1;Apache;Descartes;4;Des_Apa_4;Mix;;22;B2;LM1_2_4
+Des_Acc_4_Des_1;Accroc;Descartes;4;Des_Acc_4;Mix;;20;H1;LM1_2_4
+Des_Rub_4_Des_1;Rubisko;Descartes;4;Des_Rub_4;Mix;;19;F4;LM1_2_4
+Des_Des_4_Des_1;Descartes;Descartes;4;Des_Des_4;Pure;;23;I3;LM1_2_4
+Des_Ven_4_Des_1;Venezio;Descartes;4;Des_Ven_4;Mix;;20;H1;LM1_2_4
+Ven_Soi_4_Ven_1;Soissons;Venezio;4;Ven_Soi_4;Mix;;19;F4;LM1_2_4
+Ven_Chi_4_Ven_1;Chinese spring;Venezio;4;Ven_Chi_4;Mix;;24;D2;LM1_2_4
+Ven_Tit_4_Ven_1;Titlis;Venezio;4;Ven_Tit_4;Mix;;20;H1;LM1_2_4
+Ven_Cad_4_Ven_1;Cadenza;Venezio;4;Ven_Cad_4;Mix;;22;B2;LM1_2_4
+Ven_LGA_4_Ven_1;LGAbsalon;Venezio;4;Ven_LGA_4;Mix;;23;I3;LM1_2_4
+Ven_Rec_4_Ven_1;Recital;Venezio;4;Ven_Rec_4;Mix;;22;B2;LM1_2_4
+Ven_Ber_4_Ven_1;Bergamo;Venezio;4;Ven_Ber_4;Mix;;23;I3;LM1_2_4
+Ven_Gha_4_Ven_1;Ghayta;Venezio;4;Ven_Gha_4;Mix;;23;I3;LM1_2_4
+Ven_Fru_4_Ven_1;Fructidor;Venezio;4;Ven_Fru_4;Mix;;19;F4;LM1_2_4
+Ven_Bob_4_Ven_1;Bobwhite ;Venezio;4;Ven_Bob_4;Mix;;24;D2;LM1_2_4
+Ven_SYM_4_Ven_1;SYMattis;Venezio;4;Ven_SYM_4;Mix;;24;D2;LM1_2_4
+Ven_Apa_4_Ven_1;Apache;Venezio;4;Ven_Apa_4;Mix;;20;H1;LM1_2_4
+Ven_Acc_4_Ven_1;Accroc;Venezio;4;Ven_Acc_4;Mix;;21;B4;LM1_2_4
+Ven_Rub_4_Ven_1;Rubisko;Venezio;4;Ven_Rub_4;Mix;;20;H1;LM1_2_4
+Ven_Ven_4_Ven_1;Venezio;Venezio;4;Ven_Ven_4;Pure;;21;B4;LM1_2_4

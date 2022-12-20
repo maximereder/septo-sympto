@@ -5,7 +5,7 @@ import pandas as pd
 import argparse
 from tensorflow import keras
 import torch
-from PIL import Image
+from PIL import Image, ImageDraw
 #from tqdm import tqdm
 
 '''
@@ -20,23 +20,32 @@ Web site: https://maximereder.fr
 '''
 
 parser = argparse.ArgumentParser()
-parser.add_argument("-w", "--workspace", dest="workspace", help="Workspace path.", default=os.path.join(os.getcwd(), 'workspace'))
-parser.add_argument("-i", "--import", dest="csv_import", help="CSV to import path.", default=os.path.join(os.getcwd(), 'LM1_all__input.csv'))
-parser.add_argument("-o", "--output", dest="csv_output", help="CSV to output path.", default=os.path.join(os.getcwd(), 'results.csv'))
+parser.add_argument("-w", "--images", dest="images", help="Images folder name.", default='images')
+parser.add_argument("-i", "--import", dest="csv_import", help="CSV to import name.", default='LM1_all__input.csv')
+parser.add_argument("-o", "--output", dest="csv_output", help="CSV to output name.", default='results.csv')
 parser.add_argument("-e", "--extension", dest="extension", help="Image extension.", default='.tif')
-parser.add_argument("-t", "--pycnidia_threshold", dest="pycnidia_threshold", help="Pycnidia confidence threshold.", default=0.3)
+parser.add_argument("-is", "--imgsz", dest="imgsz", help="Image size for inference.", default=3070)
+parser.add_argument("-d", "--device", dest="device", help="Device : 'cpu' or 'mps' for M1&M2 or 1 ... n for gpus", default='cpu')
+parser.add_argument("-pt", "--pycnidia_threshold", dest="pycnidia_threshold", help="Pycnidia confidence threshold.", default=0.3)
+parser.add_argument("-pn", "--necrosis_threshold", dest="necrosis_threshold", help="Necrosis confidence threshold.", default=0.8)
+parser.add_argument("-sm", "--save-masks", dest="save_masks", help="Save masks", default=False)
 parser.add_argument("-s", "--save", dest="save", help="Save True or False", default=True)
 args = parser.parse_args()
 
 model_necrosis = keras.models.load_model(os.path.join(os.getcwd(), 'models', 'necrosis-model-375.h5'))
-model_pycnidia = torch.hub.load('ultralytics/yolov5', 'custom', path=os.path.join(os.getcwd(), 'models', 'pycnidia-sota-6/weights/best.pt'))
+model_pycnidia = torch.hub.load('ultralytics/yolov5', 'custom', path=os.path.join(os.getcwd(), 'models', 'pycnidia-model.pt'))
+model_pycnidia.to(args.device)
 save = args.save
 extension = args.extension
 
 def predict_pycnidia(image_path, result_image, model_pycnidia):
-    results = model_pycnidia(image_path)
+    model_pycnidia.conf = float(args.pycnidia_threshold)
+    model_pycnidia.max_det = 10000
+
+    results = model_pycnidia(image_path, size=int(args.imgsz))
+
     r = results.pandas().xyxy[0]
-    cond = (r['confidence'] >= args.pycnidia_threshold)
+    cond = (r['confidence'] >= float(args.pycnidia_threshold))
     xmins = r[cond]['xmin']
     xmaxs = r[cond]['xmax']
     ymins = r[cond]['ymin']
@@ -46,16 +55,27 @@ def predict_pycnidia(image_path, result_image, model_pycnidia):
     number_of_pycnidia = len(xmins)
 
     for i in range(len(xmins)):
-        cv2.rectangle(result_image, (int(xmins[i])+6, int(ymins[i])+6), (int(xmaxs[i])-6, int(ymaxs[i])-6), (255, 0, 0), 2)
+        center_coord = (int((xmins[i] + xmaxs[i]) / 2), int((ymins[i] + ymaxs[i]) / 2))
+        cv2.circle(result_image, center_coord, 2, (0, 0, 255), 2)
+        #cv2.rectangle(result_image, (int(xmins[i])+6, int(ymins[i])+6), (int(xmaxs[i])-6, int(ymaxs[i])-6), (255, 0, 0), 2)
 
     return result_image, surface, number_of_pycnidia
 
-def predict_necrosis_mask(image, result_image):
+def convert_pixel_area_to_cm2(pixel_area, dpi):
+    return 2.54*(pixel_area / dpi)
+
+def predict_necrosis_mask(image_path, mask_path, result_image):
+    image = cv2.imread(image_path)
     mask = np.squeeze(model_necrosis.predict(np.expand_dims(image, axis=0)))
-    mask = np.where(mask > 0.8, 255, 0)
+    mask = np.where(mask > float(args.necrosis_threshold), 255, 0)
     mask = mask.astype(np.uint8)
 
-    cnts_necrosis_full, h = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+    if args.save_masks:
+        if not os.path.exists(mask_path):
+            os.mkdir(mask_path)
+        cv2.imwrite(os.path.join(mask_path, image_path.split('/')[-1][:-4]+'.png'), mask)
+        
+    cnts_necrosis_full, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
 
     necrosis_area = 0
     necrosis_number = 0
@@ -90,49 +110,58 @@ def get_leaf_area(image):
 
     return leaf_area
 
-def get_image_informations(directory, image_path, file_name, save):
+def get_image_informations(output_directory, image_path, mask_folder_path, file_name, save):
     image = cv2.imread(image_path)
     image = cv2.resize(image, (3070, 300), interpolation=cv2.INTER_AREA)
     result_image = cv2.resize(image.copy(), (3070, 300), interpolation=cv2.INTER_AREA)
 
     leaf_area = get_leaf_area(image)
 
-    result_image, necrosis_area, necrosis_number = predict_necrosis_mask(image, result_image)
+    result_image, necrosis_area, necrosis_number = predict_necrosis_mask(image_path, mask_folder_path, result_image)
     necrosis_ratio = round(necrosis_area / leaf_area, 3)
 
     result_image, pycnidia_area, pycnidia_number = predict_pycnidia(image_path, result_image, model_pycnidia)
 
     if save:
-        cv2.imwrite(os.path.join(directory, 'artifacts', 'OUT', file_name) + '.jpg', result_image)
+        if not os.path.exists(os.path.join(output_directory, 'images')):
+            os.mkdir(os.path.join(output_directory, 'images'))
+        cv2.imwrite(os.path.join(output_directory, 'images', file_name) + '.jpg', result_image)
 
     row = []
-    row.append(file_name)
+    '''row.append(file_name)
     row.append(leaf_area)
-    row.append(round(leaf_area * np.power(1/145, 2), 2))
+    row.append(round(leaf_area * np.power(1/145, 2), 4))
     row.append(necrosis_number)
     row.append(necrosis_ratio)
-    row.append(round(necrosis_area * np.power(1/145, 2), 2))
+    row.append(round(necrosis_area * np.power(1/145, 2), 4))
     row.append(pycnidia_number)
     row.append(pycnidia_area)
-    row.append(round(pycnidia_area * np.power(1/145, 2), 4))
+    row.append(round(pycnidia_area * np.power(1/145, 2), 4))'''
+
+    row.append(file_name)
+    row.append(leaf_area)
+    row.append(round(convert_pixel_area_to_cm2(leaf_area, 1200), 4))
+    row.append(necrosis_number)
+    row.append(necrosis_ratio)
+    row.append(round(convert_pixel_area_to_cm2(necrosis_area, 1200), 4))
+    row.append(pycnidia_number)
+    row.append(pycnidia_area)
+    row.append(round(convert_pixel_area_to_cm2(pycnidia_area, 1200), 4))
 
     return row
 
 
-def crop_images_from_directory(directory):
+def crop_images_from_directory(image_directory):
 
-    print('\033[93m' + '\n' + "CROP IMAGES" + "\033[99m \n")
-
-    end = len([f for f in os.listdir(os.path.join(directory))
-               if f.endswith(extension) and os.path.isfile(os.path.join(os.path.join(directory), f))])
+    print('\033[93m' + '\n' + "CROP LEAF ON IMAGES" + "\033[99m \n")
 
     file_id = 0
-    for file in os.listdir(os.path.join(directory)):
+    for file in os.listdir(image_directory):
         if file.endswith(extension):
             file_id += 1
-            image = cv2.imread(os.path.join(directory, file))
+            image = cv2.imread(os.path.join(image_directory, file))
 
-            number_of_images = len([file for file in os.listdir(os.path.join(directory)) if file.endswith('.tif')])
+            number_of_images = len([file for file in os.listdir(image_directory) if file.endswith('.tif')])
 
             if image is not None:
                 hsv = cv2.cvtColor(image, cv2.COLOR_RGB2HSV)
@@ -156,82 +185,86 @@ def crop_images_from_directory(directory):
                         cv2.rectangle(image, (x, y), (x + w, y + h), (255, 255, 255), 1)
                         print("\033[93m" + "Crop {} {}/{}".format(file, str(file_id), number_of_images) + "\033[99m")
                         cv2.imwrite(
-                            os.path.join(directory, 'artifacts', 'CROPPED', file.split('.')[0]) + '__{}.jpg'.format(str(i)),
+                            os.path.join(image_directory, 'cropped', file.split('.')[0]) + '__{}.jpg'.format(str(i)),
                             cropped)
             else:
                 print("Cannot read properly : ", file)
 
 
-def export_result(directory, reactivip, result):
-    react_data = pd.read_csv(reactivip, sep=';', encoding="ISO-8859-1")
-    result_data = pd.read_csv(result)
+def export_result(output_directory, data_imported_path, result_rows):
+    data_imported_csv = os.path.join(os.getcwd(), data_imported_path)
+    data_imported = pd.read_csv(data_imported_csv, sep=';', encoding="ISO-8859-1")
 
-    with open(os.path.join(directory, 'result.csv'), 'w', encoding='UTF8', newline='') as f:
+    with open(os.path.join(output_directory, args.csv_output), 'w', encoding='UTF8', newline='') as f:
         print('\033[92m' + '\n' + 'Create final result csv')
         writer = csv.writer(f)
 
         header = []
         header.append('leaf')
-        for e in react_data.head().columns:
+
+        for e in data_imported.head().columns:
             header.append(str(e).strip())
         header = header + ['leaf_area_px', 'leaf_area_cm', 'necrosis_number', 'necrosis_area_ratio', 'pycnidia_area_px',
                            'pycnidia_number', 'pycnidia_area_cm']
         writer.writerow(header)
 
         rows = []
-        for r_row in react_data.iterrows():
-            for l_row in result_data.iterrows():
-                if r_row[1][0].split('__')[0] == l_row[1][0].split('__')[0]:
+        for r_row in data_imported.iterrows():
+        
+            for i in range(len(result_rows)):
+                if r_row[1][0].split('__')[0] == result_rows[i][0].split('__')[0]:
                     row = []
-                    row.append(l_row[1][0])
-                    for i in range(0, react_data.columns.size, 1):
-                        row.append(r_row[1][i])
-                    for i in range(1, 8, 1):
-                        row.append(l_row[1][i])
+                    row.append(result_rows[i][0].split('__')[0])
+                    for z in range(0, data_imported.columns.size, 1):
+                        row.append(r_row[1][z])
+                    for y in range(1, 8, 1):
+                        row.append(result_rows[i][y])
                     rows.append(row)
 
         for i in range(0, len(rows), 1):
             writer.writerow(rows[len(rows) - 1 - i])
 
         if save:
-            print('\033[92m' + 'Save images to OUT folder.')
+            print('\033[92m' + 'Save images to outputs folder.')
 
         print('\033[92m' + "Done!")
 
 
-def analyze_images(directory, reactivip, result, save):
-    if not os.path.exists(os.path.join(directory, 'artifacts')):
-        os.mkdir(os.path.join(directory, 'artifacts'))
-    if not os.path.exists(os.path.join(directory, 'artifacts', 'CROPPED')):
-        os.mkdir(os.path.join(directory, 'artifacts', 'CROPPED'))
-    if not os.path.exists(os.path.join(directory, 'artifacts', 'OUT')) and save:
-        os.mkdir(os.path.join(directory, 'artifacts', 'OUT'))
+def analyze_images(image_directory, output_directory, reactivip, result_name, save):
+    result_csv_path = os.path.join(os.getcwd(), result_name)
+    if not os.path.exists(os.path.join(image_directory, 'cropped')):
+        os.mkdir(os.path.join(image_directory, 'cropped'))
+    if not os.path.exists(output_directory) and save:
+        os.mkdir(output_directory)
 
-    crop_images_from_directory(directory)
+    cropped_images_directory = os.path.join(image_directory, 'cropped')
+
+    crop_images_from_directory(image_directory)
 
     print('\033[93m' + '\n' + "INFER IMAGES INTO MODELS" + "\033[99m \n")
 
-    with open(result, 'w', encoding='UTF8', newline='') as f:
+    with open(result_csv_path, 'w', encoding='UTF8', newline='') as f:
         writer = csv.writer(f)
+        writer.writerow(['leaf', 'leaf_area_px', 'leaf_area_cm', 'necrosis_number', 'necrosis_area_ratio', 'pycnidia_area_px',
+                         'pycnidia_number', 'pycnidia_area_cm'])
         rows = []
         i = 0
-        for file in os.listdir(os.path.join(directory, 'artifacts', 'CROPPED')):
+        for file in os.listdir(cropped_images_directory):
             i += 1
             print("\033[93m" + "Analyze {} {}/{}".format(file.split('.')[0] + extension, str(i),
-                                            str(len(os.listdir(os.path.join(directory, 'artifacts', 'CROPPED'))))) + "\033[99m")
-            row = get_image_informations(directory, os.path.join(directory, 'artifacts', 'CROPPED', file),
+                                            str(len(os.listdir(cropped_images_directory)))) + "\033[99m")
+            row = get_image_informations(output_directory, os.path.join(cropped_images_directory, file), os.path.join(os.getcwd(), "masks"),
                                          file.split('.')[0], save)
             rows.append(row)
 
-        for i in range(0, len(rows), 1):
-            writer.writerow(rows[len(rows) - 1 - i])
-
-    export_result(directory, reactivip, result)
+    export_result(output_directory, reactivip, rows)
 
 
 if __name__ == '__main__':
     print('\033[92m' + '\n' + "Septo-Sympto V2")
     print('\033[92m' + "AUTHORS: Laura MATHIEU, Maxime REDER")
-    
-    analyze_images(args.workspace, args.csv_import, args.csv_output, args.save)
+
+    #(image_directory, output_directory, reactivip, result_name, save):
+
+    analyze_images(os.path.join(os.getcwd(), args.images), os.path.join(os.getcwd(), 'outputs'), args.csv_import, args.csv_output, args.save)
 

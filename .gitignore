@@ -1,3 +1,8 @@
 .DS_Store
 models
 images
+OUT
+outputs
+workspaces
+results.csv
+import/Test_Script.xlsx
