@@ -5,6 +5,7 @@ import pandas as pd
 import argparse
 from tensorflow import keras
 import torch
+from tqdm import tqdm
 
 '''
 Deep learning model for the detection of Septoria leaf blotch and Pycnidia on wheat leaves.
@@ -35,6 +36,7 @@ model_pycnidia = torch.hub.load('ultralytics/yolov5', 'custom', path=os.path.joi
 model_pycnidia.to(args.device)
 save = args.save
 extension = args.extension
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
 
 def predict_pycnidia(image_path, result_image, model_pycnidia):
     model_pycnidia.conf = float(args.pycnidia_threshold)
@@ -125,15 +127,6 @@ def get_image_informations(output_directory, image_path, mask_folder_path, file_
         cv2.imwrite(os.path.join(output_directory, 'images', file_name) + '.jpg', result_image)
 
     row = []
-    '''row.append(file_name)
-    row.append(leaf_area)
-    row.append(round(leaf_area * np.power(1/145, 2), 4))
-    row.append(necrosis_number)
-    row.append(necrosis_ratio)
-    row.append(round(necrosis_area * np.power(1/145, 2), 4))
-    row.append(pycnidia_number)
-    row.append(pycnidia_area)
-    row.append(round(pycnidia_area * np.power(1/145, 2), 4))'''
 
     row.append(file_name)
     row.append(leaf_area)
@@ -152,41 +145,37 @@ def crop_images_from_directory(image_directory):
 
     print('\033[93m' + '\n' + "CROP LEAF ON IMAGES" + "\033[99m \n")
 
+    files = [file for file in os.listdir(image_directory) if file.endswith(extension)]
+
     file_id = 0
-    for file in os.listdir(image_directory):
-        if file.endswith(extension):
-            file_id += 1
-            image = cv2.imread(os.path.join(image_directory, file))
+    for file in tqdm(files):
+        file_id += 1
+        image = cv2.imread(os.path.join(image_directory, file))
 
-            number_of_images = len([file for file in os.listdir(image_directory) if file.endswith('.tif')])
-
-            if image is not None:
-                hsv = cv2.cvtColor(image, cv2.COLOR_RGB2HSV)
-                min_area = 50000
-                leaf_area = 0
-
-                low_green = np.array([0, 35, 65])
-                high_green = np.array([255, 255, 255])
-                mask_leaf = cv2.inRange(hsv, low_green, high_green)
-                cnts_leaf, _ = cv2.findContours(mask_leaf, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
-                
-                i = 0
-                for contour in cnts_leaf:
-                    area = cv2.contourArea(contour)
-                    if area > min_area:
-                        leaf_area += area
-                        i += 1
-                        x, y, w, h = cv2.boundingRect(contour)
-                        cropped = image[y:y + h, x:x + w]
-                        cropped = cv2.resize(cropped, (3070, 300), interpolation=cv2.INTER_AREA)
-                        cv2.rectangle(image, (x, y), (x + w, y + h), (255, 255, 255), 1)
-                        print("\033[93m" + "Crop {} {}/{}".format(file, str(file_id), number_of_images) + "\033[99m")
-                        cv2.imwrite(
-                            os.path.join(image_directory, 'cropped', file.split('.')[0]) + '__{}.jpg'.format(str(i)),
-                            cropped)
-            else:
-                print("Cannot read properly : ", file)
-
+        if image is not None:
+            hsv = cv2.cvtColor(image, cv2.COLOR_RGB2HSV)
+            min_area = 50000
+            leaf_area = 0
+            low_green = np.array([0, 35, 65])
+            high_green = np.array([255, 255, 255])
+            mask_leaf = cv2.inRange(hsv, low_green, high_green)
+            cnts_leaf, _ = cv2.findContours(mask_leaf, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
+            
+            i = 0
+            for contour in cnts_leaf:
+                area = cv2.contourArea(contour)
+                if area > min_area:
+                    leaf_area += area
+                    i += 1
+                    x, y, w, h = cv2.boundingRect(contour)
+                    cropped = image[y:y + h, x:x + w]
+                    cropped = cv2.resize(cropped, (3070, 300), interpolation=cv2.INTER_AREA)
+                    cv2.rectangle(image, (x, y), (x + w, y + h), (255, 255, 255), 1)
+                    cv2.imwrite(
+                        os.path.join(image_directory, 'cropped', file.split('.')[0]) + '__{}.jpg'.format(str(i)),
+                        cropped)
+        else:
+            print("Cannot read properly : ", file)
 
 def export_result(output_directory, data_import_name, result_rows):
     data_imported_csv = os.path.join(os.getcwd(), 'import', data_import_name)
@@ -246,10 +235,9 @@ def analyze_images(image_directory, output_directory, data_import_name, result_n
                          'pycnidia_number', 'pycnidia_area_cm'])
         rows = []
         i = 0
-        for file in os.listdir(cropped_images_directory):
+        for file in tqdm(os.listdir(cropped_images_directory)):
             i += 1
-            print("\033[93m" + "Analyze {} {}/{}".format(file.split('.')[0] + extension, str(i),
-                                            str(len(os.listdir(cropped_images_directory)))) + "\033[99m")
+            #print("\033[93m" + "Analyze {} {}/{}".format(file.split('.')[0] + extension, str(i), str(len(os.listdir(cropped_images_directory)))) + "\033[99m")
             row = get_image_informations(output_directory, os.path.join(cropped_images_directory, file), os.path.join(os.getcwd(), "masks"),
                                          file.split('.')[0], save)
             rows.append(row)
