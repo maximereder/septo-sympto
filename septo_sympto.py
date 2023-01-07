@@ -12,9 +12,7 @@ from tqdm import tqdm
 '''
 Deep learning model for the detection of Septoria leaf blotch and Pycnidia on wheat leaves.
 This script is based on the work of the following authors:
-
 PhD student: Laura MATHIEU
-
 Deep learning engineer: Maxime REDER
 MAIL: maximereder@live.fr
 Web site: https://maximereder.fr
@@ -22,7 +20,7 @@ Web site: https://maximereder.fr
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-w", "--images", dest="images", help="Images folder name.", default='images')
-parser.add_argument("-i", "--import", dest="csv_import", help="CSV to import name.", default='LM1_all__input.csv')
+parser.add_argument("-i", "--import", dest="csv_import", help="CSV to import name.", default=None)
 parser.add_argument("-o", "--output", dest="csv_output", help="CSV to output name.", default='results.csv')
 parser.add_argument("-m", "--model", dest="model", help="Model path.", default='models/necrosis-model-375.h5')
 parser.add_argument("-e", "--extension", dest="extension", help="Image extension.", default='.tif')
@@ -49,10 +47,8 @@ W = int(args.imgsz[1])
 
 def read_image(image_path):
     """Reads and processes an image.
-
     Parameters:
         path (str): Path to the image file.
-
     Returns:
         tuple: Original image and processed image.
     """
@@ -81,6 +77,9 @@ def predict_pycnidia(image_path, result_image, model_pycnidia):
     ymins = confident_pycnidia['ymin']
     ymaxs = confident_pycnidia['ymax']
 
+    # Get the confidence level of the detected pycnidia
+    confidences = confident_pycnidia['confidence']
+
     # Calculate the total surface area of the detected pycnidia
     surface = np.round(np.sum([(xmaxs[i] - xmins[i]) * (ymaxs[i] - ymins[i]) for i in range(len(xmins))]), 4)
 
@@ -90,7 +89,8 @@ def predict_pycnidia(image_path, result_image, model_pycnidia):
     # Draw circles at the center of each detected pycnidia on the result image
     for i in range(len(xmins)):
         center_coord = (int((xmins[i] + xmaxs[i]) / 2), int((ymins[i] + ymaxs[i]) / 2))
-        cv2.circle(result_image, center_coord, 2, (0, 0, 255), 2)
+        cv2.circle(result_image, center_coord, 8, (255, int(confidences[i]*255), 255), 2)
+
 
     # Return the result image with the detected pycnidia marked, the total surface area of the detected pycnidia, and the number of detected pycnidia
     return result_image, surface, number_of_pycnidia
@@ -310,34 +310,42 @@ def export_result(output_directory, data_import_name, result_rows):
     Returns:
     - None
     """
-    data_imported_csv = os.path.join(os.getcwd(), 'import', data_import_name)
-    data_imported = pd.read_csv(data_imported_csv, sep=';', encoding="ISO-8859-1")
+    
 
     with open(os.path.join(output_directory, args.csv_output), 'w', encoding='UTF8', newline='') as f:
         print('\033[92m' + '\n' + 'Create final result csv')
         writer = csv.writer(f)
 
-        header = []
-        header.append('leaf')
+        if args.csv_import != None:
+            data_imported_csv = os.path.join(os.getcwd(), 'import', data_import_name)
+            data_imported = pd.read_csv(data_imported_csv, sep=';', encoding="ISO-8859-1")
 
-        for e in data_imported.head().columns:
-            header.append(str(e).strip())
-        header = header + ['leaf_area_px', 'leaf_area_cm', 'necrosis_number', 'necrosis_area_ratio', 'pycnidia_area_px',
-                           'pycnidia_number', 'pycnidia_area_cm']
-        writer.writerow(header)
+            header = []
+            header.append('leaf')
 
-        rows = []
-        for r_row in data_imported.iterrows():
-        
-            for i in range(len(result_rows)):
-                if r_row[1][0].split('__')[0] == result_rows[i][0].split('__')[0]:
-                    row = []
-                    row.append(result_rows[i][0].split('__')[0])
-                    for z in range(0, data_imported.columns.size, 1):
-                        row.append(r_row[1][z])
-                    for y in range(1, 8, 1):
-                        row.append(result_rows[i][y])
-                    rows.append(row)
+            for e in data_imported.head().columns:
+                header.append(str(e).strip())
+            header = header + ['leaf_area_px', 'leaf_area_cm', 'necrosis_number', 'necrosis_area_ratio', 'necrosis_area_cm', 'pycnidia_area_px',
+                               'pycnidia_number', 'pycnidia_area_cm']
+            writer.writerow(header)
+
+            rows = []
+            for r_row in data_imported.iterrows():
+            
+                for i in range(len(result_rows)):
+                    if r_row[1][0].split('__')[0] == result_rows[i][0].split('__')[0]:
+                        row = []
+                        row.append(result_rows[i][0].split('__')[0])
+                        for z in range(0, data_imported.columns.size, 1):
+                            row.append(r_row[1][z])
+                        for y in range(1, 9, 1):
+                            row.append(result_rows[i][y])
+                        rows.append(row)
+        else: 
+            header = ['leaf', 'leaf_area_px', 'leaf_area_cm', 'necrosis_number', 'necrosis_area_ratio', 'necrosis_area_cm', 'pycnidia_area_px', 'pycnidia_number', 'pycnidia_area_cm']
+            writer.writerow(header)
+            rows = result_rows
+                            
 
         for i in range(0, len(rows), 1):
             writer.writerow(rows[len(rows) - 1 - i])
@@ -376,20 +384,16 @@ def analyze_images(image_directory: str, output_directory: str, data_import_name
     crop_images_from_directory(image_directory)
 
     print('\033[93m' + '\n' + "INFER IMAGES INTO MODELS" + "\033[99m \n")
-
-    with open(result_csv_path, 'w', encoding='UTF8', newline='') as f:
-        writer = csv.writer(f)
-        writer.writerow(['leaf', 'leaf_area_px', 'leaf_area_cm', 'necrosis_number', 'necrosis_area_ratio', 'pycnidia_area_px',
-                         'pycnidia_number', 'pycnidia_area_cm'])
-        rows = []
-        i = 0
-        for file in tqdm(os.listdir(cropped_images_directory)):
-            i += 1
-            # Infer the image
-            row = get_image_informations(output_directory, os.path.join(cropped_images_directory, file), os.path.join(os.getcwd(), "masks"),
-                                         file.split('.')[0], save)
-            # Add the row to the list of rows
-            rows.append(row)
+        
+    rows = []
+    i = 0
+    for file in tqdm(os.listdir(cropped_images_directory)):
+        i += 1
+        # Infer the image
+        row = get_image_informations(output_directory, os.path.join(cropped_images_directory, file), os.path.join(os.getcwd(), "masks"),
+                                     file.split('.')[0], save)
+        # Add the row to the list of rows
+        rows.append(row)
 
     # Export the results to a CSV file
     export_result(output_directory, data_import_name, rows)
@@ -401,4 +405,3 @@ if __name__ == '__main__':
 
     # Parse the arguments
     analyze_images(os.path.join(os.getcwd(), args.images), os.path.join(os.getcwd(), 'outputs'), args.csv_import, args.csv_output, args.save)
-
