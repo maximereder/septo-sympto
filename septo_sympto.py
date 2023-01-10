@@ -298,7 +298,7 @@ def crop_images_from_directory(image_directory: str):
         else:
             print("Cannot read properly : ", file)
 
-def export_result(output_directory, data_import_name, result_rows):
+def export_result(output_directory, data_import_path, result_rows):
     """
     Exports the result rows to a CSV file.
     
@@ -312,13 +312,12 @@ def export_result(output_directory, data_import_name, result_rows):
     """
     
 
-    with open(args.csv_output, 'w', encoding='UTF8', newline='') as f:
+    with open(os.path.join(output_directory, args.csv_output), 'w', encoding='UTF8', newline='') as f:
         print('\033[92m' + '\n' + 'Create final result csv')
         writer = csv.writer(f)
 
         if args.csv_import != None:
-            data_imported_csv = os.path.join(os.getcwd(), 'import', data_import_name)
-            data_imported = pd.read_csv(data_imported_csv, sep=';', encoding="ISO-8859-1")
+            data_imported = pd.read_csv(data_import_path, sep=';', encoding="ISO-8859-1")
 
             header = []
             header.append('leaf')
@@ -371,8 +370,6 @@ def analyze_images(image_directory: str, output_directory: str, data_import_name
         None
     """
 
-    # Create the output directory if it does not exist
-    result_csv_path = os.path.join(os.getcwd(), result_name)
     if not os.path.exists(os.path.join(image_directory, 'cropped')):
         os.mkdir(os.path.join(image_directory, 'cropped'))
     if not os.path.exists(output_directory) and save:
