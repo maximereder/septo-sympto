@@ -304,7 +304,7 @@ def export_result(output_directory, data_import_path, result_rows):
     
     Parameters:
     - output_directory (str): The path to the output directory.
-    - data_import_name (str): The name of the file containing the imported data.
+    - data_import_path (str): The path of the file containing the imported data.
     - result_rows (List[List[Any]]): A list of rows with the results.
     
     Returns:
@@ -362,7 +362,7 @@ def analyze_images(image_directory: str, output_directory: str, data_import_path
     Parameters:
         image_directory (str): The path to the directory containing the images to be analyzed.
         output_directory (str): The path to the directory where the results should be saved.
-        data_import_name (str): The name of the data import file.
+        data_import_path (str): The path of the data import file.
         result_name (str): The name of the result file.
         save (bool): A flag indicating whether the results should be saved to the output directory.
     
