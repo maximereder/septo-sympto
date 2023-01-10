@@ -355,7 +355,7 @@ def export_result(output_directory, data_import_path, result_rows):
         print('\033[92m' + "Done!")
 
 
-def analyze_images(image_directory: str, output_directory: str, data_import_name: str, result_name: str, save: bool):
+def analyze_images(image_directory: str, output_directory: str, data_import_path: str, result_name: str, save: bool):
     """
     Analyze the images in the given directory and save the results in the given output directory.
     
@@ -393,7 +393,7 @@ def analyze_images(image_directory: str, output_directory: str, data_import_name
         rows.append(row)
 
     # Export the results to a CSV file
-    export_result(output_directory, data_import_name, rows)
+    export_result(output_directory, data_import_path, rows)
 
 
 if __name__ == '__main__':
