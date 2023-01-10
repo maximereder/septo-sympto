@@ -312,7 +312,7 @@ def export_result(output_directory, data_import_name, result_rows):
     """
     
 
-    with open(os.path.join(output_directory, args.csv_output), 'w', encoding='UTF8', newline='') as f:
+    with open(args.csv_output, 'w', encoding='UTF8', newline='') as f:
         print('\033[92m' + '\n' + 'Create final result csv')
         writer = csv.writer(f)
 
