@@ -28,11 +28,11 @@ parser.add_argument("-is", "--imgsz", dest="imgsz", help="Image size for inferen
 parser.add_argument("-d", "--device", dest="device", help="Device : 'cpu' or 'mps' for M1&M2 or 1 ... n for gpus", default='cpu')
 parser.add_argument("-pt", "--pycnidia_threshold", dest="pycnidia_threshold", help="Pycnidia confidence threshold.", default=0.3)
 parser.add_argument("-pn", "--necrosis_threshold", dest="necrosis_threshold", help="Necrosis confidence threshold.", default=0.8)
+parser.add_argument("-dm", "--draw_mode", dest="draw_mode", help="Draw mode : 'pycnidias' or 'necrosis' or 'all'", default='all')
 parser.add_argument("-sm", "--save-masks", dest="save_masks", help="Save masks", default=False)
 parser.add_argument("-s", "--save", dest="save", help="Save True or False", default=True)
 args = parser.parse_args()
 
-#model_necrosis = keras.models.load_model(os.path.join(os.getcwd(), 'models', 'necrosis-model-375.h5'))
 with CustomObjectScope({'iou': iou, 'dice_coef': dice_coef, 'dice_loss': dice_loss}):
         model_necrosis = tf.keras.models.load_model(args.model)
         
@@ -87,9 +87,10 @@ def predict_pycnidia(image_path, result_image, model_pycnidia):
     number_of_pycnidia = len(xmins)
 
     # Draw circles at the center of each detected pycnidia on the result image
-    for i in range(len(xmins)):
-        center_coord = (int((xmins[i] + xmaxs[i]) / 2), int((ymins[i] + ymaxs[i]) / 2))
-        cv2.circle(result_image, center_coord, 8, (255, int(confidences[i]*255), 255), 2)
+    if args.draw_mode == 'pycnidias' or args.draw_mode == 'all':
+        for i in range(len(xmins)):
+            center_coord = (int((xmins[i] + xmaxs[i]) / 2), int((ymins[i] + ymaxs[i]) / 2))
+            cv2.circle(result_image, center_coord, 8, (255, int(confidences[i]*255), 255), 2)
 
 
     # Return the result image with the detected pycnidia marked, the total surface area of the detected pycnidia, and the number of detected pycnidia
@@ -145,7 +146,8 @@ def predict_necrosis_mask(image_path, mask_path, result_image):
             if ratio < 0.9:
                 cnts_necrosis.append(cnt)
                 # Draw the contour on the result image
-                cv2.drawContours(result_image, cnt, -1, (0, 255, 0), 2)
+                if args.draw_mode == 'necrosis' or args.draw_mode == 'all':
+                    cv2.drawContours(result_image, cnt, -1, (0, 255, 0), 2)
                 necrosis_area += area
                 necrosis_number += 1
 
@@ -298,7 +300,7 @@ def crop_images_from_directory(image_directory: str):
         else:
             print("Cannot read properly : ", file)
 
-def export_result(output_directory, data_import_path, result_rows):
+def export_result(output_directory, data_import_path, result_name, result_rows):
     """
     Exports the result rows to a CSV file.
     
@@ -312,7 +314,7 @@ def export_result(output_directory, data_import_path, result_rows):
     """
     
 
-    with open(os.path.join(output_directory, args.csv_output), 'w', encoding='UTF8', newline='') as f:
+    with open(os.path.join(output_directory, result_name), 'w', encoding='UTF8', newline='') as f:
         print('\033[92m' + '\n' + 'Create final result csv')
         writer = csv.writer(f)
 
@@ -350,8 +352,9 @@ def export_result(output_directory, data_import_path, result_rows):
             writer.writerow(rows[len(rows) - 1 - i])
 
         if save:
-            print('\033[92m' + 'Save images to outputs folder.')
+            print('\033[92m' + 'Save results to outputs folder.')
 
+        print('\033[92m' + 'Save results at {}'.format(output_directory))
         print('\033[92m' + "Done!")
 
 
@@ -393,12 +396,13 @@ def analyze_images(image_directory: str, output_directory: str, data_import_path
         rows.append(row)
 
     # Export the results to a CSV file
-    export_result(output_directory, data_import_path, rows)
+    export_result(output_directory, data_import_path, result_name, rows)
 
 
 if __name__ == '__main__':
     print('\033[92m' + '\n' + "Septo-Sympto")
-    print('\033[92m' + "AUTHORS: Laura MATHIEU, Maxime REDER")
+    print('\033[92m' + "Authors: Laura MATHIEU, Maxime REDER")
 
     # Parse the arguments
-    analyze_images(os.path.join(os.getcwd(), args.images), os.path.join(os.getcwd(), 'outputs'), args.csv_import, args.csv_output, args.save)
+    i = len(os.listdir(os.path.join(os.getcwd(), 'outputs')))
+    analyze_images(os.path.join(os.getcwd(), args.images), os.path.join(os.getcwd(), 'outputs', 'output_{}'.format(i)), args.csv_import, args.csv_output, args.save)

@@ -44,6 +44,7 @@ python septo_sympto.py -w <images_folder> -i <csv_import> -o <csv_output> -m <mo
 - `-d` or `--device` : specify the device to use for inference. Can be 'cpu', 'mps' for M1&M2 or a number for specific GPU. Default is 'cpu'.
 - `-pt` or `--pycnidia_threshold` : specify the confidence threshold for pycnidia detection. Default is 0.3.
 - `-pn` or `--necrosis_threshold` : specify the confidence threshold for necrosis detection. Default is 0.8.
+- `dm` or `draw_mode` : specify what to draw on the image. Can be 'pycnidias' 'necrosis'. Default is 'all'.
 - `-sm` or `--save-masks` : specify if you want to save the masks. Default is False.
 - `-s` or `--save` : specify if you want to save the results in the csv file. Default is True.
 Note: Please make sure the pre-trained model is in the specified path and the specified folder contains the images with the specified extension.
