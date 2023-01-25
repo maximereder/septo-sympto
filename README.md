@@ -1,7 +1,7 @@
 # Leaf Necrosis and Pycnidia Detection using Deep Learning
 This project is a deep learning-based tool for detecting and classifying leaf necrosis and pycnidia in images of leaves. The tool is implemented using the OpenCV and TensorFlow libraries, and uses a pre-trained convolutional neural network to analyze the images.
 
-![With pycnidias](/septo-sympto/pictures/Cad_Rub_3_Rub_2__1__1__1.webp)
+![With pycnidias](/pictures/Cad_Rub_3_Rub_2__1__1__1.webp)
 
 ### Necrosis Detection
 The script starts by loading a pre-trained U-Net model that can detect necrosis on leaves. It then uses the model to process an image, resizing it and converting it to HSV color space. It then applies a mask to the image to isolate the leaf area and counts the number of necrosis in the image. The necrosis ratio is also calculated as the ratio of necrosis area to leaf area.
