@@ -99,7 +99,7 @@ This guide explains how to train your own custom dataset with U-Net, quickly. Fo
 
 ### Before You Start
 1. Clone the U-Net repository: https://github.com/maximereder/unet.git
-2. Navigate to the cloned repository: cd unet
+2. Navigate to the cloned repository: `cd unet`
 
 ### Usage
 To train a model, run the following command:
