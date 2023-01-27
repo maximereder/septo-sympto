@@ -26,6 +26,7 @@ The project requires the following libraries to be installed:
 - numpy
 - pandas
 - scipy
+- sklearn
 
 ## Usage
 To use the script, run the script with the following command line arguments:
@@ -56,6 +57,63 @@ Two weights are provided in the models folder, `necrosis-model-375.h5` and `pycn
 To train new weights for you application, please use the following tutorials : 
 - Pycnidias (YOLOv5) : https://github.com/ultralytics/yolov5
 - Necrosis (U-Net) : https://github.com/maximereder/unet
+
+## YOLOv5 Custom Training
+
+This guide explains how to train your own custom dataset with YOLOv5, quickly. For more information, see the [YOLOv5 documentation](https://github.com/ultralytics/yolov5).
+
+### Before You Start
+1. Clone the YOLOv5 repository: git clone https://github.com/ultralytics/yolov5
+2. Navigate to the cloned repository: cd yolov5
+3. Install the requirements: `pip install -r requirements.txt`
+
+### Train on Custom Data
+1. **Create Dataset**: YOLOv5 models must be trained on labelled data. There are two options for creating your dataset:
+    - Use [Roboflow](https://roboflow.com/) to label, prepare, and host your custom data automatically in YOLO format.
+    - Manually prepare your dataset.
+
+2. **Select a Model**: Select a pretrained model to start training from. For example, YOLOv5s is the second-smallest and fastest model available.
+3. **Train**: Train a YOLOv5s model on COCO128 by specifying dataset, batch-size, image size and either pretrained --weights yolov5s.pt (recommended), or randomly initialized --weights '' --cfg yolov5s.yaml (not recommended).
+
+```
+python train.py --img <image_size> --batch <batch_size> --epochs <epochs> --data <data_yaml_file_path> --weights <weights_path>
+```
+
+Example: `python train.py --img 640 --batch 16 --epochs 3 --data coco128.yaml --weights yolov5s.pt`
+
+You may adapt batch size and image size to your hardware. Indeed, the larger the batch the more memory it consumes. For example, if you have a 16GB GPU, you can train at batch size 32 and image size 640. If you have a 32GB GPU, you can train at batch size 64 and image size 1280. If you have a 64GB GPU, you can train at batch size 128 and image size 2560. If you have a 128GB GPU, you can train at batch size 256 and image size 5120.
+
+4. **Visualize**: Track and visualize model metrics in real time using Comet Logging and Visualization or ClearML Logging and Automation.
+    - Comet: `pip install comet_ml`
+    - ClearML: `pip install clearml`
+
+Training results are automatically logged with Tensorboard and CSV loggers to runs/train, with a new experiment directory created for each new training as runs/train/exp2, runs/train/exp3, etc.
+
+## U-Net Custom Training
+
+This guide explains how to train your own custom dataset with U-Net, quickly. For more information, see the [U-Net documentation](https://github.com/maximereder/unet)
+
+### Before You Start
+1. Clone the U-Net repository: https://github.com/maximereder/unet.git
+2. Navigate to the cloned repository: cd unet
+
+### Usage
+To train a model, run the following command:
+
+```
+python train.py --data <data_folder> --csv <csv_output> --model <model_output> --epochs <epochs> --batch-size <batch_size> --img_ext <image_extension> --mask_ext <mask_extension> --imgsz <image_size>
+```
+
+You can also specify the following arguments:
+
+- `--data`: Data folder name. Default: data
+- `--csv`: CSV to output name. Default: results_unet_train.csv
+- `--model`: Model to output name. Default: model.h5
+- `--epochs`: Number of epochs for training. Default: 100
+- `--batch-size`: Batch size for training. Default: 2
+- `--img_ext`: Image extension. Default: .jpg
+- `--mask_ext`: Masks extension. Default: .png
+- `--imgsz`: Image size for inference. Default: [304, 3072]
 
 ## Authors
 
