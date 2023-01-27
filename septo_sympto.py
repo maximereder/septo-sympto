@@ -154,7 +154,7 @@ def predict_necrosis_mask(image_path, mask_path, result_image):
     # Return the image with the contours drawn, the total area of the detected necrosis, and the number of detected necrosis
     return result_image, necrosis_area, necrosis_number
 
-def get_leaf_area(image: np.ndarray):
+def get_leaf_area(image):
     """
     Calculate the total area of a leaf in an image.
     
@@ -188,7 +188,7 @@ def get_leaf_area(image: np.ndarray):
     # Return the total area of the leaf
     return leaf_area
 
-def get_image_informations(output_directory: str, image_path: str, mask_folder_path: str, file_name: str, save: bool):
+def get_image_informations(output_directory, image_path, mask_folder_path, file_name, save):
     """
     Analyze an image and extract information about the leaf, necrosis, and pycnidia.
     
@@ -241,7 +241,7 @@ def get_image_informations(output_directory: str, image_path: str, mask_folder_p
     return row
 
 
-def crop_images_from_directory(image_directory: str):
+def crop_images_from_directory(image_directory):
     """
     Crop the leaf images from a directory of images.
     
@@ -358,7 +358,7 @@ def export_result(output_directory, data_import_path, result_name, result_rows):
         print('\033[92m' + "Done!")
 
 
-def analyze_images(image_directory: str, output_directory: str, data_import_path: str, result_name: str, save: bool):
+def analyze_images(image_directory, output_directory, data_import_path, result_name, save):
     """
     Analyze the images in the given directory and save the results in the given output directory.
     
