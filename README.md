@@ -27,6 +27,11 @@ The project requires the following libraries to be installed:
 - pandas
 - scipy
 - sklearn
+- ipython
+- matplotlib
+- psutil
+- seaborn
+- tqdm
 
 Download the requirements.txt file and run the following command to install the required libraries:
 - [pycnidia-model.pt](https://drive.google.com/file/d/1WLIej7263MieoIrfGBtN7ljiZpE4NZy1/view?usp=share_link)
