@@ -59,6 +59,37 @@ def read_image(image_path):
     x = x.astype(np.float32)
     return ori_x, x
 
+def remove_leaf_noise(image):
+    if image.shape[0] > image.shape[1]:
+            image = cv2.rotate(image, cv2.ROTATE_90_CLOCKWISE)
+    hsv = cv2.cvtColor(image, cv2.COLOR_RGB2HSV)
+
+    # Set the range of colors to consider as part of the leaf
+    low_green = np.array([0, 35, 65])
+    high_green = np.array([255, 255, 255])
+
+    # Create a mask for the leaf
+    mask = cv2.inRange(hsv, low_green, high_green)
+
+    # Find the contours of the leaf
+    contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+    # Find the largest contour
+    largest_contour = max(contours, key=cv2.contourArea)
+
+    # Copy pixel from largest contour of original image and paste to new image
+    mask = np.zeros(image.shape, np.uint8)
+    cv2.drawContours(mask, [largest_contour], -1, (255, 255, 255), -1)
+
+    # Set (0,0,0) pixel to (255,255,255) to avoid black background
+    new_image = cv2.bitwise_and(image, mask)
+    new_image[new_image == 0] = 255
+
+    # Convert the image to RGB
+    cv2.cvtColor(new_image, cv2.COLOR_BGR2RGB)
+
+    return new_image
+
 def predict_pycnidia(image_path, result_image, model_pycnidia):
     # Set the confidence level and maximum number of detections for the model
     model_pycnidia.conf = float(args.pycnidia_threshold)
@@ -265,6 +296,9 @@ def crop_images_from_directory(image_directory):
         
         # If the image was loaded successfully
         if image is not None:
+            # Rotate the image if it is in portrait orientation
+            if image.shape[0] > image.shape[1]:
+                image = cv2.rotate(image, cv2.ROTATE_90_CLOCKWISE)
             # Convert the image to HSV color space
             hsv = cv2.cvtColor(image, cv2.COLOR_RGB2HSV)
             # Set the minimum area for a leaf contour to be considered
@@ -293,6 +327,10 @@ def crop_images_from_directory(image_directory):
                     cropped = image[y:y + h, x:x + w]
                     # Resize the cropped image
                     cropped = cv2.resize(cropped, (3070, 300), interpolation=cv2.INTER_AREA)
+
+                    # Remove the noise from the leaf
+                    cropped = remove_leaf_noise(cropped)
+                    
                     # Draw a white rectangle around the leaf contour on the original image
                     cv2.rectangle(image, (x, y), (x + w, y + h), (255, 255, 255), 1)
                     # Save the cropped image to the cropped directory
