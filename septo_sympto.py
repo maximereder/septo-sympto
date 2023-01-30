@@ -128,6 +128,16 @@ def predict_pycnidia(image_path, result_image, model_pycnidia):
     return result_image, surface, number_of_pycnidia
 
 def convert_pixel_area_to_cm2(pixel_area, dpi):
+    """
+    Convert pixel area to cm^2.
+
+    Parameters:
+    - pixel_area (float): Area in pixels.
+    - dpi (int): Dots per inch of the image.
+
+    Returns:
+    - float: Area in cm^2.
+    """
     return 2.54*(pixel_area / dpi)
 
 def predict_necrosis_mask(image_path, mask_path, result_image):
@@ -299,32 +309,42 @@ def crop_images_from_directory(image_directory):
             # Rotate the image if it is in portrait orientation
             if image.shape[0] > image.shape[1]:
                 image = cv2.rotate(image, cv2.ROTATE_90_CLOCKWISE)
+
             # Convert the image to HSV color space
             hsv = cv2.cvtColor(image, cv2.COLOR_RGB2HSV)
+
             # Set the minimum area for a leaf contour to be considered
             min_area = 50000
             leaf_area = 0
+
             # Set the range of colors to consider as part of the leaf
             low_green = np.array([0, 35, 65])
             high_green = np.array([255, 255, 255])
+
             # Create a mask to isolate the leaf in the image
             mask_leaf = cv2.inRange(hsv, low_green, high_green)
+
             # Find the contours of the leaf in the image
             cnts_leaf, _ = cv2.findContours(mask_leaf, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
             
             i = 0
             # Iterate through the contours
             for contour in cnts_leaf:
+                
                 # Calculate the area of the contour
                 area = cv2.contourArea(contour)
+
                 # If the contour is larger than the minimum area
                 if area > min_area:
                     leaf_area += area
                     i += 1
+
                     # Get the bounding box of the contour
                     x, y, w, h = cv2.boundingRect(contour)
+
                     # Crop the image to the bounding box
                     cropped = image[y:y + h, x:x + w]
+
                     # Resize the cropped image
                     cropped = cv2.resize(cropped, (3070, 300), interpolation=cv2.INTER_AREA)
 
@@ -333,6 +353,7 @@ def crop_images_from_directory(image_directory):
                     
                     # Draw a white rectangle around the leaf contour on the original image
                     cv2.rectangle(image, (x, y), (x + w, y + h), (255, 255, 255), 1)
+
                     # Save the cropped image to the cropped directory
                     cv2.imwrite(os.path.join(image_directory, 'cropped', file.split('.')[0]) + '__{}.jpg'.format(str(i)), cropped)
         else:
