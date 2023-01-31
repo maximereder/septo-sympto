@@ -52,6 +52,7 @@ python septo_sympto.py -w <images_folder> -i <csv_import> -o <csv_output> -m <mo
 - `-e` or `--extension` : specify the extension of the images. Default is '.tif'.
 - `-is` or `--imgsz` : specify the size of the images for inference. Default is [304, 3072].
 - `-d` or `--device` : specify the device to use for inference. Can be 'cpu', 'mps' for M1&M2 or a number for specific GPU. Default is 'cpu'.
+- `-pc` or `pixels_for_cm` : specify the number of pixels per cm. Default is 145.
 - `-pt` or `--pycnidia_threshold` : specify the confidence threshold for pycnidia detection. Default is 0.3.
 - `-pn` or `--necrosis_threshold` : specify the confidence threshold for necrosis detection. Default is 0.8.
 - `dm` or `draw_mode` : specify what to draw on the image. Can be 'pycnidias' 'necrosis'. Default is 'all'.

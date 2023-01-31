@@ -127,7 +127,7 @@ def predict_pycnidia(image_path, result_image, model_pycnidia):
     # Return the result image with the detected pycnidia marked, the total surface area of the detected pycnidia, and the number of detected pycnidia
     return result_image, surface, number_of_pycnidia
 
-def convert_pixel_area_to_cm2(pixel_area, dpi):
+def convert_pixel_area_dpi_to_cm2(pixel_area, dpi):
     """
     Convert pixel area to cm^2.
 
@@ -139,6 +139,19 @@ def convert_pixel_area_to_cm2(pixel_area, dpi):
     - float: Area in cm^2.
     """
     return 2.54*(pixel_area / dpi)
+
+def convert_pixel_area_rule_to_cm2(pixel_area, pixels_for_1_cm):
+    """
+    Convert pixel area to cm^2.
+
+    Parameters:
+    - pixel_area (float): Area in pixels.
+    - rule (int): Rule of the image.
+
+    Returns:
+    - float: Area in cm^2.
+    """
+    return (pixel_area / pixels_for_1_cm**2)
 
 def predict_necrosis_mask(image_path, mask_path, result_image):
     """
@@ -271,13 +284,13 @@ def get_image_informations(output_directory, image_path, mask_folder_path, file_
 
     row.append(file_name)
     row.append(leaf_area)
-    row.append(round(convert_pixel_area_to_cm2(leaf_area, 1200), 4))
+    row.append(round(convert_pixel_area_rule_to_cm2(leaf_area, 145), 4))
     row.append(necrosis_number)
     row.append(necrosis_ratio)
-    row.append(round(convert_pixel_area_to_cm2(necrosis_area, 1200), 4))
+    row.append(round(convert_pixel_area_rule_to_cm2(necrosis_area, 145), 4))
     row.append(pycnidia_number)
     row.append(pycnidia_area)
-    row.append(round(convert_pixel_area_to_cm2(pycnidia_area, 1200), 4))
+    row.append(round(convert_pixel_area_rule_to_cm2(pycnidia_area, 145), 4))
 
     return row
 
@@ -330,7 +343,7 @@ def crop_images_from_directory(image_directory):
             i = 0
             # Iterate through the contours
             for contour in cnts_leaf:
-                
+
                 # Calculate the area of the contour
                 area = cv2.contourArea(contour)
 
@@ -371,7 +384,6 @@ def export_result(output_directory, data_import_path, result_name, result_rows):
     Returns:
     - None
     """
-    
 
     with open(os.path.join(output_directory, result_name), 'w', encoding='UTF8', newline='') as f:
         print('\033[92m' + '\n' + 'Create final result csv')
@@ -385,8 +397,8 @@ def export_result(output_directory, data_import_path, result_name, result_rows):
 
             for e in data_imported.head().columns:
                 header.append(str(e).strip())
-            header = header + ['leaf_area_px', 'leaf_area_cm', 'necrosis_number', 'necrosis_area_ratio', 'necrosis_area_cm', 'pycnidia_area_px',
-                               'pycnidia_number', 'pycnidia_area_cm']
+            header = header + ['leaf_area_px', 'leaf_area_cm', 'necrosis_number', 'necrosis_area_ratio', 'necrosis_area_cm', 'pycnidia_number',
+                               'pycnidia_area_px', 'pycnidia_area_cm']
             writer.writerow(header)
 
             rows = []
@@ -402,7 +414,7 @@ def export_result(output_directory, data_import_path, result_name, result_rows):
                             row.append(result_rows[i][y])
                         rows.append(row)
         else: 
-            header = ['leaf', 'leaf_area_px', 'leaf_area_cm', 'necrosis_number', 'necrosis_area_ratio', 'necrosis_area_cm', 'pycnidia_area_px', 'pycnidia_number', 'pycnidia_area_cm']
+            header = ['leaf', 'leaf_area_px', 'leaf_area_cm', 'necrosis_number', 'necrosis_area_ratio', 'necrosis_area_cm', 'pycnidia_number', 'pycnidia_area_px', 'pycnidia_area_cm']
             writer.writerow(header)
             rows = result_rows
                             
