@@ -26,7 +26,7 @@ parser.add_argument("-m", "--model", dest="model", help="Model path.", default='
 parser.add_argument("-e", "--extension", dest="extension", help="Image extension.", default='.tif')
 parser.add_argument("-is", "--imgsz", dest="imgsz", help="Image size for inference.", default=[304, 3072], nargs='+')
 parser.add_argument("-d", "--device", dest="device", help="Device : 'cpu' or 'mps' for M1&M2 or 1 ... n for gpus", default='cpu')
-parser.add_argument("-pc", "--pixels_for_cm", dest="pixels_for_cm", help="Pixels for 1 cm.", default=145)   
+parser.add_argument("-pc", "--pixels_for_cm", dest="pixels_for_cm", help="Pixels for 1 cm.", default=475)   
 parser.add_argument("-pt", "--pycnidia_threshold", dest="pycnidia_threshold", help="Pycnidia confidence threshold.", default=0.3)
 parser.add_argument("-pn", "--necrosis_threshold", dest="necrosis_threshold", help="Necrosis confidence threshold.", default=0.8)
 parser.add_argument("-dm", "--draw_mode", dest="draw_mode", help="Draw mode : 'pycnidias' or 'necrosis' or 'all'", default='all')
