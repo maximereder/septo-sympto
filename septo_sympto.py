@@ -408,8 +408,8 @@ def export_result(output_directory, data_import_path, result_name, result_rows):
 
             for e in data_imported.head().columns:
                 header.append(str(e).strip())
-            header = header + ['leaf_area_px', 'leaf_area_cm', 'necrosis_number', 'necrosis_area_ratio', 'necrosis_area_cm', 'pycnidias_number',
-                               'pycnidias_area_px', 'pycnidias_area_cm', 'pycnidias_number_per_leaf_cm2', 'pycnidias_number_per_necrosis_cm2', 'pycnidias_area_cm2_per_necrosis_area_cm2', 'pycnidias_mean_area_cm2']
+            header = header + ['leaf_area_px', 'leaf_area_cm2', 'necrosis_number', 'necrosis_area_ratio', 'necrosis_area_cm2', 'pycnidias_number',
+                               'pycnidias_area_px', 'pycnidias_area_cm2', 'pycnidias_number_per_leaf_cm2', 'pycnidias_number_per_necrosis_cm2', 'pycnidias_area_cm2_per_necrosis_area_cm2', 'pycnidias_mean_area_cm2']
             writer.writerow(header)
 
             rows = []
@@ -425,8 +425,8 @@ def export_result(output_directory, data_import_path, result_name, result_rows):
                             row.append(result_rows[i][y])
                         rows.append(row)
         else: 
-            header = ['leaf', 'leaf_area_px', 'leaf_area_cm', 'necrosis_number', 'necrosis_area_ratio', 'necrosis_area_cm', 'pycnidias_number',
-                               'pycnidias_area_px', 'pycnidias_area_cm', 'pycnidias_number_per_leaf_cm2', 'pycnidias_number_per_necrosis_cm2', 'pycnidias_area_cm2_per_necrosis_area_cm2', 'pycnidias_mean_area_cm2']
+            header = ['leaf', 'leaf_area_px', 'leaf_area_cm2', 'necrosis_number', 'necrosis_area_ratio', 'necrosis_area_cm2', 'pycnidias_number',
+                               'pycnidias_area_px', 'pycnidias_area_cm2', 'pycnidias_number_per_leaf_cm2', 'pycnidias_number_per_necrosis_cm2', 'pycnidias_area_cm2_per_necrosis_area_cm2', 'pycnidias_mean_area_cm2']
             writer.writerow(header)
             rows = result_rows
                             
