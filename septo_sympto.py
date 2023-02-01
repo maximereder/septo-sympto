@@ -340,10 +340,6 @@ def crop_images_from_directory(image_directory):
         
         # If the image was loaded successfully
         if image is not None:
-            # Rotate the image if it is in portrait orientation
-            if image.shape[0] > image.shape[1]:
-                image = cv2.rotate(image, cv2.ROTATE_90_CLOCKWISE)
-
             # Convert the image to HSV color space
             hsv = cv2.cvtColor(image, cv2.COLOR_RGB2HSV)
 
