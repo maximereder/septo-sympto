@@ -112,7 +112,7 @@ Training results are automatically logged with Tensorboard and CSV loggers to ru
 
 ## U-Net Custom Training
 
-This guide explains how to train your own custom dataset with U-Net, quickly. For more information, see the [U-Net documentation](https://github.com/maximereder/unet)
+This guide explains how to train your own custom dataset with U-Net, quickly. For more information, see the [U-Net documentation](https://github.com/maximereder/unet).
 
 ### Before You Start
 1. Clone the U-Net repository: https://github.com/maximereder/unet.git
