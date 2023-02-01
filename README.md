@@ -42,6 +42,8 @@ The project requires the following libraries to be installed:
 - seaborn
 - tqdm
 
+Make sure your leafs in your images are in the horizontal axis.  
+
 Download the requirements.txt file and run the following command to install the required libraries:
 - [pycnidia-model.pt](https://drive.google.com/file/d/1WLIej7263MieoIrfGBtN7ljiZpE4NZy1/view?usp=share_link)
 - [necrosis-model-375.h5](https://drive.google.com/file/d/1BPOsgdUjoA8uCGht4-kL2Er3SbB4JalR/view?usp=share_link)
