@@ -26,7 +26,7 @@ parser.add_argument("-m", "--model", dest="model", help="Model path.", default='
 parser.add_argument("-e", "--extension", dest="extension", help="Image extension.", default='.tif')
 parser.add_argument("-is", "--imgsz", dest="imgsz", help="Image size for inference.", default=[304, 3072], nargs='+')
 parser.add_argument("-d", "--device", dest="device", help="Device : 'cpu' or 'mps' for M1&M2 or 1 ... n for gpus", default='cpu')
-parser.add_argument("-pc", "--pixels_for_cm", dest="pixels_for_cm", help="Pixels for 1 cm.", default=615)   
+parser.add_argument("-pc", "--pixels_for_cm", dest="pixels_for_cm", help="Pixels for 1 cm.", default=472)   
 parser.add_argument("-pt", "--pycnidia_threshold", dest="pycnidia_threshold", help="Pycnidia confidence threshold.", default=0.3)
 parser.add_argument("-pn", "--necrosis_threshold", dest="necrosis_threshold", help="Necrosis confidence threshold.", default=0.8)
 parser.add_argument("-dm", "--draw_mode", dest="draw_mode", help="Draw mode : 'pycnidias' or 'necrosis' or 'all'", default='all')
@@ -91,7 +91,64 @@ def remove_leaf_noise(image):
 
     return new_image
 
-def predict_pycnidia(image_path, result_image, model_pycnidia):
+
+def convert_model_to_base_coordinates(xmin, xmax, ymin, ymax, model_width, model_height, base_width, base_height):
+    """Converts coordinates from one image size to another.
+    Parameters:
+        xmin (int): X min coordinate.
+        ymin (int): Y min coordinate.
+        xmax (int): X max coordinate.
+        ymax (int): Y max coordinate.
+        model_width (int): Width of the original image.
+        model_height (int): Height of the original image.
+        base_width (int): Width of the base image.
+        base_height (int): Height of the base image.
+    
+    Returns:
+        tuple: New coordinates.
+    """
+
+    # Calculate the ratio between the base and model image
+    rX = base_width / model_width
+    rY = base_height / model_height
+
+    # Calculate the new coordinates
+    new_xmin = xmin*rX
+    new_xmax = xmax*rX
+    new_ymin = ymin*rY
+    new_ymax = ymax*rY
+    
+    return new_xmin, new_xmax, new_ymin, new_ymax
+
+def convert_model_to_base_area(base_area, model_width, model_height, base_width, base_height):
+    """Converts area from one image size to another.
+    
+    Parameters:
+        model_area (int): Area of the model image.
+        model_width (int): Width of the new image.
+        model_height (int): Height of the new image.
+        base_width (int): Width of the original image.
+        base_height (int): Height of the original image.
+    
+    Returns:
+        int: Area of the original image.
+    """
+    # Calculate the area of the original image
+    old_area = base_area * (base_width * base_height) / (model_width * model_height)
+    return old_area
+
+def predict_pycnidia(image_path, result_image, model_pycnidia, image_not_resized_path):
+    """Predicts pycnidia on an image.
+    
+    Parameters:
+        image_path (str): Path to the image file.
+        result_image (numpy.ndarray): Image to draw the results on.
+        model_pycnidia (torch.hub): Pycnidia detection model.
+        image_not_resized_path (str): Path to the crop image not resized file.
+    
+    Returns:
+        tuple: Image with the results drawn on it and the coordinates of the detected pycnidia.
+    """
     # Set the confidence level and maximum number of detections for the model
     model_pycnidia.conf = float(args.pycnidia_threshold)
     model_pycnidia.max_det = 10000
@@ -112,9 +169,15 @@ def predict_pycnidia(image_path, result_image, model_pycnidia):
     # Get the confidence level of the detected pycnidia
     confidences = confident_pycnidia['confidence']
 
-    # Calculate the total surface area of the detected pycnidia
-    surface = np.round(np.sum([(xmaxs[i] - xmins[i]) * (ymaxs[i] - ymins[i]) for i in range(len(xmins))]), 4)
+    # Get the shape of the original image
+    original_image_shape = cv2.imread(image_not_resized_path).shape
 
+    # Calculate the total surface of the detected pycnidia
+    surface = 0
+    for i in range(len(xmins)):
+        old_xmins, old_xmaxs, old_ymins, old_ymaxs = convert_model_to_base_coordinates(xmins[i], xmaxs[i], ymins[i], ymaxs[i],  W, H, original_image_shape[1], original_image_shape[0])
+        surface += np.round((old_xmaxs - old_xmins) * (old_ymaxs - old_ymins), 4)
+        
     # Count the number of detected pycnidia
     number_of_pycnidia = len(xmins)
 
@@ -128,20 +191,7 @@ def predict_pycnidia(image_path, result_image, model_pycnidia):
     # Return the result image with the detected pycnidia marked, the total surface area of the detected pycnidia, and the number of detected pycnidia
     return result_image, surface, number_of_pycnidia
 
-def convert_pixel_area_dpi_to_cm2(pixel_area, dpi):
-    """
-    Convert pixel area to cm^2.
-
-    Parameters:
-    - pixel_area (float): Area in pixels.
-    - dpi (int): Dots per inch of the image.
-
-    Returns:
-    - float: Area in cm^2.
-    """
-    return 2.54*(pixel_area / dpi)
-
-def convert_pixel_area_rule_to_cm2(pixel_area, pixels_for_1_cm):
+def convert_pixel_area_to_cm2(pixel_area, pixels_for_1_cm):
     """
     Convert pixel area to cm^2.
 
@@ -243,13 +293,14 @@ def get_leaf_area(image):
     # Return the total area of the leaf
     return leaf_area
 
-def get_image_informations(output_directory, image_path, mask_folder_path, file_name, save):
+def get_image_informations(output_directory, image_path, image_not_resized_path, mask_folder_path, file_name, save):
     """
     Analyze an image and extract information about the leaf, necrosis, and pycnidia.
     
     Parameters:
     - output_directory (str): Path to the directory where the result image should be saved.
     - image_path (str): Path to the image.
+    - image_not_resized_path (str): Path to the image that was not resized.
     - mask_folder_path (str): Path to the directory where the mask images should be saved.
     - file_name (str): Name of the image file.
     - save (bool): Flag indicating whether to save the result image.
@@ -260,6 +311,12 @@ def get_image_informations(output_directory, image_path, mask_folder_path, file_
 
     # Load the image and resize it
     image = cv2.imread(image_path)
+    original_image = cv2.imread(image_not_resized_path)
+
+    # Get the original image shape
+    original_image_shape = original_image.shape[:2]
+
+    # Resize the image to the input size of the model
     image = cv2.resize(image, (W, H), interpolation=cv2.INTER_AREA)
     result_image = cv2.resize(image.copy(), (W, H), interpolation=cv2.INTER_AREA)
 
@@ -273,7 +330,7 @@ def get_image_informations(output_directory, image_path, mask_folder_path, file_
     necrosis_ratio = round(necrosis_area / leaf_area, 3)
 
     # Detect pycnidia in the image and draw circles on the image
-    result_image, pycnidia_area, pycnidia_number = predict_pycnidia(image_path, result_image, model_pycnidia)
+    result_image, pycnidia_area, pycnidia_number = predict_pycnidia(image_path, result_image, model_pycnidia, image_not_resized_path)
 
     # If the --save flag is set, save the result image to the specified directory
     if save:
@@ -281,12 +338,16 @@ def get_image_informations(output_directory, image_path, mask_folder_path, file_
             os.mkdir(os.path.join(output_directory, 'images'))
         cv2.imwrite(os.path.join(output_directory, 'images', file_name) + '.jpg', result_image)
 
+    # Convert the areas to the original image size, not for pycnidias because original pycnidias area is already calculated
+    leaf_area = convert_model_to_base_area(leaf_area, W, H, original_image_shape[1], original_image_shape[0])
+    necrosis_area = convert_model_to_base_area(necrosis_area, W, H, original_image_shape[1], original_image_shape[0])
+
+    # Convert the areas to cm2
+    leaf_area_cm = round(convert_pixel_area_to_cm2(leaf_area, args.pixels_for_cm), 4)
+    necrosis_area_cm = round(convert_pixel_area_to_cm2(necrosis_area, args.pixels_for_cm), 4)
+    pycnidia_area_cm = round(convert_pixel_area_to_cm2(pycnidia_area, args.pixels_for_cm), 4)
+
     row = []
-
-    leaf_area_cm = round(convert_pixel_area_rule_to_cm2(leaf_area, args.pixels_for_cm), 4)
-    necrosis_area_cm = round(convert_pixel_area_rule_to_cm2(necrosis_area, args.pixels_for_cm), 4)
-    pycnidia_area_cm = round(convert_pixel_area_rule_to_cm2(pycnidia_area, args.pixels_for_cm), 4)
-
     row.append(file_name)
     row.append(leaf_area)
     row.append(leaf_area_cm)
@@ -375,8 +436,11 @@ def crop_images_from_directory(image_directory):
                     # Crop the image to the bounding box
                     cropped = image[y:y + h, x:x + w]
 
+                    # Save the cropped image to the cropped_not_resized directory
+                    cv2.imwrite(os.path.join(image_directory, 'cropped_not_resized', file.split('.')[0]) + '__{}.jpg'.format(str(i)), cropped)
+
                     # Resize the cropped image
-                    cropped = cv2.resize(cropped, (3070, 300), interpolation=cv2.INTER_AREA)
+                    cropped = cv2.resize(cropped, (W, H), interpolation=cv2.INTER_AREA)
 
                     # Remove the noise from the leaf
                     cropped = remove_leaf_noise(cropped)
@@ -386,6 +450,7 @@ def crop_images_from_directory(image_directory):
 
                     # Save the cropped image to the cropped directory
                     cv2.imwrite(os.path.join(image_directory, 'cropped', file.split('.')[0]) + '__{}.jpg'.format(str(i)), cropped)
+                    
         else:
             print("Cannot read properly : ", file)
 
@@ -464,10 +529,13 @@ def analyze_images(image_directory, output_directory, data_import_path, result_n
 
     if not os.path.exists(os.path.join(image_directory, 'cropped')):
         os.mkdir(os.path.join(image_directory, 'cropped'))
+    if not os.path.exists(os.path.join(image_directory, 'cropped_not_resized')):
+        os.mkdir(os.path.join(image_directory, 'cropped_not_resized'))
     if not os.path.exists(output_directory) and save:
         os.mkdir(output_directory)
 
     cropped_images_directory = os.path.join(image_directory, 'cropped')
+    cropped_not_resized_images_directory = os.path.join(image_directory, 'cropped_not_resized')
 
     # Crop the images
     crop_images_from_directory(image_directory)
@@ -479,7 +547,7 @@ def analyze_images(image_directory, output_directory, data_import_path, result_n
     for file in tqdm(os.listdir(cropped_images_directory)):
         i += 1
         # Infer the image
-        row = get_image_informations(output_directory, os.path.join(cropped_images_directory, file), os.path.join(os.getcwd(), "masks"),
+        row = get_image_informations(output_directory, os.path.join(cropped_images_directory, file),  os.path.join(cropped_not_resized_images_directory, file), os.path.join(os.getcwd(), "masks"),
                                      file.split('.')[0], save)
         # Add the row to the list of rows
         rows.append(row)
