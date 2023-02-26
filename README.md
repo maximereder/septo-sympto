@@ -69,6 +69,7 @@ python septo_sympto.py -w <images_folder> -i <csv_import> -o <csv_output> -m <mo
 - `-dm` or `draw_mode` : specify what to draw on the image. Can be 'pycnidias' 'necrosis'. Default is 'all'.
 - `-sm` or `--save-masks` : specify if you want to save the masks. Default is False.
 - `-ns` or `--no-save` : specify if you want to not save the image results in output folder. Default is False.
+
 Note: Please make sure the pre-trained model is in the specified path and the specified folder contains the images with the specified extension.
 
 ## Train weights
