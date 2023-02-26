@@ -29,9 +29,9 @@ parser.add_argument("-d", "--device", dest="device", help="Device : 'cpu' or 'mp
 parser.add_argument("-pc", "--pixels_for_cm", dest="pixels_for_cm", help="Pixels for 1 cm.", default=472)   
 parser.add_argument("-pt", "--pycnidia_threshold", dest="pycnidia_threshold", help="Pycnidia confidence threshold.", default=0.3)
 parser.add_argument("-pn", "--necrosis_threshold", dest="necrosis_threshold", help="Necrosis confidence threshold.", default=0.8)
-parser.add_argument("-dm", "--draw_mode", dest="draw_mode", help="Draw mode : 'pycnidias' or 'necrosis' or 'all'", default='all')
+parser.add_argument("-dm", "--draw_mode", dest="draw_mode", help="Draw mode : 'pycnidias' or 'necrosis' or 'all'. Default 'all'", default='all')
 parser.add_argument("-sm", "--save-masks", dest="save_masks", help="Save masks", default=False)
-parser.add_argument("-s", "--save", dest="save", help="Save True or False", default=True)
+parser.add_argument("-ns", "--no-save", dest="no_save", help="No save True or False", default=False)
 args = parser.parse_args()
 
 with CustomObjectScope({'iou': iou, 'dice_coef': dice_coef, 'dice_loss': dice_loss}):
@@ -39,9 +39,15 @@ with CustomObjectScope({'iou': iou, 'dice_coef': dice_coef, 'dice_loss': dice_lo
         
 model_pycnidia = torch.hub.load('ultralytics/yolov5', 'custom', path=os.path.join(os.getcwd(), 'models', 'pycnidia-model.pt'))
 model_pycnidia.to(args.device)
-save = args.save
 extension = args.extension
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+
+i = len(os.listdir(os.path.join(os.getcwd(), 'outputs')))
+image_directory = os.path.join(os.getcwd(), args.images)
+output_directory = os.path.join(os.getcwd(), 'outputs', 'output_{}'.format(i))
+data_import_path = args.csv_import
+result_name = args.csv_output
+no_save = args.no_save
 
 H = int(args.imgsz[0])
 W = int(args.imgsz[1])
@@ -182,7 +188,7 @@ def predict_pycnidia(image_path, result_image, model_pycnidia, image_not_resized
     number_of_pycnidia = len(xmins)
 
     # Draw circles at the center of each detected pycnidia on the result image
-    if args.draw_mode == 'pycnidias' or args.draw_mode == 'all':
+    if args.no_save == False and args.draw_mode == 'pycnidias' or args.draw_mode == 'all':
         for i in range(len(xmins)):
             center_coord = (int((xmins[i] + xmaxs[i]) / 2), int((ymins[i] + ymaxs[i]) / 2))
             cv2.circle(result_image, center_coord, 8, (255, int(confidences[i]*255), 255), 2)
@@ -251,7 +257,7 @@ def predict_necrosis_mask(image_path, mask_path, result_image):
             if ratio < 0.9:
                 cnts_necrosis.append(cnt)
                 # Draw the contour on the result image
-                if args.draw_mode == 'necrosis' or args.draw_mode == 'all':
+                if args.no_save == False and args.draw_mode == 'necrosis' or args.draw_mode == 'all':
                     cv2.drawContours(result_image, cnt, -1, (0, 255, 0), 2)
                 necrosis_area += area
                 necrosis_number += 1
@@ -293,7 +299,7 @@ def get_leaf_area(image):
     # Return the total area of the leaf
     return leaf_area
 
-def get_image_informations(output_directory, image_path, image_not_resized_path, mask_folder_path, file_name, save):
+def get_image_informations(output_directory, image_path, image_not_resized_path, mask_folder_path, file_name):
     """
     Analyze an image and extract information about the leaf, necrosis, and pycnidia.
     
@@ -333,7 +339,7 @@ def get_image_informations(output_directory, image_path, image_not_resized_path,
     result_image, pycnidia_area, pycnidia_number = predict_pycnidia(image_path, result_image, model_pycnidia, image_not_resized_path)
 
     # If the --save flag is set, save the result image to the specified directory
-    if save:
+    if args.no_save == False:
         if not os.path.exists(os.path.join(output_directory, 'images')):
             os.mkdir(os.path.join(output_directory, 'images'))
         cv2.imwrite(os.path.join(output_directory, 'images', file_name) + '.jpg', result_image)
@@ -505,14 +511,14 @@ def export_result(output_directory, data_import_path, result_name, result_rows):
         for i in range(0, len(rows), 1):
             writer.writerow(rows[len(rows) - 1 - i])
 
-        if save:
+        if args.no_save == False:
             print('\033[92m' + 'Save results to outputs folder.')
 
         print('\033[92m' + 'Save results at {}'.format(output_directory))
         print('\033[92m' + "Done!")
 
 
-def analyze_images(image_directory, output_directory, data_import_path, result_name, save):
+def analyze_images(image_directory, output_directory, data_import_path, result_name):
     """
     Analyze the images in the given directory and save the results in the given output directory.
     
@@ -531,7 +537,7 @@ def analyze_images(image_directory, output_directory, data_import_path, result_n
         os.mkdir(os.path.join(image_directory, 'cropped'))
     if not os.path.exists(os.path.join(image_directory, 'cropped_not_resized')):
         os.mkdir(os.path.join(image_directory, 'cropped_not_resized'))
-    if not os.path.exists(output_directory) and save:
+    if not os.path.exists(output_directory):
         os.mkdir(output_directory)
 
     cropped_images_directory = os.path.join(image_directory, 'cropped')
@@ -548,7 +554,7 @@ def analyze_images(image_directory, output_directory, data_import_path, result_n
         i += 1
         # Infer the image
         row = get_image_informations(output_directory, os.path.join(cropped_images_directory, file),  os.path.join(cropped_not_resized_images_directory, file), os.path.join(os.getcwd(), "masks"),
-                                     file.split('.')[0], save)
+                                     file.split('.')[0])
         # Add the row to the list of rows
         rows.append(row)
 
@@ -561,5 +567,4 @@ if __name__ == '__main__':
     print('\033[92m' + "Authors: Laura MATHIEU, Maxime REDER")
 
     # Parse the arguments
-    i = len(os.listdir(os.path.join(os.getcwd(), 'outputs')))
-    analyze_images(os.path.join(os.getcwd(), args.images), os.path.join(os.getcwd(), 'outputs', 'output_{}'.format(i)), args.csv_import, args.csv_output, args.save)
+    analyze_images(image_directory, output_directory, data_import_path, result_name)

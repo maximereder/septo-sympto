@@ -66,9 +66,9 @@ python septo_sympto.py -w <images_folder> -i <csv_import> -o <csv_output> -m <mo
 - `-pc` or `pixels_for_cm` : specify the number of pixels per cm. Default is 145.
 - `-pt` or `--pycnidia_threshold` : specify the confidence threshold for pycnidia detection. Default is 0.3.
 - `-pn` or `--necrosis_threshold` : specify the confidence threshold for necrosis detection. Default is 0.8.
-- `dm` or `draw_mode` : specify what to draw on the image. Can be 'pycnidias' 'necrosis'. Default is 'all'.
+- `-dm` or `draw_mode` : specify what to draw on the image. Can be 'pycnidias' 'necrosis'. Default is 'all'.
 - `-sm` or `--save-masks` : specify if you want to save the masks. Default is False.
-- `-s` or `--save` : specify if you want to save the results in the csv file. Default is True.
+- `-ns` or `--no-save` : specify if you want to not save the image results in output folder. Default is False.
 Note: Please make sure the pre-trained model is in the specified path and the specified folder contains the images with the specified extension.
 
 ## Train weights
