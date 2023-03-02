@@ -92,11 +92,11 @@ For more informations on how to prepare your dataset, see the [Roboblow](https:/
 Using Roboflow to prepare your dataset
 Roboflow is a platform that provides tools to label and preprocess your data. Follow these steps to prepare your dataset using Roboflow:
 
-1. Sign up or log in to Roboflow and create a new project indicating "Object Detection (Bounding Boxe)" type.
-2. Upload your images to the dataset. Images should be in JPEG or PNG format.
-3. Annotate your images. Roboflow supports various annotation formats, including bounding boxes, polygons and keypoints. For YOLOv5, choose "YOLOV5 Pytorch" as the export format. This will create a text file for each image with the same name as the image, containing the annotations in YOLO format.
-4. Apply preprocessing options, if needed. Roboflow provides options such as resizing, rotation and augmentation to prepare your images for training.
-5. Export your dataset. Roboflow will create a zip file containing your images, annotations and a YAML file with information about your dataset.
+1. **Sign up** or **log in** to Roboflow and create a new project indicating "Object Detection (Bounding Boxe)" type.
+2. **Upload your images** to the dataset. Images should be in JPEG or PNG format.
+3. **Annotate your images**. Roboflow supports various annotation formats, including bounding boxes, polygons and keypoints. For YOLOv5, choose "YOLOV5 Pytorch" as the export format. This will create a text file for each image with the same name as the image, containing the annotations in YOLO format.
+4. **Apply preprocessing** options, if needed. Roboflow provides options such as resizing, rotation and augmentation to prepare your images for training.
+5. **Export your dataset**. Roboflow will create a zip file containing your images, annotations and a YAML file with information about your dataset.
 
 ### Before You Start
 1. Clone the YOLOv5 repository: git clone https://github.com/ultralytics/yolov5
@@ -177,11 +177,11 @@ For more informations on how to prepare your dataset, see the [Roboblow](https:/
 Using Roboflow to prepare your dataset
 Roboflow is a platform that provides tools to label and preprocess your data. Follow these steps to prepare your dataset using Roboflow:
 
-1. Sign up or log in to Roboflow and create a new project indicating "Semantic Segmentation" type.
-2. Upload your images to the project. Images should be in JPEG or PNG format.
-3. Annotate your images. Roboflow supports various annotation formats, including bounding boxes, polygons and keypoints. For U-Net, choose "Semantic Segmentation" as the export format. This will create a mask image for each annotated image, containing the segmentation information in grayscale.
-4. Apply preprocessing options, if needed. Roboflow provides options such as resizing, rotation and augmentation to prepare your images and masks for training.
-5. Export your dataset. Roboflow will create a zip file containing your images, masks and a YAML file with information about your dataset.
+1. **Sign up** or **log in** to Roboflow and **create a new project** indicating "Semantic Segmentation" type.
+2.**Upload your images** to the project. Images should be in JPEG or PNG format.
+3. **Annotate your images**. Roboflow supports various annotation formats, including bounding boxes, polygons and keypoints. For U-Net, choose "Semantic Segmentation" as the export format. This will create a mask image for each annotated image, containing the segmentation information in grayscale.
+4. **Apply preprocessing options**, if needed. Roboflow provides options such as resizing, rotation and augmentation to prepare your images and masks for training.
+5. **Export your dataset**. Roboflow will create a zip file containing your images, masks and a YAML file with information about your dataset.
 
 ### Folder structure and file types
 Regardless of whether you use Roboflow or prepare your dataset manually, the folder structure and file types should follow these guidelines:
