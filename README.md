@@ -84,15 +84,69 @@ To train new weights for you application, please use the following tutorials :
 
 This guide explains how to train your own custom dataset with YOLOv5, quickly. For more information, see the [YOLOv5 documentation](https://github.com/ultralytics/yolov5).
 
+### Prepare your dataset
+In order to train a custom dataset with YOLOv5, you need to have labelled data. You can either manually prepare your dataset or use Roboflow to label, prepare and host your custom data automatically in YOLO format.
+
+For more informations on how to prepare your dataset, see the [Roboblow](https://blog.roboflow.com/how-to-train-yolov5-on-a-custom-dataset/) tutorial.
+
+Using Roboflow to prepare your dataset
+Roboflow is a platform that provides tools to label and preprocess your data. Follow these steps to prepare your dataset using Roboflow:
+
+1. Sign up or log in to Roboflow and create a new dataset.
+2. Upload your images to the dataset. Images should be in JPEG or PNG format.
+3. Annotate your images. Roboflow supports various annotation formats, including bounding boxes, polygons and keypoints. For YOLOv5, choose "YOLO Darknet" as the export format. This will create a text file for each image with the same name as the image, containing the annotations in YOLO format.
+4. Apply preprocessing options, if needed. Roboflow provides options such as resizing, rotation and augmentation to prepare your images for training.
+5. Export your dataset. Roboflow will create a zip file containing your images, annotations and a YAML file with information about your dataset.
+
 ### Before You Start
 1. Clone the YOLOv5 repository: git clone https://github.com/ultralytics/yolov5
 2. Navigate to the cloned repository: cd yolov5
 3. Install the requirements: `pip install -r requirements.txt`
 
+### Folder structure and file types
+Regardless of whether you use Roboflow or prepare your dataset manually, the folder structure and file types should follow these guidelines:
+
+- Images should be stored in a folder named "images".
+- Annotations should be stored in a folder named "labels".
+- Each image should have a corresponding annotation file with the same name and ".txt" extension.
+- The annotation files should contain the bounding box coordinates of each object in YOLO format: "class x_center y_center width height".
+
+Here's an example of the contents of the "images" and "labels" folders:
+
+```
+├── dataset/
+│   ├── images/
+│   │   ├── image1.jpg
+│   │   ├── image2.jpg
+│   │   └── ...
+│   ├── labels/
+│   │   ├── image1.txt
+│   │   ├── image2.txt
+│   │   └── ...
+```
+### Annotation format
+Each line of an annotation file should contain the information of one object in the image, with the following format:
+
+```
+<class> <x_center> <y_center> <width> <height>
+```
+- **class** is the integer index of the object class (starting from 0).
+- **x_center** and **y_center** are the coordinates of the center of the bounding box relative to the width and height of the image (ranging from 0 to 1).
+- **width** and **height** are the dimensions of the bounding box relative to the width and height of the image (also ranging from 0 to 1).
+
+For example, if an image contains a dog and a cat, and the dog bounding box has coordinates (100, 150, 200, 250) and the cat bounding box has coordinates (50, 100, 150, 200), the annotation file should look like this:
+
+```
+0 0.416 0.520 0.250 0.333
+0 0.260 0.387 0.188 0.333
+```
+
+where "0" is the class index for "pycnidia". The coordinates have been normalized relative to the width and height of the image.
+
 ### Train on Custom Data
 1. **Create Dataset**: YOLOv5 models must be trained on labelled data. There are two options for creating your dataset:
     - Use [Roboflow](https://roboflow.com/) to label, prepare, and host your custom data automatically in YOLO format.
-    - Manually prepare your dataset.
+    - Manually prepare your dataset, see [Prepare your dataset](#prepare-your-dataset) section.
 
 2. **Select a Model**: Select a pretrained model to start training from. For example, YOLOv5s is the second-smallest and fastest model available.
 3. **Train**: Train a YOLOv5s model on COCO128 by specifying dataset, batch-size, image size and either pretrained --weights yolov5s.pt (recommended), or randomly initialized --weights '' --cfg yolov5s.yaml (not recommended).
@@ -114,6 +168,48 @@ Training results are automatically logged with Tensorboard and CSV loggers to ru
 ## U-Net Custom Training
 
 This guide explains how to train your own custom dataset with U-Net, quickly. For more information, see the [U-Net documentation](https://github.com/maximereder/unet).
+
+### Prepare your dataset
+In order to train a custom dataset with U-Net, you need to have labelled data. You can either manually prepare your dataset or use Roboflow to label, prepare and host your custom data automatically in semantic segmentation mask format.
+
+For more informations on how to prepare your dataset, see the [Roboblow](https://blog.roboflow.com/semantic-segmentation-roboflow/) tutorial.
+
+Using Roboflow to prepare your dataset
+Roboflow is a platform that provides tools to label and preprocess your data. Follow these steps to prepare your dataset using Roboflow:
+
+1. Sign up or log in to Roboflow and create a new project.
+2. Upload your images to the project. Images should be in JPEG or PNG format.
+3. Annotate your images. Roboflow supports various annotation formats, including bounding boxes, polygons and keypoints. For U-Net, choose "Semantic Segmentation" as the export format. This will create a mask image for each annotated image, containing the segmentation information in grayscale.
+4. Apply preprocessing options, if needed. Roboflow provides options such as resizing, rotation and augmentation to prepare your images and masks for training.
+5. Export your dataset. Roboflow will create a zip file containing your images, masks and a YAML file with information about your dataset.
+
+### Folder structure and file types
+Regardless of whether you use Roboflow or prepare your dataset manually, the folder structure and file types should follow these guidelines:
+
+- Images should be stored in a folder named "images".
+- Masks should be stored in a folder named "masks".
+- Each image should have a corresponding mask file with the same name and ".png" extension.
+- The mask files should contain the segmentation information in grayscale.
+
+Here's an example of the contents of the "images" and "masks" folders:
+
+```
+├── dataset/
+│   ├── images/
+│   │   ├── image1.jpg
+│   │   ├── image2.jpg
+│   │   └── ...
+│   ├── masks/
+│   │   ├── image1.png
+│   │   ├── image2.png
+│   │   └── ...
+```
+
+### Annotation format
+
+Annotations are mask images containing the segmentation information in grayscale. In this project, the mask image should contain values between 0 or 255 (binary semantic segmentation).
+
+![Mask](pictures/mask.png)
 
 ### Before You Start
 1. Clone the U-Net repository: https://github.com/maximereder/unet.git
