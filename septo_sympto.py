@@ -42,13 +42,15 @@ model_pycnidia.to(args.device)
 extension = args.extension
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
-i = len(os.listdir(os.path.join(os.getcwd(), 'outputs')))
-image_directory = os.path.join(os.getcwd(), args.images)
-output_directory = os.path.join(os.getcwd(), 'outputs', 'output_{}'.format(i))
-mask_path = os.path.join(output_directory, "masks")
-data_import_path = args.csv_import
-result_name = args.csv_output
-no_save = args.no_save
+""" Gloabal variables used in the script """
+
+i = len(os.listdir(os.path.join(os.getcwd(), 'outputs'))) # Get the number of images to process
+image_directory = os.path.join(os.getcwd(), args.images) # Get the path to the images folder
+output_directory = os.path.join(os.getcwd(), 'outputs', 'output_{}'.format(i)) # Get the path to the output folder
+mask_path = os.path.join(output_directory, "masks") # Get the path to the masks folder
+data_import_path = args.csv_import # Get the path to the CSV to import
+result_name = args.csv_output # Get the name of the CSV to output
+no_save = args.no_save # Get the no save value
 
 H = int(args.imgsz[0])
 W = int(args.imgsz[1])
