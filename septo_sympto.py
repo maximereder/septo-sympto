@@ -45,6 +45,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 i = len(os.listdir(os.path.join(os.getcwd(), 'outputs')))
 image_directory = os.path.join(os.getcwd(), args.images)
 output_directory = os.path.join(os.getcwd(), 'outputs', 'output_{}'.format(i))
+mask_path = os.path.join(output_directory, "masks")
 data_import_path = args.csv_import
 result_name = args.csv_output
 no_save = args.no_save
@@ -143,13 +144,12 @@ def convert_model_to_base_area(base_area, model_width, model_height, base_width,
     old_area = base_area * (base_width * base_height) / (model_width * model_height)
     return old_area
 
-def predict_pycnidia(image_path, result_image, model_pycnidia, image_not_resized_path):
+def predict_pycnidia(image_path, result_image, image_not_resized_path):
     """Predicts pycnidia on an image.
     
     Parameters:
         image_path (str): Path to the image file.
         result_image (numpy.ndarray): Image to draw the results on.
-        model_pycnidia (torch.hub): Pycnidia detection model.
         image_not_resized_path (str): Path to the crop image not resized file.
     
     Returns:
@@ -210,13 +210,12 @@ def convert_pixel_area_to_cm2(pixel_area, pixels_for_1_cm):
     """
     return (pixel_area / pixels_for_1_cm**2)
 
-def predict_necrosis_mask(image_path, mask_path, result_image):
+def predict_necrosis_mask(image_path, result_image):
     """
     Detect necrosis on an image and draw contours on the image.
     
     Parameters:
     - image_path (str): Path to the image.
-    - mask_path (str): Path to the directory where the mask image should be saved.
     - result_image (np.ndarray): Image to draw the contours on.
     
     Returns:
@@ -299,17 +298,14 @@ def get_leaf_area(image):
     # Return the total area of the leaf
     return leaf_area
 
-def get_image_informations(output_directory, image_path, image_not_resized_path, mask_folder_path, file_name):
+def get_image_informations(image_path, image_not_resized_path, file_name):
     """
     Analyze an image and extract information about the leaf, necrosis, and pycnidia.
     
     Parameters:
-    - output_directory (str): Path to the directory where the result image should be saved.
     - image_path (str): Path to the image.
     - image_not_resized_path (str): Path to the image that was not resized.
-    - mask_folder_path (str): Path to the directory where the mask images should be saved.
     - file_name (str): Name of the image file.
-    - save (bool): Flag indicating whether to save the result image.
     
     Returns:
     - List[Union[str, float, int]]: List containing the file name, total area of the leaf, number of necrosis, ratio of necrosis area to leaf area, total area of necrosis, number of pycnidia, and total area of pycnidia.
@@ -330,13 +326,13 @@ def get_image_informations(output_directory, image_path, image_not_resized_path,
     leaf_area = get_leaf_area(image)
 
     # Detect necrosis in the image and draw contours on the image
-    result_image, necrosis_area, necrosis_number = predict_necrosis_mask(image_path, mask_folder_path, result_image)
+    result_image, necrosis_area, necrosis_number = predict_necrosis_mask(image_path, result_image)
     
     # Calculate the ratio of necrosis area to leaf area
     necrosis_ratio = round(necrosis_area / leaf_area, 3)
 
     # Detect pycnidia in the image and draw circles on the image
-    result_image, pycnidia_area, pycnidia_number = predict_pycnidia(image_path, result_image, model_pycnidia, image_not_resized_path)
+    result_image, pycnidia_area, pycnidia_number = predict_pycnidia(image_path, result_image, image_not_resized_path)
 
     # If the --save flag is set, save the result image to the specified directory
     if args.no_save == False:
@@ -383,13 +379,10 @@ def get_image_informations(output_directory, image_path, image_not_resized_path,
     return row
 
 
-def crop_images_from_directory(image_directory):
+def crop_images_from_directory():
     """
     Crop the leaf images from a directory of images.
-    
-    Parameters:
-    - image_directory (str): Path to the directory of images.
-    
+        
     Returns:
     - None
     """
@@ -460,13 +453,12 @@ def crop_images_from_directory(image_directory):
         else:
             print("Cannot read properly : ", file)
 
-def export_result(output_directory, data_import_path, result_name, result_rows):
+def export_result(result_rows):
     """
     Exports the result rows to a CSV file.
     
     Parameters:
-    - output_directory (str): The path to the output directory.
-    - data_import_path (str): The path of the file containing the imported data.
+    - result_name (str): Name of the result file.
     - result_rows (List[List[Any]]): A list of rows with the results.
     
     Returns:
@@ -518,16 +510,12 @@ def export_result(output_directory, data_import_path, result_name, result_rows):
         print('\033[92m' + "Done!")
 
 
-def analyze_images(image_directory, output_directory, data_import_path, result_name):
+def analyze_images():
     """
     Analyze the images in the given directory and save the results in the given output directory.
     
     Parameters:
-        image_directory (str): The path to the directory containing the images to be analyzed.
-        output_directory (str): The path to the directory where the results should be saved.
-        data_import_path (str): The path of the data import file.
         result_name (str): The name of the result file.
-        save (bool): A flag indicating whether the results should be saved to the output directory.
     
     Returns:
         None
@@ -544,7 +532,7 @@ def analyze_images(image_directory, output_directory, data_import_path, result_n
     cropped_not_resized_images_directory = os.path.join(image_directory, 'cropped_not_resized')
 
     # Crop the images
-    crop_images_from_directory(image_directory)
+    crop_images_from_directory()
 
     print('\033[93m' + '\n' + "INFER IMAGES INTO MODELS" + "\033[99m \n")
         
@@ -553,13 +541,13 @@ def analyze_images(image_directory, output_directory, data_import_path, result_n
     for file in tqdm(os.listdir(cropped_images_directory)):
         i += 1
         # Infer the image
-        row = get_image_informations(output_directory, os.path.join(cropped_images_directory, file),  os.path.join(cropped_not_resized_images_directory, file), os.path.join(os.getcwd(), "masks"),
+        row = get_image_informations(os.path.join(cropped_images_directory, file),  os.path.join(cropped_not_resized_images_directory, file),
                                      file.split('.')[0])
         # Add the row to the list of rows
         rows.append(row)
 
     # Export the results to a CSV file
-    export_result(output_directory, data_import_path, result_name, rows)
+    export_result(rows)
 
 
 if __name__ == '__main__':
@@ -567,4 +555,4 @@ if __name__ == '__main__':
     print('\033[92m' + "Authors: Laura MATHIEU, Maxime REDER")
 
     # Parse the arguments
-    analyze_images(image_directory, output_directory, data_import_path, result_name)
+    analyze_images()
