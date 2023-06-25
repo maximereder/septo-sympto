@@ -19,7 +19,7 @@ Web site: https://maximereder.fr
 '''
 
 parser = argparse.ArgumentParser()
-parser.add_argument("-w", "--images", dest="images", help="Images folder name.", default='images')
+parser.add_argument("-w", "--images_input", dest="images_input", help="Images folder input name.", default='images')
 parser.add_argument("-i", "--import", dest="csv_import", help="CSV to import name.", default=None)
 parser.add_argument("-o", "--output", dest="csv_output", help="CSV to output name.", default='results.csv')
 parser.add_argument("-m", "--model", dest="model", help="Model path.", default='models/necrosis-model-375.h5')
@@ -29,7 +29,7 @@ parser.add_argument("-d", "--device", dest="device", help="Device : 'cpu' or 'mp
 parser.add_argument("-pc", "--pixels_for_cm", dest="pixels_for_cm", help="Pixels for 1 cm.", default=472)   
 parser.add_argument("-pt", "--pycnidia_threshold", dest="pycnidia_threshold", help="Pycnidia confidence threshold.", default=0.3)
 parser.add_argument("-pn", "--necrosis_threshold", dest="necrosis_threshold", help="Necrosis confidence threshold.", default=0.8)
-parser.add_argument("-dm", "--draw_mode", dest="draw_mode", help="Draw mode : 'pycnidias' or 'necrosis' or 'all'. Default 'all'", default='all')
+parser.add_argument("-dm", "--draw_mode", dest="draw_mode", help="Draw mode : 'pycnidia' or 'necrosis' or 'all'. Default 'all'", default='all')
 parser.add_argument("-sm", "--save-masks", dest="save_masks", help="Save masks", default=False)
 parser.add_argument("-ns", "--no-save", dest="no_save", help="No save True or False", default=False)
 args = parser.parse_args()
@@ -45,7 +45,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 """ Gloabal variables used in the script """
 
 i = len(os.listdir(os.path.join(os.getcwd(), 'outputs'))) # Get the number of images to process
-image_directory = os.path.join(os.getcwd(), args.images) # Get the path to the images folder
+image_directory = os.path.join(os.getcwd(), args.images_input) # Get the path to the images folder
 output_directory = os.path.join(os.getcwd(), 'outputs', 'output_{}'.format(i)) # Get the path to the output folder
 mask_path = os.path.join(output_directory, "masks") # Get the path to the masks folder
 data_import_path = args.csv_import # Get the path to the CSV to import
@@ -190,7 +190,7 @@ def predict_pycnidia(image_path, result_image, image_not_resized_path):
     number_of_pycnidia = len(xmins)
 
     # Draw circles at the center of each detected pycnidia on the result image
-    if args.no_save == False and args.draw_mode == 'pycnidias' or args.draw_mode == 'all':
+    if args.no_save == False and args.draw_mode == 'pycnidia' or args.draw_mode == 'all':
         for i in range(len(xmins)):
             center_coord = (int((xmins[i] + xmaxs[i]) / 2), int((ymins[i] + ymaxs[i]) / 2))
             cv2.circle(result_image, center_coord, 8, (255, int(confidences[i]*255), 255), 2)
@@ -338,11 +338,11 @@ def get_image_informations(image_path, image_not_resized_path, file_name):
 
     # If the --save flag is set, save the result image to the specified directory
     if args.no_save == False:
-        if not os.path.exists(os.path.join(output_directory, 'images')):
-            os.mkdir(os.path.join(output_directory, 'images'))
-        cv2.imwrite(os.path.join(output_directory, 'images', file_name) + '.jpg', result_image)
+        if not os.path.exists(os.path.join(output_directory, 'images_output')):
+            os.mkdir(os.path.join(output_directory, 'images_output'))
+        cv2.imwrite(os.path.join(output_directory, 'images_output', file_name) + '.jpg', result_image)
 
-    # Convert the areas to the original image size, not for pycnidias because original pycnidias area is already calculated
+    # Convert the areas to the original image size, not for pycnidia because original pycnidia area is already calculated
     leaf_area = convert_model_to_base_area(leaf_area, W, H, original_image_shape[1], original_image_shape[0])
     necrosis_area = convert_model_to_base_area(necrosis_area, W, H, original_image_shape[1], original_image_shape[0])
 
@@ -479,8 +479,8 @@ def export_result(result_rows):
 
             for e in data_imported.head().columns:
                 header.append(str(e).strip())
-            header = header + ['leaf_area_px', 'leaf_area_cm2', 'necrosis_number', 'necrosis_area_ratio', 'necrosis_area_cm2', 'pycnidias_number',
-                               'pycnidias_area_px', 'pycnidias_area_cm2', 'pycnidias_number_per_leaf_cm2', 'pycnidias_number_per_necrosis_cm2', 'pycnidias_area_cm2_per_necrosis_area_cm2', 'pycnidias_mean_area_cm2']
+            header = header + ['leaf_area_px', 'leaf_area_cm2', 'necrosis_number', 'necrosis_area_ratio', 'necrosis_area_cm2', 'pycnidia_number',
+                               'pycnidia_area_px', 'pycnidia_area_cm2', 'pycnidia_number_per_leaf_cm2', 'pycnidia_number_per_necrosis_cm2', 'pycnidia_area_cm2_per_necrosis_area_cm2', 'pycnidia_mean_area_cm2']
             writer.writerow(header)
 
             rows = []
@@ -496,8 +496,8 @@ def export_result(result_rows):
                             row.append(result_rows[i][y])
                         rows.append(row)
         else: 
-            header = ['leaf', 'leaf_area_px', 'leaf_area_cm2', 'necrosis_number', 'necrosis_area_ratio', 'necrosis_area_cm2', 'pycnidias_number',
-                               'pycnidias_area_px', 'pycnidias_area_cm2', 'pycnidias_number_per_leaf_cm2', 'pycnidias_number_per_necrosis_cm2', 'pycnidias_area_cm2_per_necrosis_area_cm2', 'pycnidias_mean_area_cm2']
+            header = ['leaf', 'leaf_area_px', 'leaf_area_cm2', 'necrosis_number', 'necrosis_area_ratio', 'necrosis_area_cm2', 'pycnidia_number',
+                               'pycnidia_area_px', 'pycnidia_area_cm2', 'pycnidia_number_per_leaf_cm2', 'pycnidia_number_per_necrosis_cm2', 'pycnidia_area_cm2_per_necrosis_area_cm2', 'pycnidia_mean_area_cm2']
             writer.writerow(header)
             rows = result_rows
                             
