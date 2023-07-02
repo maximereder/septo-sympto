@@ -1,7 +1,7 @@
 # Leaf Necrosis and Pycnidia Detection using Deep Learning
 This project is a deep learning-based tool for detecting and classifying leaf necrosis and pycnidia in images of leaves. The tool is implemented using the OpenCV and TensorFlow libraries, and uses a pre-trained convolutional neural network to analyze the images.
 
-![With pycnidias](/pictures/Cad_Rub_3_Rub_2__1__1__1.webp)
+![With pycnidia](/pictures/Cad_Rub_3_Rub_2__1__1__1.webp)
 
 ### Necrosis Detection
 The script starts by loading a pre-trained U-Net model that can detect necrosis on leaves. It then uses the model to process an image, resizing it and converting it to HSV color space. It then applies a mask to the image to isolate the leaf area and counts the number of necrosis in the image. The necrosis ratio is also calculated as the ratio of necrosis area to leaf area.
@@ -13,7 +13,7 @@ The script then uses convolutional filters and image processing techniques to de
 The script calculates various statistics about the leaf, such as the leaf area, necrosis area, necrosis ratio, pycnidia area, pycnidia ratio and saves the mask image for further analysis.
 
 ```
-leaf,leaf_area_px,leaf_area_cm,necrosis_number,necrosis_area_ratio,necrosis_area_cm,pycnidias_number,pycnidias_area_px,pycnidias_area_cm,pycnidias_number_per_leaf_cm2,pycnidias_number_per_necrosis_cm2,pycnidias_area_cm2_per_necrosis_area_cm2,pycnidias_mean_area_cm2
+leaf,leaf_area_px,leaf_area_cm,necrosis_number,necrosis_area_ratio,necrosis_area_cm,pycnidia_number,pycnidia_area_px,pycnidia_area_cm,pycnidia_number_per_leaf_cm2,pycnidia_number_per_necrosis_cm2,pycnidia_area_cm2_per_necrosis_area_cm2,pycnidia_mean_area_cm2
 9__1,680969.5,3.0181,2,0.707,2.1347,340,14938.5055,0.0662,112.65365627381465,159.27296575631235,0.03101138333255258,0.00019470588235294116
 88__1,648293.5,2.8733,2,0.645,1.854,614,21092.5784,0.0935,213.691574148192,331.17583603020495,0.050431499460625674,0.00015228013029315962
 14__1,638934.0,2.8318,1,0.855,2.4207,413,13490.1368,0.0598,145.84363302493114,170.6118065022514,0.024703598132771513,0.00014479418886198547
@@ -56,7 +56,7 @@ Copy code
 python septo_sympto.py -w <images_folder> -i <csv_import> -o <csv_output> -m <model_path> -e <image_extension> -is <image_size> -d <device> -pt <pycnidia_threshold> -pn <necrosis_threshold> -sm <save_masks> -s <save>
 ```
 
-- `-w` or `--images` : specify the name of the folder containing the images. Default is 'images'.
+- `-w` or `--images_input` : specify the name of the folder containing the images. Default is 'images'.
 - `-i` or `--import` : specify the name of the CSV file to import. Default is None.
 - `-o` or `--output` : specify the name of the CSV file to output the results. Default is 'results.csv'.
 - `-m` or `--model` : specify the path of the pre-trained model to use. Default is 'models/necrosis-model-375.h5'.
@@ -66,7 +66,7 @@ python septo_sympto.py -w <images_folder> -i <csv_import> -o <csv_output> -m <mo
 - `-pc` or `pixels_for_cm` : specify the number of pixels per cm. Default is 145.
 - `-pt` or `--pycnidia_threshold` : specify the confidence threshold for pycnidia detection. Default is 0.3.
 - `-pn` or `--necrosis_threshold` : specify the confidence threshold for necrosis detection. Default is 0.8.
-- `-dm` or `draw_mode` : specify what to draw on the image. Can be 'pycnidias' 'necrosis'. Default is 'all'.
+- `-dm` or `draw_mode` : specify what to draw on the image. Can be 'pycnidia' 'necrosis'. Default is 'all'.
 - `-sm` or `--save-masks` : specify if you want to save the masks. Default is False.
 - `-ns` or `--no-save` : specify if you want to not save the image results in output folder. Default is False.
 
@@ -74,10 +74,10 @@ Note: Please make sure the pre-trained model is in the specified path and the sp
 
 ## Train weights
 
-Two weights are provided in the models folder, `necrosis-model-375.h5` and `pycnidia-model.pt`, respectively for pycnidias detection and necrosis detection.
+Two weights are provided in the models folder, `necrosis-model-375.h5` and `pycnidia-model.pt`, respectively for pycnidia detection and necrosis detection.
 
 To train new weights for you application, please use the following tutorials : 
-- Pycnidias (YOLOv5) : https://github.com/ultralytics/yolov5
+- Pycnidia (YOLOv5) : https://github.com/ultralytics/yolov5
 - Necrosis (U-Net) : https://github.com/maximereder/unet
 
 ## YOLOv5 Custom Training
