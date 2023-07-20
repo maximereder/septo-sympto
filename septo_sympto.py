@@ -47,6 +47,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 i = len(os.listdir(os.path.join(os.getcwd(), 'outputs'))) # Get the number of images to process
 image_directory = os.path.join(os.getcwd(), args.images_input) # Get the path to the images folder
 output_directory = os.path.join(os.getcwd(), 'outputs', 'output_{}'.format(i)) # Get the path to the output folder
+os.makedirs(output_directory) # Create the output folder
 mask_path = os.path.join(output_directory, "masks") # Get the path to the masks folder
 data_import_path = args.csv_import # Get the path to the CSV to import
 result_name = args.csv_output # Get the name of the CSV to output
