@@ -41,6 +41,10 @@ The project requires the following libraries to be installed:
 - psutil
 - seaborn
 - tqdm
+- pyaml
+- ultralytics
+
+You need to install [Pytorch](https://pytorch.org/) depending on your device.
 
 Make sure your leafs in your images are in the horizontal axis.  
 
