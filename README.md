@@ -52,6 +52,13 @@ Download the requirements.txt file and run the following command to install the 
 - [pycnidia-model.pt](https://drive.google.com/file/d/1WLIej7263MieoIrfGBtN7ljiZpE4NZy1/view?usp=share_link)
 - [necrosis-model-375.h5](https://drive.google.com/file/d/1BPOsgdUjoA8uCGht4-kL2Er3SbB4JalR/view?usp=share_link)
 
+Tutorials: 
+- [YOLOv5 model training](https://www.youtube.com/watch?v=19VbN6IK1zM&ab_channel=LauraMATHIEU)
+- [U-Net model training](https://www.youtube.com/watch?v=KhGBcwwc-zQ&ab_channel=LauraMATHIEU)
+
+For more informations:
+- [YOLOv5](https://github.com/ultralytics/yolov5)
+
 ## Usage
 To use the script, run the script with the following command line arguments:
 
