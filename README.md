@@ -91,7 +91,7 @@ To train new weights for you application, please use the following tutorials :
 - Pycnidia (YOLOv5) : https://github.com/ultralytics/yolov5
 - Necrosis (U-Net) : https://github.com/maximereder/unet
 
-Necrosis and pycnidia are detected thanks to the SeptoSympto script, which cuts each leaf to be able to analyze them with deep learning models (Fig. 1B). 
+Necrosis and pycnidia are detected thanks to the SeptoSympto script, which cuts each leaf to be able to analyze them with deep learning models. 
 
 To run the image analysis, a folder must contain files called “images_input”, “csv_input”, “models”, “outputs”, “tools” and the script SeptoSympto available on https://github.com/maximereder/septo-sympto. The images in TIFF format and scanned at 1200 dpi are either directly usable by SeptoSympto if there are only horizontally scanned leaves on the image, or pre-cut and renamed with the XnView software if there are writings on the scanned images in order to have only horizontal leaves present on the input images. These images are stored in a folder called “images_input”. A file in csv format containing information for each image and the name of each image in the first column can be added in the file called “csv_input”. The deep learning-based models used for necrosis and pycnidia detection, respectively necrosis-model-375.h5 and pycnidia-model.pt, are stored in “models” folder. The “tools” folder contains a python script called “metrics.py” to calculate metrics for segmentation models and can also store other optional scripts.
 
@@ -102,8 +102,6 @@ The second function, **predict_necrosis_mask**, predicts the probability of each
 The third function, **predict_pycnidia**, uses the pycnidia model to predict rectangles and confidence from the analyzed image, and only retains pycnidia coordinates for those with a confidence level above the threshold of 0.3 and with a maximum number of pycnidia prediction per leaf of 10000. The function returns a tuple containing the image with the pycnidia contours drawn, the total area of pycnidia and the pycnidia number within the image.
 
 After running the image analysis, we obtain the cropped images and output folder. In output, we have the result csv file containing both data imported and data calculated. We obtain the cropped images, the images with pycnidia and necrosis contours drawn and the measurements containing the leaf area, necrosis area, necrosis number, pycnidia area and pycnidia number in a csv file, saved in files called “cropped”, “images_output” and “results” respectively.
-
-You can find our [datasets](https://drive.google.com/drive/folders/132ZcH0BB-YMgU4iqbG4YaeaeQBcOQAIu/) for experimentations.
 
 ## YOLOv5 Custom Training
 
