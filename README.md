@@ -59,6 +59,8 @@ Tutorials:
 For more informations:
 - [YOLOv5](https://github.com/ultralytics/yolov5)
 
+Datasets: [Septo-Sympto Datasets](https://drive.google.com/drive/folders/1a2VhXy-sMx77-BOHEgP7jXdWoIJI20s4?usp=sharing)
+
 ## Usage
 To use the script, run the script with the following command line arguments:
 
