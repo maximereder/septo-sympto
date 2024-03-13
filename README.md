@@ -27,22 +27,21 @@ leaf,leaf_area_px,leaf_area_cm,necrosis_number,necrosis_area_ratio,necrosis_area
 ```
 
 ## Requirements
-The project requires the following libraries to be installed:
 
-- OpenCV
-- TensorFlow
-- PIL
-- numpy
-- pandas
-- scipy
-- sklearn
-- ipython
-- matplotlib
-- psutil
-- seaborn
-- tqdm
-- pyaml
-- ultralytics
+Create a conda environment with the following command:
+```bash
+conda create -n septo-sympto python=3.9
+```
+
+Activate the environment with the following command:
+```bash
+conda activate septo-sympto
+```
+
+Install dependencies with the following command:
+```bash
+pip install -r requirements.txt
+```
 
 You need to install [Pytorch](https://pytorch.org/) depending on your device.
 
@@ -72,7 +71,8 @@ python septo_sympto.py -w <images_folder> -i <csv_import> -o <csv_output> -m <mo
 - `-w` or `--images_input` : specify the name of the folder containing the images. Default is 'images'.
 - `-i` or `--import` : specify the name of the CSV file to import. Default is None.
 - `-o` or `--output` : specify the name of the CSV file to output the results. Default is 'results.csv'.
-- `-m` or `--model` : specify the path of the pre-trained model to use. Default is 'models/necrosis-model-375.h5'.
+- `-nm` or `--necrosis_model` : specify the path to the pre-trained necrosis model. Default is 'models/necrosis-model-375.h5'.
+- `-pm` or `--pycnidia_model` : specify the path to the pre-trained pycnidia model. Default is 'models/pycnidia-model.pt'.
 - `-e` or `--extension` : specify the extension of the images. Default is '.tif'.
 - `-is` or `--imgsz` : specify the size of the images for inference. Default is [304, 3072].
 - `-d` or `--device` : specify the device to use for inference. Can be 'cpu', 'mps' for M1&M2 or a number for specific GPU. Default is 'cpu'.

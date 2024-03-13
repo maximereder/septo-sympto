@@ -22,7 +22,8 @@ parser = argparse.ArgumentParser()
 parser.add_argument("-w", "--images_input", dest="images_input", help="Images folder input name.", default='images')
 parser.add_argument("-i", "--import", dest="csv_import", help="CSV to import name.", default=None)
 parser.add_argument("-o", "--output", dest="csv_output", help="CSV to output name.", default='results.csv')
-parser.add_argument("-m", "--model", dest="model", help="Model path.", default='models/necrosis-model-375.h5')
+parser.add_argument("-nm", "--necrosis_model", dest="necrosis_model", help="Model path.", default='models/necrosis-model-375.h5')
+parser.add_argument("-pm", "--pycnidia_model", dest="pycnidia_model", help="Model path.", default='models/pycnidia-model.pt')
 parser.add_argument("-e", "--extension", dest="extension", help="Image extension.", default='.tif')
 parser.add_argument("-is", "--imgsz", dest="imgsz", help="Image size for inference.", default=[304, 3072], nargs='+')
 parser.add_argument("-d", "--device", dest="device", help="Device : 'cpu' or 'mps' for M1&M2 or 1 ... n for gpus", default='cpu')
@@ -35,7 +36,7 @@ parser.add_argument("-ns", "--no-save", dest="no_save", help="No save True or Fa
 args = parser.parse_args()
 
 with CustomObjectScope({'iou': iou, 'dice_coef': dice_coef, 'dice_loss': dice_loss}):
-        model_necrosis = tf.keras.models.load_model(args.model)
+        model_necrosis = tf.keras.models.load_model(args.necrosis_model)
         
 model_pycnidia = torch.hub.load('ultralytics/yolov5', 'custom', path=os.path.join(os.getcwd(), 'models', 'pycnidia-model.pt'))
 model_pycnidia.to(args.device)
@@ -44,7 +45,9 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 """ Gloabal variables used in the script """
 
-i = len(os.listdir(os.path.join(os.getcwd(), 'outputs'))) # Get the number of images to process
+if not os.path.exists(os.path.join(os.getcwd(), 'outputs')):
+    os.makedirs(os.path.join(os.getcwd(), 'outputs'))
+i = len(os.listdir(os.path.join(os.getcwd(), 'outputs')))
 image_directory = os.path.join(os.getcwd(), args.images_input) # Get the path to the images folder
 output_directory = os.path.join(os.getcwd(), 'outputs', 'output_{}'.format(i)) # Get the path to the output folder
 os.makedirs(output_directory) # Create the output folder

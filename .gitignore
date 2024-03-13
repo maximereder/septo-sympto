@@ -7,3 +7,4 @@ workspaces
 results.csv
 import/Test_Script.xlsx
 tools/__pycache__
+*.pyc
