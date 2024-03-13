@@ -65,7 +65,7 @@ To use the script, run the script with the following command line arguments:
 
 Copy code
 ```py 
-python septo_sympto.py -w <images_folder> -i <csv_import> -o <csv_output> -m <model_path> -e <image_extension> -is <image_size> -d <device> -pt <pycnidia_threshold> -pn <necrosis_threshold> -sm <save_masks> -s <save>
+python septo_sympto.py -w <images_folder> -i <csv_import> -o <csv_output> -nm <necrosis_model> -pm <pycnidia_model> -e <image_extension> -is <image_size> -d <device> -pt <pycnidia_threshold> -pn <necrosis_threshold> -sm <save_masks> -ns <no-save>
 ```
 
 - `-w` or `--images_input` : specify the name of the folder containing the images. Default is 'images'.
