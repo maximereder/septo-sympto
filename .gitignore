@@ -8,3 +8,6 @@ results.csv
 import/Test_Script.xlsx
 tools/__pycache__
 *.pyc
+models
+outputs
+images

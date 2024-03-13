@@ -45,8 +45,18 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 """ Gloabal variables used in the script """
 
+if not os.path.exists(os.path.join(os.getcwd(), 'images')):
+    os.makedirs(os.path.join(os.getcwd(), 'images'))
+
+if not os.path.exists(os.path.join(os.getcwd(), 'import')):
+    os.makedirs(os.path.join(os.getcwd(), 'import'))
+
+if not os.path.exists(os.path.join(os.getcwd(), 'models')):
+    os.makedirs(os.path.join(os.getcwd(), 'models'))
+
 if not os.path.exists(os.path.join(os.getcwd(), 'outputs')):
     os.makedirs(os.path.join(os.getcwd(), 'outputs'))
+
 i = len(os.listdir(os.path.join(os.getcwd(), 'outputs')))
 image_directory = os.path.join(os.getcwd(), args.images_input) # Get the path to the images folder
 output_directory = os.path.join(os.getcwd(), 'outputs', 'output_{}'.format(i)) # Get the path to the output folder
