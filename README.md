@@ -43,9 +43,9 @@ Install dependencies with the following command:
 pip install -r requirements.txt
 ```
 
-You need to install [Pytorch](https://pytorch.org/) depending on your device.
+If necessary, you can install the YOLOv5 requirements that you can find in the [YOLOv5 repository](htts://github.com/ultralytics/yolov5).
 
-Download the requirements.txt file and run the following command to install the required libraries:
+Download the pre-trained models and place them in the models folder:
 - [pycnidia-model.pt](https://drive.google.com/file/d/1WLIej7263MieoIrfGBtN7ljiZpE4NZy1/view?usp=share_link)
 - [necrosis-model-375.h5](https://drive.google.com/file/d/1BPOsgdUjoA8uCGht4-kL2Er3SbB4JalR/view?usp=share_link)
 
