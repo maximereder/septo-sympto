@@ -45,8 +45,6 @@ pip install -r requirements.txt
 
 You need to install [Pytorch](https://pytorch.org/) depending on your device.
 
-Make sure your leafs in your images are in the horizontal axis.  
-
 Download the requirements.txt file and run the following command to install the required libraries:
 - [pycnidia-model.pt](https://drive.google.com/file/d/1WLIej7263MieoIrfGBtN7ljiZpE4NZy1/view?usp=share_link)
 - [necrosis-model-375.h5](https://drive.google.com/file/d/1BPOsgdUjoA8uCGht4-kL2Er3SbB4JalR/view?usp=share_link)
@@ -83,7 +81,9 @@ python septo_sympto.py -w <images_folder> -i <csv_import> -o <csv_output> -nm <n
 - `-sm` or `--save-masks` : specify if you want to save the masks. Default is False.
 - `-ns` or `--no-save` : specify if you want to not save the image results in output folder. Default is False.
 
-Note: Please make sure the pre-trained model is in the specified path and the specified folder contains the images with the specified extension.
+Note: Please make sure 
+- the pre-trained model is in the specified path and the specified folder contains the images with the specified extension.
+- your leafs in your images are in the horizontal axis.  
 
 ## Train weights
 
@@ -93,7 +93,7 @@ To train new weights for you application, please use the following tutorials :
 - Pycnidia (YOLOv5) : https://github.com/ultralytics/yolov5
 - Necrosis (U-Net) : https://github.com/maximereder/unet
 
-Necrosis and pycnidia are detected thanks to the SeptoSympto script, which cuts each leaf to be able to analyze them with deep learning models. 
+Necrosis and pycnidia are detected thanks to the SeptoSympto script, which cuts each leaf to be able to analyze them with deep learning models.
 
 To run the image analysis, a folder must contain files called “images_input”, “csv_input”, “models”, “outputs”, “tools” and the script SeptoSympto available on https://github.com/maximereder/septo-sympto. The images in TIFF format and scanned at 1200 dpi are either directly usable by SeptoSympto if there are only horizontally scanned leaves on the image, or pre-cut and renamed with the XnView software if there are writings on the scanned images in order to have only horizontal leaves present on the input images. These images are stored in a folder called “images_input”. A file in csv format containing information for each image and the name of each image in the first column can be added in the file called “csv_input”. The deep learning-based models used for necrosis and pycnidia detection, respectively necrosis-model-375.h5 and pycnidia-model.pt, are stored in “models” folder. The “tools” folder contains a python script called “metrics.py” to calculate metrics for segmentation models and can also store other optional scripts.
 
