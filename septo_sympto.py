@@ -38,7 +38,7 @@ args = parser.parse_args()
 with CustomObjectScope({'iou': iou, 'dice_coef': dice_coef, 'dice_loss': dice_loss}):
         model_necrosis = tf.keras.models.load_model(args.necrosis_model)
         
-model_pycnidia = torch.hub.load('ultralytics/yolov5', 'custom', path=os.path.join(os.getcwd(), 'models', 'pycnidia-model.pt'))
+model_pycnidia = torch.hub.load('ultralytics/yolov5', 'custom', path=os.path.join(os.getcwd(), args.pycnidia_model))
 model_pycnidia.to(args.device)
 extension = args.extension
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
