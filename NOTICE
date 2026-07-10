@@ -8,35 +8,39 @@ License (see LICENSE).
 Third-party components and their licenses
 --------------------------------------------------------------------------------
 
-1. YOLOv5 (Ultralytics) — AGPL-3.0
-   https://github.com/ultralytics/yolov5
+1. Ultralytics — AGPL-3.0
+   https://github.com/ultralytics/ultralytics
 
-   `septo_sympto.py` loads YOLOv5 at runtime via `torch.hub.load()`. YOLOv5 is
-   NOT vendored in this repository; it is downloaded from GitHub at the pinned
-   tag v7.0 on first run.
+   Ultralytics is NOT a default dependency. A plain `poetry install` produces a
+   dependency tree with no AGPL component. It is available as an optional extra
+   (`poetry install --extras yolo`) for retraining and for experimenting with
+   YOLO segmentation heads.
 
-   IMPORTANT — pre-trained weights:
-   The pycnidia detection weights (`pycnidia-model.pt`) were produced by
-   training with Ultralytics YOLOv5. Ultralytics takes the position that models
-   trained with their software are derivative works and inherit the AGPL-3.0
-   license. Accordingly, `pycnidia-model.pt` is distributed under AGPL-3.0, not
-   under the MIT License that covers this repository's source code.
+   Historical note: v1 loaded YOLOv5 at runtime through `torch.hub.load()` and
+   shipped `pycnidia-model.pt`, weights produced by training with Ultralytics
+   YOLOv5. Ultralytics takes the position that models trained with their
+   software are derivative works and inherit the AGPL-3.0 license. Those
+   weights are therefore AGPL-3.0, not MIT, wherever they are distributed.
 
-   Practical consequence: if you deploy SeptoSympto as a network service using
-   these pycnidia weights, AGPL-3.0 obligations may apply to that deployment.
-   Retraining the pycnidia detector with a non-AGPL architecture would remove
-   this constraint. This is a stated goal of the ongoing rework.
+   v2 neither loads nor ships them. The pycnidia detector is being retrained.
+   If its replacement is trained with Ultralytics, the resulting weights will
+   inherit AGPL-3.0 in the same way, and that will be stated here. Training on
+   a non-Ultralytics architecture would remove the constraint entirely.
 
-2. U-Net necrosis weights (`necrosis-model-375.h5`)
-   Trained with the authors' own U-Net implementation
+2. U-Net necrosis weights (`necrosis-model-375.safetensors`, and the 50/100/200/300
+   ablation checkpoints)
+   Originally trained with the authors' own U-Net implementation
    (https://github.com/maximereder/unet) on TensorFlow/Keras, which is
-   Apache-2.0. No copyleft obligation attaches to these weights; they are
+   Apache-2.0. Converted to PyTorch without retraining; the values are
+   unchanged. No copyleft obligation attaches to these weights; they are
    covered by this repository's MIT License.
 
-3. TensorFlow (Apache-2.0), PyTorch (BSD-3-Clause), OpenCV (Apache-2.0),
-   NumPy / pandas / SciPy (BSD-3-Clause).
+3. PyTorch (BSD-3-Clause), OpenCV (Apache-2.0), NumPy / pandas (BSD-3-Clause),
+   safetensors (Apache-2.0).
    These are ordinary runtime dependencies installed from PyPI and are not
    redistributed by this repository.
+
+   TensorFlow was a dependency of v1 only. It has been removed.
 
 --------------------------------------------------------------------------------
 Associated publication

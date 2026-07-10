@@ -1,19 +1,37 @@
 # SeptoSympto — quantification of Septoria tritici blotch symptoms
 
 SeptoSympto is a deep learning tool that quantifies **necrosis** and **pycnidia** on scanned
-wheat leaves infected by *Zymoseptoria tritici*. It combines two models: a **U-Net**
-(TensorFlow/Keras) that segments necrotic tissue, and a **YOLOv5** detector (PyTorch) that
-locates pycnidia. Leaf isolation and area measurement use classical OpenCV image processing.
+wheat leaves infected by *Zymoseptoria tritici*. Leaf isolation and area measurement use
+classical OpenCV image processing; the symptoms are measured by neural networks.
 
 ![With pycnidia](/pictures/Cad_Rub_3_Rub_2__1__1__1.webp)
 
 If you use SeptoSympto in your research, please [cite the paper](#citation).
 
+> ### ⚠ This branch is a rewrite in progress
+>
+> **v2 has no runnable pipeline yet.** TensorFlow has been removed, and both models are being
+> retrained. What exists today is the PyTorch U-Net architecture, the converted necrosis
+> weights, and the packaging.
+>
+> **To reproduce the published results, use the v1 tag:**
+>
+> ```bash
+> git checkout v1.0-legacy
+> ```
+>
+> That tag is the implementation described in the paper. It runs `septo_sympto.py` on
+> TensorFlow 2.15 (Python ≤ 3.11) and YOLOv5 v7.0. Read its
+> [Known issues](#known-issues-and-limitations) before trusting its numbers: one CSV column is
+> wrong, and necrosis area is underestimated by roughly 19 %.
+>
+> Everything below describes the v1 method, which v2 keeps, and the state of the migration.
+
 ---
 
 ## How it works
 
-The script processes a folder of scanned images in three stages.
+The v1 pipeline processes a folder of scanned images in three stages.
 
 **1. Leaf isolation.** Each scan is thresholded in HSV space to separate leaf tissue from the
 background. Contours larger than 50 000 px are treated as individual leaves, cropped to their
@@ -74,66 +92,41 @@ retrain or to experiment with YOLO segmentation heads:
 poetry install --extras yolo
 ```
 
-### The legacy TensorFlow environment
-
-TensorFlow is no longer a dependency. The necrosis U-Net has been ported to PyTorch and its
-weights transferred exactly — see [Migration](#migration-from-tensorflow-to-pytorch).
-
-`requirements-legacy.txt` exists solely to rebuild the TensorFlow 2.15 environment needed to
-*re-run* that conversion from the original `.h5` file. It pins Python 3.9 – 3.11 and, because
-of `tensorflow-macos` / `tensorflow-metal`, installs only on macOS with Apple Silicon. On
-Linux or Windows, replace those two lines with `tensorflow==2.15.0`.
-
-```bash
-uv venv --python 3.11 .venv-legacy
-uv pip install --python .venv-legacy/bin/python -r requirements-legacy.txt safetensors
-```
+TensorFlow is gone. It is not an optional extra, not a legacy requirements file, not a
+dependency of any kind. Everything at `v1.0-legacy` if you need to run the old pipeline.
 
 ### Pre-trained models
 
-Download the weights and place them in a `models/` folder at the repository root:
+Training datasets and weights: [SeptoSympto Datasets](https://drive.google.com/drive/folders/1a2VhXy-sMx77-BOHEgP7jXdWoIJI20s4?usp=sharing)
 
-- [pycnidia-model.pt](https://drive.google.com/file/d/1WLIej7263MieoIrfGBtN7ljiZpE4NZy1/view?usp=share_link) — YOLOv5x6, pycnidia detection
-- [necrosis-model-375.h5](https://drive.google.com/file/d/1BPOsgdUjoA8uCGht4-kL2Er3SbB4JalR/view?usp=share_link) — U-Net, necrosis segmentation
+The necrosis weights converted to PyTorch (`necrosis-model-375.safetensors`, 124 MB) are the
+v1 weights, unchanged. They are the baseline that any retrained model has to beat.
 
-Training datasets: [SeptoSympto Datasets](https://drive.google.com/drive/folders/1a2VhXy-sMx77-BOHEgP7jXdWoIJI20s4?usp=sharing)
-
-> On first run, `torch.hub` downloads the YOLOv5 source from GitHub at the pinned tag `v7.0`.
-> An internet connection is required for that first run. The tag is pinned deliberately:
-> loading YOLOv5 from `master` breaks against the pinned `ultralytics` version.
+> Hosting weights on Google Drive gives no versioning, no checksums, and links that expire.
+> Moving them to Zenodo with a DOI, and downloading them on first run, is part of the v2 work.
 
 ---
 
 ## Usage
 
-Put your scans in `images/` and, optionally, a metadata CSV in `import/`. Images must be
-scanned with the leaves **horizontal**. TIFF at 1200 dpi is the reference format.
+There is no v2 entry point yet. The pipeline is being rewritten around
+`septosympto`, which currently exposes the necrosis model:
 
-```bash
-python3 septo_sympto.py -w images -o results.csv -e .tif -d cpu
+```python
+import cv2, numpy as np, torch
+from safetensors.torch import load_file
+from septosympto.models import UNet
+
+model = UNet().eval()
+model.load_state_dict(load_file("data/necrosis-model-375.safetensors"))
+
+leaf = cv2.resize(cv2.imread("leaf.jpg"), (3072, 304)).astype(np.float32) / 255.0
+x = torch.from_numpy(leaf.transpose(2, 0, 1)[None].copy())
+necrosis = model.predict(x).squeeze().numpy() > 0.8
 ```
 
-| Flag | Long form | Default | Description |
-|---|---|---|---|
-| `-w` | `--images_input` | `images` | Folder containing the input scans. |
-| `-i` | `--import` | `None` | Metadata CSV to join onto the results (`;` separated). |
-| `-o` | `--output` | `results.csv` | Name of the output CSV. |
-| `-nm` | `--necrosis_model` | `models/necrosis-model-375.h5` | Path to the U-Net weights. |
-| `-pm` | `--pycnidia_model` | `models/pycnidia-model.pt` | Path to the YOLOv5 weights. |
-| `-e` | `--extension` | `.tif` | Extension of the input images. |
-| `-is` | `--imgsz` | `304 3072` | Working size, given as **height width**. |
-| `-d` | `--device` | `cpu` | `cpu`, `mps` (Apple Silicon), or a GPU index. |
-| `-pc` | `--pixels_for_cm` | `472` | Pixels per cm. For a scan at *D* dpi, use *D* / 2.54 (1200 dpi → 472). |
-| `-pt` | `--pycnidia_threshold` | `0.3` | Confidence threshold for pycnidia. |
-| `-pn` | `--necrosis_threshold` | `0.8` | Probability threshold for necrosis. |
-| `-dm` | `--draw_mode` | `all` | What to draw: `pycnidia`, `necrosis`, or `all`. |
-| `-sm` | `--save-masks` | `False` | Save the binary necrosis masks. |
-| `-ns` | `--no-save` | `False` | Skip writing annotated images. |
-
-The script creates `images/`, `import/`, `models/` and `outputs/` if they do not exist. Each
-run writes to a fresh `outputs/output_<n>/` directory. The `tools/` folder holds `metrics.py`,
-which defines the segmentation metrics (`dice_coef`, `dice_loss`, `iou`) needed to deserialise
-the U-Net.
+For the full v1 command-line pipeline, its flags and its outputs, check out `v1.0-legacy` and
+read the README there.
 
 ---
 
@@ -144,14 +137,10 @@ parameters). It has been re-implemented layer for layer in PyTorch
 (`septosympto/models/unet.py`) and the trained weights transferred into it, rather than
 retrained. The port is therefore numerically equivalent, not merely comparable.
 
-Reproduce the transfer with:
-
-```bash
-.venv-legacy/bin/python tools/convert_keras_unet.py \
-    --keras data/necrosis-model-375.h5 \
-    --output data/necrosis-model-375.safetensors \
-    --validate-dir <folder of leaf .jpg>
-```
+The conversion has been performed and its result committed as weights. The tooling that did it
+lived under `tools/` and is preserved at `v1.0-legacy`, together with the TensorFlow
+environment it needed. It is not carried into v2: TensorFlow will never be installed again,
+and the five converted `.safetensors` files are the artifacts that matter.
 
 Measured on six validation leaves at 304 × 3072, comparing Keras 2.15 on Python 3.11 against
 PyTorch 2.13 on Python 3.12:
@@ -187,8 +176,7 @@ pycnidia detector will be **retrained** on `data/pycnidia/` with a current archi
 annotations are points in all but name — the median bounding box is 4 × 4 px — which is the
 real reason a plain object detector is the wrong tool here.
 
-Until that lands, `septo_sympto.py` remains the reference pipeline and must be run from the
-legacy environment. It is frozen: no new features, bug fixes only.
+Until that lands, the v1 pipeline at `v1.0-legacy` remains the reference implementation.
 
 ---
 

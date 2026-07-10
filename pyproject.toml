@@ -43,17 +43,12 @@ ruff = "^0.14"
 line-length = 100
 target-version = "py312"
 extend-exclude = [
-    "septo_sympto.py",
-    "tools/metrics.py",
     "tools/generate_data.py",
     "tools/mask2json.py",
 ]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B", "SIM"]
-
-[tool.ruff.lint.per-file-ignores]
-"tools/*.py" = ["E402"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
