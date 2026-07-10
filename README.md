@@ -49,7 +49,20 @@ scores. Boxes above `--pycnidia_threshold` (default 0.3) are retained, up to a m
 10 000 per leaf. The function returns the total pycnidia area and their count.
 
 Areas measured in the 304 × 3072 working space are rescaled back to the native crop
-resolution, then converted to cm² using `--pixels_for_cm`.
+resolution, then converted to cm² using `--pixels_for_cm` (default 472).
+
+### Scale and leaf extent
+
+Reference scans are TIFF at **1200 dpi**, which is 1200 / 2.54 = **472.44 px/cm**. That is
+where the default of 472 comes from. v2 reads the resolution from the TIFF metadata instead
+of taking it as an argument.
+
+Leaves are laid horizontally and span the full width of the scan, so both tips fall outside
+the image. `leaf_area_cm2` therefore measures **a standardised leaf segment**, not a whole
+leaf. This is intentional and consistent across scans; all per-cm² densities are densities
+over that segment. Two consequences worth keeping in mind when reporting: absolute leaf areas
+are not whole-leaf areas, and scan widths vary (3078–3476 px in the reference set), so the
+segment length is not identical from scan to scan.
 
 ---
 
@@ -246,8 +259,28 @@ inference loop iterates over everything found there. Running on a second batch w
 clearing the folder will silently include leaves from the previous batch. **Delete
 `images/cropped/` and `images/cropped_not_resized/` between runs.**
 
-**Aspect ratio is not preserved.** Every leaf is resized to a fixed 304 × 3072, regardless of
-its true proportions, so pycnidia are deformed by an amount that depends on leaf geometry.
+**Aspect ratio is not preserved, and the distortion tracks a genotypic trait.** Every leaf is
+resized to a fixed 304 × 3072 regardless of its true proportions. Because leaves span the full
+scan width, the horizontal scale barely changes (×0.88 to ×1.00); the entire distortion falls
+on the vertical axis and is governed by one thing, leaf thickness.
+
+Measured on 27 leaves from 7 reference scans, whose heights range from 169 to 398 px (a factor
+of 2.4):
+
+| | value |
+|---|---|
+| median anisotropy of the resize | 1.23 |
+| 90th percentile | 1.64 |
+| maximum | 1.94 |
+| leaves distorted by more than 25 % | 12 / 27 |
+
+A circular 6 px pycnidium becomes a 6 × 7.4 px ellipse on a median leaf, and 6 × 11.6 px on
+the thinnest. Leaf thickness is a varietal trait, so the measurement distortion is confounded
+with the genotype being compared.
+
+The area arithmetic is sound: `convert_model_to_base_area` rescales areas exactly. What is
+biased is the segmentation and detection performed upstream, in the distorted space. Working
+at native resolution with tiling is the fix, and it is a v2 goal.
 
 ---
 
