@@ -55,7 +55,32 @@ resolution, then converted to cm² using `--pixels_for_cm`.
 
 ## Results
 
-Results are written to `outputs/output_<n>/results.csv`:
+### Leaf identity (v2)
+
+v2 drops the `--import` metadata join. It was the source of two defects: the header declared
+23 columns while each row wrote 19, so the four derived ratios were never emitted; and the
+`leaf` column was overwritten with the scan name, making two leaves from the same scan
+indistinguishable.
+
+Instead, each leaf is identified by **two columns**, never by a parsed string:
+
+| column | example | meaning |
+|---|---|---|
+| `image` | `Soi_LGA_2_Soi_1` | source scan, stem of the input filename |
+| `leaf_index` | `2` | 1-based, in the order leaves are found on the scan |
+
+A `leaf_id` of `Soi_LGA_2_Soi_1_2` can be composed for display, but nothing parses it back.
+Scan names contain underscores, so a single-underscore identifier is ambiguous; v1 used a
+double underscore (`Acc_Acc_4_Acc_1__2__1`) precisely to keep `split("__")[0]` working, and
+the existing annotation filenames still rely on it. Two columns removes the problem rather
+than encoding around it.
+
+To attach experimental metadata, join on `image` downstream, in R or pandas, where a failed
+join is visible instead of silently shifting columns.
+
+### v1 output format
+
+Results were written to `outputs/output_<n>/results.csv`:
 
 ```
 leaf,leaf_area_px,leaf_area_cm2,necrosis_number,necrosis_area_ratio,necrosis_area_cm2,pycnidia_number,pycnidia_area_px,pycnidia_area_cm2,pycnidia_number_per_leaf_cm2,pycnidia_number_per_necrosis_cm2,pycnidia_area_cm2_per_necrosis_area_cm2,pycnidia_mean_area_cm2
@@ -66,8 +91,8 @@ leaf,leaf_area_px,leaf_area_cm2,necrosis_number,necrosis_area_ratio,necrosis_are
 43__1,575263.5,2.5496,2,0.735,1.8736,438,18033.416,0.0799,171.79165359272042,233.7745516652434,0.04264517506404782,0.00018242009132420092
 ```
 
-Alongside the CSV, the run directory contains `images_output/` (leaves with detections drawn)
-and, when `--save-masks` is used, `masks/` (binary necrosis masks).
+Alongside the CSV, the run directory contained `images_output/` (leaves with detections drawn)
+and, when `--save-masks` was used, `masks/` (binary necrosis masks).
 
 > **Note:** the example above was generated before a regression that currently affects the
 > `pycnidia_number_per_leaf_cm2` column. See [Known issues](#known-issues-and-limitations).
@@ -185,7 +210,14 @@ Until that lands, the v1 pipeline at `v1.0-legacy` remains the reference impleme
 These are open defects in the current release, documented here pending the ongoing rework.
 None of them prevent the tool from running.
 
-**Wrong CSV column.** Since February 2023, the column labelled `pycnidia_number_per_leaf_cm2`
+**The `--import` join drops four columns.** When a metadata CSV was supplied, `export_result`
+wrote a header of 23 columns but only 19 values per row. `pycnidia_number_per_leaf_cm2`,
+`pycnidia_number_per_necrosis_cm2`, `pycnidia_area_cm2_per_necrosis_area_cm2` and
+`pycnidia_mean_area_cm2` were never written. The `leaf` column also received the scan name
+stripped of its `__n` suffix, so leaves from the same scan produced identical, indistinguishable
+rows. Any analysis run through the `--import` path is affected. v2 removes the join entirely.
+
+**Wrong CSV column.** Without `--import`, since February 2023 the column labelled `pycnidia_number_per_leaf_cm2`
 actually contains `necrosis_area_cm2 / leaf_area_cm2` — that is, a duplicate of
 `necrosis_area_ratio`. The intended metric (pycnidia count per cm² of leaf) is not currently
 emitted. Results produced since then should not rely on that column.

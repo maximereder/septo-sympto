@@ -38,6 +38,7 @@ packages = [{ include = "septosympto" }]
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3"
 ruff = "^0.14"
+scipy = "^1.14"
 
 [tool.ruff]
 line-length = 100
