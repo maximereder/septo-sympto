@@ -1,4 +1,6 @@
 import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'  # doit précéder l'import de tensorflow
+
 import cv2, csv
 import numpy as np
 import pandas as pd
@@ -8,6 +10,11 @@ from tensorflow.keras.utils import CustomObjectScope
 from tools.metrics import dice_loss, dice_coef, iou
 import torch
 from tqdm import tqdm
+
+# Tag figé : torch.hub télécharge le dépôt à l'exécution. Sur 'master', YOLOv5
+# exige une version d'ultralytics plus récente que celle épinglée dans
+# requirements.txt et l'import échoue. v7.0 est contemporain des poids livrés.
+YOLOV5_TAG = 'ultralytics/yolov5:v7.0'
 
 '''
 Deep learning model for the detection of Septoria leaf blotch and Pycnidia on wheat leaves.
@@ -38,10 +45,9 @@ args = parser.parse_args()
 with CustomObjectScope({'iou': iou, 'dice_coef': dice_coef, 'dice_loss': dice_loss}):
         model_necrosis = tf.keras.models.load_model(args.necrosis_model)
         
-model_pycnidia = torch.hub.load('ultralytics/yolov5', 'custom', path=os.path.join(os.getcwd(), args.pycnidia_model))
+model_pycnidia = torch.hub.load(YOLOV5_TAG, 'custom', path=os.path.join(os.getcwd(), args.pycnidia_model), trust_repo=True)
 model_pycnidia.to(args.device)
 extension = args.extension
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 """ Gloabal variables used in the script """
 

@@ -1,13 +1,16 @@
 .DS_Store
+*.pyc
+__pycache__/
+.venv/
+
+# Poids et jeux de données : distribués hors dépôt (>1 Go)
+data
 models
+
+# Entrées / sorties de run
 images
-OUT
 outputs
+OUT
 workspaces
 results.csv
 import/Test_Script.xlsx
-tools/__pycache__
-*.pyc
-models
-outputs
-images
