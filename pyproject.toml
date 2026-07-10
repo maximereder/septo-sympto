@@ -29,6 +29,9 @@ dependencies = [
 [project.optional-dependencies]
 yolo = ["ultralytics (>=8.4.91,<9.0)"]
 
+[project.scripts]
+septo-sympto = "septosympto.cli:main"
+
 [project.urls]
 Homepage = "https://github.com/maximereder/septo-sympto"
 Publication = "https://doi.org/10.1186/s13007-024-01136-z"
