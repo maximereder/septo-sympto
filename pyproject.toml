@@ -1,0 +1,63 @@
+[project]
+name = "septosympto"
+version = "2.0.0.dev0"
+description = "Quantification of Septoria tritici blotch symptoms (necrosis and pycnidia) on scanned wheat leaves"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.12,<3.14"
+authors = [
+    { name = "Laura Mathieu", email = "laura.mathieu@supagro.fr" },
+    { name = "Maxime Reder", email = "maximereder@live.fr" },
+]
+keywords = ["plant-phenotyping", "deep-learning", "septoria", "wheat", "segmentation"]
+classifiers = [
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Image Recognition",
+]
+
+dependencies = [
+    "torch (>=2.13,<3.0)",
+    "torchvision (>=0.28,<1.0)",
+    "numpy (>=2.5,<3.0)",
+    "opencv-python-headless (>=4.13,<5.0)",
+    "pandas (>=3.0,<4.0)",
+    "safetensors (>=0.8,<1.0)",
+    "tqdm (>=4.67,<5.0)",
+]
+
+[project.optional-dependencies]
+yolo = ["ultralytics (>=8.4.91,<9.0)"]
+
+[project.urls]
+Homepage = "https://github.com/maximereder/septo-sympto"
+Publication = "https://doi.org/10.1186/s13007-024-01136-z"
+
+[tool.poetry]
+packages = [{ include = "septosympto" }]
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3"
+ruff = "^0.14"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+extend-exclude = [
+    "septo_sympto.py",
+    "tools/metrics.py",
+    "tools/generate_data.py",
+    "tools/mask2json.py",
+]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.ruff.lint.per-file-ignores]
+"tools/*.py" = ["E402"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[build-system]
+requires = ["poetry-core>=2.0.0"]
+build-backend = "poetry.core.masonry.api"

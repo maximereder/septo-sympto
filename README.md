@@ -58,27 +58,36 @@ and, when `--save-masks` is used, `masks/` (binary necrosis masks).
 
 ## Installation
 
-TensorFlow 2.15 requires **Python 3.9 – 3.11**. Newer Python versions will not work.
-
-### Option A — `uv` (recommended, no conda needed)
-
-```bash
-uv venv --python 3.11 .venv
-source .venv/bin/activate          # Windows: .venv\Scripts\activate
-uv pip install -r requirements.txt
-```
-
-### Option B — conda
+The project is managed with [Poetry](https://python-poetry.org/) and requires **Python 3.12
+or 3.13**.
 
 ```bash
-conda create -n septo-sympto python=3.11
-conda activate septo-sympto
-pip install -r requirements.txt
+poetry install
 ```
 
-> **Platform warning.** `requirements.txt` pins `tensorflow-macos` and `tensorflow-metal`,
-> which exist **only for macOS on Apple Silicon**. On Linux or Windows, replace those two
-> lines with `tensorflow==2.15.0` before installing.
+This installs PyTorch, NumPy, OpenCV and pandas. It deliberately does **not** install
+Ultralytics, which is AGPL-3.0: keeping it out of the default tree means a plain
+`poetry install` yields an MIT-only dependency set. Install it explicitly when you need to
+retrain or to experiment with YOLO segmentation heads:
+
+```bash
+poetry install --extras yolo
+```
+
+### The legacy TensorFlow environment
+
+TensorFlow is no longer a dependency. The necrosis U-Net has been ported to PyTorch and its
+weights transferred exactly — see [Migration](#migration-from-tensorflow-to-pytorch).
+
+`requirements-legacy.txt` exists solely to rebuild the TensorFlow 2.15 environment needed to
+*re-run* that conversion from the original `.h5` file. It pins Python 3.9 – 3.11 and, because
+of `tensorflow-macos` / `tensorflow-metal`, installs only on macOS with Apple Silicon. On
+Linux or Windows, replace those two lines with `tensorflow==2.15.0`.
+
+```bash
+uv venv --python 3.11 .venv-legacy
+uv pip install --python .venv-legacy/bin/python -r requirements-legacy.txt safetensors
+```
 
 ### Pre-trained models
 
@@ -125,6 +134,61 @@ The script creates `images/`, `import/`, `models/` and `outputs/` if they do not
 run writes to a fresh `outputs/output_<n>/` directory. The `tools/` folder holds `metrics.py`,
 which defines the segmentation metrics (`dice_coef`, `dice_loss`, `iou`) needed to deserialise
 the U-Net.
+
+---
+
+## Migration from TensorFlow to PyTorch
+
+The necrosis U-Net was originally a Keras model (`necrosis-model-375.h5`, 31 055 297
+parameters). It has been re-implemented layer for layer in PyTorch
+(`septosympto/models/unet.py`) and the trained weights transferred into it, rather than
+retrained. The port is therefore numerically equivalent, not merely comparable.
+
+Reproduce the transfer with:
+
+```bash
+.venv-legacy/bin/python tools/convert_keras_unet.py \
+    --keras data/necrosis-model-375.h5 \
+    --output data/necrosis-model-375.safetensors \
+    --validate-dir <folder of leaf .jpg>
+```
+
+Measured on six validation leaves at 304 × 3072, comparing Keras 2.15 on Python 3.11 against
+PyTorch 2.13 on Python 3.12:
+
+| quantity | deviation |
+|---|---|
+| max absolute difference on probabilities | 7.0 × 10⁻⁶ |
+| mean absolute difference | 2.1 × 10⁻⁸ |
+| pixels disagreeing at threshold 0.5 and 0.8 | 0 |
+| **relative error on necrosis area** | **0.000000 %** |
+
+The two Keras conventions that must be reproduced are `BatchNormalization(epsilon=1e-3)`
+— PyTorch defaults to `1e-5` — and the decoder concatenation order `[upsampled, skip]`.
+Both are enforced by the tests in `tests/test_unet.py`.
+
+The safetensors artifact is 124 MB against 372 MB for the `.h5`, which carried the optimiser
+state. It loads under any recent PyTorch, with no TensorFlow present.
+
+### The pycnidia detector will be retrained, not ported
+
+`pycnidia-model.pt` was trained with the `ultralytics/yolov5` repository. It cannot be
+carried into the modern stack, and this is not a packaging detail that a flag can fix:
+
+- PyTorch ≥ 2.6 defaults `torch.load` to `weights_only=True` and refuses to deserialise it.
+- The current `ultralytics` package detects the checkpoint and rejects it outright: *"appears
+  to be an Ultralytics YOLOv5 model originally trained with .../yolov5. This model is NOT
+  forwards compatible."* The old detection head is anchor-based; the current one is
+  anchor-free. The head weights have no counterpart. The `yolov5su.pt` models that Ultralytics
+  ships are retrained re-implementations, not the same weights.
+
+Rather than freeze a bridge around a model that is already slated for replacement, the
+pycnidia detector will be **retrained** on `data/pycnidia/` with a current architecture. The
+annotations are points in all but name — the median bounding box is 4 × 4 px — which is the
+real reason a plain object detector is the wrong tool here.
+
+Until that lands, `septo_sympto.py` remains the reference pipeline and must be run from the
+legacy environment. It is frozen: no new features, bug fixes only.
 
 ---
 

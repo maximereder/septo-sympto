@@ -2,15 +2,16 @@
 *.pyc
 __pycache__/
 .venv/
+.venv-legacy/
+.pytest_cache/
+.ruff_cache/
 
-# Poids et jeux de données : distribués hors dépôt (>1 Go)
-data
-models
+/data
+/models
 
-# Entrées / sorties de run
-images
-outputs
-OUT
-workspaces
-results.csv
-import/Test_Script.xlsx
+/images
+/outputs
+/OUT
+/workspaces
+/results.csv
+/import/Test_Script.xlsx
