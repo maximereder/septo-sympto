@@ -1,270 +1,283 @@
-# Leaf Necrosis and Pycnidia Detection using Deep Learning
-This project is a deep learning-based tool for detecting and classifying leaf necrosis and pycnidia in images of leaves. The tool is implemented using the OpenCV and TensorFlow libraries, and uses a pre-trained convolutional neural network to analyze the images.
+# SeptoSympto — quantification of Septoria tritici blotch symptoms
+
+SeptoSympto is a deep learning tool that quantifies **necrosis** and **pycnidia** on scanned
+wheat leaves infected by *Zymoseptoria tritici*. It combines two models: a **U-Net**
+(TensorFlow/Keras) that segments necrotic tissue, and a **YOLOv5** detector (PyTorch) that
+locates pycnidia. Leaf isolation and area measurement use classical OpenCV image processing.
 
 ![With pycnidia](/pictures/Cad_Rub_3_Rub_2__1__1__1.webp)
 
-### Necrosis Detection
-The script starts by loading a pre-trained U-Net model that can detect necrosis on leaves. It then uses the model to process an image, resizing it and converting it to HSV color space. It then applies a mask to the image to isolate the leaf area and counts the number of necrosis in the image. The necrosis ratio is also calculated as the ratio of necrosis area to leaf area.
+If you use SeptoSympto in your research, please [cite the paper](#citation).
 
-### Pycnidia Detection
-The script then uses convolutional filters and image processing techniques to detect and classify pycnidia. The pycnidia ratio is also calculated as the ratio of pycnidia area to leaf area.
+---
+
+## How it works
+
+The script processes a folder of scanned images in three stages.
+
+**1. Leaf isolation.** Each scan is thresholded in HSV space to separate leaf tissue from the
+background. Contours larger than 50 000 px are treated as individual leaves, cropped to their
+bounding box, and saved twice: once at native resolution (`cropped_not_resized`, used to
+recover true areas) and once resized to 304 × 3072 px (`cropped`, fed to both models).
+
+**2. Necrosis segmentation** (`predict_necrosis_mask`). The U-Net predicts, for every pixel,
+the probability of belonging to a necrotic lesion. The probability map is binarised at the
+`--necrosis_threshold` (default 0.8). Connected components are then filtered to keep only
+those with an area above 300 px and a perimeter-to-area ratio below 0.9. The function returns
+the total necrotic area and the number of lesions.
+
+**3. Pycnidia detection** (`predict_pycnidia`). YOLOv5 predicts bounding boxes and confidence
+scores. Boxes above `--pycnidia_threshold` (default 0.3) are retained, up to a maximum of
+10 000 per leaf. The function returns the total pycnidia area and their count.
+
+Areas measured in the 304 × 3072 working space are rescaled back to the native crop
+resolution, then converted to cm² using `--pixels_for_cm`.
+
+---
 
 ## Results
-The script calculates various statistics about the leaf, such as the leaf area, necrosis area, necrosis ratio, pycnidia area, pycnidia ratio and saves the mask image for further analysis.
+
+Results are written to `outputs/output_<n>/results.csv`:
 
 ```
-leaf,leaf_area_px,leaf_area_cm,necrosis_number,necrosis_area_ratio,necrosis_area_cm,pycnidia_number,pycnidia_area_px,pycnidia_area_cm,pycnidia_number_per_leaf_cm2,pycnidia_number_per_necrosis_cm2,pycnidia_area_cm2_per_necrosis_area_cm2,pycnidia_mean_area_cm2
+leaf,leaf_area_px,leaf_area_cm2,necrosis_number,necrosis_area_ratio,necrosis_area_cm2,pycnidia_number,pycnidia_area_px,pycnidia_area_cm2,pycnidia_number_per_leaf_cm2,pycnidia_number_per_necrosis_cm2,pycnidia_area_cm2_per_necrosis_area_cm2,pycnidia_mean_area_cm2
 9__1,680969.5,3.0181,2,0.707,2.1347,340,14938.5055,0.0662,112.65365627381465,159.27296575631235,0.03101138333255258,0.00019470588235294116
 88__1,648293.5,2.8733,2,0.645,1.854,614,21092.5784,0.0935,213.691574148192,331.17583603020495,0.050431499460625674,0.00015228013029315962
 14__1,638934.0,2.8318,1,0.855,2.4207,413,13490.1368,0.0598,145.84363302493114,170.6118065022514,0.024703598132771513,0.00014479418886198547
 20__1,821680.5,3.6418,2,0.417,1.5194,13,570.0783,0.0025,3.569663353286836,8.55600895090167,0.00164538633671186,0.0001923076923076923
 43__1,575263.5,2.5496,2,0.735,1.8736,438,18033.416,0.0799,171.79165359272042,233.7745516652434,0.04264517506404782,0.00018242009132420092
-51__1,708187.0,3.1388,1,0.333,1.0439,197,7094.4192,0.0314,62.76283930164394,188.71539419484625,0.03007950953156432,0.00015939086294416242
-25__1,637750.0,2.8266,1,0.644,1.8212,430,18773.0449,0.0832,152.12622939220265,236.10806061937186,0.045684164287283106,0.00019348837209302324
-11__1,673435.5,2.9848,1,0.911,2.7184,598,25491.0139,0.113,200.34843205574913,219.9823425544438,0.04156856974690995,0.00018896321070234115
-85__1,677470.0,3.0026,1,0.238,0.7154,269,11847.1915,0.0525,89.58902284686604,376.01341906625663,0.07338551859099804,0.00019516728624535316
-50__1,704669.5,3.1232,4,0.463,1.4464,380,15119.8409,0.067,121.67008196721311,262.7212389380531,0.04632190265486726,0.00017631578947368423
 ```
 
-## Requirements
-1. Install [Python](https://www.python.org/downloads/)
+Alongside the CSV, the run directory contains `images_output/` (leaves with detections drawn)
+and, when `--save-masks` is used, `masks/` (binary necrosis masks).
 
-2. Create a conda environment with the following command:
+> **Note:** the example above was generated before a regression that currently affects the
+> `pycnidia_number_per_leaf_cm2` column. See [Known issues](#known-issues-and-limitations).
+
+---
+
+## Installation
+
+TensorFlow 2.15 requires **Python 3.9 – 3.11**. Newer Python versions will not work.
+
+### Option A — `uv` (recommended, no conda needed)
+
 ```bash
-conda create -n septo-sympto python=3.9
+uv venv --python 3.11 .venv
+source .venv/bin/activate          # Windows: .venv\Scripts\activate
+uv pip install -r requirements.txt
 ```
 
-3. Activate the environment with the following command:
+### Option B — conda
+
 ```bash
+conda create -n septo-sympto python=3.11
 conda activate septo-sympto
-```
-
-4. Install dependencies with the following command:
-```bash
 pip install -r requirements.txt
 ```
 
-If necessary, you can install the YOLOv5 requirements that you can find in the [YOLOv5 repository](htts://github.com/ultralytics/yolov5).
+> **Platform warning.** `requirements.txt` pins `tensorflow-macos` and `tensorflow-metal`,
+> which exist **only for macOS on Apple Silicon**. On Linux or Windows, replace those two
+> lines with `tensorflow==2.15.0` before installing.
 
-5. Download the pre-trained models and place them in the "models" folder:
-- [pycnidia-model.pt](https://drive.google.com/file/d/1WLIej7263MieoIrfGBtN7ljiZpE4NZy1/view?usp=share_link)
-- [necrosis-model-375.h5](https://drive.google.com/file/d/1BPOsgdUjoA8uCGht4-kL2Er3SbB4JalR/view?usp=share_link)
+### Pre-trained models
 
-6. Put your images in the "images" folder and your csv file in the "import" folder. Make sure yours images are in the horizontal axis.
+Download the weights and place them in a `models/` folder at the repository root:
 
-7. Run the script with the following command line arguments:
+- [pycnidia-model.pt](https://drive.google.com/file/d/1WLIej7263MieoIrfGBtN7ljiZpE4NZy1/view?usp=share_link) — YOLOv5x6, pycnidia detection
+- [necrosis-model-375.h5](https://drive.google.com/file/d/1BPOsgdUjoA8uCGht4-kL2Er3SbB4JalR/view?usp=share_link) — U-Net, necrosis segmentation
+
+Training datasets: [SeptoSympto Datasets](https://drive.google.com/drive/folders/1a2VhXy-sMx77-BOHEgP7jXdWoIJI20s4?usp=sharing)
+
+> On first run, `torch.hub` downloads the YOLOv5 source from GitHub at the pinned tag `v7.0`.
+> An internet connection is required for that first run. The tag is pinned deliberately:
+> loading YOLOv5 from `master` breaks against the pinned `ultralytics` version.
+
+---
+
+## Usage
+
+Put your scans in `images/` and, optionally, a metadata CSV in `import/`. Images must be
+scanned with the leaves **horizontal**. TIFF at 1200 dpi is the reference format.
+
 ```bash
-python3 septo_sympto.py -w <images_folder> -i <csv_import> -o <csv_output> -nm <necrosis_model> -pm <pycnidia_model> -e <image_extension> -is <image_size> -d <device> -pt <pycnidia_threshold> -pn <necrosis_threshold> -sm <save_masks> -ns <no-save>
+python3 septo_sympto.py -w images -o results.csv -e .tif -d cpu
 ```
 
-- `-w` or `--images_input` : specify the name of the folder containing the images. Default is 'images'.
-- `-i` or `--import` : specify the name of the CSV file to import. Default is None.
-- `-o` or `--output` : specify the name of the CSV file to output the results. Default is 'results.csv'.
-- `-nm` or `--necrosis_model` : specify the path to the pre-trained necrosis model. Default is 'models/necrosis-model-375.h5'.
-- `-pm` or `--pycnidia_model` : specify the path to the pre-trained pycnidia model. Default is 'models/pycnidia-model.pt'.
-- `-e` or `--extension` : specify the extension of the images. Default is '.tif'.
-- `-is` or `--imgsz` : specify the size of the images for inference. Default is [304, 3072].
-- `-d` or `--device` : specify the device to use for inference. Can be 'cpu', 'mps' for M1&M2 or a number for specific GPU. Default is 'cpu'.
-- `-pc` or `pixels_for_cm` : specify the number of pixels per cm. Default is 145.
-- `-pt` or `--pycnidia_threshold` : specify the confidence threshold for pycnidia detection. Default is 0.3.
-- `-pn` or `--necrosis_threshold` : specify the confidence threshold for necrosis detection. Default is 0.8.
-- `-dm` or `draw_mode` : specify what to draw on the image. Can be 'pycnidia' 'necrosis'. Default is 'all'.
-- `-sm` or `--save-masks` : specify if you want to save the masks. Default is False.
-- `-ns` or `--no-save` : specify if you want to not save the image results in output folder. Default is False.
+| Flag | Long form | Default | Description |
+|---|---|---|---|
+| `-w` | `--images_input` | `images` | Folder containing the input scans. |
+| `-i` | `--import` | `None` | Metadata CSV to join onto the results (`;` separated). |
+| `-o` | `--output` | `results.csv` | Name of the output CSV. |
+| `-nm` | `--necrosis_model` | `models/necrosis-model-375.h5` | Path to the U-Net weights. |
+| `-pm` | `--pycnidia_model` | `models/pycnidia-model.pt` | Path to the YOLOv5 weights. |
+| `-e` | `--extension` | `.tif` | Extension of the input images. |
+| `-is` | `--imgsz` | `304 3072` | Working size, given as **height width**. |
+| `-d` | `--device` | `cpu` | `cpu`, `mps` (Apple Silicon), or a GPU index. |
+| `-pc` | `--pixels_for_cm` | `472` | Pixels per cm. For a scan at *D* dpi, use *D* / 2.54 (1200 dpi → 472). |
+| `-pt` | `--pycnidia_threshold` | `0.3` | Confidence threshold for pycnidia. |
+| `-pn` | `--necrosis_threshold` | `0.8` | Probability threshold for necrosis. |
+| `-dm` | `--draw_mode` | `all` | What to draw: `pycnidia`, `necrosis`, or `all`. |
+| `-sm` | `--save-masks` | `False` | Save the binary necrosis masks. |
+| `-ns` | `--no-save` | `False` | Skip writing annotated images. |
 
-Tutorials: 
-- [YOLOv5 model training](https://www.youtube.com/watch?v=19VbN6IK1zM&ab_channel=LauraMATHIEU)
-- [U-Net model training](https://www.youtube.com/watch?v=KhGBcwwc-zQ&ab_channel=LauraMATHIEU)
+The script creates `images/`, `import/`, `models/` and `outputs/` if they do not exist. Each
+run writes to a fresh `outputs/output_<n>/` directory. The `tools/` folder holds `metrics.py`,
+which defines the segmentation metrics (`dice_coef`, `dice_loss`, `iou`) needed to deserialise
+the U-Net.
 
-For more informations:
-- [YOLOv5](https://github.com/ultralytics/yolov5)
+---
 
-Datasets: [Septo-Sympto Datasets](https://drive.google.com/drive/folders/1a2VhXy-sMx77-BOHEgP7jXdWoIJI20s4?usp=sharing)
+## Known issues and limitations
 
- 
+These are open defects in the current release, documented here pending the ongoing rework.
+None of them prevent the tool from running.
 
-## Train weights
+**Wrong CSV column.** Since February 2023, the column labelled `pycnidia_number_per_leaf_cm2`
+actually contains `necrosis_area_cm2 / leaf_area_cm2` — that is, a duplicate of
+`necrosis_area_ratio`. The intended metric (pycnidia count per cm² of leaf) is not currently
+emitted. Results produced since then should not rely on that column.
 
-Two weights are provided in the models folder, `necrosis-model-375.h5` and `pycnidia-model.pt`, respectively for pycnidia detection and necrosis detection.
+**Boolean flags behave inversely.** `--save-masks` and `--no-save` are parsed as strings, so
+passing *any* value — including `False` — is interpreted as true. Omit the flag entirely to
+get the default behaviour.
 
-To train new weights for you application, please use the following tutorials : 
-- Pycnidia (YOLOv5) : https://github.com/ultralytics/yolov5
-- Necrosis (U-Net) : https://github.com/maximereder/unet
+**Necrosis area is underestimated.** On the 67 validation leaves carrying necrosis, the
+shipped `necrosis-model-375.h5` recovers about 81 % of the annotated necrotic area
+(95 % CI [0.69, 0.95]). Binary Dice is 0.76 and IoU 0.67. Absolute necrotic areas are
+therefore biased low; relative comparisons between treatments are much less affected.
+A clean held-out test set is being assembled to select the operating point properly.
 
-Necrosis and pycnidia are detected thanks to the SeptoSympto script, which cuts each leaf to be able to analyze them with deep learning models.
+**Training-log metrics understate the models.** The Roboflow masks encode necrosis as magenta
+`(255, 0, 124)`. Read as greyscale and divided by 255, the target becomes 0.354 rather than
+1.0, which caps the achievable Dice at roughly 0.52. The `val_dice_coef` values in
+`data/necrosis/results/*.csv` must be read with that ceiling in mind; the real binary Dice is
+around 0.76–0.82.
 
-To run the image analysis, a folder must contain files called “images_input”, “csv_input”, “models”, “outputs”, “tools” and the script SeptoSympto available on https://github.com/maximereder/septo-sympto. The images in TIFF format and scanned at 1200 dpi are either directly usable by SeptoSympto if there are only horizontally scanned leaves on the image, or pre-cut and renamed with the XnView software if there are writings on the scanned images in order to have only horizontal leaves present on the input images. These images are stored in a folder called “images_input”. A file in csv format containing information for each image and the name of each image in the first column can be added in the file called “csv_input”. The deep learning-based models used for necrosis and pycnidia detection, respectively necrosis-model-375.h5 and pycnidia-model.pt, are stored in “models” folder. The “tools” folder contains a python script called “metrics.py” to calculate metrics for segmentation models and can also store other optional scripts.
+**Leaf area is double-counted.** `get_leaf_area` sums the areas of all contours returned with
+`RETR_TREE`, so internal holes are added rather than subtracted.
 
-The first function, in SeptoSympto script, detects each leaf that has a minimum area of 50000 pixels and a color range between [0, 35, 65] and [255, 255, 255] using the function **cv2.findContours**. The detected leaves are then cut with a rectangle encompassing the whole leaf, resized to a fixed size of 304 x 3072, renamed with the file name and the leaf number of the image and saved in a file called “cropped”. 
+**Crops accumulate across runs.** Cropped leaves are written into `images/cropped/`, and the
+inference loop iterates over everything found there. Running on a second batch without
+clearing the folder will silently include leaves from the previous batch. **Delete
+`images/cropped/` and `images/cropped_not_resized/` between runs.**
 
-The second function, **predict_necrosis_mask**, predicts the probability of each pixel to be in necrosis class. To get a binary mask, we apply thresholds to keep only detected ones of more than 300 pixels and with a perimeter to area ratio of less than 0,8. The function returns a tuple containing the image with the necrosis contours drawn, the total area of necrosis and the necrosis number within the image. 
+**Aspect ratio is not preserved.** Every leaf is resized to a fixed 304 × 3072, regardless of
+its true proportions, so pycnidia are deformed by an amount that depends on leaf geometry.
 
-The third function, **predict_pycnidia**, uses the pycnidia model to predict rectangles and confidence from the analyzed image, and only retains pycnidia coordinates for those with a confidence level above the threshold of 0.3 and with a maximum number of pycnidia prediction per leaf of 10000. The function returns a tuple containing the image with the pycnidia contours drawn, the total area of pycnidia and the pycnidia number within the image.
+---
 
-After running the image analysis, we obtain the cropped images and output folder. In output, we have the result csv file containing both data imported and data calculated. We obtain the cropped images, the images with pycnidia and necrosis contours drawn and the measurements containing the leaf area, necrosis area, necrosis number, pycnidia area and pycnidia number in a csv file, saved in files called “cropped”, “images_output” and “results” respectively.
+## Training your own weights
 
-## YOLOv5 Custom Training
+### Pycnidia — YOLOv5
 
-This guide explains how to train your own custom dataset with YOLOv5, quickly. For more information, see the [YOLOv5 documentation](https://github.com/ultralytics/yolov5).
-
-### Prepare your dataset
-In order to train a custom dataset with YOLOv5, you need to have labelled data. You can either manually prepare your dataset or use Roboflow to label, prepare and host your custom data automatically in YOLO format.
-
-For more informations on how to prepare your dataset, see the [Roboblow](https://blog.roboflow.com/how-to-train-yolov5-on-a-custom-dataset/) tutorial.
-
-Using Roboflow to prepare your dataset
-Roboflow is a platform that provides tools to label and preprocess your data. Follow these steps to prepare your dataset using Roboflow:
-
-1. **Sign up** or **log in** to Roboflow and create a new project indicating "Object Detection (Bounding Boxe)" type.
-2. **Upload your images** to the dataset. Images should be in JPEG or PNG format.
-3. **Annotate your images**. Roboflow supports various annotation formats, including bounding boxes, polygons and keypoints. For YOLOv5, choose "YOLOV5 Pytorch" as the export format. This will create a text file for each image with the same name as the image, containing the annotations in YOLO format.
-4. **Apply preprocessing** options, if needed. Roboflow provides options such as resizing, rotation and augmentation to prepare your images for training.
-5. **Export your dataset**. Roboflow will create a zip file containing your images, annotations and a YAML file with information about your dataset.
-
-### Before You Start
-1. Clone the YOLOv5 repository: git clone https://github.com/ultralytics/yolov5
-2. Navigate to the cloned repository: cd yolov5
-3. Install the requirements: `pip install -r requirements.txt`
-
-### Folder structure and file types
-Regardless of whether you use Roboflow or prepare your dataset manually, the folder structure and file types should follow these guidelines:
-
-- Images should be stored in a folder named "images".
-- Annotations should be stored in a folder named "labels".
-- Each image should have a corresponding annotation file with the same name and ".txt" extension.
-- The annotation files should contain the bounding box coordinates of each object in YOLO format: "class x_center y_center width height".
-
-Here's an example of the contents of the "images" and "labels" folders:
+Annotate with bounding boxes and export in *YOLOv5 PyTorch* format (e.g. via
+[Roboflow](https://blog.roboflow.com/how-to-train-yolov5-on-a-custom-dataset/)). The dataset
+layout is one `.txt` per image, sharing its basename:
 
 ```
-├── dataset/
-│   ├── images/
-│   │   ├── image1.jpg
-│   │   ├── image2.jpg
-│   │   └── ...
-│   ├── labels/
-│   │   ├── image1.txt
-│   │   ├── image2.txt
-│   │   └── ...
-```
-### Annotation format
-Each line of an annotation file should contain the information of one object in the image, with the following format:
-
-```
-<class> <x_center> <y_center> <width> <height>
-```
-- **class** is the integer index of the object class (starting from 0).
-- **x_center** and **y_center** are the coordinates of the center of the bounding box relative to the width and height of the image (ranging from 0 to 1).
-- **width** and **height** are the dimensions of the bounding box relative to the width and height of the image (also ranging from 0 to 1).
-
-For example, if an image contains a dog and a cat, and the dog bounding box has coordinates (100, 150, 200, 250) and the cat bounding box has coordinates (50, 100, 150, 200), the annotation file should look like this:
-
-```
-0 0.416 0.520 0.250 0.333
-0 0.260 0.387 0.188 0.333
+dataset/
+├── images/
+│   ├── image1.jpg
+│   └── ...
+└── labels/
+    ├── image1.txt
+    └── ...
 ```
 
-where "0" is the class index for "pycnidia". The coordinates have been normalized relative to the width and height of the image.
+Each annotation line is `<class> <x_center> <y_center> <width> <height>`, with coordinates
+normalised to [0, 1] and `class` = 0 for pycnidia.
 
-### Train on Custom Data
-1. **Create Dataset**: YOLOv5 models must be trained on labelled data. There are two options for creating your dataset:
-    - Use [Roboflow](https://roboflow.com/) to label, prepare, and host your custom data automatically in YOLO format.
-    - Manually prepare your dataset, see [Prepare your dataset](#prepare-your-dataset) section.
-
-2. **Select a Model**: Select a pretrained model to start training from. For example, YOLOv5s is the second-smallest and fastest model available.
-3. **Train**: Train a YOLOv5s model on COCO128 by specifying dataset, batch-size, image size and either pretrained --weights yolov5s.pt (recommended), or randomly initialized --weights '' --cfg yolov5s.yaml (not recommended).
-
-```
-python train.py --img <image_size> --batch <batch_size> --epochs <epochs> --data <data_yaml_file_path> --weights <weights_path>
+```bash
+git clone https://github.com/ultralytics/yolov5
+cd yolov5 && pip install -r requirements.txt
+python train.py --img <image_size> --batch <batch_size> --epochs <epochs> \
+                --data <data.yaml> --weights yolov5s.pt
 ```
 
-Example: `python train.py --img 640 --batch 16 --epochs 3 --data coco128.yaml --weights yolov5s.pt`
+The shipped weights were trained from `yolov5x6.pt` for 400 epochs at `--img 3070`,
+`--batch 12`, `--rect`. Larger batches and image sizes need proportionally more GPU memory.
 
-You may adapt batch size and image size to your hardware. Indeed, the larger the batch the more memory it consumes. For example, if you have a 16GB GPU, you can train at batch size 32 and image size 640. If you have a 32GB GPU, you can train at batch size 64 and image size 1280. If you have a 64GB GPU, you can train at batch size 128 and image size 2560. If you have a 128GB GPU, you can train at batch size 256 and image size 5120.
+Video tutorial: [YOLOv5 model training](https://www.youtube.com/watch?v=19VbN6IK1zM&ab_channel=LauraMATHIEU)
+Reference: [YOLOv5](https://github.com/ultralytics/yolov5)
 
-4. **Visualize**: Track and visualize model metrics in real time using Comet Logging and Visualization or ClearML Logging and Automation.
-    - Comet: `pip install comet_ml`
-    - ClearML: `pip install clearml`
+### Necrosis — U-Net
 
-Training results are automatically logged with Tensorboard and CSV loggers to runs/train, with a new experiment directory created for each new training as runs/train/exp2, runs/train/exp3, etc.
-
-## U-Net Custom Training
-
-This guide explains how to train your own custom dataset with U-Net, quickly. For more information, see the [U-Net documentation](https://github.com/maximereder/unet).
-
-### Prepare your dataset
-In order to train a custom dataset with U-Net, you need to have labelled data. You can either manually prepare your dataset or use Roboflow to label, prepare and host your custom data automatically in semantic segmentation mask format.
-
-For more informations on how to prepare your dataset, see the [Roboblow](https://blog.roboflow.com/semantic-segmentation-roboflow/) tutorial.
-
-Using Roboflow to prepare your dataset
-Roboflow is a platform that provides tools to label and preprocess your data. Follow these steps to prepare your dataset using Roboflow:
-
-1. **Sign up** or **log in** to Roboflow and **create a new project** indicating "Semantic Segmentation" type.
-2.**Upload your images** to the project. Images should be in JPEG or PNG format.
-3. **Annotate your images**. Roboflow supports various annotation formats, including bounding boxes, polygons and keypoints. For U-Net, choose "Semantic Segmentation" as the export format. This will create a mask image for each annotated image, containing the segmentation information in grayscale.
-4. **Apply preprocessing options**, if needed. Roboflow provides options such as resizing, rotation and augmentation to prepare your images and masks for training.
-5. **Export your dataset**. Roboflow will create a zip file containing your images, masks and a YAML file with information about your dataset.
-
-### Folder structure and file types
-Regardless of whether you use Roboflow or prepare your dataset manually, the folder structure and file types should follow these guidelines:
-
-- Images should be stored in a folder named "images".
-- Masks should be stored in a folder named "masks".
-- Each image should have a corresponding mask file with the same name and ".png" extension.
-- The mask files should contain the segmentation information in grayscale.
-
-Here's an example of the contents of the "images" and "masks" folders:
-
-```
-├── dataset/
-│   ├── images/
-│   │   ├── image1.jpg
-│   │   ├── image2.jpg
-│   │   └── ...
-│   ├── masks/
-│   │   ├── image1.png
-│   │   ├── image2.png
-│   │   └── ...
-```
-
-### Annotation format
-
-Annotations are mask images containing the segmentation information in grayscale. In this project, the mask image should contain values between 0 or 255 (binary semantic segmentation).
+Annotate with semantic segmentation masks and export one `.png` per image. Masks must be
+**binary** (0 or 255).
 
 ![Mask](pictures/mask.png)
 
-### Before You Start
-1. Clone the U-Net repository: https://github.com/maximereder/unet.git
-2. Navigate to the cloned repository: `cd unet`
-
-### Usage
-To train a model, run the following command:
+> If you export from Roboflow, verify the encoding: Roboflow writes coloured masks, not
+> binary ones. Converting a coloured mask to greyscale silently rescales the positive class
+> and corrupts the training target. Binarise explicitly.
 
 ```
-python train.py --data <data_folder> --csv <csv_output> --model <model_output> --epochs <epochs> --batch-size <batch_size> --img_ext <image_extension> --mask_ext <mask_extension> --imgsz <image_size>
+dataset/
+├── images/
+│   ├── image1.jpg
+│   └── ...
+└── masks/
+    ├── image1.png
+    └── ...
 ```
 
-You can also specify the following arguments:
+```bash
+git clone https://github.com/maximereder/unet.git
+cd unet
+python train.py --data <data_folder> --csv <csv_output> --model <model_output> \
+                --epochs <epochs> --batch-size <batch_size> --imgsz 304 3072
+```
 
-- `--data`: Data folder name. Default: data
-- `--csv`: CSV to output name. Default: results_unet_train.csv
-- `--model`: Model to output name. Default: model.h5
-- `--epochs`: Number of epochs for training. Default: 100
-- `--batch-size`: Batch size for training. Default: 2
-- `--img_ext`: Image extension. Default: .jpg
-- `--mask_ext`: Masks extension. Default: .png
-- `--imgsz`: Image size for inference. Default: [304, 3072]
+Arguments: `--data` (default `data`), `--csv` (default `results_unet_train.csv`), `--model`
+(default `model.h5`), `--epochs` (default 100), `--batch-size` (default 2), `--img_ext`
+(default `.jpg`), `--mask_ext` (default `.png`), `--imgsz` (default `304 3072`).
+
+Video tutorial: [U-Net model training](https://www.youtube.com/watch?v=KhGBcwwc-zQ&ab_channel=LauraMATHIEU)
+Reference: [U-Net](https://github.com/maximereder/unet)
+
+---
+
+## Citation
+
+If you use SeptoSympto, please cite:
+
+> Mathieu, L., Reder, M., Siah, A., Ducasse, A., Langlands-Perry, C., Marcel, T. C.,
+> Morel, J.-B., Saintenac, C., & Ballini, E. (2024). SeptoSympto: a precise image analysis of
+> Septoria tritici blotch disease symptoms using deep learning methods on scanned images.
+> *Plant Methods*, 20(1), 18. https://doi.org/10.1186/s13007-024-01136-z
+
+```bibtex
+@article{mathieu2024septosympto,
+  title    = {SeptoSympto: a precise image analysis of Septoria tritici blotch disease
+              symptoms using deep learning methods on scanned images},
+  author   = {Mathieu, Laura and Reder, Maxime and Siah, Ali and Ducasse, Aur{\'e}lie
+              and Langlands-Perry, Camilla and Marcel, Thierry C. and Morel, Jean-Beno{\^i}t
+              and Saintenac, Cyrille and Ballini, Elsa},
+  journal  = {Plant Methods},
+  volume   = {20},
+  number   = {1},
+  pages    = {18},
+  year     = {2024},
+  doi      = {10.1186/s13007-024-01136-z}
+}
+```
+
+---
 
 ## Authors
 
-This script is based on the work of the following authors:
-- Laura MATHIEU, PhD
-    - Mail : laura.mathieu@supagro.fr 
-    - Website : https://www.linkedin.com/in/laura-mathieu/
-- Maxime REDER, Deep Learning Engineer
-    - Mail : maximereder@live.fr 
-    - Website : https://maximereder.fr
+- **Laura Mathieu**, PhD — laura.mathieu@supagro.fr — [LinkedIn](https://www.linkedin.com/in/laura-mathieu/)
+- **Maxime Reder**, Deep Learning Engineer — maximereder@live.fr — [maximereder.fr](https://maximereder.fr)
+
+See the [publication](https://doi.org/10.1186/s13007-024-01136-z) for the full author list.
 
 ## License
-This project is for personal use only and should not be distributed.
+
+The SeptoSympto source code is released under the [MIT License](LICENSE).
+
+The pycnidia weights (`pycnidia-model.pt`) were trained with Ultralytics YOLOv5 and are
+distributed under **AGPL-3.0**, not MIT. See [NOTICE](NOTICE) for the full third-party
+license breakdown and its practical consequences.
+
+The associated article is published under CC BY 4.0.
