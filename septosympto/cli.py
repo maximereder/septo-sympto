@@ -14,7 +14,9 @@ from datetime import UTC, datetime
 from pathlib import Path
 
 from septosympto import __version__
-from septosympto.pipeline import analyze_scan, iter_scan_files
+from septosympto.leaf import load_scan
+from septosympto.pipeline import iter_analyses, iter_scan_files
+from septosympto.render import save_analysis
 from septosympto.report import build_manifest, write_csv, write_manifest
 
 
@@ -51,6 +53,10 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "-d", "--device", default="cpu", help="Torch device: cpu, mps, or a CUDA index."
     )
+    parser.add_argument(
+        "--masks-dir", type=Path, default=None,
+        help="Also write a necrosis overlay and mask per leaf to this directory.",
+    )
     parser.add_argument("--version", action="version", version=f"septo-sympto {__version__}")
     return parser
 
@@ -82,17 +88,19 @@ def main(argv: list[str] | None = None) -> int:
 
     measurements = []
     for path in scan_files:
-        from septosympto.leaf import load_scan
-
         scan = load_scan(path)
-        measurements.extend(
-            analyze_scan(
+        analyses = list(
+            iter_analyses(
                 scan, segmenter, None,
                 px_per_cm=args.pixels_for_cm,
                 min_lesion_area_mm2=args.min_lesion_area_mm2,
             )
         )
-        print(f"{path.name}: {sum(m.image == scan.image for m in measurements)} leaves")
+        for analysis in analyses:
+            measurements.append(analysis.measurement)
+            if args.masks_dir is not None:
+                save_analysis(analysis, args.masks_dir)
+        print(f"{path.name}: {len(analyses)} leaves")
 
     n_rows = write_csv(measurements, args.output)
 
@@ -111,6 +119,8 @@ def main(argv: list[str] | None = None) -> int:
     write_manifest(manifest, args.output.with_suffix(".manifest.json"))
 
     print(f"\n{n_rows} leaves from {len(scan_files)} scans -> {args.output}")
+    if args.masks_dir is not None:
+        print(f"overlays and masks -> {args.masks_dir}")
     print("pycnidia counting is not wired yet; those columns are zero.")
     return 0
 

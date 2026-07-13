@@ -1,0 +1,22 @@
+{
+  "git_commit": "454d9440985855a0e6fd758200714b4d569f70da",
+  "n_leaves": 27,
+  "n_scans": 7,
+  "parameters": {
+    "imgsz": [
+      304,
+      3072
+    ],
+    "min_lesion_area_mm2": 0.135,
+    "necrosis_threshold": 0.8,
+    "pixels_for_cm": null
+  },
+  "septosympto_version": "2.0.0.dev0",
+  "timestamp": "2026-07-13T16:25:31.102203+00:00",
+  "weights": {
+    "necrosis": {
+      "path": "data/necrosis-model-375.safetensors",
+      "sha256": "d71c2e87091568936744e51bdd0c0aca3d965bc54912e3de1823d19a12e96a68"
+    }
+  }
+}
