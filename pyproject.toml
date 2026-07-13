@@ -44,6 +44,13 @@ pytest = "^8.3"
 ruff = "^0.14"
 scipy = "^1.14"
 
+[tool.poetry.group.train]
+optional = true
+
+[tool.poetry.group.train.dependencies]
+tqdm = "^4.67"
+modal = "^1.5"
+
 [tool.ruff]
 line-length = 100
 target-version = "py312"

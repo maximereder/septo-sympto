@@ -29,6 +29,8 @@ from __future__ import annotations
 import torch
 import torch.nn as nn
 
+from septosympto.models.registry import register_segmenter
+
 _BN_EPS = 1e-3
 _BN_MOMENTUM = 0.01
 
@@ -49,14 +51,18 @@ class DoubleConv(nn.Module):
         return self.relu(self.bn2(self.conv2(x)))
 
 
+@register_segmenter("unet")
 class UNet(nn.Module):
     """Binary segmentation U-Net, 4-level encoder and a 1024-channel bottleneck.
 
     Input is expected as ``(N, 3, H, W)`` float32 in ``[0, 1]``, in **BGR**
     channel order: the original model was trained on images read with
     ``cv2.imread``, which returns BGR, and no channel swap was ever applied.
-    ``H`` and ``W`` must be divisible by 16. The reference size is 304x3072.
+    ``H`` and ``W`` must be divisible by ``INPUT_DIVISOR``. The reference size is
+    304x3072.
     """
+
+    INPUT_DIVISOR = 16
 
     def __init__(self, in_channels: int = 3, base_channels: int = 64) -> None:
         super().__init__()

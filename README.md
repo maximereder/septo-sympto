@@ -284,7 +284,55 @@ at native resolution with tiling is the fix, and it is a v2 goal.
 
 ---
 
-## Training your own weights
+## Training (v2)
+
+The `train/` package retrains the necrosis segmenter from scratch. It is kept out of the
+shipped `septosympto` package — installing the tool for inference does not pull Modal or the
+training loop:
+
+```bash
+poetry install --with train
+```
+
+Everything runs locally and is tested locally; Modal is a thin launcher over the same
+functions, not where the logic lives.
+
+Two things it does that v1's training did not. Masks are **binarised**, not read as
+greyscale and divided by 255 — the bug that capped the reported Dice at 0.523. And the split
+is **grouped by scan**: all 375 images are pooled and re-partitioned so no scan has leaves in
+two folds, with a held-out test set that no training step touches. Validation each epoch goes
+through `septosympto.eval`, so the metric that selects the checkpoint is the real binary Dice,
+and the **area bias is logged next to it** — the quantity whose neglect shipped a model
+under-recovering necrotic area by 19 %.
+
+### Local
+
+```bash
+poetry run python -m train.run \
+    --dataset data/necrosis/dataset/300.zip \
+    --run-name necrosis-v2 --epochs 100 --device mps
+```
+
+`imgsz` must be divisible by 16 (the 4-level U-Net pools four times); the reference size is
+`304 3072`. Outputs land in `runs/<run-name>/`: `best.safetensors` and a `manifest.json`
+recording the config, the git commit, the split sizes, and the full per-epoch history.
+
+### On a GPU with Modal
+
+```bash
+modal run train/modal_app.py \
+    --dataset data/necrosis/dataset/300.zip \
+    --run-name necrosis-v2 --epochs 100 --gpu A10
+```
+
+The dataset zip is uploaded once into a Modal Volume; checkpoints are written to a second
+Volume that outlives the container. Requires a configured Modal account.
+
+## Training the original weights (v1)
+
+The models shipped with the paper were trained outside this repository, with the external
+YOLOv5 and U-Net projects below. This is kept for provenance; new necrosis training goes
+through `train/` above.
 
 ### Pycnidia — YOLOv5
 
