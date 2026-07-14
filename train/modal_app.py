@@ -62,7 +62,7 @@ def _commit_runs(_epoch: int) -> None:
     runs_volume.commit()
 
 
-@app.function(gpu="A10", timeout=8 * 60 * 60, volumes=VOLUMES)
+@app.function(gpu="A10", timeout=8 * 60 * 60, scaledown_window=2, volumes=VOLUMES)
 def train_necrosis_remote(config_dict: dict, timestamp: str) -> dict:
     from train.config import TrainConfig
     from train.run import run
@@ -74,7 +74,7 @@ def train_necrosis_remote(config_dict: dict, timestamp: str) -> dict:
     return summary
 
 
-@app.function(gpu="A10", timeout=8 * 60 * 60, volumes=VOLUMES)
+@app.function(gpu="A10", timeout=8 * 60 * 60, scaledown_window=2, volumes=VOLUMES)
 def train_pycnidia_remote(config_dict: dict, timestamp: str) -> dict:
     from train.config import CountConfig
     from train.count_run import run
