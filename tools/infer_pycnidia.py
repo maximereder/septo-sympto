@@ -23,6 +23,7 @@ from train.count_data import load_points_pool, split_pool
 def main() -> None:
     p = argparse.ArgumentParser()
     p.add_argument("--weights", default="runs/pyc-p2p/best.safetensors")
+    p.add_argument("--arch", default="p2p", help="Counter architecture the weights belong to.")
     p.add_argument("--dirs", nargs="+",
                    default=["data/pycnidia/train-200-aug-x3", "data/pycnidia/valid-40"])
     p.add_argument("--imgsz", type=int, nargs=2, default=[200, 2048], metavar=("H", "W"))
@@ -31,6 +32,8 @@ def main() -> None:
     p.add_argument("--seed", type=int, default=0)
     p.add_argument("--index", type=int, default=None,
                    help="Which test leaf; default = median count.")
+    p.add_argument("--show-gt", action="store_true",
+                   help="Also draw the annotations; off by default (detections only).")
     p.add_argument("--out", default="runs/pyc-p2p/inference.jpg")
     args = p.parse_args()
 
@@ -40,7 +43,7 @@ def main() -> None:
         raise SystemExit("empty test split")
     sample = test[args.index] if args.index is not None else test[len(test) // 2]
 
-    model = build_counter("p2p", pretrained=False).eval()
+    model = build_counter(args.arch, pretrained=False).eval()
     model.load_state_dict(load_file(args.weights))
 
     h, w = args.imgsz
@@ -60,14 +63,17 @@ def main() -> None:
     f1 = 2 * precision * recall / (precision + recall) if precision + recall else 0.0
 
     canvas = resized.copy()
-    for x0, y0 in gt.astype(int):
-        cv2.circle(canvas, (int(x0), int(y0)), 2, (0, 0, 255), -1)
+    if args.show_gt:
+        for x0, y0 in gt.astype(int):
+            cv2.circle(canvas, (int(x0), int(y0)), 2, (0, 0, 255), -1)
     for x0, y0 in np.asarray(pred).astype(int):
         cv2.circle(canvas, (int(x0), int(y0)), 4, (0, 255, 0), 1)
 
     banner = np.full((44, w, 3), 30, np.uint8)
-    text = (f"{sample.image}  |  GT {len(gt)}  pred {len(pred)}  "
-            f"(err {len(pred) - len(gt):+d})  |  P {precision:.2f} R {recall:.2f} F1 {f1:.2f}")
+    text = f"{sample.image}  |  {len(pred)} detections"
+    if args.show_gt:
+        text += (f"  (GT {len(gt)}, err {len(pred) - len(gt):+d})  |  "
+                 f"P {precision:.2f} R {recall:.2f} F1 {f1:.2f}")
     cv2.putText(banner, text, (8, 28), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 1)
     out = np.vstack([banner, canvas])
 
