@@ -15,6 +15,7 @@ checkpoint under-recovering necrotic area by 19 % came to be shipped.
 from __future__ import annotations
 
 import json
+from collections.abc import Callable
 from pathlib import Path
 
 import numpy as np
@@ -62,12 +63,17 @@ def train_segmenter(
     *,
     timestamp: str,
     progress: bool = True,
+    on_checkpoint: Callable[[int], None] | None = None,
 ) -> dict:
     """Train ``model``, select the best epoch by validation Dice, save it.
 
-    Returns the run summary. Writes ``best.safetensors`` and ``manifest.json``
-    under ``output_dir/run_name/``. ``timestamp`` is passed in, never read from
-    the clock here, so a run is reproducible.
+    Writes ``best.safetensors`` (on every validation improvement) and, when
+    ``config.checkpoint_every > 0``, ``last.safetensors`` every that many epochs,
+    both under ``output_dir/run_name/``, plus ``manifest.json`` at the end.
+    ``on_checkpoint(epoch)`` fires whenever a checkpoint is written, which the
+    Modal launcher uses to commit the volume so a crash mid-run keeps its
+    progress. ``timestamp`` is passed in, never read from the clock, so a run is
+    reproducible.
     """
     device = torch.device(config.device)
     model = model.to(device)
@@ -126,6 +132,7 @@ def train_segmenter(
             epoch_iter.set_postfix(loss=f"{train_loss:.3f}", dice=f"{report.dice:.4f}",
                                    area=f"{report.area_ratio:.3f}")
 
+        saved = False
         if report.dice > best_dice:
             best_dice = report.dice
             best_epoch = epoch
@@ -135,10 +142,23 @@ def train_segmenter(
                 str(out_dir / "best.safetensors"),
                 metadata={"epoch": str(epoch), "val_dice": f"{report.dice:.6f}"},
             )
+            saved = True
         else:
             epochs_without_improvement += 1
-            if epochs_without_improvement >= config.early_stopping_patience:
-                break
+
+        if config.checkpoint_every and (epoch + 1) % config.checkpoint_every == 0:
+            save_file(
+                {k: v.contiguous() for k, v in model.state_dict().items()},
+                str(out_dir / "last.safetensors"),
+                metadata={"epoch": str(epoch), "val_dice": f"{report.dice:.6f}"},
+            )
+            saved = True
+
+        if saved and on_checkpoint is not None:
+            on_checkpoint(epoch)
+
+        if epochs_without_improvement >= config.early_stopping_patience:
+            break
 
     best = history[best_epoch]
     summary = {

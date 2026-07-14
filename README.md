@@ -383,8 +383,19 @@ modal run train/modal_app.py::pycnidia \
     --epochs 200 --batch-size 4 --gpu A100-40GB
 ```
 
-The checkpoint lands in the `septosympto-runs` volume at `pyc-p2p/best.safetensors`, with a
-manifest recording the config, git commit, scan-grouped split sizes, and per-epoch MAE/F1.
+Checkpoints land in the `septosympto-runs` **volume**, not on your local disk:
+`best.safetensors` (written every time validation improves) and, by default,
+`last.safetensors` (every 25 epochs, `--checkpoint-every`), plus a manifest recording the
+config, git commit, scan-grouped split sizes, and per-epoch MAE/F1. On Modal the volume is
+committed on each checkpoint, so a crash at epoch 150/200 keeps its progress. Pull the weights
+to your machine when the run is done:
+
+```bash
+modal volume get septosympto-runs pyc-p2p/best.safetensors ./
+```
+
+Local runs (`python -m train.count_run`) write the same files straight to `runs/<run-name>/`
+on disk.
 P2PNet's pretrained VGG downloads once into a `septosympto-cache` volume under `TORCH_HOME` and
 persists. VGG at full resolution is memory-heavy: the default trains at 200×2048 with batch 4;
 raise the batch or the resolution on an H100. Swap `--arch p2p` for `--arch heatmap` to train

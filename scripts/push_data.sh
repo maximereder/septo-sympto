@@ -9,6 +9,12 @@ set -eu
 #   scripts/push_data.sh pycnidia        # push only the pycnidia dirs
 #   scripts/push_data.sh necrosis        # push only the necrosis zips
 
+if [ -f .env ]; then
+  set -a
+  . ./.env
+  set +a
+fi
+
 VOLUME="${SEPTOSYMPTO_DATA_VOLUME:-septosympto-data}"
 WHAT="${1:-all}"
 

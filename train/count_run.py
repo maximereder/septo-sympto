@@ -42,6 +42,10 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--val-fraction", type=float, default=0.15)
     parser.add_argument("--test-fraction", type=float, default=0.15)
     parser.add_argument("--seed", type=int, default=0)
+    parser.add_argument(
+        "--checkpoint-every", type=int, default=0,
+        help="Also save last.safetensors every N epochs (0 = only the best).",
+    )
     parser.add_argument("--device", default="cpu")
     parser.add_argument("--num-workers", type=int, default=4)
     return parser
@@ -61,6 +65,7 @@ def config_from_args(args: argparse.Namespace) -> CountConfig:
         val_fraction=args.val_fraction,
         test_fraction=args.test_fraction,
         seed=args.seed,
+        checkpoint_every=args.checkpoint_every,
         device=args.device,
         num_workers=args.num_workers,
     )
@@ -78,7 +83,7 @@ def _check_input_size(model: torch.nn.Module, imgsz: tuple[int, int]) -> None:
         )
 
 
-def run(config: CountConfig, *, timestamp: str, progress: bool = True) -> dict:
+def run(config: CountConfig, *, timestamp: str, progress: bool = True, on_checkpoint=None) -> dict:
     model = build_counter(config.arch)
     _check_input_size(model, config.imgsz)
 
@@ -93,7 +98,8 @@ def run(config: CountConfig, *, timestamp: str, progress: bool = True) -> dict:
         f"test {len(test_samples)}"
     )
     summary = train_counter(
-        model, config, train_samples, val_samples, timestamp=timestamp, progress=progress
+        model, config, train_samples, val_samples,
+        timestamp=timestamp, progress=progress, on_checkpoint=on_checkpoint,
     )
     best = summary["best"]
     print(

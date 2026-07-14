@@ -14,6 +14,7 @@ right by luck while placing points badly is visible, not hidden.
 from __future__ import annotations
 
 import json
+from collections.abc import Callable
 from pathlib import Path
 from typing import Protocol
 
@@ -68,8 +69,15 @@ def train_counter(
     *,
     timestamp: str,
     progress: bool = True,
+    on_checkpoint: Callable[[int], None] | None = None,
 ) -> dict:
-    """Train ``model``, select the best epoch by validation MAE, save it."""
+    """Train ``model``, select the best epoch by validation MAE, save it.
+
+    Writes ``best.safetensors`` on every improvement and, when
+    ``config.checkpoint_every > 0``, ``last.safetensors`` every that many epochs.
+    ``on_checkpoint(epoch)`` fires whenever a checkpoint is written, which the
+    Modal launcher uses to commit the volume for crash safety.
+    """
     device = torch.device(config.device)
     model = model.to(device)
 
@@ -134,6 +142,7 @@ def train_counter(
             epoch_iter.set_postfix(loss=f"{train_loss:.4f}", mae=f"{report.mae:.1f}",
                                    f1=f"{report.f1:.3f}")
 
+        saved = False
         if report.mae < best_mae:
             best_mae = report.mae
             best_epoch = epoch
@@ -143,10 +152,23 @@ def train_counter(
                 str(out_dir / "best.safetensors"),
                 metadata={"epoch": str(epoch), "val_mae": f"{report.mae:.4f}"},
             )
+            saved = True
         else:
             epochs_without_improvement += 1
-            if epochs_without_improvement >= config.early_stopping_patience:
-                break
+
+        if config.checkpoint_every and (epoch + 1) % config.checkpoint_every == 0:
+            save_file(
+                {k: v.contiguous() for k, v in model.state_dict().items()},
+                str(out_dir / "last.safetensors"),
+                metadata={"epoch": str(epoch), "val_mae": f"{report.mae:.4f}"},
+            )
+            saved = True
+
+        if saved and on_checkpoint is not None:
+            on_checkpoint(epoch)
+
+        if epochs_without_improvement >= config.early_stopping_patience:
+            break
 
     summary = {
         "run_name": config.run_name,

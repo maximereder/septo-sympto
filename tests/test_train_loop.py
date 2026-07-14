@@ -74,6 +74,37 @@ def test_training_improves_val_dice_and_writes_outputs(tmp_path):
     assert summary["history"][-1]["val_dice"] >= summary["history"][0]["val_dice"]
 
 
+def test_periodic_checkpoint_saves_last_and_fires_the_callback(tmp_path):
+    samples = [sample_where_necrosis_is_the_blue_channel() for _ in range(2)]
+    config = TrainConfig(
+        dataset="synthetic", output_dir=str(tmp_path), run_name="ck",
+        imgsz=(16, 64), epochs=6, batch_size=1, num_workers=0,
+        early_stopping_patience=99, checkpoint_every=2,
+    )
+    fired = []
+    train_segmenter(
+        TinySegmenter(), config, samples, samples,
+        timestamp="2026-07-10T00:00:00+00:00", progress=False,
+        on_checkpoint=fired.append,
+    )
+    assert (tmp_path / "ck" / "last.safetensors").exists()
+    assert {1, 3, 5}.issubset(set(fired))
+
+
+def test_no_periodic_checkpoint_when_disabled(tmp_path):
+    samples = [sample_where_necrosis_is_the_blue_channel() for _ in range(2)]
+    config = TrainConfig(
+        dataset="synthetic", output_dir=str(tmp_path), run_name="nock",
+        imgsz=(16, 64), epochs=3, batch_size=1, num_workers=0, checkpoint_every=0,
+    )
+    train_segmenter(
+        TinySegmenter(), config, samples, samples,
+        timestamp="2026-07-10T00:00:00+00:00", progress=False,
+    )
+    assert not (tmp_path / "nock" / "last.safetensors").exists()
+    assert (tmp_path / "nock" / "best.safetensors").exists()
+
+
 def test_manifest_records_config_and_split_sizes(tmp_path):
     samples = [sample_where_necrosis_is_the_blue_channel() for _ in range(3)]
     config = TrainConfig(

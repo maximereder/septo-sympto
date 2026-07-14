@@ -36,6 +36,7 @@ class TrainConfig:
 
     threshold: float = 0.5
     early_stopping_patience: int = 15
+    checkpoint_every: int = 0
     num_workers: int = 4
     device: str = "cpu"
 
@@ -69,6 +70,7 @@ class CountConfig:
     decode_threshold: float = 0.3
     match_radius_px: float = 8.0
     early_stopping_patience: int = 20
+    checkpoint_every: int = 0
     num_workers: int = 4
     device: str = "cpu"
 

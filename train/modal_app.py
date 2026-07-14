@@ -57,6 +57,11 @@ def _require(path: str) -> None:
         )
 
 
+def _commit_runs(_epoch: int) -> None:
+    """Persist checkpoints to the volume as they are written, so a crash keeps them."""
+    runs_volume.commit()
+
+
 @app.function(gpu="A10", timeout=8 * 60 * 60, volumes=VOLUMES)
 def train_necrosis_remote(config_dict: dict, timestamp: str) -> dict:
     from train.config import TrainConfig
@@ -64,7 +69,7 @@ def train_necrosis_remote(config_dict: dict, timestamp: str) -> dict:
 
     config = TrainConfig(**config_dict)
     _require(config.dataset)
-    summary = run(config, timestamp=timestamp, progress=True)
+    summary = run(config, timestamp=timestamp, progress=True, on_checkpoint=_commit_runs)
     runs_volume.commit()
     return summary
 
@@ -77,7 +82,7 @@ def train_pycnidia_remote(config_dict: dict, timestamp: str) -> dict:
     config = CountConfig(**config_dict)
     for directory in config.dataset_dirs:
         _require(directory)
-    summary = run(config, timestamp=timestamp, progress=True)
+    summary = run(config, timestamp=timestamp, progress=True, on_checkpoint=_commit_runs)
     runs_volume.commit()
     cache_volume.commit()
     return summary
@@ -92,6 +97,7 @@ def necrosis(
     learning_rate: float = 1e-4,
     height: int = 304,
     width: int = 3072,
+    checkpoint_every: int = 25,
     gpu: str = "A10",
 ) -> None:
     from datetime import UTC, datetime
@@ -106,6 +112,7 @@ def necrosis(
         epochs=epochs,
         batch_size=batch_size,
         learning_rate=learning_rate,
+        checkpoint_every=checkpoint_every,
         device="cuda",
     )
     fn = train_necrosis_remote if gpu == "A10" else train_necrosis_remote.with_options(gpu=gpu)
@@ -129,6 +136,7 @@ def pycnidia(
     height: int = 200,
     width: int = 2048,
     match_radius_px: float = 8.0,
+    checkpoint_every: int = 25,
     gpu: str = "A100-40GB",
 ) -> None:
     from datetime import UTC, datetime
@@ -146,6 +154,7 @@ def pycnidia(
         batch_size=batch_size,
         learning_rate=learning_rate,
         match_radius_px=match_radius_px,
+        checkpoint_every=checkpoint_every,
         device="cuda",
     )
     fn = train_pycnidia_remote if gpu == "A10" else train_pycnidia_remote.with_options(gpu=gpu)
