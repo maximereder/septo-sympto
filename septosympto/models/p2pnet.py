@@ -27,6 +27,7 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from torchvision import models
 from torchvision.models import VGG16_BN_Weights, vgg16_bn
 
 from septosympto.models.registry import register_counter
@@ -63,6 +64,75 @@ class VGGBackbone(nn.Module):
         c4 = self.stage4(c3)
         c5 = self.stage5(c4)
         return c2, c3, c4, c5
+
+
+_RESNET = {
+    "resnet18": (models.resnet18, models.ResNet18_Weights, (64, 128, 256, 512)),
+    "resnet50": (models.resnet50, models.ResNet50_Weights, (256, 512, 1024, 2048)),
+}
+
+
+class ResNetBackbone(nn.Module):
+    """A torchvision ResNet as a C2..C5 feature pyramid at strides 4/8/16/32.
+
+    Lighter and lower in activation memory than VGG: the stem drops to stride 4
+    before the first residual stage, where VGG still holds full-resolution feature
+    maps. That is what lets a ResNet variant train at a larger batch or resolution.
+    """
+
+    def __init__(self, variant: str, pretrained: bool = True) -> None:
+        super().__init__()
+        builder, weights_enum, channels = _RESNET[variant]
+        net = builder(weights=weights_enum.DEFAULT if pretrained else None)
+        self.stem = nn.Sequential(net.conv1, net.bn1, net.relu, net.maxpool)
+        self.layer1, self.layer2, self.layer3, self.layer4 = (
+            net.layer1, net.layer2, net.layer3, net.layer4
+        )
+        self.out_channels = dict(zip(("C2", "C3", "C4", "C5"), channels, strict=True))
+
+    def forward(self, x):
+        x = self.stem(x)
+        c2 = self.layer1(x)
+        c3 = self.layer2(c2)
+        c4 = self.layer3(c3)
+        c5 = self.layer4(c4)
+        return c2, c3, c4, c5
+
+
+class ConvNeXtBackbone(nn.Module):
+    """ConvNeXt-Tiny as a C2..C5 feature pyramid at strides 4/8/16/32.
+
+    ``features`` alternates stage / downsample: a stride-4 patchify stem and stage
+    (C2), then three (downsample, stage) pairs giving C3/C4/C5. Modern features at
+    a higher parameter cost than ResNet, for when accuracy matters more than size.
+    """
+
+    def __init__(self, pretrained: bool = True) -> None:
+        super().__init__()
+        weights = models.ConvNeXt_Tiny_Weights.DEFAULT if pretrained else None
+        feats = models.convnext_tiny(weights=weights).features
+        self.s2 = feats[0:2]
+        self.s3 = feats[2:4]
+        self.s4 = feats[4:6]
+        self.s5 = feats[6:8]
+        self.out_channels = {"C2": 96, "C3": 192, "C4": 384, "C5": 768}
+
+    def forward(self, x):
+        c2 = self.s2(x)
+        c3 = self.s3(c2)
+        c4 = self.s4(c3)
+        c5 = self.s5(c4)
+        return c2, c3, c4, c5
+
+
+def _build_backbone(name: str, pretrained: bool) -> nn.Module:
+    if name == "vgg16":
+        return VGGBackbone(pretrained)
+    if name in _RESNET:
+        return ResNetBackbone(name, pretrained)
+    if name == "convnext_tiny":
+        return ConvNeXtBackbone(pretrained)
+    raise ValueError(f"unknown backbone {name!r}")
 
 
 class FineDecoder(nn.Module):
@@ -217,6 +287,7 @@ class P2PNet(nn.Module):
 
     def __init__(
         self,
+        backbone: str = "vgg16",
         pretrained: bool = True,
         feat: int = 256,
         row: int = 2,
@@ -229,7 +300,7 @@ class P2PNet(nn.Module):
         self.stride = stride
         self.reg_scale = reg_scale
         self.num_classes = num_classes
-        self.backbone = VGGBackbone(pretrained)
+        self.backbone = _build_backbone(backbone, pretrained)
         ch = self.backbone.out_channels
         self.neck = FineDecoder(ch["C2"], ch["C3"], ch["C4"], ch["C5"], feat)
         num_anchor = row * line
@@ -261,3 +332,27 @@ class P2PNet(nn.Module):
             keep = prob[b] > threshold
             out.append(pts[b][keep].cpu().numpy().astype(np.float32))
         return out
+
+
+@register_counter("p2p-resnet18")
+class P2PResNet18(P2PNet):
+    """P2PNet on a ResNet-18 backbone: the efficient, low-memory variant."""
+
+    def __init__(self, pretrained: bool = True, **kwargs) -> None:
+        super().__init__(backbone="resnet18", pretrained=pretrained, **kwargs)
+
+
+@register_counter("p2p-resnet50")
+class P2PResNet50(P2PNet):
+    """P2PNet on a ResNet-50 backbone: the intermediate variant."""
+
+    def __init__(self, pretrained: bool = True, **kwargs) -> None:
+        super().__init__(backbone="resnet50", pretrained=pretrained, **kwargs)
+
+
+@register_counter("p2p-convnext-t")
+class P2PConvNeXtTiny(P2PNet):
+    """P2PNet on a ConvNeXt-Tiny backbone: the modern, higher-capacity variant."""
+
+    def __init__(self, pretrained: bool = True, **kwargs) -> None:
+        super().__init__(backbone="convnext_tiny", pretrained=pretrained, **kwargs)

@@ -339,11 +339,23 @@ and the loop is identical across all of them. Two are registered:
 
 - **`heatmap`** — a stride-4 keypoint detector. Simple and robust, but its heatmap grid merges
   pycnidia closer than the Gaussian window into one peak, so it under-counts dense leaves.
-- **`p2p`** — a point-set network (P2PNet) with a VGG backbone and Hungarian matching. Points
-  are explicit predictions, not grid peaks, so touching pycnidia stay separate. Heavier
-  (VGG at full resolution) and slower (matching runs per image, ~0.2–0.4 s), but built for
-  exactly this density. Its VGG weights download on first use unless constructed with
-  `pretrained=False`.
+- **`p2p`** — a point-set network (P2PNet) with a Hungarian matcher. Points are explicit
+  predictions, not grid peaks, so touching pycnidia stay separate. Slower (matching runs per
+  image, ~0.2–0.4 s) but built for exactly this density. The backbone is swappable; four are
+  registered, all sharing the neck, heads, matcher and loss, differing only in the feature
+  extractor:
+
+  | arch | backbone | params | note |
+  |---|---|---|---|
+  | `p2p` | VGG-16-BN | 18.1 M | the original; heavy activation memory at full resolution |
+  | `p2p-resnet18` | ResNet-18 | 14.4 M | lightest, low memory — trains at a larger batch |
+  | `p2p-resnet50` | ResNet-50 | 27.5 M | intermediate capacity |
+  | `p2p-convnext-t` | ConvNeXt-Tiny | 31.2 M | modern backbone, higher capacity |
+
+  Only the conv trunk of each backbone is used (VGG's fully-connected head, ~120 M params, is
+  dropped). Pretrained ImageNet weights download on first use unless built with
+  `pretrained=False`. Train any of them with `--arch <name>`; `counting_report` compares them
+  on the same held-out leaves.
 
 Both satisfy the same three-method contract, so `--arch heatmap` and `--arch p2p` train
 through the same loop, data, and evaluation, and `counting_report` compares them on the same

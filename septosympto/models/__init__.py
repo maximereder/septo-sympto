@@ -1,5 +1,10 @@
 from septosympto.models.heatmap_counter import HeatmapCounter
-from septosympto.models.p2pnet import P2PNet
+from septosympto.models.p2pnet import (
+    P2PConvNeXtTiny,
+    P2PNet,
+    P2PResNet18,
+    P2PResNet50,
+)
 from septosympto.models.registry import (
     available_counters,
     available_segmenters,
@@ -14,7 +19,10 @@ from septosympto.models.unet import UNet
 
 __all__ = [
     "HeatmapCounter",
+    "P2PConvNeXtTiny",
     "P2PNet",
+    "P2PResNet18",
+    "P2PResNet50",
     "UNet",
     "available_counters",
     "available_segmenters",
