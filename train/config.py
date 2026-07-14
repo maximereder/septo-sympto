@@ -43,3 +43,36 @@ class TrainConfig:
 
     def as_dict(self) -> dict:
         return asdict(self)
+
+
+@dataclass(frozen=True)
+class CountConfig:
+    dataset_dirs: tuple[str, ...]
+    arch: str = "heatmap"
+    output_dir: str = "runs"
+    run_name: str = "pycnidia"
+
+    imgsz: tuple[int, int] = (304, 3072)
+
+    epochs: int = 100
+    batch_size: int = 2
+    learning_rate: float = 1e-3
+    weight_decay: float = 0.0
+
+    val_fraction: float = 0.15
+    test_fraction: float = 0.15
+    seed: int = 0
+
+    hflip: bool = True
+    vflip: bool = True
+
+    decode_threshold: float = 0.3
+    match_radius_px: float = 8.0
+    early_stopping_patience: int = 20
+    num_workers: int = 4
+    device: str = "cpu"
+
+    extra: dict = field(default_factory=dict)
+
+    def as_dict(self) -> dict:
+        return asdict(self)

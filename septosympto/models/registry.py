@@ -19,25 +19,36 @@ from collections.abc import Callable
 import torch.nn as nn
 
 _SEGMENTERS: dict[str, type[nn.Module]] = {}
+_COUNTERS: dict[str, type[nn.Module]] = {}
 
 
-def register_segmenter(name: str) -> Callable[[type], type]:
-    """Class decorator that registers a segmentation architecture under ``name``."""
-
+def _register(table: dict, kind: str, name: str) -> Callable[[type], type]:
     def decorator(cls: type) -> type:
-        if name in _SEGMENTERS:
-            raise ValueError(f"segmenter {name!r} is already registered")
-        _SEGMENTERS[name] = cls
+        if name in table:
+            raise ValueError(f"{kind} {name!r} is already registered")
+        table[name] = cls
         return cls
 
     return decorator
 
 
+def _build(table: dict, kind: str, name: str, **kwargs) -> nn.Module:
+    if name not in table:
+        raise KeyError(f"unknown {kind} {name!r}; available: {sorted(table)}")
+    return table[name](**kwargs)
+
+
+def register_segmenter(name: str) -> Callable[[type], type]:
+    """Class decorator registering a segmentation architecture under ``name``.
+
+    A segmenter maps ``(N, 3, H, W)`` to ``(N, 1, H, W)`` logits. One loss fits
+    all of them, so the training loop owns the loss.
+    """
+    return _register(_SEGMENTERS, "segmenter", name)
+
+
 def build_segmenter(name: str, **kwargs) -> nn.Module:
-    """Instantiate a registered segmenter."""
-    if name not in _SEGMENTERS:
-        raise KeyError(f"unknown segmenter {name!r}; available: {available_segmenters()}")
-    return _SEGMENTERS[name](**kwargs)
+    return _build(_SEGMENTERS, "segmenter", name, **kwargs)
 
 
 def segmenter_class(name: str) -> type[nn.Module]:
@@ -48,3 +59,29 @@ def segmenter_class(name: str) -> type[nn.Module]:
 
 def available_segmenters() -> list[str]:
     return sorted(_SEGMENTERS)
+
+
+def register_counter(name: str) -> Callable[[type], type]:
+    """Class decorator registering a point-counting architecture under ``name``.
+
+    Counting has no single output format: a density map, a heatmap and a
+    point-set network differ in output, target and loss. So a counter owns its
+    own ``loss(output, target_points)`` and ``decode(output) -> points``, and the
+    training loop stays identical across all of them. That is the contract a P2P
+    network satisfies to drop in beside a heatmap counter.
+    """
+    return _register(_COUNTERS, "counter", name)
+
+
+def build_counter(name: str, **kwargs) -> nn.Module:
+    return _build(_COUNTERS, "counter", name, **kwargs)
+
+
+def counter_class(name: str) -> type[nn.Module]:
+    if name not in _COUNTERS:
+        raise KeyError(f"unknown counter {name!r}; available: {available_counters()}")
+    return _COUNTERS[name]
+
+
+def available_counters() -> list[str]:
+    return sorted(_COUNTERS)

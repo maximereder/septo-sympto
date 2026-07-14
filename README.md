@@ -328,6 +328,30 @@ modal run train/modal_app.py \
 The dataset zip is uploaded once into a Modal Volume; checkpoints are written to a second
 Volume that outlives the container. Requires a configured Modal account.
 
+### Pycnidia counting
+
+Counting is a separate task from segmentation, so it has its own loop, data loader, and model
+registry. Pycnidia are ~4 px discs, hundreds per leaf: the YOLO boxes are points in all but
+name, and only their centres are used. There is no single output format across counting
+architectures — a heatmap, a density map and a P2P point-set network differ in output, target
+and loss — so a counter **owns its own `loss(output, points)` and `decode(output) -> points`**,
+and the loop is identical across all of them. The shipped baseline is `heatmap`, a stride-4
+keypoint detector; a P2P network registers beside it under another name and implements the
+same two methods, changing nothing in the loop.
+
+```bash
+poetry run python -m train.count_run \
+    --dataset-dir data/pycnidia/train-200-aug-x3 data/pycnidia/valid-40 \
+    --arch heatmap --run-name pycnidia-v2 --epochs 100 --device mps
+```
+
+The pre-augmented Roboflow directories are pooled, **deduplicated by leaf** (the mirror copies
+that leaked in v1 collapse to one), and re-split grouped by scan. Each epoch reports MAE on the
+count — the biological quantity that drives checkpoint selection — with localisation
+precision/recall/F1 beside it. To add a P2P architecture: define it in `septosympto/models/`,
+decorate it `@register_counter("p2p")`, give it `forward` / `loss` / `decode`, and train it
+with `--arch p2p`.
+
 ## Training the original weights (v1)
 
 The models shipped with the paper were trained outside this repository, with the external
