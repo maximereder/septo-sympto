@@ -335,9 +335,19 @@ registry. Pycnidia are ~4 px discs, hundreds per leaf: the YOLO boxes are points
 name, and only their centres are used. There is no single output format across counting
 architectures — a heatmap, a density map and a P2P point-set network differ in output, target
 and loss — so a counter **owns its own `loss(output, points)` and `decode(output) -> points`**,
-and the loop is identical across all of them. The shipped baseline is `heatmap`, a stride-4
-keypoint detector; a P2P network registers beside it under another name and implements the
-same two methods, changing nothing in the loop.
+and the loop is identical across all of them. Two are registered:
+
+- **`heatmap`** — a stride-4 keypoint detector. Simple and robust, but its heatmap grid merges
+  pycnidia closer than the Gaussian window into one peak, so it under-counts dense leaves.
+- **`p2p`** — a point-set network (P2PNet) with a VGG backbone and Hungarian matching. Points
+  are explicit predictions, not grid peaks, so touching pycnidia stay separate. Heavier
+  (VGG at full resolution) and slower (matching runs per image, ~0.2–0.4 s), but built for
+  exactly this density. Its VGG weights download on first use unless constructed with
+  `pretrained=False`.
+
+Both satisfy the same three-method contract, so `--arch heatmap` and `--arch p2p` train
+through the same loop, data, and evaluation, and `counting_report` compares them on the same
+held-out leaves.
 
 ```bash
 poetry run python -m train.count_run \

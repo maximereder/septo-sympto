@@ -50,6 +50,7 @@ optional = true
 [tool.poetry.group.train.dependencies]
 tqdm = "^4.67"
 modal = "^1.5"
+scipy = "^1.14"
 
 [tool.ruff]
 line-length = 100
