@@ -358,9 +358,40 @@ poetry run python -m train.count_run \
 The pre-augmented Roboflow directories are pooled, **deduplicated by leaf** (the mirror copies
 that leaked in v1 collapse to one), and re-split grouped by scan. Each epoch reports MAE on the
 count — the biological quantity that drives checkpoint selection — with localisation
-precision/recall/F1 beside it. To add a P2P architecture: define it in `septosympto/models/`,
-decorate it `@register_counter("p2p")`, give it `forward` / `loss` / `decode`, and train it
-with `--arch p2p`.
+precision/recall/F1 beside it. To add another counting architecture: define it in
+`septosympto/models/`, decorate it `@register_counter("name")`, give it `forward` / `loss` /
+`decode`, and train it with `--arch name`.
+
+### Training P2P on the largest pycnidia set, on a Modal GPU
+
+The `p2p` architecture wants a GPU: a VGG backbone plus Hungarian matching is heavier than the
+local smoke can show. The Modal setup follows a push-then-run convention — data is uploaded to
+a volume once, out of band, and the worker reads it and fails fast if it is missing, so nothing
+uploads on a run's hot path.
+
+```bash
+scripts/push_data.sh pycnidia
+```
+
+This uploads the pycnidia directories to the `septosympto-data` volume via `modal volume put`.
+Then launch the run. The largest available set is `train-200-aug-x3` pooled with `valid-40`
+(219 unique leaves after dedup), which is the default:
+
+```bash
+modal run train/modal_app.py::pycnidia \
+    --arch p2p --run-name pyc-p2p \
+    --epochs 200 --batch-size 4 --gpu A100-40GB
+```
+
+The checkpoint lands in the `septosympto-runs` volume at `pyc-p2p/best.safetensors`, with a
+manifest recording the config, git commit, scan-grouped split sizes, and per-epoch MAE/F1.
+P2PNet's pretrained VGG downloads once into a `septosympto-cache` volume under `TORCH_HOME` and
+persists. VGG at full resolution is memory-heavy: the default trains at 200×2048 with batch 4;
+raise the batch or the resolution on an H100. Swap `--arch p2p` for `--arch heatmap` to train
+the lighter baseline and compare — `counting_report` scores both on the same held-out leaves.
+
+The same launcher trains necrosis: `modal run train/modal_app.py::necrosis --run-name nec-v2`.
+Requires a configured Modal account.
 
 ## Training the original weights (v1)
 
