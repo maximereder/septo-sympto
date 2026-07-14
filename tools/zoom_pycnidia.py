@@ -15,7 +15,6 @@ import numpy as np
 import torch
 from safetensors.torch import load_file
 
-from septosympto.eval import match_points
 from septosympto.models import build_counter
 from train.count_data import load_points_pool, split_pool
 
@@ -69,7 +68,7 @@ def main() -> None:
     big = cv2.resize(crop, (crop.shape[1] * args.zoom, crop.shape[0] * args.zoom),
                      interpolation=cv2.INTER_NEAREST)
 
-    for j, (px, py) in enumerate(gt):
+    for px, py in gt:
         if x0 <= px < x1:
             c = (int((px - x0) * args.zoom), int(py * args.zoom))
             cv2.circle(big, c, 5, (0, 0, 255), -1)
