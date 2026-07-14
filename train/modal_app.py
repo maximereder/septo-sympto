@@ -88,6 +88,24 @@ def train_pycnidia_remote(config_dict: dict, timestamp: str) -> dict:
     return summary
 
 
+def _spawn(fn, config, run_name: str) -> None:
+    """Launch and return at once. The run lives on Modal, independent of this process.
+
+    ``spawn`` does not block, so the terminal is free immediately. Pair it with
+    ``modal run --detach`` so the app is not torn down when this entrypoint exits;
+    together they survive the terminal or the connection dropping. Checkpoints
+    stream to the runs volume as they are written, so results are never tied to
+    this client staying alive.
+    """
+    from datetime import UTC, datetime
+
+    call = fn.spawn(config.as_dict(), datetime.now(UTC).isoformat())
+    print(f"spawned {run_name} (call {call.object_id}); it runs on Modal now.")
+    print("launch with `modal run --detach ...` so it survives the terminal closing.")
+    print(f"checkpoints -> septosympto-runs at {run_name}/; pull with `modal volume get`.")
+    print("follow it in the Modal dashboard, or with `modal app logs`.")
+
+
 @app.local_entrypoint()
 def necrosis(
     dataset: str = "necrosis/dataset/300.zip",
@@ -99,6 +117,7 @@ def necrosis(
     width: int = 3072,
     checkpoint_every: int = 25,
     gpu: str = "A10",
+    detach: bool = False,
 ) -> None:
     from datetime import UTC, datetime
 
@@ -116,6 +135,9 @@ def necrosis(
         device="cuda",
     )
     fn = train_necrosis_remote if gpu == "A10" else train_necrosis_remote.with_options(gpu=gpu)
+    if detach:
+        _spawn(fn, config, run_name)
+        return
     summary = fn.remote(config.as_dict(), datetime.now(UTC).isoformat())
     best = summary["best"]
     print(
@@ -138,6 +160,7 @@ def pycnidia(
     match_radius_px: float = 8.0,
     checkpoint_every: int = 25,
     gpu: str = "A100-40GB",
+    detach: bool = False,
 ) -> None:
     from datetime import UTC, datetime
 
@@ -158,6 +181,9 @@ def pycnidia(
         device="cuda",
     )
     fn = train_pycnidia_remote if gpu == "A10" else train_pycnidia_remote.with_options(gpu=gpu)
+    if detach:
+        _spawn(fn, config, run_name)
+        return
     summary = fn.remote(config.as_dict(), datetime.now(UTC).isoformat())
     best = summary["best"]
     print(

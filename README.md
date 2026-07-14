@@ -396,6 +396,23 @@ modal volume get septosympto-runs pyc-p2p/best.safetensors ./
 
 Local runs (`python -m train.count_run`) write the same files straight to `runs/<run-name>/`
 on disk.
+
+### Launch and walk away
+
+A 200-epoch P2P run takes hours. To start it and close the terminal, combine Modal's `--detach`
+(the app keeps running server-side after the client disconnects) with the entrypoint's own
+`--detach` (it `spawn`s the job and returns at once instead of blocking on the result):
+
+```bash
+modal run --detach train/modal_app.py::pycnidia --detach --arch p2p --run-name pyc-p2p --gpu L40S
+```
+
+The first `--detach` is Modal's; the second is the entrypoint's. It prints a call id and exits;
+the run continues on Modal. Checkpoints stream to the volume as they are written, so nothing is
+tied to your machine staying on. Follow it in the Modal dashboard or with `modal app logs`, and
+pull the weights when it is done. Without the entrypoint `--detach`, the run still survives a
+dropped connection (thanks to Modal's `--detach`), but the terminal stays attached streaming
+progress until you disconnect.
 P2PNet's pretrained VGG downloads once into a `septosympto-cache` volume under `TORCH_HOME` and
 persists. VGG at full resolution is memory-heavy: the default trains at 200×2048 with batch 4;
 raise the batch or the resolution on an H100. Swap `--arch p2p` for `--arch heatmap` to train
