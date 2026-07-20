@@ -41,12 +41,26 @@ def test_scan_is_the_prefix_before_double_underscore(tmp_path):
     assert pool[0].scan == "Soi_LGA_2_Soi_1"
 
 
-def test_a_leaf_with_no_label_has_zero_points(tmp_path):
+def test_an_empty_label_means_zero_points(tmp_path):
     (tmp_path / "d" / "images").mkdir(parents=True)
+    (tmp_path / "d" / "labels").mkdir(parents=True)
     cv2.imwrite(str(tmp_path / "d" / "images" / "s__1_jpg.rf.x.jpg"),
                 np.zeros((16, 16, 3), np.uint8))
+    (tmp_path / "d" / "labels" / "s__1_jpg.rf.x.txt").write_text("")
     pool = load_points_pool([tmp_path / "d"])
     assert pool[0].points_norm.shape == (0, 2)
+
+
+def test_an_image_without_a_label_is_skipped(tmp_path):
+    (tmp_path / "d" / "img").mkdir(parents=True)
+    (tmp_path / "d" / "labels").mkdir(parents=True)
+    cv2.imwrite(str(tmp_path / "d" / "img" / "kept__1.png"), np.zeros((16, 16, 3), np.uint8))
+    (tmp_path / "d" / "labels" / "kept__1.txt").write_text("0 0.5 0.5 0.01 0.01")
+    cv2.imwrite(str(tmp_path / "d" / "img" / "skipped__1.png"), np.zeros((16, 16, 3), np.uint8))
+    pool = load_points_pool([tmp_path / "d"])
+    bases = {s.image for s in pool}
+    assert "kept__1.png" in bases
+    assert "skipped__1.png" not in bases
 
 
 def test_dataset_scales_points_to_pixels():

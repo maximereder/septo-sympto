@@ -48,15 +48,25 @@ def _read_points(label_path: Path) -> np.ndarray:
 
 
 def load_points_pool(directories: list[str | Path]) -> list[PointSample]:
-    """Every leaf across ``directories``, deduplicated by base id, one sample each."""
+    """Every leaf across ``directories``, deduplicated by base id, one sample each.
+
+    Handles both layouts: the Roboflow export (``images/*.jpg``) and the native
+    letterbox set (``img/*.png``). An image is only taken when it has a label
+    file, so the shared native ``img/`` — which also holds necrosis-only leaves —
+    contributes exactly the pycnidia-annotated leaves, not phantom zero-count ones.
+    """
     by_base: dict[str, PointSample] = {}
     for directory in directories:
-        images = sorted((Path(directory) / "images").glob("*.jpg"))
+        directory = Path(directory)
+        images = sorted([*(directory / "images").glob("*.jpg"),
+                         *(directory / "img").glob("*.png")])
         for image_path in images:
+            label_path = directory / "labels" / (image_path.stem + ".txt")
+            if not label_path.exists():
+                continue
             base = _base_id(image_path)
             if base in by_base:
                 continue
-            label_path = Path(directory) / "labels" / (image_path.stem + ".txt")
             by_base[base] = PointSample(
                 image=base,
                 scan=base.split("__")[0],
@@ -79,7 +89,7 @@ class PycnidiaPointDataset(Dataset):
     def __init__(
         self,
         samples: list[PointSample],
-        imgsz: tuple[int, int] = (304, 3072),
+        imgsz: tuple[int, int] = (384, 3072),
         hflip: bool = False,
         vflip: bool = False,
         seed: int = 0,

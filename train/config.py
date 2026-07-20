@@ -17,7 +17,7 @@ class TrainConfig:
     output_dir: str = "runs"
     run_name: str = "necrosis"
 
-    imgsz: tuple[int, int] = (304, 3072)
+    imgsz: tuple[int, int] = (384, 3072)
 
     epochs: int = 100
     batch_size: int = 2
@@ -53,7 +53,7 @@ class CountConfig:
     output_dir: str = "runs"
     run_name: str = "pycnidia"
 
-    imgsz: tuple[int, int] = (304, 3072)
+    imgsz: tuple[int, int] = (384, 3072)
 
     epochs: int = 100
     batch_size: int = 2

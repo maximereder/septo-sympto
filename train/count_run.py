@@ -37,7 +37,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--epochs", type=int, default=100)
     parser.add_argument("--batch-size", type=int, default=2)
     parser.add_argument("--learning-rate", type=float, default=1e-3)
-    parser.add_argument("--imgsz", type=int, nargs=2, default=[304, 3072], metavar=("H", "W"))
+    parser.add_argument("--imgsz", type=int, nargs=2, default=[384, 3072], metavar=("H", "W"))
     parser.add_argument("--match-radius-px", type=float, default=8.0)
     parser.add_argument("--val-fraction", type=float, default=0.15)
     parser.add_argument("--test-fraction", type=float, default=0.15)

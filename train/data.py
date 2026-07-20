@@ -114,7 +114,7 @@ class NecrosisDataset(Dataset):
     def __init__(
         self,
         samples: list[Sample],
-        imgsz: tuple[int, int] = (304, 3072),
+        imgsz: tuple[int, int] = (384, 3072),
         hflip: bool = False,
         vflip: bool = False,
         seed: int = 0,
