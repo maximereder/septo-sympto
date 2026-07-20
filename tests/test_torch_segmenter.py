@@ -31,33 +31,33 @@ def leaf(h=120, w=1200):
 
 
 def test_it_satisfies_the_segmenter_protocol():
-    seg = TorchSegmenter(ConstantLogit(10.0), imgsz=(64, 640))
+    seg = TorchSegmenter(ConstantLogit(10.0))
     assert isinstance(seg, Segmenter)
 
 
 def test_mask_comes_back_at_the_leaf_resolution_not_the_model_resolution():
-    seg = TorchSegmenter(ConstantLogit(10.0), imgsz=(64, 640))
+    seg = TorchSegmenter(ConstantLogit(10.0))
     mask = seg.segment(leaf(h=173, w=2011))
     assert mask.shape == (173, 2011)
     assert mask.dtype == np.bool_
 
 
 def test_threshold_is_applied_to_probabilities():
-    above = TorchSegmenter(ConstantLogit(1.0), imgsz=(32, 320), threshold=0.5)
-    below = TorchSegmenter(ConstantLogit(1.0), imgsz=(32, 320), threshold=0.9)
+    above = TorchSegmenter(ConstantLogit(1.0), threshold=0.5)
+    below = TorchSegmenter(ConstantLogit(1.0), threshold=0.9)
     assert above.segment(leaf()).all()
     assert not below.segment(leaf()).any()
 
 
 def test_spatial_layout_survives_the_round_trip():
-    seg = TorchSegmenter(LeftHalfPositive(), imgsz=(32, 320), threshold=0.5)
+    seg = TorchSegmenter(LeftHalfPositive(), threshold=0.5)
     mask = seg.segment(leaf(h=100, w=1000))
     assert mask[:, :400].all()
     assert not mask[:, 600:].any()
 
 
 def test_probabilities_stay_in_the_unit_interval():
-    seg = TorchSegmenter(ConstantLogit(0.3), imgsz=(32, 320))
+    seg = TorchSegmenter(ConstantLogit(0.3))
     p = seg.probabilities(leaf())
     assert p.min() >= 0.0
     assert p.max() <= 1.0
@@ -65,6 +65,6 @@ def test_probabilities_stay_in_the_unit_interval():
 
 
 def test_a_grayscale_image_is_rejected():
-    seg = TorchSegmenter(ConstantLogit(0.0), imgsz=(32, 320))
+    seg = TorchSegmenter(ConstantLogit(0.0))
     with pytest.raises(ValueError, match=r"\(H, W, 3\) BGR"):
         seg.segment(np.zeros((10, 10), np.uint8))

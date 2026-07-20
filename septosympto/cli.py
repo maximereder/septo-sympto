@@ -15,6 +15,7 @@ from pathlib import Path
 
 from septosympto import __version__
 from septosympto.leaf import load_scan
+from septosympto.letterbox import CANVAS_H, CANVAS_W
 from septosympto.pipeline import iter_analyses, iter_scan_files
 from septosympto.render import save_analysis
 from septosympto.report import build_manifest, write_csv, write_manifest
@@ -34,10 +35,6 @@ def build_parser() -> argparse.ArgumentParser:
         help="Necrosis segmenter weights (.safetensors).",
     )
     parser.add_argument("-e", "--extension", default=".tif", help="Input image extension.")
-    parser.add_argument(
-        "-is", "--imgsz", type=int, nargs=2, default=[304, 3072], metavar=("H", "W"),
-        help="Segmenter input size.",
-    )
     parser.add_argument(
         "-pn", "--necrosis-threshold", type=float, default=0.8,
         help="Necrosis probability threshold.",
@@ -61,12 +58,12 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def _load_segmenter(weights: Path, imgsz: list[int], threshold: float, device: str):
+def _load_segmenter(weights: Path, threshold: float, device: str):
     from septosympto.adapters import TorchSegmenter
     from septosympto.models import UNet
 
     return TorchSegmenter.from_safetensors(
-        weights, UNet(), imgsz=(imgsz[0], imgsz[1]), threshold=threshold, device=device
+        weights, UNet(), threshold=threshold, device=device
     )
 
 
@@ -83,7 +80,7 @@ def main(argv: list[str] | None = None) -> int:
         return 1
 
     segmenter = _load_segmenter(
-        args.necrosis_weights, args.imgsz, args.necrosis_threshold, args.device
+        args.necrosis_weights, args.necrosis_threshold, args.device
     )
 
     measurements = []
@@ -108,7 +105,7 @@ def main(argv: list[str] | None = None) -> int:
         weights={"necrosis": args.necrosis_weights},
         parameters={
             "necrosis_threshold": args.necrosis_threshold,
-            "imgsz": args.imgsz,
+            "imgsz": [CANVAS_H, CANVAS_W],
             "pixels_for_cm": args.pixels_for_cm,
             "min_lesion_area_mm2": args.min_lesion_area_mm2,
         },

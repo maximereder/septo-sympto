@@ -177,10 +177,18 @@ def find_leaves(scan: Scan, min_area_px: int = MIN_LEAF_AREA_PX) -> list[Leaf]:
 
 
 def crop(scan: Scan, leaf: Leaf, background: int = 255) -> np.ndarray:
-    """The leaf at native resolution, everything else set to ``background``."""
+    """The leaf at native resolution, everything else set to ``background``.
+
+    Interior holes in the mask — specular glare on the blade, small debris — are
+    filled first, so those pixels keep their real values instead of being punched
+    to ``background``. This matches how the training crops are cut.
+    """
+    from scipy import ndimage
+
     x, y, w, h = leaf.bbox
     patch = scan.bgr[y : y + h, x : x + w].copy()
-    patch[~leaf.mask[y : y + h, x : x + w]] = background
+    solid = ndimage.binary_fill_holes(leaf.mask[y : y + h, x : x + w])
+    patch[~solid] = background
     return patch
 
 

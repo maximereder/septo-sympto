@@ -5,12 +5,10 @@ trained on images read with ``cv2.imread``, which returns **BGR**, and no channe
 swap was ever applied, so BGR is what it expects. A model trained on RGB needs a
 different adapter, not a flag that someone will forget to set.
 
-``segment`` returns a mask at the leaf's own resolution. The model works at a
-fixed 304 x 3072, but the caller measures areas in native pixels, so the mask is
-resized back on the way out. v1 instead measured in the distorted space and
-rescaled the resulting area by the ratio of the two areas. The arithmetic is
-equivalent; returning a native-resolution mask means nothing downstream has to
-know the model's input size.
+``segment`` returns a mask at the leaf's own resolution. The model works on the
+shared letterbox canvas — the exact geometry the training images were cut to — so
+the leaf is letterboxed in and the prediction is mapped back out through the
+inverse of the same placement. Nothing downstream has to know the canvas size.
 """
 
 from __future__ import annotations
@@ -21,6 +19,8 @@ import cv2
 import numpy as np
 import torch
 import torch.nn as nn
+
+from septosympto.letterbox import letterbox, unletterbox
 
 NECROSIS_THRESHOLD = 0.8
 
@@ -35,12 +35,10 @@ class TorchSegmenter:
     def __init__(
         self,
         model: nn.Module,
-        imgsz: tuple[int, int] = (304, 3072),
         threshold: float = NECROSIS_THRESHOLD,
         device: str = "cpu",
     ) -> None:
         self.model = model.eval().to(device)
-        self.imgsz = imgsz
         self.threshold = threshold
         self.device = device
 
@@ -49,30 +47,29 @@ class TorchSegmenter:
         cls,
         weights: str | Path,
         model: nn.Module,
-        imgsz: tuple[int, int] = (304, 3072),
         threshold: float = NECROSIS_THRESHOLD,
         device: str = "cpu",
     ) -> TorchSegmenter:
         from safetensors.torch import load_file
 
         model.load_state_dict(load_file(str(weights)))
-        return cls(model, imgsz=imgsz, threshold=threshold, device=device)
+        return cls(model, threshold=threshold, device=device)
 
     def probabilities(self, leaf_bgr: np.ndarray) -> np.ndarray:
         """Per-pixel necrosis probability, at the leaf's own resolution."""
         if leaf_bgr.ndim != 3 or leaf_bgr.shape[2] != 3:
             raise ValueError(f"expected an (H, W, 3) BGR image, got {leaf_bgr.shape}")
 
-        h, w = leaf_bgr.shape[:2]
-        target_h, target_w = self.imgsz
-        resized = cv2.resize(leaf_bgr, (target_w, target_h)).astype(np.float32) / 255.0
-        batch = torch.from_numpy(resized.transpose(2, 0, 1)[None].copy()).to(self.device)
+        canvas, place = letterbox(leaf_bgr)
+        batch = torch.from_numpy(
+            (canvas.astype(np.float32) / 255.0).transpose(2, 0, 1)[None].copy()
+        ).to(self.device)
 
         with torch.inference_mode():
             probabilities = torch.sigmoid(self.model(batch))
 
         probabilities = probabilities.squeeze().cpu().numpy()
-        return cv2.resize(probabilities, (w, h), interpolation=cv2.INTER_LINEAR)
+        return unletterbox(probabilities, place, cv2.INTER_LINEAR)
 
     def segment(self, leaf_bgr: np.ndarray) -> np.ndarray:
         return self.probabilities(leaf_bgr) > self.threshold
