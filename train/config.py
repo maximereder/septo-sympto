@@ -78,3 +78,46 @@ class CountConfig:
 
     def as_dict(self) -> dict:
         return asdict(self)
+
+
+@dataclass(frozen=True)
+class YoloConfig:
+    """A YOLO semantic-segmentation run. Ultralytics owns the loop; this owns the run.
+
+    ``model`` is an Ultralytics weight name or path (``yolo26n-sem.pt`` downloads
+    pretrained into ``pretrained_dir``; ``yolo26n-sem.yaml`` trains from scratch).
+    ``imgsz`` is the canvas the leaves already sit on, trained rectangular so
+    nothing is padded to square. ``extra`` is passed straight to ``YOLO.train``
+    for any hyperparameter not surfaced here.
+    """
+
+    dataset: str
+    model: str = "yolo26n-sem.pt"
+    pretrained_dir: str = "data/pretrained"
+    output_dir: str = "runs"
+    run_name: str = "necrosis-yolo"
+
+    imgsz: tuple[int, int] = (384, 3072)
+
+    epochs: int = 100
+    batch_size: int = 4
+    learning_rate: float = 1e-3
+    weight_decay: float = 5e-4
+    optimizer: str = "AdamW"
+
+    val_fraction: float = 0.15
+    test_fraction: float = 0.15
+    seed: int = 0
+
+    hflip: bool = True
+    vflip: bool = True
+
+    threshold: float = 0.5
+    early_stopping_patience: int = 20
+    num_workers: int = 4
+    device: str = "cpu"
+
+    extra: dict = field(default_factory=dict)
+
+    def as_dict(self) -> dict:
+        return asdict(self)

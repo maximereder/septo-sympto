@@ -7,11 +7,17 @@ never uploads on its hot path.
 
     scripts/push_data.sh                       # once: local data -> volume
     modal run train/modal_app.py::pycnidia --arch p2p --run-name pyc-p2p --gpu A100-40GB
-    modal run train/modal_app.py::necrosis --run-name nec-v2 --gpu A10
+    modal run train/modal_app.py::necrosis --arch unet-resnet18 --run-name nec-r18 --gpu A10
+    modal run train/modal_app.py::yolo --model yolo26s-sem.pt --run-name nec-yolo26s --gpu A10
 
 Checkpoints land in a runs volume that outlives the container. Pretrained
-backbones (P2PNet's VGG) download into a cache volume under TORCH_HOME the first
-time and persist, so later runs do not re-download.
+weights (torchvision backbones under TORCH_HOME, Ultralytics ``*-sem.pt``)
+download into a cache volume the first time and persist, so later runs do not
+re-download.
+
+The YOLO worker runs on its own image with Ultralytics installed; the PyTorch
+workers do not carry it. Ultralytics prints its per-epoch table as it trains and
+``modal run`` streams it back, so a remote YOLO run looks like a local one.
 """
 
 from __future__ import annotations
@@ -38,6 +44,8 @@ image = (
     .env({"TORCH_HOME": f"{CACHE_DIR}/torch"})
     .add_local_python_source("septosympto", "train")
 )
+
+yolo_image = image.pip_install("ultralytics>=8.4.91,<9.0")
 
 app = modal.App(APP_NAME, image=image)
 
@@ -88,6 +96,21 @@ def train_pycnidia_remote(config_dict: dict, timestamp: str) -> dict:
     return summary
 
 
+@app.function(
+    image=yolo_image, gpu="A10", timeout=8 * 60 * 60, scaledown_window=2, volumes=VOLUMES
+)
+def train_yolo_remote(config_dict: dict, timestamp: str) -> dict:
+    from train.config import YoloConfig
+    from train.yolo_run import run
+
+    config = YoloConfig(**config_dict)
+    _require(config.dataset)
+    summary = run(config, timestamp=timestamp, on_checkpoint=_commit_runs)
+    runs_volume.commit()
+    cache_volume.commit()
+    return summary
+
+
 def _spawn(fn, config, run_name: str) -> None:
     """Launch and return at once. The run lives on Modal, independent of this process.
 
@@ -108,12 +131,13 @@ def _spawn(fn, config, run_name: str) -> None:
 
 @app.local_entrypoint()
 def necrosis(
-    dataset: str = "necrosis/dataset/300.zip",
+    dataset: str = "leaves-native",
+    arch: str = "unet",
     run_name: str = "necrosis",
     epochs: int = 100,
     batch_size: int = 2,
     learning_rate: float = 1e-4,
-    height: int = 304,
+    height: int = 384,
     width: int = 3072,
     checkpoint_every: int = 25,
     gpu: str = "A10",
@@ -125,6 +149,7 @@ def necrosis(
 
     config = TrainConfig(
         dataset=f"{DATA_DIR}/{dataset}",
+        arch=arch,
         output_dir=RUNS_DIR,
         run_name=run_name,
         imgsz=(height, width),
@@ -145,6 +170,54 @@ def necrosis(
         f"area {best['val_area_ratio']:.3f} ({best['val_area_bias_pct']:+.1f} %)"
     )
     print(f"checkpoint in septosympto-runs at {run_name}/best.safetensors")
+
+
+@app.local_entrypoint()
+def yolo(
+    dataset: str = "leaves-native",
+    model: str = "yolo26n-sem.pt",
+    run_name: str = "necrosis-yolo",
+    epochs: int = 100,
+    batch_size: int = 4,
+    learning_rate: float = 1e-3,
+    height: int = 384,
+    width: int = 3072,
+    patience: int = 20,
+    extra: str = "{}",
+    gpu: str = "A10",
+    detach: bool = False,
+) -> None:
+    """Train a YOLO26 semantic segmenter. ``extra`` is a JSON dict of YOLO.train kwargs."""
+    import json
+    from datetime import UTC, datetime
+
+    from train.config import YoloConfig
+
+    config = YoloConfig(
+        dataset=f"{DATA_DIR}/{dataset}",
+        model=model,
+        pretrained_dir=f"{CACHE_DIR}/ultralytics",
+        output_dir=RUNS_DIR,
+        run_name=run_name,
+        imgsz=(height, width),
+        epochs=epochs,
+        batch_size=batch_size,
+        learning_rate=learning_rate,
+        early_stopping_patience=patience,
+        device="cuda",
+        extra=json.loads(extra),
+    )
+    fn = train_yolo_remote if gpu == "A10" else train_yolo_remote.with_options(gpu=gpu)
+    if detach:
+        _spawn(fn, config, run_name)
+        return
+    summary = fn.remote(config.as_dict(), datetime.now(UTC).isoformat())
+    best = summary["best"]
+    print(
+        f"\nbest.pt (epoch {summary['best_epoch']}): Dice {best['val_dice']:.4f} "
+        f"area {best['val_area_ratio']:.3f} ({best['val_area_bias_pct']:+.1f} %)"
+    )
+    print(f"checkpoint in septosympto-runs at {run_name}/weights/best.pt")
 
 
 @app.local_entrypoint()
