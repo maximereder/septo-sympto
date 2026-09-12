@@ -24,8 +24,20 @@ put() {
   uvx modal volume put --force "$VOLUME" "$1" "/$2"
 }
 
+# `put --force` overwrites but never deletes, so a regenerated annotation set
+# would be unioned with the stale one on the volume. Prune first; img/ is left
+# in place (large, and overwritten file by file anyway).
+prune() {
+  echo "== prune volume $VOLUME /$1 =="
+  uvx modal volume rm -r "$VOLUME" "/$1" 2>/dev/null || true
+}
+
 if [ "$WHAT" = "native" ] || [ "$WHAT" = "all" ]; then
-  [ -d data/leaves-native ] && put data/leaves-native leaves-native
+  if [ -d data/leaves-native ]; then
+    prune leaves-native/mask
+    prune leaves-native/labels
+    put data/leaves-native leaves-native
+  fi
 fi
 
 if [ "$WHAT" = "necrosis" ] || [ "$WHAT" = "all" ]; then
