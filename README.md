@@ -333,6 +333,22 @@ The pretrained variants reuse the backbones the P2P counters are built on
 `septosympto/models/`, decorate it `@register_segmenter("name")`, return `(N, 1, H, W)`
 logits, and train it with `--arch name`.
 
+### Scoring checkpoints on the held-out test fold
+
+```bash
+poetry run python tools/eval_necrosis.py --split test \
+    --weights runs/nec-r18/best.safetensors runs/nec-yolo26s/weights/best.pt \
+    --arch unet-resnet18
+```
+
+`test` is the fold of the project's scan-grouped split that no training step or checkpoint
+selection ever touched — 41 leaves on the current set, identical for every run at the same
+seed. `.safetensors` checkpoints go through `TorchSegmenter` with `--arch`, `.pt` through
+`YoloSegmenter`, so a U-Net and a YOLO are scored on the same leaves by the same code, at the
+leaf's own resolution. The v1 U-Net (`data/necrosis-model-375.safetensors`, `--arch unet`)
+is the baseline to beat; on the current test fold it scores Dice 0.62 with a +25 % area bias
+at threshold 0.5.
+
 ### Regenerating the native necrosis set
 
 `data/leaves-native/` is produced by `tools/regen_pycnidia_native.py` from the 1200 dpi
@@ -390,9 +406,15 @@ wraps it so a YOLO run is a peer of a PyTorch run:
   YOLO run and a U-Net run train and validate on **the same leaves**;
 - the export to Ultralytics' layout is written per run under `runs/<run-name>/dataset/`, masks
   as class ids `{0, 1}` (in a semantic mask 255 is the *ignore* label);
-- training is rectangular at the canvas size (`imgsz 3072`, `rect=True`), so a 384×3072 leaf
-  trains as 384×3072 rather than padded to a 3072² square; geometry augmentations other than
-  flips are off, since inference never scales or translates a leaf;
+- training runs on **square 384×384 tiles** of the canvas (8 per leaf, `imgsz 384`). This is
+  not a memory trick: Ultralytics' semantic trainer scales the *short* side of a training
+  image to `imgsz` and the *long* side of a validation image, so a full 384×3072 strip at
+  `imgsz 3072` trains on ×8 zooms of the leaf centre and validates on the whole strip — a gap
+  that collapses validation after a few epochs. With square tiles both scalings are the
+  identity. The network is fully convolutional and is run on the whole canvas at inference;
+  geometry augmentations other than flips are off, since inference never scales a leaf.
+  Ultralytics' colour jitter (`hsv_s 0.7`, `hsv_v 0.4`) stays on by default; necrosis is a
+  colour-defined class, so `--extra '{"hsv_s": 0.3, "hsv_v": 0.2}'` is the first knob to try;
 - when Ultralytics is done, its `best.pt` is re-evaluated on the project's validation leaves
   through `septosympto.eval` — binary Dice and area bias, the numbers the U-Net reports — and a
   `manifest.json` of the same shape is written next to Ultralytics' `results.csv`.
@@ -410,7 +432,8 @@ modal run train/modal_app.py::yolo --model yolo26s-sem.pt --run-name nec-yolo26s
 ```
 
 `--model` takes any of `yolo26{n,s,m,l,x}-sem.pt` (pretrained, downloaded once into
-`data/pretrained/`) or `yolo26n-sem.yaml` to train from scratch. Anything Ultralytics'
+`data/pretrained/`) or `yolo26n-sem.yaml` to train from scratch. Tiles are small, so the
+default batch is 16; an A10 takes 64 for the `s` model. Anything Ultralytics'
 `train` accepts and this CLI does not surface goes through `--extra '{"hsv_h": 0.0}'`.
 At inference `YoloSegmenter` (`septosympto/adapters/yolo_segmenter.py`) wraps the checkpoint
 as a `Segmenter`, feeding the same letterbox canvas as the U-Net — in **RGB**, the channel
