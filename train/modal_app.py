@@ -149,14 +149,14 @@ def necrosis(
 
 @app.local_entrypoint()
 def pycnidia(
-    dataset_dirs: str = "pycnidia/train-200-aug-x3,pycnidia/valid-40",
+    dataset_dirs: str = "leaves-native",
     arch: str = "p2p",
     run_name: str = "pycnidia",
     epochs: int = 200,
     batch_size: int = 4,
     learning_rate: float = 1e-4,
-    height: int = 200,
-    width: int = 2048,
+    height: int = 384,
+    width: int = 3072,
     match_radius_px: float = 8.0,
     checkpoint_every: int = 25,
     gpu: str = "A100-40GB",
