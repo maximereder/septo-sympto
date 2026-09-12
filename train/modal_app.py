@@ -29,7 +29,10 @@ DATA_DIR = "/data"
 RUNS_DIR = "/runs"
 CACHE_DIR = "/cache"
 
-image = (
+# Local sources go on last: Modal mounts them at container start instead of
+# baking them in, so a code edit does not rebuild the image. Any build step
+# (pip_install) must therefore come before, on the shared base.
+_base = (
     modal.Image.debian_slim(python_version="3.12")
     .apt_install("libgl1", "libglib2.0-0")
     .pip_install(
@@ -42,10 +45,12 @@ image = (
         "tqdm>=4.67,<5.0",
     )
     .env({"TORCH_HOME": f"{CACHE_DIR}/torch"})
-    .add_local_python_source("septosympto", "train")
 )
 
-yolo_image = image.pip_install("ultralytics>=8.4.91,<9.0")
+image = _base.add_local_python_source("septosympto", "train")
+yolo_image = _base.pip_install("ultralytics>=8.4.91,<9.0").add_local_python_source(
+    "septosympto", "train"
+)
 
 app = modal.App(APP_NAME, image=image)
 
