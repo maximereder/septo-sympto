@@ -115,3 +115,21 @@ def test_empty_dataset_raises(tmp_path):
         pass
     with pytest.raises(ValueError, match="no image/mask pairs"):
         load_pool(path)
+
+
+def test_load_pool_reads_the_native_layout_and_skips_unmasked_leaves(tmp_path):
+    (tmp_path / "img").mkdir()
+    (tmp_path / "mask").mkdir()
+    image = cv2.imencode(".png", np.full((32, 320, 3), 128, np.uint8))[1].tobytes()
+    positive = np.zeros((32, 320), bool)
+    positive[8:24, 80:240] = True
+    mask = cv2.imencode(".png", positive.astype(np.uint8) * 255)[1].tobytes()
+    for name in ("Acc_1__1__1.png", "Acc_1__2__1.png", "Ber_2__1.png"):
+        (tmp_path / "img" / name).write_bytes(image)
+    (tmp_path / "mask" / "Acc_1__1__1.png").write_bytes(mask)
+    (tmp_path / "mask" / "Ber_2__1.png").write_bytes(mask)
+
+    pool = load_pool(tmp_path)
+    assert sorted(s.image for s in pool) == ["Acc_1__1__1.png", "Ber_2__1.png"]
+    assert {s.scan for s in pool} == {"Acc_1", "Ber_2"}
+    assert decode_mask(pool[0].mask_bytes).sum() == 16 * 160

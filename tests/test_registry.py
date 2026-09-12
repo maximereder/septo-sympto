@@ -55,3 +55,10 @@ def test_duplicate_registration_is_rejected():
         @register_segmenter("unet")
         class Clash(nn.Module):
             pass
+
+
+def test_backbone_unets_are_registered():
+    from septosympto.models import UNetConvNeXtTiny, UNetResNet18
+
+    assert segmenter_class("unet-resnet18") is UNetResNet18
+    assert segmenter_class("unet-convnext-t") is UNetConvNeXtTiny

@@ -1,7 +1,7 @@
 """Run a training locally: pool the dataset, split by scan, train, report.
 
-    poetry run python -m train.run --dataset data/necrosis/dataset/300.zip \
-        --epochs 100 --device mps --run-name necrosis-v2
+    poetry run python -m train.run --dataset data/leaves-native \
+        --arch unet-resnet18 --epochs 100 --device mps --run-name nec-r18
 
 This is the same function ``modal_app`` calls remotely. Keeping it runnable
 locally means an architecture can be debugged on CPU or MPS before spending a
@@ -23,7 +23,8 @@ from train.loop import train_segmenter
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="train.run", description="Train a necrosis segmenter.")
-    parser.add_argument("--dataset", required=True, help="Roboflow necrosis zip.")
+    parser.add_argument("--dataset", default="data/leaves-native",
+                        help="Native letterbox directory (img/ + mask/) or a Roboflow zip.")
     parser.add_argument(
         "--arch", default="unet",
         help=f"Segmentation architecture to train. One of: {', '.join(available_segmenters())}.",

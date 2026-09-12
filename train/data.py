@@ -9,9 +9,15 @@ Here a pixel is necrotic when its strongest channel reaches half intensity.
 
 **The split is grouped by scan.** The Roboflow train/valid split leaks: 24 of the
 305 scans have leaves on both sides. Necrosis is a local, dense task so the
-measured effect is small, but a clean split costs nothing to do right. All 375
+measured effect is small, but a clean split costs nothing to do right. All
 images are pooled and re-split so that every leaf of a scan lands in the same
 fold, seeded for reproducibility, into train / val / test.
+
+Two dataset layouts are read. The native letterbox set (``img/*.png`` with a
+``mask/*.png`` beside it, regenerated from the 1200 dpi TIFFs on the shared
+384x3072 canvas) is the one to train on: it is the exact geometry
+:class:`TorchSegmenter` presents at inference. The Roboflow zip (stretched
+strips) is kept for comparison against v1.
 """
 
 from __future__ import annotations
@@ -59,7 +65,37 @@ def _scan_of(filename: str) -> str:
 
 
 def load_pool(dataset: str | Path) -> list[Sample]:
-    """Every image/mask pair in a Roboflow zip, both splits pooled."""
+    """Every image/mask pair of a dataset, as one pool.
+
+    ``dataset`` is either a native directory (``img/*.png`` + ``mask/*.png``; an
+    image without a mask is a pycnidia-only leaf and is skipped) or a Roboflow
+    zip, whose train and valid splits are pooled.
+    """
+    dataset = Path(dataset)
+    samples = _load_native(dataset) if dataset.is_dir() else _load_roboflow_zip(dataset)
+    if not samples:
+        raise ValueError(f"no image/mask pairs found in {dataset}")
+    return samples
+
+
+def _load_native(directory: Path) -> list[Sample]:
+    samples = []
+    for image_path in sorted((directory / "img").glob("*.png")):
+        mask_path = directory / "mask" / image_path.name
+        if not mask_path.exists():
+            continue
+        samples.append(
+            Sample(
+                image=image_path.name,
+                scan=_scan_of(image_path.name),
+                image_bytes=image_path.read_bytes(),
+                mask_bytes=mask_path.read_bytes(),
+            )
+        )
+    return samples
+
+
+def _load_roboflow_zip(dataset: Path) -> list[Sample]:
     samples = []
     with zipfile.ZipFile(dataset) as archive:
         images = sorted(
@@ -78,8 +114,6 @@ def load_pool(dataset: str | Path) -> list[Sample]:
                     mask_bytes=archive.read(mask_name),
                 )
             )
-    if not samples:
-        raise ValueError(f"no image/mask pairs found in {dataset}")
     return samples
 
 
