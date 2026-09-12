@@ -3,7 +3,7 @@ import numpy as np
 
 from train.config import YoloConfig
 from train.data import Sample
-from train.yolo_data import export_yolo_dataset
+from train.yolo_data import export_yolo_dataset, tile_spans
 from train.yolo_run import _best_epoch, resolve_model, yolo_train_kwargs
 
 
@@ -22,19 +22,24 @@ def sample(name: str) -> Sample:
                   mask_bytes=png_mask_255(positive))
 
 
-def test_export_writes_class_id_masks_mirroring_images(tmp_path):
+def test_export_writes_class_id_mask_tiles_mirroring_image_tiles(tmp_path):
     root = tmp_path / "ds"
     yaml = export_yolo_dataset(root, [sample("a__1.png"), sample("a__2.png")],
-                               [sample("b__1.png")], [sample("c__1.png")])
+                               [sample("b__1.png")], [sample("c__1.png")], tile=32)
     assert yaml == root / "data.yaml"
-    assert sorted(p.name for p in (root / "images/train").iterdir()) == ["a__1.png", "a__2.png"]
-    assert (root / "masks/val/b__1.png").exists()
-    assert (root / "images/test/c__1.png").exists()
+    names = sorted(p.name for p in (root / "images/train").iterdir())
+    assert len(names) == 2 * 8 and names[0] == "a__1__t0.png" and names[-1] == "a__2__t7.png"
+    assert (root / "masks/val/b__1__t0.png").exists()
+    assert (root / "images/test/c__1__t7.png").exists()
 
-    mask = cv2.imread(str(root / "masks/train/a__1.png"), cv2.IMREAD_UNCHANGED)
-    assert mask.shape == (32, 256)
+    tile = cv2.imread(str(root / "images/train/a__1__t3.png"))
+    assert tile.shape == (32, 32, 3)
+    mask = cv2.imread(str(root / "masks/train/a__1__t3.png"), cv2.IMREAD_UNCHANGED)
+    assert mask.shape == (32, 32)
     assert set(np.unique(mask)) == {0, 1}, "255 is the ignore label in a semantic mask"
-    assert mask.sum() == 16 * 128
+    assert mask.sum() == 16 * 32                      # x in [96, 128) is inside [64, 192)
+    edge = cv2.imread(str(root / "masks/train/a__1__t0.png"), cv2.IMREAD_UNCHANGED)
+    assert edge.sum() == 0
 
     text = yaml.read_text()
     assert "nc: 1" in text
@@ -44,20 +49,27 @@ def test_export_writes_class_id_masks_mirroring_images(tmp_path):
     assert "test: images/test" in text
 
 
+def test_tile_spans_cover_the_width_and_pull_the_last_tile_back():
+    assert tile_spans(3072, 384) == [(i * 384, (i + 1) * 384) for i in range(8)]
+    assert tile_spans(100, 40) == [(0, 40), (40, 80), (60, 100)]
+    assert tile_spans(100, 0) == [(0, 100)]
+    assert tile_spans(100, 200) == [(0, 100)]
+
+
 def test_export_starts_from_a_clean_root(tmp_path):
     root = tmp_path / "ds"
-    export_yolo_dataset(root, [sample("a__1.png")], [sample("b__1.png")])
-    export_yolo_dataset(root, [sample("z__1.png")], [sample("b__1.png")])
-    assert [p.name for p in (root / "images/train").iterdir()] == ["z__1.png"]
+    export_yolo_dataset(root, [sample("a__1.png")], [sample("b__1.png")], tile=0)
+    export_yolo_dataset(root, [sample("z__1.png")], [sample("b__1.png")], tile=0)
+    assert [p.name for p in (root / "images/train").iterdir()] == ["z__1__t0.png"]
     assert "test:" not in (root / "data.yaml").read_text()
 
 
-def test_train_kwargs_keep_the_canvas_rectangular_and_honour_the_lr(tmp_path):
-    config = YoloConfig(dataset="x", imgsz=(384, 3072), learning_rate=3e-4,
+def test_train_kwargs_train_on_square_tiles_and_honour_the_lr(tmp_path):
+    config = YoloConfig(dataset="x", imgsz=(384, 3072), tile=384, learning_rate=3e-4,
                         hflip=True, vflip=False, extra={"hsv_h": 0.0})
     kwargs = yolo_train_kwargs(config, tmp_path / "data.yaml")
-    assert kwargs["imgsz"] == 3072
-    assert kwargs["rect"] is True
+    assert kwargs["imgsz"] == 384, "imgsz is the tile, so Ultralytics scales train and val by 1"
+    assert kwargs["rect"] is False
     assert kwargs["mosaic"] == 0.0
     assert kwargs["lr0"] == 3e-4
     assert kwargs["optimizer"] == "AdamW"

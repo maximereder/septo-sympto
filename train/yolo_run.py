@@ -50,11 +50,13 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--output-dir", default="runs")
     parser.add_argument("--run-name", default="necrosis-yolo")
     parser.add_argument("--epochs", type=int, default=100)
-    parser.add_argument("--batch-size", type=int, default=4)
+    parser.add_argument("--batch-size", type=int, default=16)
     parser.add_argument("--learning-rate", type=float, default=1e-3)
     parser.add_argument("--weight-decay", type=float, default=5e-4)
     parser.add_argument("--optimizer", default="AdamW")
     parser.add_argument("--imgsz", type=int, nargs=2, default=[384, 3072], metavar=("H", "W"))
+    parser.add_argument("--tile", type=int, default=384,
+                        help="Training tile width in px (full canvas height); 384 = square tiles.")
     parser.add_argument("--threshold", type=float, default=0.5)
     parser.add_argument("--val-fraction", type=float, default=0.15)
     parser.add_argument("--test-fraction", type=float, default=0.15)
@@ -77,6 +79,7 @@ def config_from_args(args: argparse.Namespace) -> YoloConfig:
         output_dir=args.output_dir,
         run_name=args.run_name,
         imgsz=(args.imgsz[0], args.imgsz[1]),
+        tile=args.tile,
         epochs=args.epochs,
         batch_size=args.batch_size,
         learning_rate=args.learning_rate,
@@ -96,19 +99,19 @@ def config_from_args(args: argparse.Namespace) -> YoloConfig:
 def yolo_train_kwargs(config: YoloConfig, data_yaml: Path) -> dict:
     """The ``YOLO.train`` call a config maps to. Pure, so it is testable without a GPU.
 
-    ``imgsz`` is the long side and ``rect=True`` keeps the leaves at their own
-    aspect ratio, so a 384x3072 canvas trains as 384x3072 rather than padded to a
-    3072x3072 square. Every leaf shares that shape, so Ultralytics keeps shuffling
-    (it only disables it when rectangular batches differ). Geometry augmentations
-    other than flips are off: a leaf is already placed 1:1 on the canvas and
-    inference never scales, translates or mosaics it. ``optimizer`` is set
-    explicitly because Ultralytics' ``auto`` silently overrides ``lr0``.
+    ``imgsz`` is the tile: with square tiles of the canvas height, Ultralytics'
+    short-side scaling in training and long-side scaling in validation are both
+    the identity, so train and val see the leaf at the same scale (the
+    rectangular full-strip alternative does not — see :mod:`train.yolo_data`).
+    Geometry augmentations other than flips are off: a leaf is placed 1:1 on the
+    canvas and inference never scales, translates or mosaics it. ``optimizer`` is
+    set explicitly because Ultralytics' ``auto`` silently overrides ``lr0``.
     """
-    h, w = config.imgsz
+    h, _ = config.imgsz
     kwargs = {
         "data": str(data_yaml),
-        "imgsz": max(h, w),
-        "rect": True,
+        "imgsz": max(h, config.tile),
+        "rect": False,
         "epochs": config.epochs,
         "batch": config.batch_size,
         "optimizer": config.optimizer,
@@ -214,7 +217,9 @@ def run(
 
     out_dir = Path(config.output_dir) / config.run_name
     out_dir.mkdir(parents=True, exist_ok=True)
-    data_yaml = export_yolo_dataset(out_dir / "dataset", train_samples, val_samples, test_samples)
+    data_yaml = export_yolo_dataset(
+        out_dir / "dataset", train_samples, val_samples, test_samples, tile=config.tile
+    )
 
     model = YOLO(resolve_model(config))
     if on_checkpoint is not None:

@@ -86,9 +86,10 @@ class YoloConfig:
 
     ``model`` is an Ultralytics weight name or path (``yolo26n-sem.pt`` downloads
     pretrained into ``pretrained_dir``; ``yolo26n-sem.yaml`` trains from scratch).
-    ``imgsz`` is the canvas the leaves already sit on, trained rectangular so
-    nothing is padded to square. ``extra`` is passed straight to ``YOLO.train``
-    for any hyperparameter not surfaced here.
+    ``imgsz`` is the canvas the leaves sit on; training cuts it into square
+    ``tile`` px windows (see :mod:`train.yolo_data` for why) and inference runs
+    on the whole canvas. ``extra`` is passed straight to ``YOLO.train`` for any
+    hyperparameter not surfaced here.
     """
 
     dataset: str
@@ -98,9 +99,10 @@ class YoloConfig:
     run_name: str = "necrosis-yolo"
 
     imgsz: tuple[int, int] = (384, 3072)
+    tile: int = 384
 
     epochs: int = 100
-    batch_size: int = 4
+    batch_size: int = 16
     learning_rate: float = 1e-3
     weight_decay: float = 5e-4
     optimizer: str = "AdamW"
