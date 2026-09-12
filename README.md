@@ -309,24 +309,112 @@ under-recovering necrotic area by 19 %.
 
 ```bash
 poetry run python -m train.run \
-    --dataset data/necrosis/dataset/300.zip \
-    --run-name necrosis-v2 --epochs 100 --device mps
+    --dataset data/leaves-native --arch unet-resnet18 \
+    --run-name nec-r18 --epochs 100 --device mps
 ```
 
-`imgsz` must be divisible by 16 (the 4-level U-Net pools four times); the reference size is
-`304 3072`. Outputs land in `runs/<run-name>/`: `best.safetensors` and a `manifest.json`
-recording the config, the git commit, the split sizes, and the full per-epoch history.
+`--dataset` is the native letterbox set by default — `img/*.png` with a `mask/*.png` beside
+it, 355 annotated leaves on the shared 384×3072 canvas, the exact geometry
+`TorchSegmenter` presents at inference. A Roboflow zip (`data/necrosis/dataset/300.zip`,
+stretched strips) is still accepted, for comparison against v1. Outputs land in
+`runs/<run-name>/`: `best.safetensors` and a `manifest.json` recording the config, the git
+commit, the split sizes, and the full per-epoch history.
+
+Three segmentation architectures are registered; `--arch` picks one and nothing else changes:
+
+| arch | encoder | params | note |
+|---|---|---|---|
+| `unet` | hand-built, from scratch | 31.1 M | the v1 network; `imgsz` divisible by 16 |
+| `unet-resnet18` | ResNet-18, ImageNet | 14.3 M | light, converges fast on 250 leaves; `imgsz` divisible by 32 |
+| `unet-convnext-t` | ConvNeXt-Tiny, ImageNet | 31.9 M | higher capacity; `imgsz` divisible by 32 |
+
+The pretrained variants reuse the backbones the P2P counters are built on
+(`septosympto/models/backbones.py`) under a light U-Net decoder. To add another: define it in
+`septosympto/models/`, decorate it `@register_segmenter("name")`, return `(N, 1, H, W)`
+logits, and train it with `--arch name`.
+
+### Regenerating the native necrosis set
+
+`data/leaves-native/` is produced by `tools/regen_pycnidia_native.py` from the 1200 dpi
+TIFF crops (`LM1__allcrop`): each annotated leaf is re-cut at native scale, letterboxed onto
+the 3072×384 canvas, and its annotation carried into the new frame by the same transform.
+The strip is matched to its native leaf by image cross-correlation over every (leaf ×
+flip) — the shipped `__N` index is not trusted — and weak or ambiguous matches are flagged
+in `report-necrosis.csv` rather than written.
+
+Two necrosis sources are read. The legacy zip carries pixel masks, which are warped. A
+Roboflow **YOLO-seg export** (`*/images/*.jpg` + `*/labels/*.txt` polygons, `data.yaml`)
+carries polygons: their vertices are remapped and rasterised directly on the canvas, so the
+mask is drawn once at output resolution. Only the class named `necrosis` is kept; polygons of
+any other class are annotation slips and are dropped, and a leaf left with nothing but slips
+is flagged `unannotated` — an empty label file, by contrast, is a genuine necrosis-free leaf.
+
+A leaf that already has its canvas in `img/` — written by an earlier pass, pycnidia or
+necrosis, and validated by that pass's oracle — needs **no TIFF**: the strip is matched to the
+canvas over the four flips (the leaf is known, only its orientation is open) and the polygons
+are rasterised straight onto it. On the current export that covers 278 of 297 leaves and
+agrees with the TIFF-based orientation on every one of the 217 leaves both methods saw. TIFFs
+are only consulted for leaves with no canvas yet; `--from-tiffs` forces the TIFF path for
+every leaf, to regenerate the canvases themselves.
+
+```bash
+poetry run python tools/regen_pycnidia_native.py --task necrosis \
+    --nec-src data/necrosis/roboflow-v1 --tiffs ~/Downloads/LM1__allcrop \
+    --out data/leaves-native --fresh
+```
+
+`--fresh` wipes `mask/` first, so masks from an older source do not linger beside the new
+ones. `img/` is shared with the pycnidia set and is left alone. `--tiffs ""` runs without
+TIFFs at all; leaves that would need one are reported `no-tiff`.
 
 ### On a GPU with Modal
 
 ```bash
-modal run train/modal_app.py \
-    --dataset data/necrosis/dataset/300.zip \
-    --run-name necrosis-v2 --epochs 100 --gpu A10
+scripts/push_data.sh native                  # once: data/leaves-native -> volume
+modal run train/modal_app.py::necrosis --arch unet-resnet18 --run-name nec-r18 --gpu A10
 ```
 
-The dataset zip is uploaded once into a Modal Volume; checkpoints are written to a second
-Volume that outlives the container. Requires a configured Modal account.
+Data is uploaded once into a Modal Volume; checkpoints are written to a second Volume that
+outlives the container. Requires a configured Modal account.
+
+### YOLO26 semantic segmentation
+
+Necrosis is a binary, dense mask — semantic segmentation, not instance segmentation. So the
+YOLO comparison is [YOLO26](https://docs.ultralytics.com/models/yolo26)'s **`-sem`** head
+(PNG masks, `nc: 1`, BCE + Dice), not `-seg`, which would mean cutting every lesion into
+polygons and merging instances back at inference. Ultralytics owns its training loop, data
+format and checkpoints, so it does not go through the segmenter registry; `train.yolo_run`
+wraps it so a YOLO run is a peer of a PyTorch run:
+
+- the pool, the scan-grouped split and the seed are the project's, so at the same settings a
+  YOLO run and a U-Net run train and validate on **the same leaves**;
+- the export to Ultralytics' layout is written per run under `runs/<run-name>/dataset/`, masks
+  as class ids `{0, 1}` (in a semantic mask 255 is the *ignore* label);
+- training is rectangular at the canvas size (`imgsz 3072`, `rect=True`), so a 384×3072 leaf
+  trains as 384×3072 rather than padded to a 3072² square; geometry augmentations other than
+  flips are off, since inference never scales or translates a leaf;
+- when Ultralytics is done, its `best.pt` is re-evaluated on the project's validation leaves
+  through `septosympto.eval` — binary Dice and area bias, the numbers the U-Net reports — and a
+  `manifest.json` of the same shape is written next to Ultralytics' `results.csv`.
+
+Ultralytics prints its per-epoch table as it trains, locally and — through `modal run` —
+remotely.
+
+```bash
+poetry install --extras yolo
+poetry run python -m train.yolo_run \
+    --dataset data/leaves-native --model yolo26n-sem.pt \
+    --run-name nec-yolo26n --epochs 100 --device mps
+
+modal run train/modal_app.py::yolo --model yolo26s-sem.pt --run-name nec-yolo26s --gpu A10
+```
+
+`--model` takes any of `yolo26{n,s,m,l,x}-sem.pt` (pretrained, downloaded once into
+`data/pretrained/`) or `yolo26n-sem.yaml` to train from scratch. Anything Ultralytics'
+`train` accepts and this CLI does not surface goes through `--extra '{"hsv_h": 0.0}'`.
+At inference `YoloSegmenter` (`septosympto/adapters/yolo_segmenter.py`) wraps the checkpoint
+as a `Segmenter`, feeding the same letterbox canvas as the U-Net — in **RGB**, the channel
+order Ultralytics trains with, converted in the adapter and nowhere else.
 
 ### Pycnidia counting
 
