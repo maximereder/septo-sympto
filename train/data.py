@@ -28,6 +28,22 @@ from torch.utils.data import Dataset
 MASK_CHANNEL_THRESHOLD = 128
 
 
+def seed_worker(_worker_id: int) -> None:
+    """Give each DataLoader worker a fresh augmentation RNG every epoch.
+
+    The datasets draw flips from their own ``np.random.default_rng`` instance, which
+    PyTorch's automatic per-worker seeding leaves untouched — it reseeds only the
+    global numpy/torch/random state. So without this every worker forks the same
+    dataset RNG state: flips correlate across workers and repeat each epoch.
+    ``torch.initial_seed()`` is unique per worker and per epoch, so reseeding from
+    it restores independent augmentation. Pair it with a seeded DataLoader
+    ``generator`` to keep the whole thing reproducible.
+    """
+    info = torch.utils.data.get_worker_info()
+    if info is not None:
+        info.dataset._rng = np.random.default_rng(torch.initial_seed() % 2**32)
+
+
 @dataclass(frozen=True)
 class Sample:
     image: str

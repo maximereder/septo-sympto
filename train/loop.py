@@ -25,7 +25,7 @@ from torch.utils.data import DataLoader
 
 from septosympto.eval import segmentation_report
 from train.config import TrainConfig
-from train.data import NecrosisDataset, Sample
+from train.data import NecrosisDataset, Sample, seed_worker
 from train.loss import bce_dice_loss
 
 
@@ -83,7 +83,10 @@ def train_segmenter(
     )
     val_ds = NecrosisDataset(val_samples, config.imgsz)
     train_loader = DataLoader(
-        train_ds, batch_size=config.batch_size, shuffle=True, num_workers=config.num_workers
+        train_ds, batch_size=config.batch_size, shuffle=True,
+        num_workers=config.num_workers,
+        worker_init_fn=seed_worker,
+        generator=torch.Generator().manual_seed(config.seed),
     )
     val_loader = DataLoader(val_ds, batch_size=config.batch_size, num_workers=config.num_workers)
 

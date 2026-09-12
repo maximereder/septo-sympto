@@ -26,6 +26,7 @@ from torch.utils.data import DataLoader
 from septosympto.eval import counting_report
 from train.config import CountConfig
 from train.count_data import PointSample, PycnidiaPointDataset, collate_points
+from train.data import seed_worker
 
 
 class CountingModel(Protocol):
@@ -88,6 +89,8 @@ def train_counter(
     train_loader = DataLoader(
         train_ds, batch_size=config.batch_size, shuffle=True,
         num_workers=config.num_workers, collate_fn=collate_points,
+        worker_init_fn=seed_worker,
+        generator=torch.Generator().manual_seed(config.seed),
     )
     val_loader = DataLoader(
         val_ds, batch_size=config.batch_size, num_workers=config.num_workers,
