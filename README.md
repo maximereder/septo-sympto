@@ -135,36 +135,60 @@ dependency of any kind. Everything at `v1.0-legacy` if you need to run the old p
 
 ### Pre-trained models
 
-Training datasets and weights: [SeptoSympto Datasets](https://drive.google.com/drive/folders/1a2VhXy-sMx77-BOHEgP7jXdWoIJI20s4?usp=sharing)
+Models are published by **name** and fetched on first use. `septo-sympto --list-models` shows
+what is available, what each was validated at, and what it scored on the held-out test fold:
 
-The necrosis weights converted to PyTorch (`necrosis-model-375.safetensors`, 124 MB) are the
-v1 weights, unchanged. They are the baseline that any retrained model has to beat.
+| name | task | what it is | threshold | test score |
+|---|---|---|---|---|
+| `yolo26s-v2` (default) | necrosis | YOLO26s-sem trained on the 278-leaf native set | 0.3 | Dice 0.694, area ratio 1.02 |
+| `unet-v1` | necrosis | the published 2023 U-Net, ported weight-for-weight | 0.8 | Dice 0.611, area ratio 0.77 |
+| `p2p-convnext-v2` | pycnidia | P2PNet/ConvNeXt-T on the native set — *experimental* | 0.3 | val MAE 64.7, bias +41 % |
 
-> Hosting weights on Google Drive gives no versioning, no checksums, and links that expire.
-> Moving them to Zenodo with a DOI, and downloading them on first run, is part of the v2 work.
+Weights are release assets of this repository (`models-2026.09`), downloaded once into
+`~/.cache/septosympto/models/` (`SEPTOSYMPTO_HOME` overrides) and verified against their
+SHA-256 on every load. The catalogue is `septosympto/zoo.py`; a model gets in by being
+promoted from `LEADERBOARD.md`. Training datasets remain on
+[Google Drive](https://drive.google.com/drive/folders/1a2VhXy-sMx77-BOHEgP7jXdWoIJI20s4?usp=sharing).
 
 ---
 
 ## Usage
 
-There is no v2 entry point yet. The pipeline is being rewritten around
-`septosympto`, which currently exposes the necrosis model:
+Point it at a directory of scans. With no other option it uses the default models, reads the
+scale from each TIFF's resolution tag, and writes one CSV row per leaf plus a manifest that
+records exactly which weights (name and SHA-256) and parameters produced it:
 
-```python
-import cv2, numpy as np, torch
-from safetensors.torch import load_file
-from septosympto.models import UNet
-
-model = UNet().eval()
-model.load_state_dict(load_file("data/necrosis-model-375.safetensors"))
-
-leaf = cv2.resize(cv2.imread("leaf.jpg"), (3072, 304)).astype(np.float32) / 255.0
-x = torch.from_numpy(leaf.transpose(2, 0, 1)[None].copy())
-necrosis = model.predict(x).squeeze().numpy() > 0.8
+```bash
+septo-sympto scans/ -o results.csv
 ```
 
-For the full v1 command-line pipeline, its flags and its outputs, check out `v1.0-legacy` and
-read the README there.
+```
+necrosis: yolo26s-v2 (threshold 0.3)
+pycnidia: none
+Acc_Acc_1_Acc_1.tif: 4 leaves
+...
+132 leaves from 33 scans -> results.csv
+```
+
+Choosing models — a published name or a checkpoint path, per task:
+
+```bash
+septo-sympto scans/ --necrosis unet-v1 -o v1.csv               # the 2023 model, for comparison
+septo-sympto scans/ --pycnidia p2p-convnext-v2                  # also count pycnidia (experimental)
+septo-sympto scans/ --necrosis runs/my-run/weights/best.pt -pn 0.3      # an unpublished YOLO run
+septo-sympto scans/ --necrosis runs/r18/best.safetensors --necrosis-arch unet-resnet18 -pn 0.5
+septo-sympto --list-models
+```
+
+A published name carries its own threshold; a path needs `--necrosis-threshold` /
+`--pycnidia-threshold` (and, for `.safetensors`, the architecture) because nothing else knows
+what the checkpoint was validated at. Other options: `-e .tiff` for the input extension,
+`-pc 472.44` to force a scale when a scan carries none, `--min-lesion-area-mm2`, `--masks-dir`
+to also write a necrosis mask and overlay per leaf, `-d mps` / `-d 0` for the device.
+
+YOLO models need the `yolo` extra (`poetry install --extras yolo`); asking for one without it
+says so and stops. The pycnidia columns stay empty unless `--pycnidia` names a counter — the
+only published one is a preview and is off by default.
 
 ---
 
