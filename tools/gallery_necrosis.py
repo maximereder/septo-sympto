@@ -39,6 +39,8 @@ def main() -> None:
     parser.add_argument("--arch", default="unet", help="Architecture of a .safetensors checkpoint.")
     parser.add_argument("--threshold", type=float, default=0.5)
     parser.add_argument("--out", type=Path, required=True)
+    parser.add_argument("--leaves", nargs="*", default=None,
+                        help="Render these leaves (image stems) instead of the quantile picks.")
     parser.add_argument("--val-fraction", type=float, default=0.15)
     parser.add_argument("--test-fraction", type=float, default=0.15)
     parser.add_argument("--seed", type=int, default=0)
@@ -49,7 +51,14 @@ def main() -> None:
     folds = dict(zip(FOLDS, scan_grouped_split(pool, args.val_fraction, args.test_fraction,
                                                 args.seed), strict=True))
     samples = sorted(folds[args.split], key=lambda s: decode_mask(s.mask_bytes).mean())
-    picks = [samples[int(round(q * (len(samples) - 1)))] for q in QUANTILES]
+    if args.leaves:
+        wanted = set(args.leaves)
+        picks = [s for s in samples if Path(s.image).stem in wanted]
+        missing = wanted - {Path(s.image).stem for s in picks}
+        if missing:
+            raise SystemExit(f"not in the {args.split} fold: {sorted(missing)}")
+    else:
+        picks = [samples[int(round(q * (len(samples) - 1)))] for q in QUANTILES]
 
     segmenter = load_segmenter(args.weights, args.arch, args.threshold, args.device)
     label = (args.weights.parent.parent.name if args.weights.name == "best.pt"
