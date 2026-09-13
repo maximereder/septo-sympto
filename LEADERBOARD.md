@@ -39,6 +39,24 @@ Same checkpoints at other thresholds, for reference:
   lottery (26m run 1: 0.69 → 0.82 → 0.78 over three epochs). Prefer batch 16–32 and
   `patience 40` so a run sees a few thousand iterations before it is judged.
 
+## Test-fold annotations under review
+
+Both YOLO runs miss the same five leaves in the same way, which points at the annotation
+rather than the model (`runs/keep/nec-yolo26s-run3/test-both-fail.png`). Until the
+researcher rules, they cap the reachable Dice on this fold equally for every row; the ranking
+stands, the absolute numbers are a floor.
+
+| leaf | annotated | what the models do | status |
+|---|---|---|---|
+| `Rec_Apa_4_Rec_1__1` | 20 % — brown core plus its pale halo | segment the brown core only | **annotation error suspected** (Maxime: would predict as the model does) — sent to the researcher, 2026-09-13 |
+| `Cal_Fru_2_Cal_1__3` | 21 % — polygon extends over plain green | the one brown patch | sent to the researcher |
+| `Tit_Acc_2_Acc_2__2` | 15 % — large triangle over green | the brown patch inside it | sent to the researcher |
+| `Gen_Gen_11_Gen_2__3` | 8 % — brown zone plus halo | brown zone only | definition question: brown only, or brown + halo? |
+| `Des_SYM_1_SYM_2__4` | 50 % — whole mottled leaf | yellow patches only | definition question |
+
+When a ruling comes back, fix the polygons on Roboflow, re-export, rerun the regeneration
+(`--fresh`), re-push the volume and re-score every kept checkpoint — the fold changes for all.
+
 ## Adding a run
 
 1. Train with the defaults for pool and split (do not touch `--seed`, `--val-fraction`,
