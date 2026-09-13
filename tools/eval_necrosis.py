@@ -127,7 +127,7 @@ def main() -> None:
 
     header = (
         f"{'checkpoint':28s} {'thr':>5s} {'Dice':>8s} {'IoU':>8s} "
-        f"{'area p/t':>9s} {'bias':>8s}"
+        f"{'area mean':>9s} {'bias':>8s} {'median':>7s} {'pooled':>7s}"
     )
     print(header)
     print("-" * len(header))
@@ -140,7 +140,8 @@ def main() -> None:
             report = segmentation_report(preds, truths)
             print(
                 f"{label[:28]:28s} {threshold:5.2f} {report.dice:8.4f} {report.iou:8.4f} "
-                f"{report.area_ratio:9.3f} {report.area_bias_pct:+7.1f} %"
+                f"{report.area_ratio:9.3f} {report.area_bias_pct:+7.1f} % "
+                f"{report.area_ratio_median:7.3f} {report.area_ratio_pooled:7.3f}"
             )
         print()
 

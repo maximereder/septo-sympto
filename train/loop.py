@@ -129,6 +129,8 @@ def train_segmenter(
                 "val_iou": report.iou,
                 "val_area_ratio": report.area_ratio,
                 "val_area_bias_pct": report.area_bias_pct,
+                "val_area_ratio_median": report.area_ratio_median,
+                "val_area_ratio_pooled": report.area_ratio_pooled,
             }
         )
         if progress:

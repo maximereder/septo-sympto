@@ -131,3 +131,21 @@ def test_counting_report_localisation_is_optional():
     with_loc = counting_report(pred, true, radius_px=1.0)
     assert with_loc.precision == pytest.approx(2 / 3)
     assert with_loc.recall == pytest.approx(2 / 3)
+
+
+def test_segmentation_report_median_and_pooled_area_are_robust_to_a_tiny_lesion():
+    """One leaf annotated at 4 px and predicted at 40 px drags the mean ratio,
+    not the median nor the pooled ratio."""
+    big_true = np.zeros((20, 200), bool)
+    big_true[5:15, 20:180] = True                      # 1600 px, predicted exactly
+    tiny_true = np.zeros((20, 200), bool)
+    tiny_true[10, 100:104] = True                      # 4 px
+    tiny_pred = np.zeros((20, 200), bool)
+    tiny_pred[8:12, 98:108] = True                     # 40 px
+    report = segmentation_report([big_true, tiny_pred], [big_true, tiny_true])
+    assert report.area_ratio == pytest.approx(5.5)     # mean(1, 10)
+    assert report.area_ratio_median == pytest.approx(5.5)
+    assert report.area_ratio_pooled == pytest.approx(1640 / 1604, abs=1e-6)
+    three = segmentation_report([big_true, big_true, tiny_pred], [big_true, big_true, tiny_true])
+    assert three.area_ratio_median == pytest.approx(1.0)
+    assert three.area_ratio == pytest.approx(4.0)

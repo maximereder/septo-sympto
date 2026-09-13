@@ -168,6 +168,8 @@ def _evaluate(weights: Path, samples: list[Sample], threshold: float, device: st
         "val_iou": report.iou,
         "val_area_ratio": report.area_ratio,
         "val_area_bias_pct": report.area_bias_pct,
+        "val_area_ratio_median": report.area_ratio_median,
+        "val_area_ratio_pooled": report.area_ratio_pooled,
     }
 
 
@@ -250,7 +252,8 @@ def run(
     print(
         f"\nbest.pt (epoch {summary['best_epoch']}) on the project's val leaves: "
         f"Dice {best['val_dice']:.4f}  IoU {best['val_iou']:.4f}  "
-        f"area {best['val_area_ratio']:.3f} ({best['val_area_bias_pct']:+.1f} %)"
+        f"area mean {best['val_area_ratio']:.3f} ({best['val_area_bias_pct']:+.1f} %)  "
+        f"median {best['val_area_ratio_median']:.3f}  pooled {best['val_area_ratio_pooled']:.3f}"
     )
     print(f"weights -> {weights}")
     print(f"test set held out: {len(test_samples)} leaves (never seen during training)")

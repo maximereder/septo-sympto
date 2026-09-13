@@ -65,17 +65,30 @@ def area_ratio(pred: np.ndarray, true: np.ndarray) -> float:
 
 @dataclass(frozen=True)
 class SegmentationReport:
+    """Overlap and area bias over the leaves that carry a lesion.
+
+    Three views of the area, because one misleads. ``area_ratio`` is the mean of
+    per-leaf ratios, the v1 metric and the one that exposed the 19 % under-
+    recovery; but a leaf annotated at 0.1 % of its canvas and predicted at 1 %
+    contributes a ratio of 10 and drags the mean alone. ``area_ratio_median``
+    says what the typical leaf does, and ``area_ratio_pooled`` — total predicted
+    area over total annotated area — is the aggregate the biology asks for.
+    """
+
     n: int
     dice: float
     iou: float
     area_ratio: float
     area_bias_pct: float
+    area_ratio_median: float
+    area_ratio_pooled: float
     empty_truth_false_positives: int
 
     def __str__(self) -> str:
         return (
             f"n={self.n}  Dice={self.dice:.4f}  IoU={self.iou:.4f}  "
             f"area_ratio={self.area_ratio:.3f} ({self.area_bias_pct:+.1f} %)  "
+            f"median={self.area_ratio_median:.3f}  pooled={self.area_ratio_pooled:.3f}  "
             f"false positives on empty leaves={self.empty_truth_false_positives}"
         )
 
@@ -91,6 +104,7 @@ def segmentation_report(preds: list[np.ndarray], truths: list[np.ndarray]) -> Se
         raise ValueError(f"{len(preds)} predictions for {len(truths)} ground truths")
 
     dices, ious, ratios, false_positives = [], [], [], 0
+    pred_px, true_px = 0, 0
     for pred, true in zip(preds, truths, strict=True):
         true_bin = _check_binary(true, "true")
         if not true_bin.any():
@@ -99,6 +113,8 @@ def segmentation_report(preds: list[np.ndarray], truths: list[np.ndarray]) -> Se
         dices.append(dice(pred, true))
         ious.append(iou(pred, true))
         ratios.append(area_ratio(pred, true))
+        pred_px += int(_check_binary(pred, "pred").sum())
+        true_px += int(true_bin.sum())
 
     if not dices:
         raise ValueError("no ground truth contains a lesion")
@@ -110,6 +126,8 @@ def segmentation_report(preds: list[np.ndarray], truths: list[np.ndarray]) -> Se
         iou=float(np.mean(ious)),
         area_ratio=mean_ratio,
         area_bias_pct=100 * (mean_ratio - 1),
+        area_ratio_median=float(np.median(ratios)),
+        area_ratio_pooled=pred_px / (true_px + EPSILON),
         empty_truth_false_positives=false_positives,
     )
 
