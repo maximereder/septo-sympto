@@ -142,7 +142,7 @@ what is available, what each was validated at, and what it scored on the held-ou
 |---|---|---|---|---|
 | `yolo26s-v2` (default) | necrosis | YOLO26s-sem trained on the 278-leaf native set | 0.3 | Dice 0.694, area ratio 1.02 |
 | `unet-v1` | necrosis | the published 2023 U-Net, ported weight-for-weight | 0.8 | Dice 0.611, area ratio 0.77 |
-| `p2p-convnext-v2` | pycnidia | P2PNet/ConvNeXt-T on the native set — *experimental* | 0.3 | val MAE 64.7, bias +41 % |
+| `p2p-convnext-v2` | pycnidia | P2PNet/ConvNeXt-T on the native set — *experimental* | 0.3 | val MAE 64.7, bias +41 % — **on the pre-correction labels** |
 
 Weights are release assets of this repository (`models-2026.09`), downloaded once into
 `~/.cache/septosympto/models/` (`SEPTOSYMPTO_HOME` overrides) and verified against their
@@ -407,6 +407,37 @@ poetry run python tools/regen_pycnidia_native.py --task necrosis \
 ones. `img/` is shared with the pycnidia set and is left alone. `--tiffs ""` runs without
 TIFFs at all; leaves that would need one are reported `no-tiff`.
 
+### Importing corrected pycnidia annotations
+
+The researcher re-annotates on our own canvases — `leaves-native/img/` re-uploaded to
+Roboflow — so a corrected export needs no geometric transform, only the `_png.rf.<hash>`
+suffix taken off. `tools/import_pycnidia_corrected.py` does that and, more to the point,
+refuses to do it blindly: every exported image is compared pixel-wise against the canvas it
+claims to be (a JPEG round-trip costs 1–2 grey levels, a re-cut leaf costs far more), and the
+annotations are checked to be single-class points inside the frame.
+
+```bash
+poetry run python -m tools.import_pycnidia_corrected ~/Downloads/export.zip --dry-run
+poetry run python -m tools.import_pycnidia_corrected ~/Downloads/export.zip
+scripts/push_data.sh native        # the volume is not pruned by itself
+```
+
+The previous labels are archived to `data/leaves-native-labels-<date>.tar.gz` first, and
+`report-pycnidia-corrected.csv` records the per-leaf before/after counts. An **empty** label
+file is kept as written: it is a leaf judged to carry no pycnidium, which the loader reads as
+a genuine zero-count sample. A leaf **missing** from the export has not been corrected, so its
+old labels are moved to `labels-stale/` rather than left to pass as ground truth — the loader
+takes a leaf only when it has a label file, so this drops it from the pycnidia pool while its
+image stays available to the necrosis task.
+
+The 2026-09-23 correction (`pycnidia_corrected` v1) was a pure deletion pass: 49 602 → 40 004
+points (**−19.4 %**), 9 774 removed against 176 added, kept points untouched to the pixel. It
+touched 194 of 202 leaves, emptied 12 outright, and bites hardest on lightly infected leaves
+(−48 % on the lowest count quartile, −13 % on the highest) — the removed points sit on
+distinctly fainter spots. **Counting scores from before it do not compare to scores after**,
+and a counter trained on the old labels over-counts by about a fifth against this ground
+truth. Eight leaves were never uploaded and are now in `labels-stale/`.
+
 ### On a GPU with Modal
 
 ```bash
@@ -501,6 +532,10 @@ poetry run python -m train.count_run \
     --dataset-dir data/pycnidia/train-200-aug-x3 data/pycnidia/valid-40 \
     --arch heatmap --run-name pycnidia-v2 --epochs 100 --device mps
 ```
+
+> The `data/pycnidia/*-aug-x3` directories above are the original stretched 2048×200 strips
+> and still carry the **uncorrected** annotations — they predate the 2026-09 correction and are
+> kept only to reproduce older runs. Train on `data/leaves-native` for anything new.
 
 The pre-augmented Roboflow directories are pooled, **deduplicated by leaf** (the mirror copies
 that leaked in v1 collapse to one), and re-split grouped by scan. Each epoch reports MAE on the
