@@ -22,8 +22,11 @@ from train.count_data import load_points_pool, split_pool
 def main() -> None:
     p = argparse.ArgumentParser()
     p.add_argument("--weights", default="runs/pyc-p2p/best.safetensors")
+    p.add_argument("--arch", default="p2p", help="Counter architecture the weights belong to.")
     p.add_argument("--dirs", nargs="+",
                    default=["data/pycnidia/train-200-aug-x3", "data/pycnidia/valid-40"])
+    p.add_argument("--imgsz", type=int, nargs=2, default=[200, 2048], metavar=("H", "W"),
+                   help="Canvas the weights were trained on; must match --dirs.")
     p.add_argument("--index", type=int, default=30)
     p.add_argument("--threshold", type=float, default=0.25)
     p.add_argument("--radius", type=float, default=8.0)
@@ -37,8 +40,8 @@ def main() -> None:
     test = sorted(test, key=lambda s: len(s.points_norm))
     sample = test[args.index]
 
-    h, w = 200, 2048
-    model = build_counter("p2p", pretrained=False).eval()
+    h, w = args.imgsz
+    model = build_counter(args.arch, pretrained=False).eval()
     model.load_state_dict(load_file(args.weights))
 
     resized = cv2.resize(cv2.imread(sample.image_path), (w, h))

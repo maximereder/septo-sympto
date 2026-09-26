@@ -544,6 +544,40 @@ precision/recall/F1 beside it. To add another counting architecture: define it i
 `septosympto/models/`, decorate it `@register_counter("name")`, give it `forward` / `loss` /
 `decode`, and train it with `--arch name`.
 
+### Scoring counters on the held-out test fold
+
+`tools/eval_pycnidia.py` is to counting what `tools/eval_necrosis.py` is to
+segmentation: same pool, same scan-grouped split, same canvas and decode as the
+training loop, so a number here and a `val_mae` in a manifest mean the same
+thing. The fold is what differs — `val` drove checkpoint selection and flatters a
+model, `test` was never looked at.
+
+```bash
+poetry run python tools/eval_pycnidia.py --split test \
+    --weights p2p-convnext-v2 runs/pyc-p2p-convnext-corrected/best.safetensors \
+    --arch p2p-convnext-t --device mps
+```
+
+MAE ranks, because the count is the published quantity; slope and bias say *how*
+a model is wrong (slope under 1 is proportional under-counting, which distorts
+comparisons between genotypes; a bias at slope 1 shifts every leaf alike and
+largely cancels), and precision/recall/F1 within `--match-radius-px` catch a model
+that gets the number right while placing its points badly.
+
+What the annotation correction did to the published checkpoint, scored on the same
+29 test leaves with only the ground truth swapped:
+
+| truth | MAE | bias | slope | P | R | F1 |
+|---|---|---|---|---|---|---|
+| pre-correction labels | 51.1 | +8.7 | 1.03 | 0.676 | 0.703 | 0.689 |
+| corrected labels | 65.2 | **+55.9** | 1.06 | 0.595 | 0.782 | 0.676 |
+
+The model is not worse than it was; it was trained to reproduce annotations that
+the correction removed. Recall *rises* (0.70 → 0.78 — it does find the real
+pycnidia) while precision falls (0.68 → 0.60) and the bias goes from nearly
+nothing to +56 per leaf. That is the signature of a counter that learned the
+phantom points, and it is the number a retrain on the corrected labels has to beat.
+
 ### Training P2P on the largest pycnidia set, on a Modal GPU
 
 The `p2p` architecture wants a GPU: a VGG backbone plus Hungarian matching is heavier than the
