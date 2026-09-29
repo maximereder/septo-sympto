@@ -10,9 +10,13 @@ If you use SeptoSympto in your research, please [cite the paper](#citation).
 
 > ### ⚠ This branch is a rewrite in progress
 >
-> **v2 has no runnable pipeline yet.** TensorFlow has been removed, and both models are being
-> retrained. What exists today is the PyTorch U-Net architecture, the converted necrosis
-> weights, and the packaging.
+> **v2 runs.** TensorFlow is gone, both models have been retrained and scored on a held-out
+> test fold, and `septo-sympto` analyses a folder of scans end to end.
+>
+> What is not done is the **distribution**: the weights are not published yet. `zoo.py` points
+> at a release that does not exist, so `--list-models` names models a fresh machine cannot
+> download. Until that release is up, pass a checkpoint path — see
+> [Pre-trained models](#pre-trained-models).
 >
 > **To reproduce the published results, use the v1 tag:**
 >
@@ -142,13 +146,34 @@ what is available, what each was validated at, and what it scored on the held-ou
 |---|---|---|---|---|
 | `yolo26s-v2` (default) | necrosis | YOLO26s-sem trained on the 278-leaf native set | 0.3 | Dice 0.694, area ratio 1.02 |
 | `unet-v1` | necrosis | the published 2023 U-Net, ported weight-for-weight | 0.8 | Dice 0.611, area ratio 0.77 |
-| `p2p-convnext-v2` | pycnidia | P2PNet/ConvNeXt-T on the native set — *experimental* | 0.3 | val MAE 64.7, bias +41 % — **on the pre-correction labels** |
+| `p2p-convnext-v2` | pycnidia | P2PNet/ConvNeXt-T, first pass — *experimental, superseded* | 0.3 | test MAE 65.2 at that threshold, 36.3 at 0.5 |
 
-Weights are release assets of this repository (`models-2026.09`), downloaded once into
-`~/.cache/septosympto/models/` (`SEPTOSYMPTO_HOME` overrides) and verified against their
+Weights are meant to be release assets of this repository (`models-2026.09`), downloaded once
+into `~/.cache/septosympto/models/` (`SEPTOSYMPTO_HOME` overrides) and verified against their
 SHA-256 on every load. The catalogue is `septosympto/zoo.py`; a model gets in by being
 promoted from `LEADERBOARD.md`. Training datasets remain on
 [Google Drive](https://drive.google.com/drive/folders/1a2VhXy-sMx77-BOHEgP7jXdWoIJI20s4?usp=sharing).
+
+**The release does not exist yet.** `RELEASE_URL` in `septosympto/zoo.py` names
+`models-2026.09`; nothing has been uploaded to it, so a fetch 404s on any machine whose cache
+is empty. Named models work only where the files were already placed by hand. Until the
+release is up, give the CLI a path instead of a name.
+
+**The best pycnidia counter is not in the catalogue.** `p2p-convnext-v2` learned the
+annotations that the 2026-09 correction removed, and it is superseded by
+`pyc-p2p-convnext-corrected`, retrained on the corrected labels:
+
+| | |
+|---|---|
+| file | `runs/pyc-p2p-convnext-corrected/best.safetensors` (119 MB), also on the `septosympto-runs` volume |
+| sha256 | `ade8ed0e271974e1e561f2e21058debe879751605a18c7b3fb3815cc62af4b8b` |
+| architecture | `p2p-convnext-t` |
+| threshold | **0.20** — *not* the 0.3 its predecessor's card carries |
+| test fold | MAE 33.8, bias −6.9, slope 0.939, R² 0.919, F1 0.739 (at 0.15: MAE 33.0, slope 1.007) |
+
+On the same 29 test leaves `p2p-convnext-v2` reaches MAE 36.3 at best (threshold 0.5), and it
+gets there by under-counting the loaded leaves — slope 0.807 against 0.939. See
+[Pycnidia counting](#pycnidia-counting).
 
 ---
 
@@ -174,10 +199,18 @@ Choosing models — a published name or a checkpoint path, per task:
 
 ```bash
 septo-sympto scans/ --necrosis unet-v1 -o v1.csv               # the 2023 model, for comparison
-septo-sympto scans/ --pycnidia p2p-convnext-v2                  # also count pycnidia (experimental)
 septo-sympto scans/ --necrosis runs/my-run/weights/best.pt -pn 0.3      # an unpublished YOLO run
 septo-sympto scans/ --necrosis runs/r18/best.safetensors --necrosis-arch unet-resnet18 -pn 0.5
 septo-sympto --list-models
+```
+
+Counting pycnidia too, with the best counter — a path, since it is not in the catalogue yet:
+
+```bash
+septo-sympto scans/ -o results.csv -d mps \
+    --pycnidia runs/pyc-p2p-convnext-corrected/best.safetensors \
+    --pycnidia-arch p2p-convnext-t \
+    --pycnidia-threshold 0.2
 ```
 
 A published name carries its own threshold; a path needs `--necrosis-threshold` /
@@ -187,8 +220,8 @@ what the checkpoint was validated at. Other options: `-e .tiff` for the input ex
 to also write a necrosis mask and overlay per leaf, `-d mps` / `-d 0` for the device.
 
 YOLO models need the `yolo` extra (`poetry install --extras yolo`); asking for one without it
-says so and stops. The pycnidia columns stay empty unless `--pycnidia` names a counter — the
-only published one is a preview and is off by default.
+says so and stops. The pycnidia columns stay empty unless `--pycnidia` names a counter, which
+is off by default.
 
 ---
 
@@ -221,10 +254,10 @@ Both are enforced by the tests in `tests/test_unet.py`.
 The safetensors artifact is 124 MB against 372 MB for the `.h5`, which carried the optimiser
 state. It loads under any recent PyTorch, with no TensorFlow present.
 
-### The pycnidia detector will be retrained, not ported
+### The pycnidia detector was retrained, not ported
 
-`pycnidia-model.pt` was trained with the `ultralytics/yolov5` repository. It cannot be
-carried into the modern stack, and this is not a packaging detail that a flag can fix:
+`pycnidia-model.pt` was trained with the `ultralytics/yolov5` repository. It could not be
+carried into the modern stack, and this was not a packaging detail that a flag could fix:
 
 - PyTorch ≥ 2.6 defaults `torch.load` to `weights_only=True` and refuses to deserialise it.
 - The current `ultralytics` package detects the checkpoint and rejects it outright: *"appears
@@ -233,19 +266,21 @@ carried into the modern stack, and this is not a packaging detail that a flag ca
   anchor-free. The head weights have no counterpart. The `yolov5su.pt` models that Ultralytics
   ships are retrained re-implementations, not the same weights.
 
-Rather than freeze a bridge around a model that is already slated for replacement, the
-pycnidia detector will be **retrained** on `data/pycnidia/` with a current architecture. The
-annotations are points in all but name — the median bounding box is 4 × 4 px — which is the
-real reason a plain object detector is the wrong tool here.
+Rather than freeze a bridge around a model already slated for replacement, the pycnidia
+detector was **retrained**. The annotations are points in all but name — the median bounding
+box is 4 × 4 px — which is the real reason a plain object detector was the wrong tool, so what
+replaced it is a point-set counter (P2PNet), trained on the undistorted `data/leaves-native/`
+canvases rather than the stretched `data/pycnidia/` strips. See
+[Pycnidia counting](#pycnidia-counting).
 
-Until that lands, the v1 pipeline at `v1.0-legacy` remains the reference implementation.
+The v1 pipeline at `v1.0-legacy` remains the reference implementation for the published paper.
 
 ---
 
 ## Known issues and limitations
 
-These are open defects in the current release, documented here pending the ongoing rework.
-None of them prevent the tool from running.
+These are defects of the **published v1** (`v1.0-legacy`), the only released version. Each one
+says whether v2 fixes it. None of them prevent v1 from running.
 
 **The `--import` join drops four columns.** When a metadata CSV was supplied, `export_result`
 wrote a header of 23 columns but only 19 values per row. `pycnidia_number_per_leaf_cm2`,
