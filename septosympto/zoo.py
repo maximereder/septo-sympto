@@ -24,7 +24,7 @@ import urllib.request
 from dataclasses import dataclass
 from pathlib import Path
 
-RELEASE_URL = "https://github.com/maximereder/septo-sympto/releases/download/models-2026.09"
+RELEASE_URL = "https://huggingface.co/maximereder/septo-sympto/resolve/main"
 
 
 @dataclass(frozen=True)
@@ -55,16 +55,22 @@ NECROSIS: dict[str, ModelCard] = {
         name="unet-v1", task="necrosis", kind="torch", arch="unet", threshold=0.8,
         file="necrosis-unet-v1.safetensors",
         sha256="d71c2e87091568936744e51bdd0c0aca3d965bc54912e3de1823d19a12e96a68",
-        note="the published 2023 U-Net (Keras port); test Dice 0.611, area ratio 0.77",
+        note="the published 2023 U-Net (Keras port); test Dice 0.611 — NOT UPLOADED",
     ),
 }
 
 PYCNIDIA: dict[str, ModelCard] = {
+    "p2p-convnext-v3": ModelCard(
+        name="p2p-convnext-v3", task="pycnidia", kind="torch", arch="p2p-convnext-t",
+        threshold=0.20, file="pycnidia-p2p-convnext-v3.safetensors",
+        sha256="ade8ed0e271974e1e561f2e21058debe879751605a18c7b3fb3815cc62af4b8b",
+        note="P2PNet/ConvNeXt-T on the corrected labels; test MAE 33.8, slope 0.94, F1 0.74",
+    ),
     "p2p-convnext-v2": ModelCard(
         name="p2p-convnext-v2", task="pycnidia", kind="torch", arch="p2p-convnext-t",
         threshold=0.3, file="pycnidia-p2p-convnext-v2.safetensors",
         sha256="e80d45a9a078f3a881b704b7fedcb4640f0da8e5d2f43ffbf86c7d62b68a23a8",
-        note="P2PNet/ConvNeXt-T on the native set; val MAE 64.7, bias +41 % — preview only",
+        note="trained on the pre-correction labels; superseded by v3, NOT UPLOADED",
         experimental=True,
     ),
 }

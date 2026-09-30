@@ -13,10 +13,8 @@ If you use SeptoSympto in your research, please [cite the paper](#citation).
 > **v2 runs.** TensorFlow is gone, both models have been retrained and scored on a held-out
 > test fold, and `septo-sympto` analyses a folder of scans end to end.
 >
-> What is not done is the **distribution**: the weights are not published yet. `zoo.py` points
-> at a release that does not exist, so `--list-models` names models a fresh machine cannot
-> download. Until that release is up, pass a checkpoint path — see
-> [Pre-trained models](#pre-trained-models).
+> The two best models are published and fetched on first use. Two older cards in the catalogue
+> are not backed by a file yet — see [Pre-trained models](#pre-trained-models).
 >
 > **To reproduce the published results, use the v1 tag:**
 >
@@ -145,34 +143,26 @@ what is available, what each was validated at, and what it scored on the held-ou
 | name | task | what it is | threshold | test score |
 |---|---|---|---|---|
 | `yolo26s-v2` (default) | necrosis | YOLO26s-sem trained on the 278-leaf native set | 0.3 | Dice 0.694, area ratio 1.02 |
-| `unet-v1` | necrosis | the published 2023 U-Net, ported weight-for-weight | 0.8 | Dice 0.611, area ratio 0.77 |
-| `p2p-convnext-v2` | pycnidia | P2PNet/ConvNeXt-T, first pass — *experimental, superseded* | 0.3 | test MAE 65.2 at that threshold, 36.3 at 0.5 |
+| `unet-v1` | necrosis | the published 2023 U-Net, ported weight-for-weight | 0.8 | Dice 0.611, area ratio 0.77 — *not uploaded* |
+| `p2p-convnext-v3` | pycnidia | P2PNet/ConvNeXt-T on the corrected labels | 0.2 | MAE 33.8, slope 0.94, F1 0.739 |
+| `p2p-convnext-v2` | pycnidia | the same, on the pre-correction labels — *superseded* | 0.3 | MAE 65.2 there, 36.3 at 0.5 — *not uploaded* |
 
-Weights are meant to be release assets of this repository (`models-2026.09`), downloaded once
-into `~/.cache/septosympto/models/` (`SEPTOSYMPTO_HOME` overrides) and verified against their
-SHA-256 on every load. The catalogue is `septosympto/zoo.py`; a model gets in by being
-promoted from `LEADERBOARD.md`. Training datasets remain on
+Weights live on the Hugging Face Hub at
+[`maximereder/septo-sympto`](https://huggingface.co/maximereder/septo-sympto), downloaded once into
+`~/.cache/septosympto/models/` (`SEPTOSYMPTO_HOME` overrides) and verified against their
+SHA-256 on every load — a download whose digest does not match is refused, never used. The
+catalogue is `septosympto/zoo.py`; a model gets in by being promoted from `LEADERBOARD.md`.
+Training datasets remain on
 [Google Drive](https://drive.google.com/drive/folders/1a2VhXy-sMx77-BOHEgP7jXdWoIJI20s4?usp=sharing).
 
-**The release does not exist yet.** `RELEASE_URL` in `septosympto/zoo.py` names
-`models-2026.09`; nothing has been uploaded to it, so a fetch 404s on any machine whose cache
-is empty. Named models work only where the files were already placed by hand. Until the
-release is up, give the CLI a path instead of a name.
+**Two cards are not backed by a file yet.** `unet-v1` and `p2p-convnext-v2` are listed, and
+`--list-models` marks them `NOT UPLOADED`, but asking for one 404s on any machine whose cache
+is empty. Both are kept on purpose: `unet-v1` is the published model and belongs in the
+catalogue, `p2p-convnext-v2` documents what the annotation correction replaced.
 
-**The best pycnidia counter is not in the catalogue.** `p2p-convnext-v2` learned the
-annotations that the 2026-09 correction removed, and it is superseded by
-`pyc-p2p-convnext-corrected`, retrained on the corrected labels:
-
-| | |
-|---|---|
-| file | `runs/pyc-p2p-convnext-corrected/best.safetensors` (119 MB), also on the `septosympto-runs` volume |
-| sha256 | `ade8ed0e271974e1e561f2e21058debe879751605a18c7b3fb3815cc62af4b8b` |
-| architecture | `p2p-convnext-t` |
-| threshold | **0.20** — *not* the 0.3 its predecessor's card carries |
-| test fold | MAE 33.8, bias −6.9, slope 0.939, R² 0.919, F1 0.739 (at 0.15: MAE 33.0, slope 1.007) |
-
-On the same 29 test leaves `p2p-convnext-v2` reaches MAE 36.3 at best (threshold 0.5), and it
-gets there by under-counting the loaded leaves — slope 0.807 against 0.939. See
+`p2p-convnext-v3` counts pycnidia at **threshold 0.20**, not the 0.3 its predecessor carried:
+on the same 29 test leaves, v2 reaches MAE 36.3 at best (threshold 0.5) and gets there by
+under-counting the loaded leaves — slope 0.807 against 0.939. See
 [Pycnidia counting](#pycnidia-counting).
 
 ---
@@ -204,13 +194,10 @@ septo-sympto scans/ --necrosis runs/r18/best.safetensors --necrosis-arch unet-re
 septo-sympto --list-models
 ```
 
-Counting pycnidia too, with the best counter — a path, since it is not in the catalogue yet:
+Counting pycnidia too — the name carries the architecture and the threshold:
 
 ```bash
-septo-sympto scans/ -o results.csv -d mps \
-    --pycnidia runs/pyc-p2p-convnext-corrected/best.safetensors \
-    --pycnidia-arch p2p-convnext-t \
-    --pycnidia-threshold 0.2
+septo-sympto scans/ -o results.csv -d mps --pycnidia p2p-convnext-v3
 ```
 
 A published name carries its own threshold; a path needs `--necrosis-threshold` /
@@ -589,7 +576,7 @@ model, `test` was never looked at.
 
 ```bash
 poetry run python tools/eval_pycnidia.py --split test \
-    --weights p2p-convnext-v2 runs/pyc-p2p-convnext-corrected/best.safetensors \
+    --weights p2p-convnext-v3 runs/my-run/best.safetensors \
     --arch p2p-convnext-t --device mps
 ```
 
