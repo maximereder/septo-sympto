@@ -55,7 +55,8 @@ def base_name(path: Path) -> str:
 def read_boxes(path: Path) -> np.ndarray:
     rows = [line.split() for line in path.read_text().splitlines() if line.strip()]
     if any(len(r) != 5 for r in rows):
-        raise ValueError(f"{path}: expected 5 fields per line, got {sorted({len(r) for r in rows})}")
+        widths = sorted({len(r) for r in rows})
+        raise ValueError(f"{path}: expected 5 fields per line, got {widths}")
     return np.array([[float(v) for v in r] for r in rows], np.float64).reshape(-1, 5)
 
 
@@ -112,10 +113,16 @@ def verify_image(name: str, exported: Path, canvas: Path) -> float:
     if b is None:
         raise FileNotFoundError(f"{name}: no native canvas at {canvas}")
     if a.shape != b.shape:
-        raise ValueError(f"{name}: export is {a.shape[1]}x{a.shape[0]}, canvas is {b.shape[1]}x{b.shape[0]}")
+        raise ValueError(
+            f"{name}: export is {a.shape[1]}x{a.shape[0]}, "
+            f"canvas is {b.shape[1]}x{b.shape[0]}"
+        )
     diff = float(np.abs(a.astype(np.int16) - b.astype(np.int16)).mean())
     if diff > MAX_IMAGE_DIFF:
-        raise ValueError(f"{name}: image differs from the canvas (mean |delta| {diff:.1f}) — not the same leaf")
+        raise ValueError(
+            f"{name}: image differs from the canvas "
+            f"(mean |delta| {diff:.1f}) — not the same leaf"
+        )
     return diff
 
 
@@ -134,8 +141,11 @@ def archive(labels_dir: Path, out: Path) -> None:
 
 
 def main() -> None:
-    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("export", type=Path, help="corrected Roboflow export (.zip or unpacked directory)")
+    ap = argparse.ArgumentParser(
+        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+    ap.add_argument("export", type=Path,
+                    help="corrected Roboflow export (.zip or unpacked directory)")
     ap.add_argument("--dataset", type=Path, default=Path("data/leaves-native"))
     ap.add_argument("--dry-run", action="store_true", help="report only, write nothing")
     args = ap.parse_args()
@@ -158,12 +168,16 @@ def main() -> None:
         for name, label_path in corrected.items():
             boxes = read_boxes(label_path)
             check_boxes(name, boxes)
-            diff = verify_image(name, export_image(label_path), args.dataset / "img" / f"{name}.png")
+            canvas = args.dataset / "img" / f"{name}.png"
+            diff = verify_image(name, export_image(label_path), canvas)
             old = read_boxes(current[name]) if name in current else np.empty((0, 5))
             added, removed = count_edits(old, boxes)
-            status = "new-leaf" if name not in current else "emptied" if len(boxes) == 0 else "updated"
-            totals["old"] += len(old); totals["new"] += len(boxes)
-            totals["added"] += added; totals["removed"] += removed
+            status = ("new-leaf" if name not in current
+                      else "emptied" if len(boxes) == 0 else "updated")
+            totals["old"] += len(old)
+            totals["new"] += len(boxes)
+            totals["added"] += added
+            totals["removed"] += removed
             totals["emptied"] += status == "emptied"
             totals["new_leaf"] += status == "new-leaf"
             rows.append((name, len(old), len(boxes), added, removed, round(diff, 2), status))
