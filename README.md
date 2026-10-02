@@ -10,7 +10,7 @@ Point it at a folder of scans and it writes one CSV row per leaf.
 
 ```bash
 poetry install --extras yolo
-poetry run septo-sympto scans/ -o results.csv --pycnidia p2p-convnext-v3
+poetry run septo-sympto scans/ -o results.csv --pycnidia p2p-convnext-v3 --masks-dir overlays/
 ```
 
 If you use SeptoSympto in your research, please [cite the paper](#citation).
@@ -136,19 +136,39 @@ under-counting the loaded leaves — slope 0.807 against 0.939. How both were tr
 
 ## Usage
 
-Point it at a directory of scans. With no other option it uses the default models and reads
-the scale from each TIFF's resolution tag:
+Point it at a directory of scans. The full analysis — necrosis, pycnidia, and an annotated
+image per leaf:
 
 ```bash
-poetry run septo-sympto scans/ -o results.csv
+poetry run septo-sympto scans/ -o results.csv --pycnidia p2p-convnext-v3 --masks-dir overlays/ -d mps
 ```
 
 ```
 necrosis: yolo26s-v2 (threshold 0.3)
-pycnidia: none
+pycnidia: p2p-convnext-v3 (threshold 0.2)
 Acc_Acc_1_Acc_1.tif: 4 leaves
 ...
 132 leaves from 33 scans -> results.csv
+overlays and masks -> overlays/
+```
+
+This writes:
+
+| output | content |
+|---|---|
+| `results.csv` | one row per leaf: leaf area, necrosis count / area / ratio, pycnidia count and densities ([columns](#what-the-numbers-mean)) |
+| `results.manifest.json` | the models (name and SHA-256) and parameters that produced the CSV |
+| `overlays/<scan>_<n>_overlay.jpg` | the leaf crop, necrosis outlined in green, each pycnidium circled in magenta |
+| `overlays/<scan>_<n>_mask.png` | the binary necrosis mask |
+
+`-d mps` runs on an Apple GPU (`-d 0` for CUDA); drop it to run on the CPU, which is much
+slower for the pycnidia counter. The scale is read from each TIFF's resolution tag.
+
+Only necrosis has a default model. Without `--pycnidia`, the pycnidia columns stay empty;
+without `--masks-dir`, no image is written:
+
+```bash
+poetry run septo-sympto scans/ -o results.csv        # necrosis only, CSV only
 ```
 
 Choosing models — a published name or a checkpoint path, per task:
@@ -160,17 +180,11 @@ poetry run septo-sympto scans/ --necrosis runs/r18/best.safetensors --necrosis-a
 poetry run septo-sympto --list-models
 ```
 
-Counting pycnidia too — the name carries the architecture and the threshold:
-
-```bash
-poetry run septo-sympto scans/ -o results.csv -d mps --pycnidia p2p-convnext-v3
-```
-
 A published name carries its own threshold; a path needs `--necrosis-threshold` /
 `--pycnidia-threshold` (and, for `.safetensors`, the architecture) because nothing else knows
 what the checkpoint was validated at. Other options: `-e .tiff` for the input extension,
 `-pc 472.44` to force a scale when a scan carries none, `--min-lesion-area-mm2`, `--masks-dir`
-to also write a necrosis mask and overlay per leaf, `-d mps` / `-d 0` for the device.
+to also write an overlay (necrosis and pycnidia) and a necrosis mask per leaf, `-d mps` / `-d 0` for the device.
 
 YOLO models need the `yolo` extra (`poetry install --extras yolo`); asking for one without it
 says so and stops. The pycnidia columns stay empty unless `--pycnidia` names a counter, which

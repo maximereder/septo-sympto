@@ -80,7 +80,8 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument(
         "--masks-dir", type=Path, default=None,
-        help="Also write a necrosis overlay and mask per leaf to this directory.",
+        help="Also write, per leaf, an overlay (necrosis outlined, pycnidia circled) "
+             "and the necrosis mask to this directory.",
     )
     parser.add_argument("--version", action="version", version=f"septo-sympto {__version__}")
     return parser
