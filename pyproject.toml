@@ -6,7 +6,7 @@ readme = "README.md"
 license = "MIT"
 requires-python = ">=3.12,<3.14"
 authors = [
-    { name = "Laura Mathieu", email = "laura.mathieu@supagro.fr" },
+    { name = "Laura Mathieu", email = "laura.mathieu@gmx.fr" },
     { name = "Maxime Reder", email = "maximereder@live.fr" },
 ]
 keywords = ["plant-phenotyping", "deep-learning", "septoria", "wheat", "segmentation"]
