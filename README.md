@@ -265,7 +265,7 @@ If you use SeptoSympto, please cite:
 
 ## Authors
 
-- **Laura Mathieu**, PhD — laura.mathieu@supagro.fr — [LinkedIn](https://www.linkedin.com/in/laura-mathieu/)
+- **Laura Mathieu**, PhD — laura.mathieu@gmx.fr — [LinkedIn](https://www.linkedin.com/in/laura-mathieu/)
 - **Maxime Reder**, Deep Learning Engineer — maximereder@live.fr — [maximereder.fr](https://maximereder.fr)
 
 See the [publication](https://doi.org/10.1186/s13007-024-01136-z) for the full author list.
