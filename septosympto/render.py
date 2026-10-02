@@ -1,7 +1,7 @@
 """Turn a leaf analysis into images a human can check.
 
 Two outputs per leaf: the raw binary necrosis mask, and an overlay that draws the
-necrosis outline (and pycnidia points, once a counter is wired) on the leaf crop.
+necrosis outline and the pycnidia points (when a counter ran) on the leaf crop.
 The overlay is what you look at to decide whether the model is sensible; the mask
 is what you keep for the record.
 
