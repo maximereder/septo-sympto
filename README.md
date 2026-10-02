@@ -10,7 +10,7 @@ Point it at a folder of scans and it writes one CSV row per leaf.
 
 ```bash
 poetry install --extras yolo
-septo-sympto scans/ -o results.csv --pycnidia p2p-convnext-v3
+poetry run septo-sympto scans/ -o results.csv --pycnidia p2p-convnext-v3
 ```
 
 If you use SeptoSympto in your research, please [cite the paper](#citation).
@@ -47,10 +47,33 @@ Areas are converted to cm² using the scan's own resolution, read from the TIFF 
 
 ## Installation
 
-The project is managed with [Poetry](https://python-poetry.org/) and requires **Python 3.12
-or 3.13**.
+SeptoSympto requires **Python 3.12 or 3.13** — not 3.14, not the 3.9 that ships with macOS.
+`python3 --version` tells you what you have. If it is not one of those two, install one; with
+[Homebrew](https://brew.sh) on macOS:
 
 ```bash
+brew install python@3.13
+```
+
+Elsewhere, take the installer from [python.org](https://www.python.org/downloads/) (Windows,
+older Linux) — Ubuntu 24.04 already ships 3.12.
+
+The project is managed with [Poetry](https://python-poetry.org/), **2.0 or newer** (1.x does
+not read this `pyproject.toml`). It is a tool, not a dependency, so it is installed once,
+outside the project:
+
+```bash
+brew install poetry                                     # macOS with Homebrew
+curl -sSL https://install.python-poetry.org | python3 -  # anywhere else
+```
+
+Then fetch the code, point Poetry at the right interpreter, and install:
+
+```bash
+git clone https://github.com/maximereder/septo-sympto.git
+cd septo-sympto
+git checkout refactor/modernization   # v2 is not merged into main yet
+poetry env use python3.13      # or python3.12 — whichever you installed
 poetry install
 ```
 
@@ -63,6 +86,17 @@ so in practice you want it:
 ```bash
 poetry install --extras yolo
 ```
+
+Every command in this repository — the CLI, the tools, the training launchers — runs through
+Poetry, so the environment is always the one the lockfile describes:
+
+```bash
+poetry run septo-sympto --list-models
+```
+
+Prefer to drop the prefix? Activate the environment once (`eval $(poetry env activate)`) and
+`septo-sympto` is on your PATH for that shell. The docs keep `poetry run` because it works
+either way.
 
 TensorFlow is gone — not an optional extra, not a legacy requirements file, not a
 dependency of any kind. The published v1 implementation lives at the `v1.0-legacy` tag and
@@ -106,7 +140,7 @@ Point it at a directory of scans. With no other option it uses the default model
 the scale from each TIFF's resolution tag:
 
 ```bash
-septo-sympto scans/ -o results.csv
+poetry run septo-sympto scans/ -o results.csv
 ```
 
 ```
@@ -120,16 +154,16 @@ Acc_Acc_1_Acc_1.tif: 4 leaves
 Choosing models — a published name or a checkpoint path, per task:
 
 ```bash
-septo-sympto scans/ --necrosis unet-v1 -o v1.csv               # the 2023 model, for comparison
-septo-sympto scans/ --necrosis runs/my-run/weights/best.pt -pn 0.3      # an unpublished YOLO run
-septo-sympto scans/ --necrosis runs/r18/best.safetensors --necrosis-arch unet-resnet18 -pn 0.5
-septo-sympto --list-models
+poetry run septo-sympto scans/ --necrosis unet-v1 -o v1.csv               # the 2023 model, for comparison
+poetry run septo-sympto scans/ --necrosis runs/my-run/weights/best.pt -pn 0.3      # an unpublished YOLO run
+poetry run septo-sympto scans/ --necrosis runs/r18/best.safetensors --necrosis-arch unet-resnet18 -pn 0.5
+poetry run septo-sympto --list-models
 ```
 
 Counting pycnidia too — the name carries the architecture and the threshold:
 
 ```bash
-septo-sympto scans/ -o results.csv -d mps --pycnidia p2p-convnext-v3
+poetry run septo-sympto scans/ -o results.csv -d mps --pycnidia p2p-convnext-v3
 ```
 
 A published name carries its own threshold; a path needs `--necrosis-threshold` /
