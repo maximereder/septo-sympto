@@ -135,7 +135,7 @@ truth. Eight leaves were never uploaded and are now in `labels-stale/`.
 
 ```bash
 scripts/push_data.sh native                  # once: data/leaves-native -> volume
-modal run train/modal_app.py::necrosis --arch unet-resnet18 --run-name nec-r18 --gpu A10
+poetry run modal run train/modal_app.py::necrosis --arch unet-resnet18 --run-name nec-r18 --gpu A10
 ```
 
 Data is uploaded once into a Modal Volume; checkpoints are written to a second Volume that
@@ -176,7 +176,7 @@ poetry run python -m train.yolo_run \
     --dataset data/leaves-native --model yolo26n-sem.pt \
     --run-name nec-yolo26n --epochs 100 --device mps
 
-modal run train/modal_app.py::yolo --model yolo26s-sem.pt --run-name nec-yolo26s --gpu A10
+poetry run modal run train/modal_app.py::yolo --model yolo26s-sem.pt --run-name nec-yolo26s --gpu A10
 ```
 
 `--model` takes any of `yolo26{n,s,m,l,x}-sem.pt` (pretrained, downloaded once into
@@ -287,7 +287,7 @@ Then launch the run. The largest available set is `train-200-aug-x3` pooled with
 (219 unique leaves after dedup), which is the default:
 
 ```bash
-modal run train/modal_app.py::pycnidia \
+poetry run modal run train/modal_app.py::pycnidia \
     --arch p2p --run-name pyc-p2p \
     --epochs 200 --batch-size 4 --gpu A100-40GB
 ```
@@ -300,7 +300,7 @@ committed on each checkpoint, so a crash at epoch 150/200 keeps its progress. Pu
 to your machine when the run is done:
 
 ```bash
-modal volume get septosympto-runs pyc-p2p/best.safetensors ./
+poetry run modal volume get septosympto-runs pyc-p2p/best.safetensors ./
 ```
 
 Local runs (`python -m train.count_run`) write the same files straight to `runs/<run-name>/`
@@ -313,7 +313,7 @@ A 200-epoch P2P run takes hours. To start it and close the terminal, combine Mod
 `--detach` (it `spawn`s the job and returns at once instead of blocking on the result):
 
 ```bash
-modal run --detach train/modal_app.py::pycnidia --detach --arch p2p --run-name pyc-p2p --gpu L40S
+poetry run modal run --detach train/modal_app.py::pycnidia --detach --arch p2p --run-name pyc-p2p --gpu L40S
 ```
 
 The first `--detach` is Modal's; the second is the entrypoint's. It prints a call id and exits;

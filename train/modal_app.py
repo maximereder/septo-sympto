@@ -6,9 +6,12 @@ worker reads it from the mounted volume and fails fast if it is missing, so a ru
 never uploads on its hot path.
 
     scripts/push_data.sh                       # once: local data -> volume
-    modal run train/modal_app.py::pycnidia --arch p2p --run-name pyc-p2p --gpu A100-40GB
-    modal run train/modal_app.py::necrosis --arch unet-resnet18 --run-name nec-r18 --gpu A10
-    modal run train/modal_app.py::yolo --model yolo26s-sem.pt --run-name nec-yolo26s --gpu A10
+    poetry run modal run train/modal_app.py::pycnidia \
+        --arch p2p --run-name pyc-p2p --gpu A100-40GB
+    poetry run modal run train/modal_app.py::necrosis \
+        --arch unet-resnet18 --run-name nec-r18 --gpu A10
+    poetry run modal run train/modal_app.py::yolo \
+        --model yolo26s-sem.pt --run-name nec-yolo26s --gpu A10
 
 Checkpoints land in a runs volume that outlives the container. Pretrained
 weights (torchvision backbones under TORCH_HOME, Ultralytics ``*-sem.pt``)
@@ -17,7 +20,7 @@ re-download.
 
 The YOLO worker runs on its own image with Ultralytics installed; the PyTorch
 workers do not carry it. Ultralytics prints its per-epoch table as it trains and
-``modal run`` streams it back, so a remote YOLO run looks like a local one.
+``poetry run modal run`` streams it back, so a remote YOLO run looks like a local one.
 """
 
 from __future__ import annotations
@@ -120,7 +123,7 @@ def _spawn(fn, config, run_name: str) -> None:
     """Launch and return at once. The run lives on Modal, independent of this process.
 
     ``spawn`` does not block, so the terminal is free immediately. Pair it with
-    ``modal run --detach`` so the app is not torn down when this entrypoint exits;
+    ``poetry run modal run --detach`` so the app is not torn down when this entrypoint exits;
     together they survive the terminal or the connection dropping. Checkpoints
     stream to the runs volume as they are written, so results are never tied to
     this client staying alive.
@@ -129,7 +132,7 @@ def _spawn(fn, config, run_name: str) -> None:
 
     call = fn.spawn(config.as_dict(), datetime.now(UTC).isoformat())
     print(f"spawned {run_name} (call {call.object_id}); it runs on Modal now.")
-    print("launch with `modal run --detach ...` so it survives the terminal closing.")
+    print("launch with `poetry run modal run --detach ...` so it survives the terminal closing.")
     print(f"checkpoints -> septosympto-runs at {run_name}/; pull with `modal volume get`.")
     print("follow it in the Modal dashboard, or with `modal app logs`.")
 
