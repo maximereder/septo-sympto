@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 
 from septosympto.leaf import Leaf
-from septosympto.measure import LeafMeasurement, measure_leaf
+from septosympto.measure import LeafMeasurement, measure_leaf, points_in_necrosis
 
 PX_PER_CM = 472.44
 
@@ -112,3 +112,17 @@ def test_columns_and_row_are_consistent():
     m = measure_leaf(leaf, np.zeros((400, 4000), bool), None, PX_PER_CM)
     assert set(m.as_row()) == set(LeafMeasurement.columns())
     assert "pycnidia_area" not in LeafMeasurement.columns()
+
+
+def test_points_in_necrosis_keeps_only_points_on_a_counted_lesion():
+    necrosis = np.zeros((400, 4000), bool)
+    necrosis[50:150, 100:300] = True    # a lesion
+    necrosis[300:303, 3000:3003] = True  # a speck under the mm² floor
+    points = np.array([[200, 100], [1000, 100], [3001, 301]], float)
+
+    kept = points_in_necrosis(points, necrosis, PX_PER_CM, min_lesion_area_mm2=0.135)
+    assert kept.tolist() == [True, False, False]
+
+
+def test_points_in_necrosis_handles_no_points():
+    assert points_in_necrosis(np.zeros((0, 2)), np.ones((10, 10), bool), PX_PER_CM).size == 0

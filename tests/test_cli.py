@@ -19,3 +19,15 @@ def test_legacy_weights_flag_still_lands_on_necrosis():
     assert args.necrosis == "w.safetensors"
     assert args.necrosis_arch == "unet"
     assert args.pycnidia == "none"
+
+
+def test_pycnidia_in_necrosis_is_off_by_default():
+    assert build_parser().parse_args(["scans"]).pycnidia_in_necrosis is False
+
+
+def test_pycnidia_in_necrosis_needs_a_counter(tmp_path, capsys):
+    try:
+        main([str(tmp_path), "--pycnidia-in-necrosis"])
+    except SystemExit as stop:
+        assert stop.code == 2
+    assert "--pycnidia" in capsys.readouterr().err

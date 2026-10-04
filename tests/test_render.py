@@ -4,7 +4,12 @@ import numpy as np
 from septosympto.leaf import Leaf
 from septosympto.measure import measure_leaf
 from septosympto.pipeline import LeafAnalysis
-from septosympto.render import necrosis_mask_image, overlay_image, save_analysis
+from septosympto.render import (
+    DROPPED_PYCNIDIA_COLOR,
+    necrosis_mask_image,
+    overlay_image,
+    save_analysis,
+)
 
 
 def an_analysis(image="scan", index=1) -> LeafAnalysis:
@@ -56,6 +61,18 @@ def test_overlay_marks_pycnidia_points_when_present():
     analysis = LeafAnalysis(base.leaf, base.patch, base.necrosis_patch, points, base.measurement)
     out = overlay_image(analysis)
     assert (out[:, :, 0] == 255).any()
+
+
+def test_overlay_draws_dropped_pycnidia_in_grey():
+    base = an_analysis()
+    points = np.array([[300.0, 55.0], [700.0, 55.0]])
+    analysis = LeafAnalysis(
+        base.leaf, base.patch, base.necrosis_patch, points, base.measurement,
+        points_kept=np.array([True, False]),
+    )
+    out = overlay_image(analysis)
+    assert (out[:, :, 0] == 255).any()
+    assert (out[:, 650:750] == DROPPED_PYCNIDIA_COLOR).all(axis=2).any()
 
 
 def test_save_analysis_writes_overlay_and_mask(tmp_path):

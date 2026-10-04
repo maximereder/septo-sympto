@@ -2,7 +2,12 @@ import numpy as np
 import pytest
 
 from septosympto.leaf import Scan
-from septosympto.pipeline import MissingScaleError, analyze_scan, iter_scan_files
+from septosympto.pipeline import (
+    MissingScaleError,
+    analyze_scan,
+    iter_analyses,
+    iter_scan_files,
+)
 
 
 class HalfNecrotic:
@@ -13,6 +18,14 @@ class HalfNecrotic:
         mask = np.zeros((h, w), bool)
         mask[:, : w // 2] = True
         return mask
+
+
+class LeftAndRightCounter:
+    """Counter that puts one point in the left half of the patch and one in the right."""
+
+    def count(self, leaf_bgr: np.ndarray) -> np.ndarray:
+        h, w = leaf_bgr.shape[:2]
+        return np.array([[w // 4, h // 2], [3 * w // 4, h // 2]], float)
 
 
 class FixedCounter:
@@ -52,6 +65,19 @@ def test_counter_is_optional_and_defaults_to_zero():
 
     with_counter = analyze_scan(scan, HalfNecrotic(), FixedCounter(42))[0]
     assert with_counter.pycnidia_count == 42
+
+
+def test_pycnidia_outside_necrosis_are_dropped_only_when_asked():
+    scan = scan_with_leaves(1)
+    every = analyze_scan(scan, HalfNecrotic(), LeftAndRightCounter())[0]
+    assert every.pycnidia_count == 2
+
+    analysis = next(
+        iter_analyses(scan, HalfNecrotic(), LeftAndRightCounter(), pycnidia_in_necrosis=True)
+    )
+    assert analysis.measurement.pycnidia_count == 1
+    assert analysis.points_kept.tolist() == [True, False]
+    assert len(analysis.points) == 2
 
 
 def test_missing_scale_is_refused_not_guessed():

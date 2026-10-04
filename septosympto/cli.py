@@ -64,6 +64,11 @@ def build_parser() -> argparse.ArgumentParser:
         help="Pycnidia detection threshold. Default: the one the model was validated at.",
     )
     models.add_argument(
+        "--pycnidia-in-necrosis", action="store_true",
+        help="Count only the pycnidia lying on a counted necrotic lesion. Off by default: "
+             "every detected pycnidium is counted. Needs --pycnidia.",
+    )
+    models.add_argument(
         "--list-models", action="store_true", help="List the published models and exit."
     )
 
@@ -104,6 +109,8 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     if args.images is None:
         parser.error("the following arguments are required: images")
+    if args.pycnidia_in_necrosis and args.pycnidia == "none":
+        parser.error("--pycnidia-in-necrosis needs a counter: pass --pycnidia")
     if not args.images.is_dir():
         print(f"error: {args.images} is not a directory", file=sys.stderr)
         return 2
@@ -133,7 +140,8 @@ def main(argv: list[str] | None = None) -> int:
 
     print(f"necrosis: {necrosis.name} (threshold {necrosis_threshold})")
     print(f"pycnidia: {pycnidia.name if pycnidia else 'none'}"
-          + (f" (threshold {pycnidia_threshold})" if pycnidia else ""))
+          + (f" (threshold {pycnidia_threshold})" if pycnidia else "")
+          + (", only inside necrosis" if args.pycnidia_in_necrosis else ""))
 
     measurements = []
     for path in scan_files:
@@ -143,6 +151,7 @@ def main(argv: list[str] | None = None) -> int:
                 scan, segmenter, counter,
                 px_per_cm=args.pixels_for_cm,
                 min_lesion_area_mm2=args.min_lesion_area_mm2,
+                pycnidia_in_necrosis=args.pycnidia_in_necrosis,
             )
         )
         for analysis in analyses:
@@ -163,6 +172,7 @@ def main(argv: list[str] | None = None) -> int:
             "necrosis_threshold": necrosis_threshold,
             "pycnidia_model": pycnidia.name if pycnidia else None,
             "pycnidia_threshold": pycnidia_threshold,
+            "pycnidia_in_necrosis": args.pycnidia_in_necrosis,
             "imgsz": [CANVAS_H, CANVAS_W],
             "pixels_for_cm": args.pixels_for_cm,
             "min_lesion_area_mm2": args.min_lesion_area_mm2,

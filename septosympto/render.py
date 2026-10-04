@@ -2,6 +2,8 @@
 
 Two outputs per leaf: the raw binary necrosis mask, and an overlay that draws the
 necrosis outline and the pycnidia points (when a counter ran) on the leaf crop.
+Counted pycnidia are magenta; with ``--pycnidia-in-necrosis``, the ones dropped
+for lying outside necrosis are drawn in grey, so the filter can be checked by eye.
 The overlay is what you look at to decide whether the model is sensible; the mask
 is what you keep for the record.
 
@@ -21,6 +23,7 @@ from septosympto.pipeline import LeafAnalysis
 
 NECROSIS_COLOR = (0, 255, 0)
 PYCNIDIA_COLOR = (255, 0, 255)
+DROPPED_PYCNIDIA_COLOR = (160, 160, 160)
 
 
 def _leaf_silhouette_patch(analysis: LeafAnalysis) -> np.ndarray:
@@ -42,8 +45,14 @@ def overlay_image(analysis: LeafAnalysis, thickness: int = 2) -> np.ndarray:
     cv2.drawContours(canvas, contours, -1, NECROSIS_COLOR, thickness)
 
     if analysis.points is not None:
-        for x, y in np.asarray(analysis.points, dtype=int):
-            cv2.circle(canvas, (int(x), int(y)), 3, PYCNIDIA_COLOR, 1)
+        points = np.asarray(analysis.points, dtype=int).reshape(-1, 2)
+        kept = (
+            np.ones(len(points), bool) if analysis.points_kept is None
+            else np.asarray(analysis.points_kept, bool)
+        )
+        for (x, y), is_kept in zip(points, kept, strict=True):
+            color = PYCNIDIA_COLOR if is_kept else DROPPED_PYCNIDIA_COLOR
+            cv2.circle(canvas, (int(x), int(y)), 3, color, 1)
 
     return canvas
 

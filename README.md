@@ -39,7 +39,9 @@ back to the leaf's own pixels through the inverse of that same placement.
 The necrosis segmenter returns a probability per pixel, binarised at the model's threshold;
 connected components smaller than `--min-lesion-area-mm2` are dropped. The pycnidia counter
 returns explicit points, not boxes: the annotations it learned from have a median bounding box
-of 4 × 4 px, so a point-set network is the honest model for them.
+of 4 × 4 px, so a point-set network is the honest model for them. Every detected point is
+counted, unless `--pycnidia-in-necrosis` restricts the count to the points lying on a
+necrotic lesion.
 
 Areas are converted to cm² using the scan's own resolution, read from the TIFF metadata.
 
@@ -158,7 +160,7 @@ This writes:
 |---|---|
 | `results.csv` | one row per leaf: leaf area, necrosis count / area / ratio, pycnidia count and densities ([columns](#what-the-numbers-mean)) |
 | `results.manifest.json` | the models (name and SHA-256) and parameters that produced the CSV |
-| `overlays/<scan>_<n>_overlay.jpg` | the leaf crop, necrosis outlined in green, each pycnidium circled in magenta |
+| `overlays/<scan>_<n>_overlay.jpg` | the leaf crop, necrosis outlined in green, each counted pycnidium circled in magenta (with `--pycnidia-in-necrosis`, the dropped ones in grey) |
 | `overlays/<scan>_<n>_mask.png` | the binary necrosis mask |
 
 `-d mps` runs on an Apple GPU (`-d 0` for CUDA); drop it to run on the CPU, which is much
@@ -170,6 +172,35 @@ without `--masks-dir`, no image is written:
 ```bash
 poetry run septo-sympto scans/ -o results.csv        # necrosis only, CSV only
 ```
+
+### Counting only the pycnidia inside necrosis
+
+Pycnidia form in necrotic tissue, so a point the counter finds on green or senescent tissue
+is most likely a false positive. `--pycnidia-in-necrosis` keeps only the pycnidia lying on a
+necrotic lesion:
+
+```bash
+poetry run septo-sympto scans/ -o results.csv --pycnidia p2p-convnext-v3 --pycnidia-in-necrosis --masks-dir overlays/
+```
+
+It is **off by default**: without it, every detected pycnidium is counted, as before. With it:
+
+- a pycnidium counts if its point falls on a lesion that is itself counted, one that passes
+  `--min-lesion-area-mm2`. A pycnidium on a speck too small to be reported as necrosis is
+  dropped, so `pycnidia_count` and `necrosis_area_cm2` describe the same tissue, and
+  `pycnidia_per_necrosis_cm2` is a density over the lesions it is divided by;
+- `pycnidia_count` and both densities use the filtered count. The CSV has the same columns
+  either way; the manifest records `"pycnidia_in_necrosis": true` so the two kinds of results
+  cannot be confused;
+- the overlay still draws every detection: counted ones in magenta, dropped ones in grey.
+  Check a few leaves before running a whole dataset.
+
+The filter is only as good as the necrosis mask. A pycnidium on a necrosis the segmenter
+missed is dropped; one on tissue wrongly segmented as necrosis (yellowing, senescent tissue)
+is kept. The point coordinates are not saved, so switching the filter on or off means
+running the analysis again.
+
+It needs a counter: `--pycnidia-in-necrosis` without `--pycnidia` is refused.
 
 Choosing models — a published name or a checkpoint path, per task:
 
@@ -184,7 +215,9 @@ A published name carries its own threshold; a path needs `--necrosis-threshold` 
 `--pycnidia-threshold` (and, for `.safetensors`, the architecture) because nothing else knows
 what the checkpoint was validated at. Other options: `-e .tiff` for the input extension,
 `-pc 472.44` to force a scale when a scan carries none, `--min-lesion-area-mm2`, `--masks-dir`
-to also write an overlay (necrosis and pycnidia) and a necrosis mask per leaf, `-d mps` / `-d 0` for the device.
+to also write an overlay (necrosis and pycnidia) and a necrosis mask per leaf,
+`--pycnidia-in-necrosis` to count only the pycnidia inside necrosis
+([above](#counting-only-the-pycnidia-inside-necrosis)), `-d mps` / `-d 0` for the device.
 
 YOLO models need the `yolo` extra (`poetry install --extras yolo`); asking for one without it
 says so and stops. The pycnidia columns stay empty unless `--pycnidia` names a counter, which
@@ -202,8 +235,13 @@ necrosis_area_cm2,necrosis_area_ratio,pycnidia_count,pycnidia_per_leaf_cm2,
 pycnidia_per_necrosis_cm2
 ```
 
+`pycnidia_count` is every detected pycnidium by default, or only those inside a counted
+lesion with `--pycnidia-in-necrosis`; `pycnidia_per_leaf_cm2` and `pycnidia_per_necrosis_cm2`
+divide that same count by the leaf and necrosis areas.
+
 Beside the CSV, a manifest records which weights (name **and** SHA-256) and which parameters
-produced it, so a result can be traced back to the exact model that made it.
+(including `pycnidia_in_necrosis`) produced it, so a result can be traced back to the exact
+model and settings that made it.
 
 ### What `leaf_area_cm2` measures
 

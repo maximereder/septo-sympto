@@ -29,6 +29,7 @@ from septosympto.measure import (
     MIN_LESION_AREA_MM2,
     LeafMeasurement,
     measure_leaf,
+    points_in_necrosis,
 )
 from septosympto.ports import PointCounter, Segmenter
 
@@ -44,6 +45,11 @@ class LeafAnalysis:
     ``necrosis_patch`` is the mask at the crop's resolution, aligned with
     ``patch``, which is what a renderer wants. ``measurement`` is computed from
     the same mask lifted into full-scan coordinates.
+
+    ``points`` holds every pycnidium the counter found, in patch coordinates.
+    ``points_kept`` is ``None`` when all of them are counted, and otherwise a
+    boolean per point saying which ones the measurement kept (those inside a
+    necrotic lesion, under ``pycnidia_in_necrosis``).
     """
 
     leaf: Leaf
@@ -51,6 +57,7 @@ class LeafAnalysis:
     necrosis_patch: np.ndarray
     points: np.ndarray | None
     measurement: LeafMeasurement
+    points_kept: np.ndarray | None = None
 
 
 def _resolve_scale(scan: Scan, px_per_cm: float | None) -> float:
@@ -71,12 +78,17 @@ def iter_analyses(
     min_lesion_area_mm2: float = MIN_LESION_AREA_MM2,
     min_circularity: float = MIN_CIRCULARITY,
     min_leaf_area_px: int | None = None,
+    pycnidia_in_necrosis: bool = False,
 ) -> Iterator[LeafAnalysis]:
     """Analyse every leaf on one scan, yielding a full record per leaf.
 
     Scale is taken from the scan metadata; ``px_per_cm`` overrides it, and is
     required when the scan carries none. Refusing to guess a scale keeps a silent
     unit error out of the results, which is where v1's magic ``472`` default hid.
+
+    With ``pycnidia_in_necrosis``, only the pycnidia lying on a counted necrotic
+    lesion enter the measurement; the others are kept in the record, flagged, so
+    the overlay can show what was dropped.
     """
     scale = _resolve_scale(scan, px_per_cm)
     kwargs = {} if min_leaf_area_px is None else {"min_area_px": min_leaf_area_px}
@@ -86,15 +98,26 @@ def iter_analyses(
         necrosis_patch = segmenter.segment(patch)
         necrosis_full = _place(necrosis_patch, leaf, scan.bgr.shape[:2])
         points = None if counter is None else counter.count(patch)
+        points_kept = None
+        if pycnidia_in_necrosis and points is not None:
+            x, y, w, h = leaf.bbox
+            points_kept = points_in_necrosis(
+                points,
+                necrosis_patch & leaf.mask[y : y + h, x : x + w],
+                scale,
+                min_lesion_area_mm2=min_lesion_area_mm2,
+                min_circularity=min_circularity,
+            )
+        counted = points if points_kept is None else np.asarray(points)[points_kept]
         measurement = measure_leaf(
             leaf,
             necrosis_full,
-            points,
+            counted,
             scale,
             min_lesion_area_mm2=min_lesion_area_mm2,
             min_circularity=min_circularity,
         )
-        yield LeafAnalysis(leaf, patch, necrosis_patch, points, measurement)
+        yield LeafAnalysis(leaf, patch, necrosis_patch, points, measurement, points_kept)
 
 
 def analyze_scan(

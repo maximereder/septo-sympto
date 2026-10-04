@@ -17,6 +17,11 @@ Pycnidia are points, not boxes. v1's YOLOv5 produced boxes and v1 reported a
 pycnidia *area*; a point-regression model does not, so ``pycnidia_area`` is gone.
 The reported quantities are the count and its densities, which is what the
 biology uses.
+
+By default every detected pycnidium is counted. :func:`points_in_necrosis`
+tells which ones sit on a counted lesion; the pipeline uses it to keep only
+those when asked (``--pycnidia-in-necrosis``). ``measure_leaf`` itself counts
+whatever points it is handed.
 """
 
 from __future__ import annotations
@@ -61,10 +66,18 @@ class LeafMeasurement:
         return {f.name: getattr(self, f.name) for f in fields(self)}
 
 
-def _count_lesions(
+def _min_area_px(min_lesion_area_mm2: float, px_per_cm: float) -> float:
+    px_per_mm = px_per_cm / MM_PER_CM
+    return min_lesion_area_mm2 * px_per_mm**2
+
+
+def _lesions(
     necrosis_mask: np.ndarray, min_area_px: float, min_circularity: float
-) -> tuple[int, int]:
-    """Lesions passing the area and shape filters, and their total pixel area.
+) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    """Label the necrosis components and decide which pass the area and shape filters.
+
+    Returns the label image, a boolean per label saying whether it is kept, and
+    the pixel area per label. Label 0 is the background and is never kept.
 
     Area is a pixel count, from the connected component, so it is the same kind
     of number as ``leaf.area_px`` and the two can be divided into a ratio. Shape
@@ -77,11 +90,10 @@ def _count_lesions(
     count, labels, stats, _ = cv2.connectedComponentsWithStats(
         necrosis_mask.astype(np.uint8), connectivity=8
     )
-    kept = 0
-    total_area = 0
+    areas = stats[:, cv2.CC_STAT_AREA].astype(np.int64)
+    kept = np.zeros(count, bool)
     for label in range(1, count):
-        area = int(stats[label, cv2.CC_STAT_AREA])
-        if area < min_area_px:
+        if areas[label] < min_area_px:
             continue
         if min_circularity > 0:
             component = (labels == label).astype(np.uint8)
@@ -89,12 +101,47 @@ def _count_lesions(
                 component, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE
             )
             perimeter = cv2.arcLength(contours[0], True) if contours else 0.0
+            area = int(areas[label])
             circularity = 4 * math.pi * area / perimeter**2 if perimeter > 0 else 0.0
             if circularity < min_circularity:
                 continue
-        kept += 1
-        total_area += area
-    return kept, total_area
+        kept[label] = True
+    return labels, kept, areas
+
+
+def _count_lesions(
+    necrosis_mask: np.ndarray, min_area_px: float, min_circularity: float
+) -> tuple[int, int]:
+    """Lesions passing the area and shape filters, and their total pixel area."""
+    _, kept, areas = _lesions(necrosis_mask, min_area_px, min_circularity)
+    return int(kept.sum()), int(areas[kept].sum())
+
+
+def points_in_necrosis(
+    points: np.ndarray,
+    necrosis_mask: np.ndarray,
+    px_per_cm: float,
+    min_lesion_area_mm2: float = MIN_LESION_AREA_MM2,
+    min_circularity: float = MIN_CIRCULARITY,
+) -> np.ndarray:
+    """Which points fall on a necrotic lesion, as a boolean per point.
+
+    ``points`` are ``(x, y)`` in the same pixel frame as ``necrosis_mask``, which
+    must already be clipped to the leaf. Only lesions that pass the same area and
+    shape filters as the measurement count: a pycnidium sitting on a speck too
+    small to be reported as necrosis is not "in necrosis", so the filtered count
+    and ``necrosis_area_cm2`` describe the same tissue.
+    """
+    points = np.asarray(points, dtype=float).reshape(-1, 2)
+    if len(points) == 0:
+        return np.zeros(0, bool)
+    labels, kept, _ = _lesions(
+        necrosis_mask, _min_area_px(min_lesion_area_mm2, px_per_cm), min_circularity
+    )
+    h, w = necrosis_mask.shape
+    xs = np.clip(np.rint(points[:, 0]).astype(int), 0, w - 1)
+    ys = np.clip(np.rint(points[:, 1]).astype(int), 0, h - 1)
+    return kept[labels[ys, xs]]
 
 
 def measure_leaf(
@@ -112,10 +159,8 @@ def measure_leaf(
         )
 
     necrosis_in_leaf = necrosis_mask & leaf.mask
-    px_per_mm = px_per_cm / MM_PER_CM
-    min_area_px = min_lesion_area_mm2 * px_per_mm**2
     necrosis_count, necrosis_area_px = _count_lesions(
-        necrosis_in_leaf, min_area_px, min_circularity
+        necrosis_in_leaf, _min_area_px(min_lesion_area_mm2, px_per_cm), min_circularity
     )
 
     leaf_area_px = leaf.area_px
